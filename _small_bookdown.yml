@@ -19,7 +19,7 @@ rmd_files: [
   "index.Rmd",                              # objectives, how to read, authors, acknowledgements
 
   # # DATA VIZ
-  "new_pages/phylogenetic_trees.Rmd",
+  #"new_pages/phylogenetic_trees.Rmd",
 
   # # REPORTS AND DASHBOARDS
   # "new_pages/cat_reports_dashboards.Rmd",                 # start of new section
@@ -27,19 +27,7 @@ rmd_files: [
   # "new_pages/reportfactory.Rmd",
   # "new_pages/flexdashboard.Rmd",
   # "new_pages/shiny_basics.Rmd",
-  # 
-  # 
-  # # MISCELLANEOUS
-  # "new_pages/cat_misc.Rmd",                 # start of new section
-  # "new_pages/writing_functions.Rmd",
-  # "new_pages/directories.Rmd",
-  # "new_pages/collaboration.Rmd",
-  # "new_pages/errors.Rmd",
-  # "new_pages/help.Rmd",
-   ##"new_pages/relational_databases.Rmd",
-  # "new_pages/network_drives.Rmd",
-  # "new_pages/data_table.Rmd" #,
-  # #"new_pages/rstudio_advanced.Rmd"
+
 ]
 
 

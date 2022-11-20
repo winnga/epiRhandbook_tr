@@ -1,1 +1,1 @@
-# (BÖLÜM) Temel Bilgiler {.unnumbered}
+# (PART) Temel Bilgiler {.unnumbered}
