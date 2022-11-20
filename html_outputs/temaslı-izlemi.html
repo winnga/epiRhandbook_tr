@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>25 Temaslı izlemi | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bu sayfa, bu tür verilere özgü bazı önemli hususları ve yaklaşımları ekleyerek, kişi izleme verilerinin açıklayıcı analizini gösterir. Bu sayfa, diğer sayfalarda kapsanan temel R veri yönetimi ve...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="25 Temaslı izlemi | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bu sayfa, bu tür verilere özgü bazı önemli hususları ve yaklaşımları ekleyerek, kişi izleme verilerinin açıklayıcı analizini gösterir. Bu sayfa, diğer sayfalarda kapsanan temel R veri yönetimi ve...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="25 Temaslı izlemi | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bu sayfa, bu tür verilere özgü bazı önemli hususları ve yaklaşımları ekleyerek, kişi izleme verilerinin açıklayıcı analizini gösterir. Bu sayfa, diğer sayfalarda kapsanan temel R veri yönetimi ve...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="active" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="temaslı-izlemi" class="section level1" number="25">
+<h1>
+<span class="header-section-number">25</span> Temaslı izlemi<a class="anchor" aria-label="anchor" href="#temasl%C4%B1-izlemi"><i class="fas fa-link"></i></a>
+</h1>
+<p>Bu sayfa, bu tür verilere özgü bazı önemli hususları ve yaklaşımları ekleyerek, kişi izleme verilerinin açıklayıcı analizini gösterir.</p>
+<p>Bu sayfa, diğer sayfalarda kapsanan temel R veri yönetimi ve görselleştirme yetkinliklerinin çoğuna atıfta bulunur (ör. veri temizleme, özet oluşturma, tablolar, zaman serisi analizleri), ancak operasyonel karar verme için yararlı olan kişi izlemeye özgü örnekleri yine de vurgulayacağız. Örneğin, zaman içinde veya coğrafi alanlar arasında temaslı izleme takip verilerinin görselleştirilmesini veya ilgili temaslı izleme yöneticileri için temiz Temel Performans Göstergesi (KPI) tablolarının oluşturulmasını içerir.</p>
+<p>Gösteri amacıyla <a href="https://www.who.int/tools/godata">Veriye.Git</a> platformundan örnek temaslı izleme verilerini kullanacağız. Burada kapsanan ilkeler, diğer platformlardan gelen temaslı izleme verileri için geçerli olacaktır - verilerinizin yapısına bağlı olarak yalnızca farklı veri ön işleme adımlarından geçmeniz gerekebilir.</p>
+<p>Go.Data projesi hakkında daha fazla bilgiyi <a href="https://worldhealthorganization.github.io/godata/">Github Documentation sitesinde</a> veya <a href="https://community-godata.who.int/">Community of Practice</a> sitesinden okuyabilirsiniz.</p>
+<div id="hazırlık-16" class="section level2" number="25.1">
+<h2>
+<span class="header-section-number">25.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-16"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yükleyin-4" class="section level3 unnumbered">
+<h3>Paketleri yükleyin<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleyin-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’dan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> vurgusunu yapıyoruz. <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri de yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R basics] sayfasına bakın.</p>
+<div class="sourceCode" id="cb1206"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">rio</span>,          <span class="co"># veriyi içe aktar  </span></span>
+<span>  <span class="va">here</span>,         <span class="co"># göreli dosya yolları  </span></span>
+<span>  <span class="va">janitor</span>,      <span class="co"># veri temizleme ve tablolar</span></span>
+<span>  <span class="va">lubridate</span>,    <span class="co"># tarihlerle çalışmak</span></span>
+<span>  <span class="va">epikit</span>,       <span class="co"># age_categories() fonksiyonu</span></span>
+<span>  <span class="va">apyramid</span>,     <span class="co"># yal piramitleri</span></span>
+<span>  <span class="va">tidyverse</span>,    <span class="co"># veri işleme ve görselleştirme</span></span>
+<span>  <span class="va">RColorBrewer</span>, <span class="co"># renk paletleri</span></span>
+<span>  <span class="va">formattable</span>,  <span class="co"># süslü tablolar</span></span>
+<span>  <span class="va">kableExtra</span>    <span class="co"># tablo biçimlendirme</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="verileri-içe-aktarma-3" class="section level3 unnumbered">
+<h3>Verileri içe aktarma<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktarma-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>Kişilerin ve “takiplerinin” örnek veri kümelerini içe aktaracağız. Bu veriler Go.Data API’sinden alınmış, yuvalanmamış ve “.rds” dosyaları olarak depolanmıştır.</p>
+<p>Bu el kitabı için tüm örnek verileri [El kitabını ve verileri indir] sayfasından indirebilirsiniz.</p>
+<p>Bu sayfaya özel örnek temaslı izleme verilerini indirmek istiyorsanız, aşağıdaki üç indirme bağlantısını kullanın:</p>
+<p><a href="https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/cases_clean.rds?raw=true" class="download-button">
+İndire tıklayınız
+<span>vaka inceleme verileri (.rds file)</span>
+</a></p>
+<p><a href="https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/contacts_clean.rds?raw=true" class="download-button">
+İndire tıklayınız
+<span>iletişim kayıt verileri (.rds file)</span>
+</a></p>
+<p><a href="https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/followups_clean.rds?raw=true" class="download-button">
+İndire tıklayınız
+<span>temaslı izlem verileri (.rds file)</span>
+</a></p>
+<!-- ```{r out.width = "100%", fig.align = "center", echo=F} -->
+<!-- knitr::include_graphics(here::here("images", "godata_api_github.png")) -->
+<!-- ``` -->
+<p>İndirilebilir dosyalardaki orijinal formlarında, veriler Go.Data API’si tarafından sağlanan verileri yansıtır (<a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#import_api">API’ler hakkında bilgi edinin</a>). Örneğin, buradaki amaçlar için, bu sayfada okumayı kolaylaştıracak verileri temizleyeceğiz. Bir Go.Data örneği kullanıyorsanız, verilerinizi nasıl alacağınıza ilişkin talimatların tamamını <a href="https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting">buradan</a> görüntüleyebilirsiniz.</p>
+<p>Aşağıda, veri kümeleri <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonu kullanılarak içe aktarılır. Verileri içe aktarmanın çeşitli yolları için <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> hakkındaki sayfaya bakın. Dosya yolunu belirtmek için <code>burada()</code> kullanıyoruz - bilgisayarınıza özel dosya yolunu sağlamalısınız. Daha sonra gösterim amacıyla basitleştirmek için verilerin yalnızca belirli sütunlarını seçmek için <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> kullanırız.</p>
+<div id="vaka-verileri" class="section level4 unnumbered">
+<h4>Vaka verileri<a class="anchor" aria-label="anchor" href="#vaka-verileri"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bu veriler, vakaların bir tablosu ve bunlarla ilgili bilgilerdir.</p>
+<div class="sourceCode" id="cb1207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"godata"</span>, <span class="st">"cases_clean.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">case_id</span>, <span class="va">firstName</span>, <span class="va">lastName</span>, <span class="va">gender</span>, <span class="va">age</span>, <span class="va">age_class</span>,</span>
+<span>         <span class="va">occupation</span>, <span class="va">classification</span>, <span class="va">was_contact</span>, <span class="va">hospitalization_typeid</span><span class="op">)</span></span></code></pre></div>
+<p><code>nrow(cases)</code> vakaları :</p>
+<div id="htmlwidget-434a5a4c022fbcd86bd0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-434a5a4c022fbcd86bd0">{"x":{"filter":"none","vertical":false,"data":[["CASE-2020-0029","CASE-2020-0026","CASE-2020-0017","CASE-2020-0043","CASE-2020-0044","CASE-2020-0036","CASE-2020-0037","CASE-2020-0006","CASE-2020-0045","CASE-2020-0046","CASE-2020-0034","CASE-2020-0031","CASE-2020-0028","CASE-2020-0010","CASE-2020-0018","CASE-2020-0038","CASE-2020-0007","CASE-2020-0023","CONTACT-2020-0024","CASE-2020-0002","CASE-2020-0002","CASE-2020-0020","CASE-2020-0027","CASE-2020-0015","CASE-2020-0035","CASE-2020-0019","CASE-2020-0019",null,"CASE-2020-0040","CASE-2020-0004","CASE-2020-0014","CASE-2020-0009","CASE-2020-0009","CONTACT-2020-0002","CASE-2020-0039","CASE-2020-0025","CASE-2020-0022","CASE-2020-0008",null,"CASE-2020-0011","CASE-2020-0012","CASE-2020-0016","CASE-2020-0013","CASE-2020-0033","CASE-2020-0030","CASE-2020-0032","CASE-2020-0003",null,"CASE-2020-0024","CASE-2020-0005","CASE-2020-0021",null,null,null,"CASE-2020-0001",null],["Abdoulaye","Adama","Adama","Adama","Adji","Aida","Aissatou","Alassane","Alfa","Alfa","Alioune","Alioune","Amadou","Amy","Assane","Awa","Bassirou","Bineta","Birima","Charles","Charles","Demba","Edouard","Fatima","Fatou","Fatoumata","Fatoumata","Giovanna ","Ibrahima","Jean-Paul","Joseph","Khady","Khady","Malang","Mamadou","Mamoudou","Mariama","Mhustapha","Modified Case","Moussa","Odette","Odette","Omar","Ousmane","Ousseynou","Pape","Samba","Samba","Seynabou","Souleymane","Boubacar","Sara","Larry","Elisabeth","Elisabeth","Charles"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Diallo","Garcia","Hinkle","Hopkins","Hopkins","Williams"],["MALE","FEMALE","MALE","MALE","FEMALE","FEMALE","FEMALE","MALE","FEMALE","FEMALE","MALE","MALE","MALE","FEMALE","MALE","FEMALE","MALE","FEMALE","MALE",null,"MALE","MALE","MALE","FEMALE","FEMALE","FEMALE",null,null,"MALE","MALE","MALE","FEMALE",null,"FEMALE","MALE","MALE","FEMALE","MALE","MALE","MALE","FEMALE","FEMALE","MALE","MALE","MALE","MALE","MALE","FEMALE","FEMALE","MALE","MALE","FEMALE","MALE","FEMALE","FEMALE","MALE"],[46,61,8,null,25,40,80,47,34,34,20,20,45,37,25,57,75,43,3,43,52,43,38,38,35,45,61,null,23,43,54,57,52,54,0.916666666666667,63,51,7,null,31,80,80,52,5,52,31,58,45,56,23,46,55,34,43,49,43],["40-49","60-64","5-9","unknown","20-29","40-49","80+","40-49","30-39","30-39","20-29","20-29","40-49","30-39","20-29","50-59","75-79","40-49","0-4","40-49","50-59","40-49","30-39","30-39","30-39","40-49","60-64","unknown","20-29","40-49","50-59","50-59","50-59","50-59","0-4","60-64","50-59","5-9","unknown","30-39","80+","80+","50-59","5-9","50-59","30-39","50-59","40-49","50-59","20-29","40-49","50-59","30-39","40-49","40-49","40-49"],["WORKING_WITH_ANIMALS","FARMER","CHILD","HEALTH_CARE_WORKER",null,"WORKING_WITH_ANIMALS","FARMER","HEALTH_CARE_WORKER","BUTCHER","BUTCHER","STUDENT","STUDENT","HEALTH_CARE_WORKER","TEACHER","STUDENT","OTHER","OTHER","HEALTH_CARE_WORKER",null,"HEALTH_CARE_WORKER","FARMER","HEALTH_CARE_WORKER","OTHER","WORKING_WITH_ANIMALS","HEALTH_CARE_WORKER","TRADITIONAL_HEALER","FARMER",null,"STUDENT","HEALTH_CARE_WORKER","FARMER","OTHER","FARMER","FARMER","CHILD","FARMER","OTHER","CHILD",null,"OTHER","FARMER","FARMER","FARMER","CHILD","FARMER","OTHER","TRADITIONAL_HEALER","WORKING_WITH_ANIMALS","WORKING_WITH_ANIMALS","STUDENT","WORKING_WITH_ANIMALS","FARMER","HEALTH_CARE_WORKER","HEALTH_CARE_WORKER","FARMER","HEALTH_CARE_WORKER"],["CONFIRMED","PROBABLE","CONFIRMED","SUSPECT","CONFIRMED","CONFIRMED","PROBABLE","CONFIRMED","SUSPECT","SUSPECT","CONFIRMED","CONFIRMED","CONFIRMED","CONFIRMED","PROBABLE","CONFIRMED","CONFIRMED","CONFIRMED","SUSPECT","PROBABLE","CONFIRMED","PROBABLE","CONFIRMED","CONFIRMED","PROBABLE","CONFIRMED","PROBABLE","CONFIRMED","CONFIRMED","CONFIRMED","PROBABLE","CONFIRMED","SUSPECT","SUSPECT","SUSPECT","NOT_A_CASE_DISCARDED","SUSPECT","PROBABLE","CONFIRMED","PROBABLE","PROBABLE","PROBABLE","CONFIRMED","PROBABLE","SUSPECT","CONFIRMED","CONFIRMED","CONFIRMED","CONFIRMED","CONFIRMED","CONFIRMED","PROBABLE","CONFIRMED","CONFIRMED","CONFIRMED","PROBABLE"],[false,false,false,true,true,false,false,false,true,true,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],["HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION",null,null,"HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION",null,null,"HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION",null,null,"HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION",null,"HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION","HOSPITALIZATION",null,"HOSPITALIZATION","HOSPITALIZATION",null,null,null,null,"HOSPITALIZATION",null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>firstName<\/th>\n      <th>lastName<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_class<\/th>\n      <th>occupation<\/th>\n      <th>classification<\/th>\n      <th>was_contact<\/th>\n      <th>hospitalization_typeid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="kişi-verileri" class="section level4 unnumbered">
+<h4>Kişi verileri<a class="anchor" aria-label="anchor" href="#ki%C5%9Fi-verileri"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bu veriler, tüm kişilerin ve bunlarla ilgili bilgilerin bir tablosudur. Yine, kendi dosya yolunuzu sağlayın. İçe aktardıktan sonra, aşağıdakileri içeren birkaç ön veri temizleme adımı gerçekleştiririz:</p>
+<ul>
+<li>Age_class’ı bir faktör olarak ayarlayın ve seviye sırasını tersine çevirin, böylece daha genç yaşlar ilk sırada yer alır.</li>
+<li>Birini yeniden adlandırırken yalnızca belirli sütunu seçin</li>
+<li>Bazı örnek görselleştirmelerin netliğini artırmak için, yönetici düzeyi 2 eksik olan satırları “Djembe”ye yapay olarak atayın</li>
+</ul>
+<div class="sourceCode" id="cb1208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contacts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"godata"</span>, <span class="st">"contacts_clean.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>age_class <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="va">age_class</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">contact_id</span>, <span class="va">contact_status</span>, <span class="va">firstName</span>, <span class="va">lastName</span>, <span class="va">gender</span>, <span class="va">age</span>,</span>
+<span>         <span class="va">age_class</span>, <span class="va">occupation</span>, <span class="va">date_of_reporting</span>, <span class="va">date_of_data_entry</span>,</span>
+<span>         date_of_last_exposure <span class="op">=</span> <span class="va">date_of_last_contact</span>,</span>
+<span>         <span class="va">date_of_followup_start</span>, <span class="va">date_of_followup_end</span>, <span class="va">risk_level</span>, <span class="va">was_case</span>, <span class="va">admin_2_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>admin_2_name <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na</a></span><span class="op">(</span><span class="va">admin_2_name</span>, <span class="st">"Djembe"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><code>nrow(contacts)</code>, <code>contacts</code> verisetinin satırları:</p>
+<div id="htmlwidget-099d932276401333e377" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-099d932276401333e377">{"x":{"filter":"none","vertical":false,"data":[["CONTACT-2020-0046","CONTACT-2020-0015","CONTACT-2020-0043","CONTACT-2020-0012","CONTACT-2020-0054","CONTACT-2020-0056","CONTACT-2020-0030","CONTACT-2020-0060","CONTACT-2020-0021","CONTACT-2020-0059","CONTACT-2020-0005","CONTACT-2020-0053","CONTACT-2020-0058","CONTACT-2020-0011","CONTACT-2020-0001","CONTACT-2020-0003","CONTACT-2020-0029","CONTACT-2020-0042","CONTACT-2020-0055","CONTACT-2020-0036","CONTACT-2020-0032","CONTACT-2020-0019","CONTACT-2020-0025","CONTACT-2020-0040","CONTACT-2020-0045","CONTACT-2020-0004","CONTACT-2020-0020","CONTACT-2020-0016","CONTACT-2020-0031","CONTACT-2020-0014","CONTACT-2020-0037","CONTACT-2020-0007","CONTACT-2020-0051","CONTACT-2020-0008","CONTACT-2020-0048","CONTACT-2020-0038","CONTACT-2020-0010","CONTACT-2020-0006","CONTACT-2020-0034","CONTACT-2020-0052","CONTACT-2020-0044","CONTACT-2020-0009","CONTACT-2020-0047","CONTACT-2020-0022","CONTACT-2020-0013","CONTACT-2020-0023","CONTACT-2020-0041","CONTACT-2020-0028","CONTACT-2020-0017","CONTACT-2020-0027","CONTACT-2020-0035","CONTACT-2020-0026","CONTACT-2020-0033","CONTACT-2020-0050","CONTACT-2020-0057","CONTACT-2020-0018","CONTACT-2020-0049","CONTACT-2020-0039",null,null,"CASE-2020-0043","CASE-2020-0044","CASE-2020-0045","CASE-2020-0046","CONTACT-2020-0024","CONTACT-2020-0002"],["UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","DIED","FOLLOW_UP_COMPLETED","DIED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","BECAME_CASE","BECAME_CASE","BECAME_CASE","BECAME_CASE","BECAME_CASE","BECAME_CASE"],["Abou","Adama","Adja","Alfa","Alimatou","Amath","Aminata","Binette","Binta","Bintou","Birima","Birima","Bransan  ","Cheik","Cheik","Cheik","Coura","Dicory","Djeynaba","Djiby","El Hadj","Kalidou","Khadija","Khary","Khary","Khary","Khary","Lamine","Lat","Madia","Maguette","Maguette","Maguette","Malamine","Malamine","Malamine","Malang","Malang","Malang","Mayatta","Mbagnick","Modou","Ndiankou","Ndiaya","Ndiogou","Oulimata","Oumou","Papis","Racine","Sadibou","Sofiatou","Thione","Thiony","Waly","Wasis","Yacouba","Youssouf","Abba","Mayatta","Jelani","Adama","Adji","Alfa","Alfa","Birima","Malang"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Abebe","Obi","Onai",null,null,null,null,null,null],["MALE","MALE","MALE","FEMALE","MALE","MALE","FEMALE","FEMALE","FEMALE","FEMALE","MALE","MALE","FEMALE","MALE","MALE","MALE","MALE","MALE","FEMALE","FEMALE","MALE","MALE","MALE","MALE","FEMALE","FEMALE","FEMALE","FEMALE","FEMALE","MALE","FEMALE","FEMALE","FEMALE","MALE","MALE","MALE","FEMALE","FEMALE","FEMALE","MALE","MALE","MALE","MALE","FEMALE","FEMALE","MALE","MALE","FEMALE","FEMALE","MALE","FEMALE","MALE","FEMALE","MALE","FEMALE","MALE","FEMALE","FEMALE","MALE","MALE","MALE","FEMALE","FEMALE","FEMALE","MALE","FEMALE"],[81,56,47,34,8,54,36,34,32,97,3,3,23,12,12,12,null,15,54,45,21,20,4,21,32,32,32,12,23,34,9,29,9,63,7,7,54,54,54,null,null,18,67,32,56,23,34,null,35,15,null,45,5,56,2,78,null,17,null,24,null,25,34,34,3,54],["80+","50-59","40-49","30-39","5-9","50-59","30-39","30-39","30-39","80+","0-4","0-4","20-29","10-14","10-14","10-14","unknown","15-19","50-59","40-49","20-29","20-29","0-4","20-29","30-39","30-39","30-39","10-14","20-29","30-39","5-9","20-29","5-9","60-64","5-9","5-9","50-59","50-59","50-59","unknown","unknown","15-19","65-69","30-39","50-59","20-29","30-39","unknown","30-39","15-19","unknown","40-49","5-9","50-59","0-4","75-79","unknown","15-19","unknown","20-29","unknown","20-29","30-39","30-39","0-4","50-59"],[null,null,null,null,null,null,null,null,null,null,"CHILD",null,null,null,"CHILD","CHILD",null,null,null,null,null,null,null,null,null,"FARMER",null,null,null,null,null,"OTHER",null,"FARMER",null,null,null,"FARMER",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"HEALTH_CARE_WORKER","STUDENT","HEALTH_CARE_WORKER",null,"BUTCHER","BUTCHER",null,"FARMER"],["2020-04-15","2020-04-16","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-05-25","2020-04-15","2020-05-01","2020-05-25","2020-04-15","2020-05-25","2020-03-22","2020-03-22","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-03-22","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-05-25","2020-03-22","2020-04-15","2020-04-15","2020-04-15","2020-05-25","2020-04-15","2020-05-25","2020-04-15","2020-05-25","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-09-02","2020-09-03","2020-07-08","2020-07-11","2020-07-16","2020-07-07","2020-04-15","2020-03-22"],["2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-09-03","2020-09-04","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08"],["2020-06-22","2020-08-13","2020-06-22","2020-06-15","2020-06-17","2020-09-02","2020-05-15","2020-06-16","2020-05-13","2020-06-20","2020-04-28","2020-04-26","2020-06-22","2020-04-26","2020-06-07","2020-06-07","2020-06-17","2020-06-16","2020-06-20","2020-06-19","2020-05-10","2020-06-24","2020-05-08","2020-06-15","2020-06-05","2020-06-07","2020-06-05","2020-06-22","2020-05-10","2020-06-15","2020-06-05","2020-06-07","2020-06-05","2020-04-28","2020-06-06","2020-06-05","2020-04-29","2020-06-07","2020-06-05","2020-06-17","2020-06-17","2020-05-15","2020-06-20","2020-05-10","2020-06-22","2020-05-13","2020-06-22","2020-06-17","2020-06-15","2020-06-24","2020-06-17","2020-06-22","2020-06-22","2020-06-17","2020-06-17","2020-06-15","2020-06-17","2020-06-24","2020-09-02","2020-09-01","2020-05-06","2020-05-10","2020-07-27","2020-05-06","2020-04-26","2020-04-28"],["2020-08-15","2020-08-14","2020-08-14","2020-06-16","2020-06-18","2020-09-03",null,"2020-06-17","2020-05-14","2020-06-21","2020-04-29","2020-04-27","2020-06-23","2020-04-27","2020-06-08","2020-06-08","2020-06-18","2020-06-17","2020-06-21","2020-06-20",null,"2020-06-25",null,"2020-06-16","2020-06-06","2020-06-08","2020-06-06","2020-06-23",null,"2020-06-16","2020-06-06","2020-06-08","2020-06-06",null,"2020-06-08","2020-06-06","2020-04-30","2020-06-08","2020-06-06","2020-06-18","2020-06-18","2020-05-16","2020-06-21","2020-05-11","2020-06-23","2020-05-14","2020-06-23","2020-06-18","2020-06-16","2020-06-25","2020-06-18","2020-06-23","2020-06-23","2020-06-18","2020-06-18","2020-06-16","2020-06-18","2020-06-25","2020-09-03","2020-09-02",null,null,null,null,"2020-06-06",null],["2020-08-28","2020-08-27","2020-08-27","2020-06-29","2020-07-01","2020-09-16",null,"2020-06-30","2020-05-27","2020-07-04","2020-05-12","2020-05-10","2020-07-06","2020-05-10","2020-06-21","2020-06-21","2020-07-01","2020-06-30","2020-07-04","2020-07-03",null,"2020-07-08",null,"2020-06-29","2020-06-19","2020-06-21","2020-06-19","2020-07-06",null,"2020-06-29","2020-06-19","2020-06-21","2020-06-19",null,"2020-06-21","2020-06-19","2020-05-13","2020-06-21","2020-06-19","2020-07-01","2020-07-01","2020-05-29","2020-07-04","2020-05-24","2020-07-06","2020-05-27","2020-07-06","2020-07-01","2020-06-29","2020-07-08","2020-07-01","2020-07-06","2020-07-06","2020-07-01","2020-07-01","2020-06-29","2020-07-01","2020-07-08","2020-09-16","2020-09-15",null,null,null,null,"2020-06-19",null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"1_LOW","3_HIGH","1_LOW",null,null,null,null],[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,null,null,null,null,null,null],["Djembe","Trumpet","Djembe","Djembe","Trumpet","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Trumpet","Djembe","Djembe","Congas","Venu","Cornet","Venu","Djembe","Djembe"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>contact_id<\/th>\n      <th>contact_status<\/th>\n      <th>firstName<\/th>\n      <th>lastName<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_class<\/th>\n      <th>occupation<\/th>\n      <th>date_of_reporting<\/th>\n      <th>date_of_data_entry<\/th>\n      <th>date_of_last_exposure<\/th>\n      <th>date_of_followup_start<\/th>\n      <th>date_of_followup_end<\/th>\n      <th>risk_level<\/th>\n      <th>was_case<\/th>\n      <th>admin_2_name<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="takip-verileri" class="section level4 unnumbered">
+<h4>Takip verileri<a class="anchor" aria-label="anchor" href="#takip-verileri"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bu veriler, ilgili kişilerle “takip” etkileşimlerinin kayıtlarıdır. Her temasın, maruz kaldıktan sonra 14 gün boyunca her gün bir karşılaşma yapması gerekiyor.</p>
+<p>Birkaç temizleme adımını içe aktarıp gerçekleştiriyoruz. Belirli sütunları seçiyoruz ve ayrıca bir karakter sütununu tüm küçük harf değerlerine dönüştürüyoruz.</p>
+<div class="sourceCode" id="cb1209"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">followups</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"godata"</span>, <span class="st">"followups_clean.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">contact_id</span>, <span class="va">followup_status</span>, <span class="va">followup_number</span>,</span>
+<span>         <span class="va">date_of_followup</span>, <span class="va">admin_2_name</span>, <span class="va">admin_1_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>followup_status <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower</a></span><span class="op">(</span><span class="va">followup_status</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>” nrow(followups)“-row”followups” veri kümesinin ilk 50 satırı (her satır bir takip etkileşimidir ve sonuç durumu “followup_status” sütunundadır):</p>
+<div id="htmlwidget-e6f412ba7d2a2cc22995" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e6f412ba7d2a2cc22995">{"x":{"filter":"none","vertical":false,"data":[["CONTACT-2020-0012","CONTACT-2020-0015","CONTACT-2020-0015","CONTACT-2020-0015","CONTACT-2020-0015","CONTACT-2020-0043","CONTACT-2020-0046","CONTACT-2020-0012","CONTACT-2020-0046","CONTACT-2020-0043","CONTACT-2020-0056","CONTACT-2020-0054","CONTACT-2020-0012","CONTACT-2020-0054","CONTACT-2020-0054","CONTACT-2020-0012","CONTACT-2020-0056","CONTACT-2020-0054","CONTACT-2020-0056","CONTACT-2020-0056","CONTACT-2020-0060","CONTACT-2020-0059","CONTACT-2020-0060","CONTACT-2020-0060","CONTACT-2020-0060","CONTACT-2020-0059","CONTACT-2020-0059","CONTACT-2020-0059","CONTACT-2020-0005","CONTACT-2020-0058","CONTACT-2020-0029","CONTACT-2020-0029","CONTACT-2020-0029","CONTACT-2020-0042","CONTACT-2020-0058","CONTACT-2020-0003","CONTACT-2020-0001","CONTACT-2020-0029","CONTACT-2020-0042","CONTACT-2020-0036","CONTACT-2020-0042","CONTACT-2020-0036","CONTACT-2020-0036","CONTACT-2020-0042","CONTACT-2020-0004","CONTACT-2020-0036","CONTACT-2020-0040","CONTACT-2020-0040","CONTACT-2020-0040","CONTACT-2020-0014"],["seen_ok","not_attempted","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","seen_ok","seen_ok","seen_not_ok","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","seen_ok","seen_ok","seen_ok","not_attempted","seen_ok","missed","seen_ok","missed","seen_ok","seen_ok","seen_ok","seen_ok","missed","seen_ok","seen_not_ok","missed","seen_ok","missed","seen_ok","seen_ok","seen_ok","missed","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_not_ok","seen_ok"],[7,8,6,9,7,1,2,6,1,2,9,6,8,7,5,9,7,4,6,8,5,4,6,8,7,3,1,2,14,1,7,5,4,5,2,14,14,6,6,4,7,3,5,8,14,2,6,9,7,8],["2020-06-02","2020-06-03","2020-06-01","2020-06-04","2020-06-02","2020-06-03","2020-06-05","2020-06-01","2020-06-04","2020-06-04","2020-06-04","2020-06-03","2020-06-03","2020-06-04","2020-06-02","2020-06-04","2020-06-02","2020-06-01","2020-06-01","2020-06-03","2020-06-01","2020-06-04","2020-06-02","2020-06-04","2020-06-03","2020-06-03","2020-06-01","2020-06-02","2020-06-01","2020-06-03","2020-06-04","2020-06-02","2020-06-01","2020-06-01","2020-06-04","2020-06-01","2020-06-01","2020-06-03","2020-06-02","2020-06-03","2020-06-03","2020-06-02","2020-06-04","2020-06-04","2020-06-01","2020-06-01","2020-06-01","2020-06-04","2020-06-02","2020-06-03"],["Djembe","Trumpet","Trumpet","Trumpet","Trumpet","Djembe",null,"Djembe",null,"Djembe",null,"Trumpet","Djembe","Trumpet","Trumpet","Djembe",null,"Trumpet",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Drums island","Brass island","Brass island","Brass island","Brass island","Drums island",null,"Drums island",null,"Drums island",null,"Brass island","Drums island","Brass island","Brass island","Drums island",null,"Brass island",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>contact_id<\/th>\n      <th>followup_status<\/th>\n      <th>followup_number<\/th>\n      <th>date_of_followup<\/th>\n      <th>admin_2_name<\/th>\n      <th>admin_1_name<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="ilişki-verileri" class="section level4 unnumbered">
+<h4>İlişki verileri<a class="anchor" aria-label="anchor" href="#ili%C5%9Fki-verileri"><i class="fas fa-link"></i></a>
+</h4>
+<p>Burada vakalar ve kişiler arasındaki ilişkiyi gösteren verileri içe aktarıyoruz. Gösterilecek belirli bir sütunu seçiyoruz.</p>
+<div class="sourceCode" id="cb1210"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">relationships</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"godata"</span>, <span class="st">"relationships_clean.rds"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">source_visualid</span>, <span class="va">source_gender</span>, <span class="va">source_age</span>, <span class="va">date_of_last_contact</span>,</span>
+<span>         <span class="va">date_of_data_entry</span>, <span class="va">target_visualid</span>, <span class="va">target_gender</span>,</span>
+<span>         <span class="va">target_age</span>, <span class="va">exposure_type</span><span class="op">)</span></span></code></pre></div>
+<p>Aşağıda, vakalar ve ilgili kişiler arasındaki tüm ilişkileri kaydeden “ilişkiler” veri kümesinin ilk 50 satırı verilmiştir.</p>
+<div id="htmlwidget-1542070a43956994516f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1542070a43956994516f">{"x":{"filter":"none","vertical":false,"data":[["CASE-2020-0016",null,null,"CASE-2020-0045","CASE-2020-0004","CASE-2020-0010",null,"CASE-2020-0034",null,"CASE-2020-0037","CASE-2020-0005",null,"CASE-2020-0002","CASE-2020-0001","CASE-2020-0005",null,"CASE-2020-0004","CASE-2020-0012","CASE-2020-0022","CASE-2020-0004","CASE-2020-0003","CASE-2020-0001","CASE-2020-0030","CASE-2020-0022","CASE-2020-0010","CASE-2020-0018","CASE-2020-0045","CASE-2020-0030","CASE-2020-0001","CASE-2020-0018","CASE-2020-0008","CASE-2020-0014",null,"CASE-2020-0002","CASE-2020-0030","CASE-2020-0031","CASE-2020-0009","CASE-2020-0031","CASE-2020-0002",null,"CASE-2020-0001","CASE-2020-0001","CASE-2020-0022","CASE-2020-0001","CASE-2020-0012","CASE-2020-0023","CASE-2020-0016","CASE-2020-0001",null,"CASE-2020-0023"],["Female",null,null,"Female","Male","Female",null,"Male",null,"Female","Male",null,"Male","Female","Male",null,"Male","Female","Female","Male","Male","Female","Male","Female","Female","Male","Female","Male","Female","Male","Male","Male",null,"Male","Male","Male","Female","Male","Male",null,"Female","Female","Female","Female","Female","Female","Female","Female","Female","Female"],[80,null,null,34,43,37,null,20,null,80,23,0,52,49,23,null,43,80,51,43,58,49,52,51,37,25,34,52,49,25,7,54,null,52,52,20,57,20,52,null,49,49,51,49,80,43,80,49,43,43],["2020-06-24","2020-05-02","2020-06-15","2020-07-27","2020-06-05","2020-06-05","2020-08-19","2020-06-20","2020-08-19","2020-09-02","2020-08-07","2020-08-13","2020-05-15","2020-07-17","2020-06-15","2020-08-07","2020-06-15","2020-06-17","2020-06-05","2020-06-24","2020-06-07","2020-08-15","2020-06-17","2020-06-22","2020-06-19","2020-06-17","2020-07-27","2020-06-16","2020-04-28","2020-04-26","2020-06-15","2020-06-05","2020-05-02","2020-04-29","2020-06-22","2020-06-06","2020-05-13","2020-06-17","2020-05-01","2020-06-15","2020-06-07","2020-08-14","2020-06-20","2020-09-02","2020-06-24","2020-07-28","2020-06-17","2020-08-14","2020-08-14","2020-07-28"],["2020-06-08","2020-06-08","2020-06-08","2020-06-10","2020-06-08","2020-06-08","2020-08-20","2020-06-08","2020-08-20","2020-09-03","2020-08-21","2020-08-20","2020-06-08","2020-06-08","2020-06-08","2020-08-20","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-10","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-08-27","2020-06-08","2020-09-03","2020-06-08","2020-06-10","2020-06-08","2020-08-27","2020-08-27","2020-06-10"],["CONTACT-2020-0027","CASE-2020-0014","CASE-2020-0031","CASE-2020-0021","CONTACT-2020-0020","CONTACT-2020-0038","CASE-2020-0036","CONTACT-2020-0059","CASE-2020-0037",null,"CASE-2020-0015","CONTACT-2020-0015","CONTACT-2020-0009","CASE-2020-0008",null,"CASE-2020-0010","CONTACT-2020-0018","CONTACT-2020-0029","CONTACT-2020-0045","CONTACT-2020-0019","CONTACT-2020-0007","CASE-2020-0004","CONTACT-2020-0044","CONTACT-2020-0046","CONTACT-2020-0036","CONTACT-2020-0052","CASE-2020-0023","CONTACT-2020-0042","CONTACT-2020-0005","CONTACT-2020-0053","CONTACT-2020-0017","CONTACT-2020-0034","CASE-2020-0012","CASE-2020-0008","CONTACT-2020-0043","CONTACT-2020-0048","CONTACT-2020-0023","CONTACT-2020-0049","CASE-2020-0006","CASE-2020-0018","CONTACT-2020-0003","CASE-2020-0017","CONTACT-2020-0047","CONTACT-2020-0056","CONTACT-2020-0027","CASE-2020-0029","CONTACT-2020-0028","CONTACT-2020-0046","CONTACT-2020-0046","CASE-2020-0027"],["Male","Male","Male","Male","Female","Male","Female","Female","Female","Male","Female","Male","Male","Male",null,"Female","Male","Male","Female","Male","Female","Male","Male","Male","Female","Male","Female","Male","Male","Male","Female","Female","Female","Male","Male","Male","Male","Female","Male","Male","Male","Male","Male","Male","Male","Male","Female","Male","Male","Male"],[15,54,20,46,32,7,40,97,80,0,38,56,18,7,null,37,78,null,32,20,29,43,null,81,45,null,43,15,3,3,35,54,80,7,47,7,23,null,47,25,12,8,67,54,15,46,null,81,81,38],["Direct physical contact ",null,null,null,"Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ",null,"Direct physical contact ","Direct non-physical contact (within 1 meter) ","Direct non-physical contact (within 1 meter) ","Direct non-physical contact (within 1 meter) ","Direct physical contact ",null,"Direct non-physical contact (within 1 meter) ","Indirect contact (touched contaminated surface/materials/fomites etc.)","Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct physical contact ","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ","Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct physical contact ","Direct physical contact ","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ",null,"Direct physical contact ","Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ","Direct non-physical contact (within 1 meter) ","Direct non-physical contact (within 1 meter) ","Direct physical contact ","Direct physical contact ",null,null,null,null,"Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct physical contact ","Direct physical contact ",null,"Direct physical contact ",null,null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>source_visualid<\/th>\n      <th>source_gender<\/th>\n      <th>source_age<\/th>\n      <th>date_of_last_contact<\/th>\n      <th>date_of_data_entry<\/th>\n      <th>target_visualid<\/th>\n      <th>target_gender<\/th>\n      <th>target_age<\/th>\n      <th>exposure_type<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,7]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tanımlayıcı-analizler-2" class="section level2" number="25.2">
+<h2>
+<span class="header-section-number">25.2</span> Tanımlayıcı analizler<a class="anchor" aria-label="anchor" href="#tan%C4%B1mlay%C4%B1c%C4%B1-analizler-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Vakalarınız, temaslılarınız ve ilişkileri hakkında tanımlayıcı analizler yapmak için bu el kitabının diğer sayfalarında kapsanan teknikleri kullanabilirsiniz. Aşağıda bazı örnekler verilmiştir.</p>
+<div id="demografi" class="section level3 unnumbered">
+<h3>Demografi<a class="anchor" aria-label="anchor" href="#demografi"><i class="fas fa-link"></i></a>
+</h3>
+<p>[Demografik piramitler][Demografik piramitler ve Likert ölçekleri] ile ilgili sayfada gösterildiği gibi, yaş ve cinsiyet dağılımını görselleştirebilirsiniz (burada <strong>apyramid</strong> paketini kullanıyoruz).</p>
+<div id="temaslıların-yaşı-ve-cinsiyeti" class="section level4 unnumbered">
+<h4>Temaslıların yaşı ve cinsiyeti<a class="anchor" aria-label="anchor" href="#temasl%C4%B1lar%C4%B1n-ya%C5%9F%C4%B1-ve-cinsiyeti"><i class="fas fa-link"></i></a>
+</h4>
+<p>Aşağıdaki piramit, temaslıların yaş dağılımını cinsiyete göre karşılaştırmaktadır. Yaşı eksik olan kişilerin en üstteki bilinmeyen çubuklarına dahil edildiğini unutmayın. Bu varsayılan davranışı değiştirebilirsiniz, ancak daha sonra bir başlıkta eksik olan numarayı listelemeyi düşünebilirsiniz.</p>
+<div class="sourceCode" id="cb1211"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">apyramid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/apyramid/man/age_pyramid.html">age_pyramid</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">contacts</span>,                                   <span class="co"># temaslı verisetini kullanma</span></span>
+<span>  age_group <span class="op">=</span> <span class="st">"age_class"</span>,                           <span class="co"># kategorik yaş sütunu</span></span>
+<span>  split_by <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span> <span class="op">+</span>                             <span class="co"># piramidin yarısının cinsiyeti</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="st">"Gender"</span>,                                 <span class="co"># göstergenin başlığı</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Age/Sex Pyramid of COVID-19 contacts"</span><span class="op">)</span><span class="op">+</span> <span class="co"># grafiğin başlığı</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>                                    <span class="co"># basit arkaplan</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-873-1.png" width="672"></div>
+<p>Go.Data veri yapısıyla, ‘ilişkiler’ veri kümesi hem vakaların hem de ilgili kişilerin yaşlarını içerir, böylece bu veri kümesini kullanabilir ve bu iki insan grubu arasındaki farkları gösteren bir yaş piramidi oluşturabilirsiniz. “İlişkiler” veri çerçevesi, sayısal yaş sütunlarını kategorilere dönüştürmek için değiştirilecektir (bkz. [Temizleme verileri ve temel işlevler] sayfası). Ayrıca, <strong>ggplot2</strong> ile çizimi kolaylaştırmak için veri çerçevesini daha uzun süre döndürürüz (bkz. [Özetleme verileri]).</p>
+<div class="sourceCode" id="cb1212"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">relation_age</span> <span class="op">&lt;-</span> <span class="va">relationships</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">source_age</span>, <span class="va">target_age</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">transmute</a></span><span class="op">(</span>                              <span class="co"># transmute, mutate() gibidir ancak bahsedilmeyen tüm diğer sütunları kaldırır</span></span>
+<span>    source_age_class <span class="op">=</span> <span class="fu">epikit</span><span class="fu">::</span><span class="fu"><a href="https://r4epi.github.io/epikit/reference/age_categories.html">age_categories</a></span><span class="op">(</span><span class="va">source_age</span>, breakers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">80</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    target_age_class <span class="op">=</span> <span class="fu">epikit</span><span class="fu">::</span><span class="fu"><a href="https://r4epi.github.io/epikit/reference/age_categories.html">age_categories</a></span><span class="op">(</span><span class="va">target_age</span>, breakers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">80</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"class"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"category"</span>, values_to <span class="op">=</span> <span class="st">"age_class"</span><span class="op">)</span>  </span>
+<span></span>
+<span></span>
+<span><span class="va">relation_age</span></span></code></pre></div>
+<pre><code>## # A tibble: 200 × 2
+##    category         age_class
+##    &lt;chr&gt;            &lt;fct&gt;    
+##  1 source_age_class 80+      
+##  2 target_age_class 15-19    
+##  3 source_age_class &lt;NA&gt;     
+##  4 target_age_class 50-54    
+##  5 source_age_class &lt;NA&gt;     
+##  6 target_age_class 20-24    
+##  7 source_age_class 30-34    
+##  8 target_age_class 45-49    
+##  9 source_age_class 40-44    
+## 10 target_age_class 30-34    
+## # … with 190 more rows</code></pre>
+<p>Şimdi bu dönüştürülmüş veri setini daha önce olduğu gibi ‘age_pyramid()’ ile çizebiliriz, ancak ‘gender’ yerine ‘category’ (temaslı veya vaka) koyabiliriz.</p>
+<div class="sourceCode" id="cb1214"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">apyramid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/apyramid/man/age_pyramid.html">age_pyramid</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">relation_age</span>,                               <span class="co"># değiştirilmiş ilişki veri kümesini kullan</span></span>
+<span>  age_group <span class="op">=</span> <span class="st">"age_class"</span>,                           <span class="co"># kategorik yaş sütunu</span></span>
+<span>  split_by <span class="op">=</span> <span class="st">"category"</span><span class="op">)</span> <span class="op">+</span>                           <span class="co"># vakalar ve temaslılar tarafından</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span></span>
+<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"purple"</span><span class="op">)</span>,                  <span class="co"># renkleri VE etiketleri belirtmek için</span></span>
+<span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Case"</span>, <span class="st">"Contact"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="st">"Legend"</span>,                                           <span class="co"># göstergenin başlığı</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Age/Sex Pyramid of COVID-19 contacts and cases"</span><span class="op">)</span><span class="op">+</span> <span class="co"># grafiğin başlığı</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>                                              <span class="co"># basit arkaplan</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-875-1.png" width="672"></div>
+<p>Mesleki dağılım gibi diğer özellikleri de görebiliriz (örneğin pasta grafiği şeklinde).</p>
+<div class="sourceCode" id="cb1215"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Veri kümesini temizleyin ve mesleğe göre sayıları alın</span></span>
+<span><span class="va">occ_plot_data</span> <span class="op">&lt;-</span> <span class="va">cases</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>occupation <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">fct_explicit_na</a></span><span class="op">(</span><span class="va">occupation</span><span class="op">)</span>,  <span class="co"># NA eksik değerleri bir kategori yapın</span></span>
+<span>         occupation <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="va">occupation</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># sıklık sırasına göre sıra faktörü seviyeleri</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">occupation</span><span class="op">)</span>                                          <span class="co"># mesleğe göre sayıları alın</span></span>
+<span>  </span>
+<span><span class="co"># pasta grafiği yapın</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">occ_plot_data</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>, y <span class="op">=</span> <span class="va">n</span>, fill <span class="op">=</span> <span class="va">occupation</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span>, stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar</a></span><span class="op">(</span><span class="st">"y"</span>, start <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="st">"Occupation"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Known occupations of COVID-19 cases"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-876-1.png" width="672"></div>
+</div>
+</div>
+<div id="vaka-başına-kişi-sayısı" class="section level3 unnumbered">
+<h3>Vaka başına kişi sayısı<a class="anchor" aria-label="anchor" href="#vaka-ba%C5%9F%C4%B1na-ki%C5%9Fi-say%C4%B1s%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Vaka başına temaslı sayısı, temaslı numaralandırmanın kalitesini ve nüfusun halk sağlığı müdahalesine uygunluğunu değerlendirmek için önemli bir ölçü olabilir.</p>
+<p>Veri yapınıza bağlı olarak bu, tüm vakaları ve ilgili kişileri içeren bir veri seti ile değerlendirilebilir. Go.Data veri kümelerinde, vakalar (“kaynaklar”) ve kişiler (“hedefler”) arasındaki bağlantılar “ilişkiler” veri kümesinde depolanır.</p>
+<p>Bu veri kümesinde her satır bir ilgili kişidir ve kaynak vaka satırda listelenir. Birden fazla vakayla ilişkisi olan hiç kimse yok, ancak bu varsa, planlamadan önce olanları hesaba katmanız gerekebilir (ve onları da keşfedin!).</p>
+<p>Kaynak vaka başına satır (kişi) sayısını sayarak başlarız. Bu bir veri çerçevesi olarak kaydedilir.</p>
+<div class="sourceCode" id="cb1216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contacts_per_case</span> <span class="op">&lt;-</span> <span class="va">relationships</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">source_visualid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">contacts_per_case</span></span></code></pre></div>
+<pre><code>## # A tibble: 23 × 2
+##    source_visualid     n
+##    &lt;chr&gt;           &lt;int&gt;
+##  1 CASE-2020-0001     13
+##  2 CASE-2020-0002      5
+##  3 CASE-2020-0003      2
+##  4 CASE-2020-0004      4
+##  5 CASE-2020-0005      5
+##  6 CASE-2020-0006      3
+##  7 CASE-2020-0008      3
+##  8 CASE-2020-0009      3
+##  9 CASE-2020-0010      3
+## 10 CASE-2020-0012      3
+## # … with 13 more rows</code></pre>
+<p>Bu verileri bir histogram olarak çizmek için <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> kullanıyoruz.</p>
+<div class="sourceCode" id="cb1218"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">contacts_per_case</span><span class="op">)</span><span class="op">+</span>        <span class="co"># yukarıda oluşturulan sayım veri çerçevesiyle başlayın</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>  <span class="co"># vaka başına kişi sayısının histogramını yazdırın</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>   <span class="co"># y ekseninde 0'ın altındaki fazla boşluğu kaldırın</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>                         <span class="co"># arka planı basitleştirin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Number of contacts per case"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Cases"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Contacts per case"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-878-1.png" width="672"></div>
+</div>
+</div>
+<div id="temaslı-takibi" class="section level2" number="25.3">
+<h2>
+<span class="header-section-number">25.3</span> Temaslı Takibi<a class="anchor" aria-label="anchor" href="#temasl%C4%B1-takibi"><i class="fas fa-link"></i></a>
+</h2>
+<p>Temaslı izleme verileri genellikle karantinadaki kişilerin günlük semptom kontrollerinin sonuçlarını kaydeden “takip” verilerini içerir. Bu verilerin analizi, yanıt stratejisini bilgilendirebilir, takip kaybı riski altındaki veya hastalık geliştirme riski altındaki temaslıları belirleyebilir.</p>
+<div id="veri-temizleme" class="section level3 unnumbered">
+<h3>Veri temizleme<a class="anchor" aria-label="anchor" href="#veri-temizleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu veriler çeşitli biçimlerde bulunabilir. Kişi başına bir satır ve takip eden “gün” başına bir sütun içeren “geniş” formatlı bir Excel sayfası olarak bulunabilirler. “Uzun” ve “geniş” verilerin açıklamaları ve verilerin nasıl daha geniş veya daha uzun döndürüleceği için [Pivoting data] bölümüne bakabilirsiniz.</p>
+<p>Go.Data örneğimizde, bu veriler, takip etkileşimi başına bir satır ile “uzun” bir formatta olan “takipler” veri çerçevesinde depolanır. İlk 50 satır şöyle görünür:</p>
+<div id="htmlwidget-15c72790077571ca421c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-15c72790077571ca421c">{"x":{"filter":"none","vertical":false,"data":[["CONTACT-2020-0012","CONTACT-2020-0015","CONTACT-2020-0015","CONTACT-2020-0015","CONTACT-2020-0015","CONTACT-2020-0043","CONTACT-2020-0046","CONTACT-2020-0012","CONTACT-2020-0046","CONTACT-2020-0043","CONTACT-2020-0056","CONTACT-2020-0054","CONTACT-2020-0012","CONTACT-2020-0054","CONTACT-2020-0054","CONTACT-2020-0012","CONTACT-2020-0056","CONTACT-2020-0054","CONTACT-2020-0056","CONTACT-2020-0056","CONTACT-2020-0060","CONTACT-2020-0059","CONTACT-2020-0060","CONTACT-2020-0060","CONTACT-2020-0060","CONTACT-2020-0059","CONTACT-2020-0059","CONTACT-2020-0059","CONTACT-2020-0005","CONTACT-2020-0058","CONTACT-2020-0029","CONTACT-2020-0029","CONTACT-2020-0029","CONTACT-2020-0042","CONTACT-2020-0058","CONTACT-2020-0003","CONTACT-2020-0001","CONTACT-2020-0029","CONTACT-2020-0042","CONTACT-2020-0036","CONTACT-2020-0042","CONTACT-2020-0036","CONTACT-2020-0036","CONTACT-2020-0042","CONTACT-2020-0004","CONTACT-2020-0036","CONTACT-2020-0040","CONTACT-2020-0040","CONTACT-2020-0040","CONTACT-2020-0014"],["seen_ok","not_attempted","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","seen_ok","seen_ok","seen_not_ok","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","seen_ok","seen_ok","seen_ok","not_attempted","seen_ok","missed","seen_ok","missed","seen_ok","seen_ok","seen_ok","seen_ok","missed","seen_ok","seen_not_ok","missed","seen_ok","missed","seen_ok","seen_ok","seen_ok","missed","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","seen_not_ok","seen_ok"],[7,8,6,9,7,1,2,6,1,2,9,6,8,7,5,9,7,4,6,8,5,4,6,8,7,3,1,2,14,1,7,5,4,5,2,14,14,6,6,4,7,3,5,8,14,2,6,9,7,8],["2020-06-02","2020-06-03","2020-06-01","2020-06-04","2020-06-02","2020-06-03","2020-06-05","2020-06-01","2020-06-04","2020-06-04","2020-06-04","2020-06-03","2020-06-03","2020-06-04","2020-06-02","2020-06-04","2020-06-02","2020-06-01","2020-06-01","2020-06-03","2020-06-01","2020-06-04","2020-06-02","2020-06-04","2020-06-03","2020-06-03","2020-06-01","2020-06-02","2020-06-01","2020-06-03","2020-06-04","2020-06-02","2020-06-01","2020-06-01","2020-06-04","2020-06-01","2020-06-01","2020-06-03","2020-06-02","2020-06-03","2020-06-03","2020-06-02","2020-06-04","2020-06-04","2020-06-01","2020-06-01","2020-06-01","2020-06-04","2020-06-02","2020-06-03"],["Djembe","Trumpet","Trumpet","Trumpet","Trumpet","Djembe",null,"Djembe",null,"Djembe",null,"Trumpet","Djembe","Trumpet","Trumpet","Djembe",null,"Trumpet",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Drums island","Brass island","Brass island","Brass island","Brass island","Drums island",null,"Drums island",null,"Drums island",null,"Brass island","Drums island","Brass island","Brass island","Drums island",null,"Brass island",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>contact_id<\/th>\n      <th>followup_status<\/th>\n      <th>followup_number<\/th>\n      <th>date_of_followup<\/th>\n      <th>admin_2_name<\/th>\n      <th>admin_1_name<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><span style="color: orange;"><strong><em>UYARI:</em></strong> Takip verileriyle uğraşırken mükerrerlere dikkat edin; çünkü belirli bir temaslı için aynı gün içinde birkaç hatalı takip olabilir. Belki bir hata gibi görünüyor ama gerçeği yansıtıyor olabilir - ör. bir iletişim izleyicisi, ilgili kişiye ulaşamadıkları günün erken saatlerinde bir takip formu gönderebilir ve kendilerine daha sonra ulaşıldığında ikinci bir form gönderebilir. Yinelenenleri nasıl ele almak istediğinize ilişkin operasyonel bağlama göre değişecektir. - yalnızca yaklaşımınızı net bir şekilde belgelediğinizden emin olun. </span></p>
+<p>Kaç tane “mükerrer” satır örneğimiz olduğunu <em>görelim</em>:</p>
+<div class="sourceCode" id="cb1219"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">followups</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">contact_id</span>, <span class="va">date_of_followup</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># benzersiz contact_days alın</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span>                             <span class="co"># sayının 1'den fazla olduğu kayıtları görüntüleyin  </span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   contact_id date_of_followup     n
+##   &lt;chr&gt;      &lt;date&gt;           &lt;int&gt;
+## 1 &lt;NA&gt;       2020-09-03           2
+## 2 &lt;NA&gt;       2020-09-04           2
+## 3 &lt;NA&gt;       2020-09-05           2</code></pre>
+<p>Örnek verilerimizde, bunun geçerli olduğu tek kayıt, kimliği eksik olanlardır! Bunları kaldırabiliriz. Ancak, öğretmek amacıyla, tekilleştirme adımlarını göstereceğiz. Böylece kişi başına günde yalnızca bir izlemi yapılan ile muhatap olunur. Daha fazla ayrıntı için <a href="tekille%C5%9Ftirme-1.html#tekille%C5%9Ftirme-2">Tekilleştirme</a> ile ilgili sayfaya bakabilirsiniz. En son karşılaşma kaydının doğru olduğunu varsayacağız. Ayrıca ‘followup_number’ sütununu (1 - 14 aralığında olması gereken takip “günü”) temizleme fırsatını da kullanıyoruz.</p>
+<div class="sourceCode" id="cb1221"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">followups_clean</span> <span class="op">&lt;-</span> <span class="va">followups</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># yinelenenleri kaldırın</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">contact_id</span>, <span class="va">date_of_followup</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># temaslı günü başına grup satırları</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">contact_id</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">date_of_followup</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># takip tarihine göre her temas günü için satırlar düzenleyin (en son en üstte)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                  <span class="co"># benzersiz kişi kimliği başına yalnızca ilk satırı tutun  </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co"># diğer temizlemeler</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>followup_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">followup_number</span>, <span class="va">followup_number</span> <span class="op">&gt;</span> <span class="fl">14</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># hatalı verileri temizle</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">contact_id</span><span class="op">)</span>                               <span class="co"># eksik contact_id olan satırları kaldırın</span></span></code></pre></div>
+<p>Her takip eden karşılaşma için, bir takip durumumuz var (örneğin, karşılaşmanın olup olmadığı ve olduysa, temasta belirti olup olmadığı gibi). Tüm değerleri görmek için ‘followup_status’ ile hızlı bir ‘tabyl()’ (<strong>janitor</strong>’dan) veya ‘table()’ (R <strong>tabanı</strong>ndan) (bkz. <a href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html#tan%C4%B1mlay%C4%B1c%C4%B1-tablolar">Tanımlayıcı tablolar</a>) sonuçların her birinin sıklığını görebilmek için çalıştırabiliriz.</p>
+<p>Bu veri setinde “seen_not_ok”, “semptomlarla görülen” ve “seen_ok”, “semptomsuz görülen” anlamına gelir.</p>
+<div class="sourceCode" id="cb1222"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">followups_clean</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">followup_status</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  followup_status   n    percent
+##           missed  10 0.02325581
+##    not_attempted   5 0.01162791
+##    not_performed 319 0.74186047
+##      seen_not_ok   6 0.01395349
+##          seen_ok  90 0.20930233</code></pre>
+</div>
+<div id="zaman-içinde-grafik" class="section level3 unnumbered">
+<h3>Zaman içinde grafik<a class="anchor" aria-label="anchor" href="#zaman-i%C3%A7inde-grafik"><i class="fas fa-link"></i></a>
+</h3>
+<p>Tarih verileri sürekli olduğundan, x eksenine atanan ‘date_of_followup’ ile bunları çizmek için bir histogram kullanacağız. ‘followup_status’ sütununa atadığımız ‘aes()’ içinde bir ‘fill = ’değişkenleri belirleyerek “yığınlanmış” bir histogram elde edebiliriz. Sonuç olarak, ’labs()’ öğesinin ‘fill =’ değişkenini kullanarak gösterge başlığını ayarlayabilirsiniz.</p>
+<p>Temaslıların dalgalar halinde tanımlandığını (muhtemelen salgın vaka dalgalarına karşılık gelen) ve takip tamamlamanın salgın boyunca görünüşte iyileşmediğini görebiliriz.</p>
+<div class="sourceCode" id="cb1224"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">followups_clean</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_of_followup</span>, fill <span class="op">=</span> <span class="va">followup_status</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">+</span>   <span class="co"># göstergedeki tüm faktör seviyelerini (followup_status), kullanılmayanları bile gösterin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Number of contacts"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Daily Contact Followup Status"</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"Followup Status"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Data as of {max(followups$date_of_followup, na.rm=T)}"</span><span class="op">)</span><span class="op">)</span>   <span class="co"># dinamik altyazı</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-883-1.png" width="672"></div>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> Çok sayıda çizim hazırlıyorsanız (örneğin, birden fazla konu için), göstergelerin değişen seviyelerde veri tamamlama veya veri birleştirme ile bile aynı görünmesini isteyeceksiniz. Verilerde tüm takip durumlarının bulunmadığı grafikler olabilir, ancak yine de bu kategorilerin göstergelerde standart olarak görünmesini istiyorsunuz. Ggplot’larda (yukarıdaki gibi), ‘scale_fill_discrete()’ için ‘drop = FALSE’ değişkenini belirtebilirsiniz. Tablolarda, tüm faktör düzeyleri için sayıları gösteren ‘tabyl()’ kullanın veya <strong>dplyr</strong>’den ‘count()’ kullanıyorsanız, tüm faktör düzeyleri için sayıları dahil etmek için ‘.drop = FALSE’ bağımsız değişkenini ekleyin.</span></p>
+</div>
+<div id="günlük-bireysel-izleme" class="section level3 unnumbered">
+<h3>Günlük bireysel izleme<a class="anchor" aria-label="anchor" href="#g%C3%BCnl%C3%BCk-bireysel-izleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Salgınınız yeterince küçükse, her bir kişiye ayrı ayrı bakmak ve takipleri boyunca durumlarını görmek isteyebilirsiniz. Neyse ki, bu “izlemeler” veri kümesi halihazırda takip “sayısı” (1-14) sütununu içeriyor. Verilerinizde bu yoksa, karşılaşma tarihi ile ilgili kişi için takibin başlaması amaçlanan tarih arasındaki farkı hesaplayarak oluşturabilirsiniz.</p>
+<p>Uygun bir görselleştirme mekanizması (eğer vaka sayısı çok büyük değilse), <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile()</a></code> ile yapılmış bir ısı grafiği olabilir. [Isı grafiği] sayfasında daha fazla ayrıntıya bakın.</p>
+<div class="sourceCode" id="cb1225"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">followups_clean</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">followup_number</span>, y <span class="op">=</span> <span class="va">contact_id</span>, fill <span class="op">=</span> <span class="va">followup_status</span><span class="op">)</span>,</span>
+<span>            color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span><span class="op">+</span>       <span class="co"># gri kılavuz çizgileri</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span> values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yellow"</span>, <span class="st">"grey"</span>, <span class="st">"orange"</span>, <span class="st">"darkred"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">14</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-884-1.png" width="672"></div>
+</div>
+<div id="grubuna-göre-analiz-et" class="section level3 unnumbered">
+<h3>Grubuna göre analiz et<a class="anchor" aria-label="anchor" href="#grubuna-g%C3%B6re-analiz-et"><i class="fas fa-link"></i></a>
+</h3>
+<p>Belki de bu takip verileri, operasyonel karar verme için günlük veya haftalık olarak görüntülenmektedir. Coğrafi alana veya kişi izleme ekibine göre daha anlamlı ayrıştırmalar isteyebilirsiniz. Bunu <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> için sağlanan sütunları ayarlayarak yapabiliriz.</p>
+<div class="sourceCode" id="cb1226"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot_by_region</span> <span class="op">&lt;-</span> <span class="va">followups_clean</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                        <span class="co"># takip veri seti ile başlayın</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">admin_1_name</span>, <span class="va">admin_2_name</span>, <span class="va">followup_status</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># benzersiz bölge durumuna göre sayıları al (sayılarla 'n' sütununu oluşturur)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>                                         <span class="co"># ggplot() başlatın</span></span>
+<span>    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">admin_2_name</span>, <span class="va">n</span><span class="op">)</span>,     <span class="co"># 'n' sütunundaki sayısal değerlere göre yönetici faktör düzeylerini yeniden sıralayın</span></span>
+<span>                  y <span class="op">=</span> <span class="va">n</span>,                            <span class="co"># 'n' sütunundan çubuğun yükseklikleri</span></span>
+<span>                  fill <span class="op">=</span> <span class="va">followup_status</span>,           <span class="co"># durumlarına göre renk yığılmış çubuklar</span></span>
+<span>                  label <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>                      <span class="co"># geom_label()'e geçmek için              </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>                                     <span class="co"># yığılmış çubuklar, yukarıdan devredilen haritalama</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>                                      <span class="co"># metin ekleme, yukarıdan devredilen haritalama</span></span>
+<span>    size <span class="op">=</span> <span class="fl">3</span>,                                         </span>
+<span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, </span>
+<span>    color <span class="op">=</span> <span class="st">"white"</span>,           </span>
+<span>    check_overlap <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    fontface <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Number of contacts"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Contact Followup Status, by Region"</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"Followup Status"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Data as of {max(followups_clean$date_of_followup, na.rm=T)}"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>                                                                      <span class="co"># Arka planı basitleştirin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">admin_1_name</span>, strip.position <span class="op">=</span> <span class="st">"right"</span>, scales <span class="op">=</span> <span class="st">"free_y"</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>      <span class="co"># yönleri tanıtın</span></span>
+<span></span>
+<span><span class="va">plot_by_region</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-885-1.png" width="672"></div>
+<!-- If this was disaggregated by contact tracer, perhaps we would want to add a threshold line to display total # contacts that normally one person or area/team can handle, and how the current workload compares. We just do this by using `geom_hline()` function. -->
+<!-- ```{r, warning=F, message=F} -->
+<!-- plot_by_region +  -->
+<!--      geom_hline(aes(yintercept=25), color="#C70039", linetype = "dashed") # fictitious threshold at 25 contacts -->
+<!-- ``` -->
+</div>
+</div>
+<div id="kpi-tabloları" class="section level2" number="25.4">
+<h2>
+<span class="header-section-number">25.4</span> KPI Tabloları<a class="anchor" aria-label="anchor" href="#kpi-tablolar%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Kişi takibi performansını izlemek için farklı ayrıştırma seviyelerinde ve farklı zaman dilimlerinde hesaplanabilen ve izlenebilen bir dizi farklı Temel Performans Göstergesi (KPI) vardır. Hesaplamaları yapıp ve temel tablo formatına sahip olduğunuzda; farklı KPI’ları değiştirmek oldukça kolaydır.</p>
+<p><a href="https://contacttracingplaybook.resolvetosavelives.org/checklists/metrics">ResolveToSaveLives.org</a> kaynağındaki bu gibi çok sayıda kişi izleme KPI’sı kaynağı vardır. Çalışmanın çoğu, veri yapınızı gözden geçirecek ve tüm dahil etme/hariç tutma kriterlerini düşünecektir. Aşağıda birkaç örnek gösteriyoruz; Go.Data meta veri yapısını kullanarak:</p>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="19%">
+<col width="28%">
+<col width="29%">
+<col width="21%">
+</colgroup>
+<thead><tr class="header">
+<th>Kategori</th>
+<th>Gösterge</th>
+<th>Go.Data Numeratör</th>
+<th>Go.Data paydası</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Süreç Göstergesi - Temaslı İzleme Hızı</td>
+<td>Vaka raporundan sonraki 24 saat içinde görüşülen ve izole edilen vakaların yüzdesi</td>
+<td>(`<code>date_of_reporting</code> - <code>date_of_data_entry</code>) &lt; 1 gün VE (<code>isolation_startdate</code> - <code>date_of_data_entry</code>) &lt; 1 gün OLDUĞU YERDE “case_id” SAYIMI</td>
+<td>“case_id” SAYIMI</td>
+</tr>
+<tr class="even">
+<td>İşlem Göstergesi - Kişi İzleme Hızı</td>
+<td>Alındıktan sonraki 24 saat içinde bildirilen ve karantinaya alınan kişilerin yüzdesi</td>
+<td>‘followup_status’ == “SEEN_NOT_OK” VEYA “SEEN_OK” VE ‘date_of_followup’ - ‘date_of_reporting’ &lt; 1 gün OLDUĞU YERDE ‘contact_id’ SAYIMI</td>
+<td>“contact_id” SAYIMI</td>
+</tr>
+<tr class="odd">
+<td>Süreç Göstergesi - Testin Tamlığı</td>
+<td>Semptomların başlamasından sonraki 3 gün içinde test edilen ve görüşülen yeni semptomatik vakaların yüzdesi</td>
+<td>(<code>date_of_reporting</code> - <code>date_of_onset</code>) &lt; =3 gün OLDUĞU YERDE “vaka_kimliği” SAYIMI</td>
+<td>“vaka_kimliği” SAYIMI</td>
+</tr>
+<tr class="even">
+<td>Sonuç Göstergesi - Genel</td>
+<td>mevcut kişi listesindeki yeni vakaların yüzdesi</td>
+<td>
+<code>was_contact</code> OLDUĞU YERDE <code>case_id</code> SAYIMI== “TRUE”</td>
+<td>
+<code>case_id</code> SAYIMI</td>
+</tr>
+</tbody>
+</table></div>
+<p>Aşağıda, yönetici alanlarındaki iletişim takibini göstermek için güzel bir tablo görseli oluşturmaya yönelik örnek bir alıştırmayı inceleyeceğiz. Sonunda, <strong>formattable</strong> paketi ile sunuma uygun hale getireceğiz (ancak <strong>flextable</strong> gibi başka paketleri de kullanabilirsiniz - bkz. <a href="sunum-i%C3%A7in-tablolar.html#sunum-i%C3%A7in-tablolar">Sunum için tablolar</a>).</p>
+<p>Bunun gibi bir tabloyu nasıl oluşturacağınız, temaslı izleme verilerinizin yapısına bağlı olacaktır. <strong>dplyr</strong> fonksiyonlarını kullanarak verileri nasıl özetleyeceğinizi öğrenmek için [Açıklayıcı tablolar] sayfasını kullanın.</p>
+<p>Dinamik olacak ve veriler değiştikçe değişecek bir tablo oluşturacağız. Sonuçları ilginç hale getirmek için, tabloyu belirli bir günde çalıştırmayı simüle etmemize izin verecek bir “rapor_tarihi” ayarlayacağız (10 Haziran 2020’yi seçiyoruz). Veriler o tarihe kadar filtrelenir.</p>
+<div class="sourceCode" id="cb1227"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Raporun bu tarihten itibaren verilerle çalıştırılmasını simüle etmek için "Rapor tarihi"ni ayarlayın</span></span>
+<span><span class="va">report_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-06-10"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rapor tarihini yansıtacak takip verileri oluşturun.</span></span>
+<span><span class="va">table_data</span> <span class="op">&lt;-</span> <span class="va">followups_clean</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date_of_followup</span> <span class="op">&lt;=</span> <span class="va">report_date</span><span class="op">)</span></span></code></pre></div>
+<p>Şimdi, veri yapımıza dayanarak aşağıdakileri yapacağız:</p>
+<ol style="list-style-type: decimal">
+<li>“Takip” verileriyle başlayın ve her benzersiz kişi için içerecek şekilde özetleyin:
+<ul>
+<li>En son kayıt tarihi (karşılaşmanın durumu ne olursa olsun)</li>
+<li>Temaslının “görüldüğü” en son karşılaşma tarihi</li>
+<li>Nihai “görülen” karşılaşmadaki karşılaşma durumu (örneğin semptomlu, semptomlar olmadan)</li>
+</ul>
+</li>
+<li>Bu verileri genel iletişim durumu, bir temaslıya son maruz kalma tarihi vb. gibi diğer bilgileri içeren temaslı verileriyle birleştirin. Ayrıca, son temastan bu yana geçen gün sayısı gibi her bir ilgili temaslı için ilgilenilen metrikleri hesaplayacağız.</li>
+<li>Gelişmiş iletişim verilerini coğrafi bölgeye (<code>admin_2_name</code>) göre gruplandırıyoruz ve bölge başına özet istatistikleri hesaplıyoruz</li>
+<li>Son olarak, sunum için tabloyu güzelce biçimlendiriyoruz.</li>
+</ol>
+<p>İlk olarak, ilgilenilen bilgileri almak için takip verilerini özetliyoruz:</p>
+<div class="sourceCode" id="cb1228"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">followup_info</span> <span class="op">&lt;-</span> <span class="va">table_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">contact_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    date_last_record   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">date_of_followup</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    date_last_seen     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">date_of_followup</span><span class="op">[</span><span class="va">followup_status</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seen_ok"</span>, <span class="st">"seen_not_ok"</span><span class="op">)</span><span class="op">]</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    status_last_record <span class="op">=</span> <span class="va">followup_status</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">date_of_followup</span> <span class="op">==</span> <span class="va">date_last_record</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>İşte veriler böyle görünüyor:</p>
+<div id="htmlwidget-b0176a294958f44c7bde" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b0176a294958f44c7bde">{"x":{"filter":"none","vertical":false,"data":[["CONTACT-2020-0001","CONTACT-2020-0003","CONTACT-2020-0004","CONTACT-2020-0005","CONTACT-2020-0006","CONTACT-2020-0007","CONTACT-2020-0012","CONTACT-2020-0013","CONTACT-2020-0014","CONTACT-2020-0015","CONTACT-2020-0016","CONTACT-2020-0017","CONTACT-2020-0018","CONTACT-2020-0019","CONTACT-2020-0026","CONTACT-2020-0027","CONTACT-2020-0028","CONTACT-2020-0029","CONTACT-2020-0033","CONTACT-2020-0035","CONTACT-2020-0036","CONTACT-2020-0039","CONTACT-2020-0040","CONTACT-2020-0041","CONTACT-2020-0042","CONTACT-2020-0043","CONTACT-2020-0044","CONTACT-2020-0046","CONTACT-2020-0047","CONTACT-2020-0048","CONTACT-2020-0049","CONTACT-2020-0050","CONTACT-2020-0052","CONTACT-2020-0054","CONTACT-2020-0055","CONTACT-2020-0056","CONTACT-2020-0057","CONTACT-2020-0058","CONTACT-2020-0059","CONTACT-2020-0060"],["2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-06","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-06","2020-06-05","2020-06-01","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05"],["-Inf","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-04","2020-06-04","2020-06-04","2020-06-04","2020-06-04","2020-06-03","2020-06-03","2020-06-05","2020-06-03","2020-06-05","2020-06-05","2020-06-05","-Inf","2020-06-03","2020-06-05","2020-06-06","2020-06-04","2020-06-04","2020-06-05","2020-06-04","2020-06-05","2020-06-05","2020-06-04","2020-06-01","2020-06-05","2020-06-05","2020-06-05","2020-06-04","2020-06-05","2020-06-03","2020-06-02","2020-06-03","2020-06-05","2020-06-05"],["missed","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","not_performed","not_performed","not_performed","not_performed","not_performed","not_performed","seen_ok","not_performed","seen_ok","seen_ok","seen_ok","not_performed","missed","seen_ok","seen_ok","not_performed","not_performed","seen_ok","not_performed","seen_not_ok","not_performed","not_performed","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","seen_ok","not_performed","not_performed","not_performed","seen_ok","seen_ok"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>contact_id<\/th>\n      <th>date_last_record<\/th>\n      <th>date_last_seen<\/th>\n      <th>status_last_record<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"scrollX":true,"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Şimdi bu bilgiyi “kişiler” veri kümesine ekleyeceğiz ve bazı ek sütunları hesaplayacağız.</p>
+<div class="sourceCode" id="cb1229"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contacts_info</span> <span class="op">&lt;-</span> <span class="va">followup_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span><span class="va">contacts</span>, by <span class="op">=</span> <span class="st">"contact_id"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    database_date       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">date_last_record</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    days_since_seen     <span class="op">=</span> <span class="va">database_date</span> <span class="op">-</span> <span class="va">date_last_seen</span>,</span>
+<span>    days_since_exposure <span class="op">=</span> <span class="va">database_date</span> <span class="op">-</span> <span class="va">date_of_last_exposure</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+<p>İşte veriler böyle görünüyor. Sağdaki “kişiler” sütununu ve en sağdaki yeni hesaplanmış sütunu not edin.</p>
+<div id="htmlwidget-6f7bac9450a69229b76c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6f7bac9450a69229b76c">{"x":{"filter":"none","vertical":false,"data":[["CONTACT-2020-0001","CONTACT-2020-0003","CONTACT-2020-0004","CONTACT-2020-0005","CONTACT-2020-0006","CONTACT-2020-0007","CONTACT-2020-0012","CONTACT-2020-0013","CONTACT-2020-0014","CONTACT-2020-0015","CONTACT-2020-0016","CONTACT-2020-0017","CONTACT-2020-0018","CONTACT-2020-0019","CONTACT-2020-0026","CONTACT-2020-0027","CONTACT-2020-0028","CONTACT-2020-0029","CONTACT-2020-0033","CONTACT-2020-0035","CONTACT-2020-0036","CONTACT-2020-0039","CONTACT-2020-0040","CONTACT-2020-0041","CONTACT-2020-0042","CONTACT-2020-0043","CONTACT-2020-0044","CONTACT-2020-0046","CONTACT-2020-0047","CONTACT-2020-0048","CONTACT-2020-0049","CONTACT-2020-0050","CONTACT-2020-0052","CONTACT-2020-0054","CONTACT-2020-0055","CONTACT-2020-0056","CONTACT-2020-0057","CONTACT-2020-0058","CONTACT-2020-0059","CONTACT-2020-0060","CONTACT-2020-0030","CONTACT-2020-0021","CONTACT-2020-0053","CONTACT-2020-0011","CONTACT-2020-0032","CONTACT-2020-0025","CONTACT-2020-0045","CONTACT-2020-0020","CONTACT-2020-0031","CONTACT-2020-0037","CONTACT-2020-0051","CONTACT-2020-0008","CONTACT-2020-0038","CONTACT-2020-0010","CONTACT-2020-0034","CONTACT-2020-0009","CONTACT-2020-0022","CONTACT-2020-0023",null,null,"CASE-2020-0043","CASE-2020-0044","CASE-2020-0045","CASE-2020-0046","CONTACT-2020-0024","CONTACT-2020-0002"],["2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-06","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-06","2020-06-05","2020-06-01","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05","2020-06-05",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["-Inf","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-01","2020-06-04","2020-06-04","2020-06-04","2020-06-04","2020-06-04","2020-06-03","2020-06-03","2020-06-05","2020-06-03","2020-06-05","2020-06-05","2020-06-05","-Inf","2020-06-03","2020-06-05","2020-06-06","2020-06-04","2020-06-04","2020-06-05","2020-06-04","2020-06-05","2020-06-05","2020-06-04","2020-06-01","2020-06-05","2020-06-05","2020-06-05","2020-06-04","2020-06-05","2020-06-03","2020-06-02","2020-06-03","2020-06-05","2020-06-05",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["missed","seen_ok","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","not_performed","not_performed","not_performed","not_performed","not_performed","not_performed","seen_ok","not_performed","seen_ok","seen_ok","seen_ok","not_performed","missed","seen_ok","seen_ok","not_performed","not_performed","seen_ok","not_performed","seen_not_ok","not_performed","not_performed","seen_ok","seen_ok","seen_ok","seen_ok","not_performed","seen_ok","not_performed","not_performed","not_performed","seen_ok","seen_ok",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","DIED","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","DIED","FOLLOW_UP_COMPLETED","LOST_TO_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","LOST_TO_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","FOLLOW_UP_COMPLETED","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","UNDER_FOLLOW_UP","BECAME_CASE","BECAME_CASE","BECAME_CASE","BECAME_CASE","BECAME_CASE","BECAME_CASE"],["Cheik","Cheik","Khary","Birima","Malang","Maguette","Alfa","Ndiogou","Madia","Adama","Lamine","Racine","Yacouba","Kalidou","Thione","Sadibou","Papis","Coura","Thiony","Sofiatou","Djiby","Abba","Khary","Oumou","Dicory","Adja","Mbagnick","Abou","Ndiankou","Malamine","Youssouf","Waly","Mayatta","Alimatou","Djeynaba","Amath","Wasis","Bransan  ","Bintou","Binette","Aminata","Binta","Birima","Cheik","El Hadj","Khadija","Khary","Khary","Lat","Maguette","Maguette","Malamine","Malamine","Malang","Malang","Modou","Ndiaya","Oulimata","Mayatta","Jelani","Adama","Adji","Alfa","Alfa","Birima","Malang"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Abebe",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Obi","Onai",null,null,null,null,null,null],["MALE","MALE","FEMALE","MALE","FEMALE","FEMALE","FEMALE","FEMALE","MALE","MALE","FEMALE","FEMALE","MALE","MALE","MALE","MALE","FEMALE","MALE","FEMALE","FEMALE","FEMALE","FEMALE","MALE","MALE","MALE","MALE","MALE","MALE","MALE","MALE","FEMALE","MALE","MALE","MALE","FEMALE","MALE","FEMALE","FEMALE","FEMALE","FEMALE","FEMALE","FEMALE","MALE","MALE","MALE","MALE","FEMALE","FEMALE","FEMALE","FEMALE","FEMALE","MALE","MALE","FEMALE","FEMALE","MALE","FEMALE","MALE","MALE","MALE","MALE","FEMALE","FEMALE","FEMALE","MALE","FEMALE"],[12,12,32,3,54,29,34,56,34,56,12,35,78,20,45,15,null,null,5,null,45,17,21,34,15,47,null,81,67,7,null,56,null,8,54,54,2,23,97,34,36,32,3,12,21,4,32,32,23,9,9,63,7,54,54,18,32,23,null,24,null,25,34,34,3,54],["10-14","10-14","30-39","0-4","50-59","20-29","30-39","50-59","30-39","50-59","10-14","30-39","75-79","20-29","40-49","15-19","unknown","unknown","5-9","unknown","40-49","15-19","20-29","30-39","15-19","40-49","unknown","80+","65-69","5-9","unknown","50-59","unknown","5-9","50-59","50-59","0-4","20-29","80+","30-39","30-39","30-39","0-4","10-14","20-29","0-4","30-39","30-39","20-29","5-9","5-9","60-64","5-9","50-59","50-59","15-19","30-39","20-29","unknown","20-29","unknown","20-29","30-39","30-39","0-4","50-59"],["CHILD","CHILD","FARMER","CHILD","FARMER","OTHER",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"FARMER",null,null,null,null,null,null,"HEALTH_CARE_WORKER","STUDENT","HEALTH_CARE_WORKER",null,"BUTCHER","BUTCHER",null,"FARMER"],["2020-03-22","2020-03-22","2020-03-22","2020-05-01","2020-03-22","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-16","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-05-25","2020-05-25","2020-05-25","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-04-15","2020-05-25","2020-04-15","2020-05-25","2020-05-25","2020-05-25","2020-09-02","2020-09-03","2020-07-08","2020-07-11","2020-07-16","2020-07-07","2020-04-15","2020-03-22"],["2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-09-03","2020-09-04","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08"],["2020-06-07","2020-06-07","2020-06-07","2020-04-28","2020-06-07","2020-06-07","2020-06-15","2020-06-22","2020-06-15","2020-08-13","2020-06-22","2020-06-15","2020-06-15","2020-06-24","2020-06-22","2020-06-24","2020-06-17","2020-06-17","2020-06-22","2020-06-17","2020-06-19","2020-06-24","2020-06-15","2020-06-22","2020-06-16","2020-06-22","2020-06-17","2020-06-22","2020-06-20","2020-06-06","2020-06-17","2020-06-17","2020-06-17","2020-06-17","2020-06-20","2020-09-02","2020-06-17","2020-06-22","2020-06-20","2020-06-16","2020-05-15","2020-05-13","2020-04-26","2020-04-26","2020-05-10","2020-05-08","2020-06-05","2020-06-05","2020-05-10","2020-06-05","2020-06-05","2020-04-28","2020-06-05","2020-04-29","2020-06-05","2020-05-15","2020-05-10","2020-05-13","2020-09-02","2020-09-01","2020-05-06","2020-05-10","2020-07-27","2020-05-06","2020-04-26","2020-04-28"],["2020-06-08","2020-06-08","2020-06-08","2020-04-29","2020-06-08","2020-06-08","2020-06-16","2020-06-23","2020-06-16","2020-08-14","2020-06-23","2020-06-16","2020-06-16","2020-06-25","2020-06-23","2020-06-25","2020-06-18","2020-06-18","2020-06-23","2020-06-18","2020-06-20","2020-06-25","2020-06-16","2020-06-23","2020-06-17","2020-08-14","2020-06-18","2020-08-15","2020-06-21","2020-06-08","2020-06-18","2020-06-18","2020-06-18","2020-06-18","2020-06-21","2020-09-03","2020-06-18","2020-06-23","2020-06-21","2020-06-17",null,"2020-05-14","2020-04-27","2020-04-27",null,null,"2020-06-06","2020-06-06",null,"2020-06-06","2020-06-06",null,"2020-06-06","2020-04-30","2020-06-06","2020-05-16","2020-05-11","2020-05-14","2020-09-03","2020-09-02",null,null,null,null,"2020-06-06",null],["2020-06-21","2020-06-21","2020-06-21","2020-05-12","2020-06-21","2020-06-21","2020-06-29","2020-07-06","2020-06-29","2020-08-27","2020-07-06","2020-06-29","2020-06-29","2020-07-08","2020-07-06","2020-07-08","2020-07-01","2020-07-01","2020-07-06","2020-07-01","2020-07-03","2020-07-08","2020-06-29","2020-07-06","2020-06-30","2020-08-27","2020-07-01","2020-08-28","2020-07-04","2020-06-21","2020-07-01","2020-07-01","2020-07-01","2020-07-01","2020-07-04","2020-09-16","2020-07-01","2020-07-06","2020-07-04","2020-06-30",null,"2020-05-27","2020-05-10","2020-05-10",null,null,"2020-06-19","2020-06-19",null,"2020-06-19","2020-06-19",null,"2020-06-19","2020-05-13","2020-06-19","2020-05-29","2020-05-24","2020-05-27","2020-09-16","2020-09-15",null,null,null,null,"2020-06-19",null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"1_LOW","3_HIGH","1_LOW",null,null,null,null],[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,null,null,null,null,null,null],["Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Trumpet","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Trumpet","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Trumpet","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Djembe","Congas","Venu","Cornet","Venu","Djembe","Djembe"],["2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06","2020-06-06"],[null,5,5,5,5,5,2,2,2,2,2,3,3,1,3,1,1,1,null,3,1,0,2,2,1,2,1,1,2,5,1,1,1,2,1,3,4,3,1,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[-1,-1,-1,39,-1,-1,-9,-16,-9,-68,-16,-9,-9,-18,-16,-18,-11,-11,-16,-11,-13,-18,-9,-16,-10,-16,-11,-16,-14,0,-11,-11,-11,-11,-14,-88,-11,-16,-14,-10,22,24,41,41,27,29,1,1,27,1,1,39,1,38,1,22,27,24,-88,-87,31,27,-51,31,41,39]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>contact_id<\/th>\n      <th>date_last_record<\/th>\n      <th>date_last_seen<\/th>\n      <th>status_last_record<\/th>\n      <th>contact_status<\/th>\n      <th>firstName<\/th>\n      <th>lastName<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_class<\/th>\n      <th>occupation<\/th>\n      <th>date_of_reporting<\/th>\n      <th>date_of_data_entry<\/th>\n      <th>date_of_last_exposure<\/th>\n      <th>date_of_followup_start<\/th>\n      <th>date_of_followup_end<\/th>\n      <th>risk_level<\/th>\n      <th>was_case<\/th>\n      <th>admin_2_name<\/th>\n      <th>database_date<\/th>\n      <th>days_since_seen<\/th>\n      <th>days_since_exposure<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":8}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Ardından, özet istatistik sütunlarından oluşan kısa bir veri çerçevesi elde etmek için kişi verilerini bölgeye göre özetleyeceğiz.</p>
+<div class="sourceCode" id="cb1230"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contacts_table</span> <span class="op">&lt;-</span> <span class="va">contacts_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>`Admin 2` <span class="op">=</span> <span class="va">admin_2_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    `Registered contacts` <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    `Active contacts`     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">contact_status</span> <span class="op">==</span> <span class="st">"UNDER_FOLLOW_UP"</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    `In first week`       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">days_since_exposure</span> <span class="op">&lt;</span> <span class="fl">8</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    `In second week`      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">days_since_exposure</span> <span class="op">&gt;=</span> <span class="fl">8</span> <span class="op">&amp;</span> <span class="va">days_since_exposure</span> <span class="op">&lt;</span> <span class="fl">15</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    `Became case`         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">contact_status</span> <span class="op">==</span> <span class="st">"BECAME_CASE"</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    `Lost to follow up`   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">days_since_seen</span> <span class="op">&gt;=</span> <span class="fl">3</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    `Never seen`          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">date_last_seen</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    `Followed up - signs` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">status_last_record</span> <span class="op">==</span> <span class="st">"Seen_not_ok"</span> <span class="op">&amp;</span> <span class="va">date_last_record</span> <span class="op">==</span> <span class="va">database_date</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    `Followed up - no signs` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">status_last_record</span> <span class="op">==</span> <span class="st">"Seen_ok"</span> <span class="op">&amp;</span> <span class="va">date_last_record</span> <span class="op">==</span> <span class="va">database_date</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    `Not Followed up`     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span></span>
+<span>      <span class="op">(</span><span class="va">status_last_record</span> <span class="op">==</span> <span class="st">"NOT_ATTEMPTED"</span> <span class="op">|</span> <span class="va">status_last_record</span> <span class="op">==</span> <span class="st">"NOT_PERFORMED"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>        <span class="va">date_last_record</span> <span class="op">==</span> <span class="va">database_date</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">`Registered contacts`</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-d11f4c3c3a305c75da3f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d11f4c3c3a305c75da3f">{"x":{"filter":"none","vertical":false,"data":[["Djembe","Trumpet","Venu","Congas","Cornet"],[59,3,2,1,1],[30,1,0,0,0],[44,3,0,0,1],[0,0,0,0,0],[2,0,2,1,1],[15,0,0,0,0],[22,0,2,1,1],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Admin 2<\/th>\n      <th>Registered contacts<\/th>\n      <th>Active contacts<\/th>\n      <th>In first week<\/th>\n      <th>In second week<\/th>\n      <th>Became case<\/th>\n      <th>Lost to follow up<\/th>\n      <th>Never seen<\/th>\n      <th>Followed up - signs<\/th>\n      <th>Followed up - no signs<\/th>\n      <th>Not Followed up<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Ve şimdi, “başlangıç” tarihini gösteren bir dipnot da dahil olmak üzere <strong>biçimlendirilebilir</strong> ve <strong>knitr</strong> paketlerinden stil uyguluyoruz.</p>
+<div class="sourceCode" id="cb1231"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contacts_table</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    `Admin 2` <span class="op">=</span> <span class="fu">formatter</span><span class="op">(</span><span class="st">"span"</span>, style <span class="op">=</span> <span class="op">~</span> <span class="fu">formattable</span><span class="fu">::</span><span class="fu"><a href="https://renkun-ken.github.io/formattable/reference/style.html">style</a></span><span class="op">(</span></span>
+<span>      color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">`Admin 2`</span> <span class="op">==</span> <span class="cn">NA</span>, <span class="st">"red"</span>, <span class="st">"grey"</span><span class="op">)</span>,</span>
+<span>      font.weight <span class="op">=</span> <span class="st">"bold"</span>,font.style <span class="op">=</span> <span class="st">"italic"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="va">`Admin 2`</span><span class="op">)</span>,</span>
+<span>    `Followed up - signs`<span class="op">=</span> <span class="fu">color_tile</span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"orange"</span><span class="op">)</span><span class="op">(</span><span class="va">`Followed up - signs`</span><span class="op">)</span>,</span>
+<span>    `Followed up - no signs`<span class="op">=</span> <span class="fu">color_tile</span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"#A0E2BD"</span><span class="op">)</span><span class="op">(</span><span class="va">`Followed up - no signs`</span><span class="op">)</span>,</span>
+<span>    `Became case`<span class="op">=</span> <span class="fu">color_tile</span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"grey"</span><span class="op">)</span><span class="op">(</span><span class="va">`Became case`</span><span class="op">)</span>,</span>
+<span>    `Lost to follow up`<span class="op">=</span> <span class="fu">color_tile</span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"grey"</span><span class="op">)</span><span class="op">(</span><span class="va">`Lost to follow up`</span><span class="op">)</span>, </span>
+<span>    `Never seen`<span class="op">=</span> <span class="fu">color_tile</span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">(</span><span class="va">`Never seen`</span><span class="op">)</span>,</span>
+<span>    `Active contacts` <span class="op">=</span> <span class="fu">color_tile</span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"#81A4CE"</span><span class="op">)</span><span class="op">(</span><span class="va">`Active contacts`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">kable</span><span class="op">(</span><span class="st">"html"</span>, escape <span class="op">=</span> <span class="cn">F</span>, align <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"l"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span>,<span class="st">"c"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">kable_styling</span><span class="op">(</span><span class="st">"hover"</span>, full_width <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">add_header_above</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">" "</span> <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>                     <span class="st">"Of contacts currently under follow up"</span> <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                     <span class="st">"Status of last visit"</span> <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/footnote.html">footnote</a></span><span class="op">(</span>general <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Data are current to {format(report_date, '%b %d %Y')}"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Of contacts currently under follow up
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Status of last visit
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Admin 2
+</th>
+<th style="text-align:center;">
+Registered contacts
+</th>
+<th style="text-align:center;">
+Active contacts
+</th>
+<th style="text-align:center;">
+In first week
+</th>
+<th style="text-align:center;">
+In second week
+</th>
+<th style="text-align:center;">
+Became case
+</th>
+<th style="text-align:center;">
+Lost to follow up
+</th>
+<th style="text-align:center;">
+Never seen
+</th>
+<th style="text-align:center;">
+Followed up - signs
+</th>
+<th style="text-align:center;">
+Followed up - no signs
+</th>
+<th style="text-align:center;">
+Not Followed up
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold; font-style: italic">Djembe </span>
+</td>
+<td style="text-align:center;">
+59
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #81a4ce">30</span>
+</td>
+<td style="text-align:center;">
+44
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #bebebe">2</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #bebebe">15</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ff0000">22</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold; font-style: italic">Trumpet</span>
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fafbfd">1</span>
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold; font-style: italic">Venu </span>
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #bebebe">2</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffe7e7">2</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold; font-style: italic">Congas </span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #dedede">1</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff3f3">1</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold; font-style: italic">Cornet </span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #dedede">1</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff3f3">1</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0</span>
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Data are current to Jun 10 2020
+</td>
+</tr>
+</tfoot>
+</table></div>
+</div>
+<div id="bulaş-matrisleri" class="section level2" number="25.5">
+<h2>
+<span class="header-section-number">25.5</span> Bulaş Matrisleri<a class="anchor" aria-label="anchor" href="#bula%C5%9F-matrisleri"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="is%C4%B1-grafikleri.html#is%C4%B1-grafikleri">Isı grafikleri</a> sayfasında tartışıldığı gibi, “geom_tile()” kullanarak “kimin kime bulaştırdığını” gösteren bir matris oluşturabilirsiniz.</p>
+<p>Yeni kişiler oluşturulduğunda, Go.Data bu ilişki bilgilerini “ilişkiler” API uç noktasında saklar ve bu veri setinin ilk 50 satırını aşağıda görebiliriz. Bu, her bir temasın kendi kaynak durumuna zaten katılmış olduğu göz önüne alındığında, nispeten az adımla bir ısı grafiği oluşturabileceğimiz anlamına gelir.</p>
+<div id="htmlwidget-b0d0cccc605e93995c1c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b0d0cccc605e93995c1c">{"x":{"filter":"none","vertical":false,"data":[["CASE-2020-0016",null,null,"CASE-2020-0045","CASE-2020-0004","CASE-2020-0010",null,"CASE-2020-0034",null,"CASE-2020-0037","CASE-2020-0005",null,"CASE-2020-0002","CASE-2020-0001","CASE-2020-0005",null,"CASE-2020-0004","CASE-2020-0012","CASE-2020-0022","CASE-2020-0004","CASE-2020-0003","CASE-2020-0001","CASE-2020-0030","CASE-2020-0022","CASE-2020-0010","CASE-2020-0018","CASE-2020-0045","CASE-2020-0030","CASE-2020-0001","CASE-2020-0018","CASE-2020-0008","CASE-2020-0014",null,"CASE-2020-0002","CASE-2020-0030","CASE-2020-0031","CASE-2020-0009","CASE-2020-0031","CASE-2020-0002",null,"CASE-2020-0001","CASE-2020-0001","CASE-2020-0022","CASE-2020-0001","CASE-2020-0012","CASE-2020-0023","CASE-2020-0016","CASE-2020-0001",null,"CASE-2020-0023"],["Female",null,null,"Female","Male","Female",null,"Male",null,"Female","Male",null,"Male","Female","Male",null,"Male","Female","Female","Male","Male","Female","Male","Female","Female","Male","Female","Male","Female","Male","Male","Male",null,"Male","Male","Male","Female","Male","Male",null,"Female","Female","Female","Female","Female","Female","Female","Female","Female","Female"],[80,null,null,34,43,37,null,20,null,80,23,0,52,49,23,null,43,80,51,43,58,49,52,51,37,25,34,52,49,25,7,54,null,52,52,20,57,20,52,null,49,49,51,49,80,43,80,49,43,43],["2020-06-24","2020-05-02","2020-06-15","2020-07-27","2020-06-05","2020-06-05","2020-08-19","2020-06-20","2020-08-19","2020-09-02","2020-08-07","2020-08-13","2020-05-15","2020-07-17","2020-06-15","2020-08-07","2020-06-15","2020-06-17","2020-06-05","2020-06-24","2020-06-07","2020-08-15","2020-06-17","2020-06-22","2020-06-19","2020-06-17","2020-07-27","2020-06-16","2020-04-28","2020-04-26","2020-06-15","2020-06-05","2020-05-02","2020-04-29","2020-06-22","2020-06-06","2020-05-13","2020-06-17","2020-05-01","2020-06-15","2020-06-07","2020-08-14","2020-06-20","2020-09-02","2020-06-24","2020-07-28","2020-06-17","2020-08-14","2020-08-14","2020-07-28"],["2020-06-08","2020-06-08","2020-06-08","2020-06-10","2020-06-08","2020-06-08","2020-08-20","2020-06-08","2020-08-20","2020-09-03","2020-08-21","2020-08-20","2020-06-08","2020-06-08","2020-06-08","2020-08-20","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-10","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-06-08","2020-08-27","2020-06-08","2020-09-03","2020-06-08","2020-06-10","2020-06-08","2020-08-27","2020-08-27","2020-06-10"],["CONTACT-2020-0027","CASE-2020-0014","CASE-2020-0031","CASE-2020-0021","CONTACT-2020-0020","CONTACT-2020-0038","CASE-2020-0036","CONTACT-2020-0059","CASE-2020-0037",null,"CASE-2020-0015","CONTACT-2020-0015","CONTACT-2020-0009","CASE-2020-0008",null,"CASE-2020-0010","CONTACT-2020-0018","CONTACT-2020-0029","CONTACT-2020-0045","CONTACT-2020-0019","CONTACT-2020-0007","CASE-2020-0004","CONTACT-2020-0044","CONTACT-2020-0046","CONTACT-2020-0036","CONTACT-2020-0052","CASE-2020-0023","CONTACT-2020-0042","CONTACT-2020-0005","CONTACT-2020-0053","CONTACT-2020-0017","CONTACT-2020-0034","CASE-2020-0012","CASE-2020-0008","CONTACT-2020-0043","CONTACT-2020-0048","CONTACT-2020-0023","CONTACT-2020-0049","CASE-2020-0006","CASE-2020-0018","CONTACT-2020-0003","CASE-2020-0017","CONTACT-2020-0047","CONTACT-2020-0056","CONTACT-2020-0027","CASE-2020-0029","CONTACT-2020-0028","CONTACT-2020-0046","CONTACT-2020-0046","CASE-2020-0027"],["Male","Male","Male","Male","Female","Male","Female","Female","Female","Male","Female","Male","Male","Male",null,"Female","Male","Male","Female","Male","Female","Male","Male","Male","Female","Male","Female","Male","Male","Male","Female","Female","Female","Male","Male","Male","Male","Female","Male","Male","Male","Male","Male","Male","Male","Male","Female","Male","Male","Male"],[15,54,20,46,32,7,40,97,80,0,38,56,18,7,null,37,78,null,32,20,29,43,null,81,45,null,43,15,3,3,35,54,80,7,47,7,23,null,47,25,12,8,67,54,15,46,null,81,81,38],["Direct physical contact ",null,null,null,"Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ",null,"Direct physical contact ","Direct non-physical contact (within 1 meter) ","Direct non-physical contact (within 1 meter) ","Direct non-physical contact (within 1 meter) ","Direct physical contact ",null,"Direct non-physical contact (within 1 meter) ","Indirect contact (touched contaminated surface/materials/fomites etc.)","Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct physical contact ","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ","Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct physical contact ","Direct physical contact ","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ",null,"Direct physical contact ","Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct non-physical contact (within 1 meter) ",null,"Direct physical contact ","Direct non-physical contact (within 1 meter) ","Direct non-physical contact (within 1 meter) ","Direct physical contact ","Direct physical contact ",null,null,null,null,"Indirect contact (touched contaminated surface/materials/fomites etc.)","Direct physical contact ","Direct physical contact ",null,"Direct physical contact ",null,null,null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>source_visualid<\/th>\n      <th>source_gender<\/th>\n      <th>source_age<\/th>\n      <th>date_of_last_contact<\/th>\n      <th>date_of_data_entry<\/th>\n      <th>target_visualid<\/th>\n      <th>target_gender<\/th>\n      <th>target_age<\/th>\n      <th>exposure_type<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,7]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Yukarıda vakaları ve ilgili kişileri karşılaştıran yaş piramidi için yapıldığı gibi, ihtiyacımız olan birkaç değişkeni seçebilir ve hem kaynaklar (vakalar) hem de hedefler (temaslılar) için kategorik yaş gruplamaları içeren sütunlar oluşturabiliriz.</p>
+<div class="sourceCode" id="cb1232"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">heatmap_ages</span> <span class="op">&lt;-</span> <span class="va">relationships</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">source_age</span>, <span class="va">target_age</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>                              <span class="co"># transmute fonksiyonu, mutate() gibidir ancak diğer tüm sütunları kaldırır</span></span>
+<span>    source_age_class <span class="op">=</span> <span class="fu">epikit</span><span class="fu">::</span><span class="fu"><a href="https://r4epi.github.io/epikit/reference/age_categories.html">age_categories</a></span><span class="op">(</span><span class="va">source_age</span>, breakers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">80</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    target_age_class <span class="op">=</span> <span class="fu">epikit</span><span class="fu">::</span><span class="fu"><a href="https://r4epi.github.io/epikit/reference/age_categories.html">age_categories</a></span><span class="op">(</span><span class="va">target_age</span>, breakers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">80</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<p>Daha önce açıklandığı gibi, çapraz tablo oluşturuyoruz;</p>
+<div class="sourceCode" id="cb1233"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cross_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span></span>
+<span>  source_cases <span class="op">=</span> <span class="va">heatmap_ages</span><span class="op">$</span><span class="va">source_age_class</span>,</span>
+<span>  target_cases <span class="op">=</span> <span class="va">heatmap_ages</span><span class="op">$</span><span class="va">target_age_class</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cross_tab</span></span></code></pre></div>
+<pre><code>##             target_cases
+## source_cases 0-4 5-9 10-14 15-19 20-24 25-29 30-34 35-39 40-44 45-49 50-54 55-59 60-64 65-69 70-74 75-79 80+
+##        0-4     0   0     0     0     0     0     0     0     0     1     0     1     0     0     0     0   0
+##        5-9     0   0     1     0     0     0     0     1     0     0     0     1     0     0     0     0   0
+##        10-14   0   0     0     0     0     0     0     0     0     0     0     0     0     0     0     0   0
+##        15-19   0   0     0     0     0     0     0     0     0     0     0     0     0     0     0     0   0
+##        20-24   1   1     0     1     2     0     2     1     0     0     0     1     0     0     0     0   1
+##        25-29   1   2     0     0     0     0     0     0     0     0     0     0     0     0     0     0   0
+##        30-34   0   0     0     0     0     0     0     0     1     1     0     1     0     0     0     0   0
+##        35-39   0   2     0     0     0     0     0     0     0     1     0     0     0     0     0     0   0
+##        40-44   0   0     0     0     1     0     2     1     0     3     1     1     0     0     0     1   1
+##        45-49   1   2     2     0     0     0     3     0     1     0     3     2     1     0     0     0   1
+##        50-54   1   2     1     2     0     0     1     0     0     3     4     1     0     1     0     0   1
+##        55-59   0   1     0     0     1     1     2     0     0     0     0     0     0     0     0     0   0
+##        60-64   0   0     0     0     0     0     0     0     0     0     0     0     0     0     0     0   0
+##        65-69   0   0     0     0     0     0     0     0     0     0     0     0     0     0     0     0   0
+##        70-74   0   0     0     0     0     0     0     0     0     0     0     0     0     0     0     0   0
+##        75-79   0   0     0     0     0     0     0     0     0     0     0     0     0     0     0     0   0
+##        80+     1   0     0     2     1     0     0     0     1     0     0     0     0     0     0     0   0</code></pre>
+<p>orantılarla uzun biçime dönüştürün;</p>
+<div class="sourceCode" id="cb1235"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">long_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="va">cross_tab</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>ve yaşa göre bir ısı haritası oluşturun.</p>
+<div class="sourceCode" id="cb1236"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">long_prop</span><span class="op">)</span><span class="op">+</span>       <span class="co"># oranlarda sıklık olarak uzun veriler kullanın</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span>                    <span class="co"># görselleştirin</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">target_cases</span>,         <span class="co"># vaka yaşı x ekseninde</span></span>
+<span>      y <span class="op">=</span> <span class="va">source_cases</span>,         <span class="co"># kaynak yaşı y ekseninde</span></span>
+<span>      fill <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>            <span class="co"># arkaplan rengi verilerdeki Sıklık sütunudur</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a></span><span class="op">(</span>          <span class="co"># dolgu rengini ayarlayın</span></span>
+<span>    low <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    high <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>                         <span class="co"># etiketler</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Target case age"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Source case age"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Who infected whom"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Frequency matrix of transmission events"</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"Proportion of all\ntranmsission events"</span>     <span class="co"># göstergenin başlığı</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-898-1.png" width="672"></div>
+</div>
+<div id="kaynaklar-18" class="section level2" number="25.6">
+<h2>
+<span class="header-section-number">25.6</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-18"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting" class="uri">https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting</a></p>
+<p><a href="https://worldhealthorganization.github.io/godata/" class="uri">https://worldhealthorganization.github.io/godata/</a></p>
+<p><a href="https://community-godata.who.int/" class="uri">https://community-godata.who.int/</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></div>
+<div class="next"><a href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#temasl%C4%B1-izlemi"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-16"><span class="header-section-number">25.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleyin-4">Paketleri yükleyin</a></li>
+<li><a class="nav-link" href="#verileri-i%C3%A7e-aktarma-3">Verileri içe aktarma</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#tan%C4%B1mlay%C4%B1c%C4%B1-analizler-2"><span class="header-section-number">25.2</span> Tanımlayıcı analizler</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#demografi">Demografi</a></li>
+<li><a class="nav-link" href="#vaka-ba%C5%9F%C4%B1na-ki%C5%9Fi-say%C4%B1s%C4%B1">Vaka başına kişi sayısı</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#temasl%C4%B1-takibi"><span class="header-section-number">25.3</span> Temaslı Takibi</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#veri-temizleme">Veri temizleme</a></li>
+<li><a class="nav-link" href="#zaman-i%C3%A7inde-grafik">Zaman içinde grafik</a></li>
+<li><a class="nav-link" href="#g%C3%BCnl%C3%BCk-bireysel-izleme">Günlük bireysel izleme</a></li>
+<li><a class="nav-link" href="#grubuna-g%C3%B6re-analiz-et">Grubuna göre analiz et</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kpi-tablolar%C4%B1"><span class="header-section-number">25.4</span> KPI Tabloları</a></li>
+<li><a class="nav-link" href="#bula%C5%9F-matrisleri"><span class="header-section-number">25.5</span> Bulaş Matrisleri</a></li>
+<li><a class="nav-link" href="#kaynaklar-18"><span class="header-section-number">25.6</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>41 Rutin raporların düzenlenmesi | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bu sayfa, raporlar için R Markdown kullanımına eşlik eden reportfactory paketini kapsamaktadır. Raporları rutin olarak çalıştırdığınız senaryolarda (günlük, haftalık vb.), birden çok R Markdown...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="41 Rutin raporların düzenlenmesi | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bu sayfa, raporlar için R Markdown kullanımına eşlik eden reportfactory paketini kapsamaktadır. Raporları rutin olarak çalıştırdığınız senaryolarda (günlük, haftalık vb.), birden çok R Markdown...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="41 Rutin raporların düzenlenmesi | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bu sayfa, raporlar için R Markdown kullanımına eşlik eden reportfactory paketini kapsamaktadır. Raporları rutin olarak çalıştırdığınız senaryolarda (günlük, haftalık vb.), birden çok R Markdown...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="active" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="rutin-raporların-düzenlenmesi" class="section level1" number="41">
+<h1>
+<span class="header-section-number">41</span> Rutin raporların düzenlenmesi<a class="anchor" aria-label="anchor" href="#rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi"><i class="fas fa-link"></i></a>
+</h1>
+<p>Bu sayfa, raporlar için R Markdown kullanımına eşlik eden <strong>reportfactory</strong> paketini kapsamaktadır.</p>
+<p>Raporları rutin olarak çalıştırdığınız senaryolarda (günlük, haftalık vb.), birden çok R Markdown dosyasının derlenmesini ve çıktılarının organizasyonunu kolaylaştırır. Özünde, R Markdown raporlarını çalıştırabileceğiniz, çıktılar için otomatik olarak tarih ve zaman damgalı klasörler alabileceğiniz ve “hafif” sürüm kontrolüne sahip olabileceğiniz bir “fabrika” sağlar.</p>
+<p><strong>reportfactory</strong>, RECON (R Epidemics Consortium) tarafından geliştirilen paketlerden biridir. İşte onların <a href="https://www.repidemicsconsortium.org/">web sitesi</a> ve <a href="https://github.com/reconverse">Github</a>.</p>
+<div id="hazırlık-33" class="section level2" number="41.1">
+<h2>
+<span class="header-section-number">41.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-33"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yüklemek-1" class="section level3 unnumbered">
+<h3>Paketleri yüklemek<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCklemek-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>RStudio içinden, Github’dan <strong>reportfactory</strong> paketinin en son sürümünü yükleyin.</p>
+<p>Bunu, Github’dan en son sürümün yüklenmesini zorlayacak olan <code><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh()</a></code> ile <strong>pacman</strong> paketi aracılığıyla yapabilirsiniz. Github organizasyonunu (reconverse) ve veri havuzunu (rapor fabrikası) belirten “reconverse/reportfactory” karakter dizisini sağlayın. Alternatif olarak <strong>remotes</strong> paketinden <code><a href="https://remotes.r-lib.org/reference/install_github.html">install_github()</a></code> da kullanabilirsiniz.</p>
+<div class="sourceCode" id="cb1819"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Paketin en son sürümünü Github'dan yükleyin ve kurun</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh</a></span><span class="op">(</span><span class="st">"reconverse/reportfactory"</span><span class="op">)</span></span>
+<span><span class="co"># remotes::install_github("reconverse/reportfactory") # alternatif yöntem</span></span></code></pre></div>
+</div>
+</div>
+<div id="yeni-fabrika" class="section level2" number="41.2">
+<h2>
+<span class="header-section-number">41.2</span> Yeni fabrika<a class="anchor" aria-label="anchor" href="#yeni-fabrika"><i class="fas fa-link"></i></a>
+</h2>
+<p>Yeni bir fabrika oluşturmak için <code>new_factory()</code> fonksiyonunu çalıştırın. Bu, yeni bir bağımsız R proje klasörü oluşturacaktır. Varsayılan olarak:</p>
+<ul>
+<li>Fabrika çalışma dizininize eklenecektir.</li>
+<li>Fabrika R projesinin adı “new_factory.Rproj” olarak adlandırılacaktır.</li>
+<li>RStudio oturumunuz bu R projesine “taşınacak”tır</li>
+</ul>
+<div class="sourceCode" id="cb1820"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Bu, fabrikayı çalışma dizininde yaratacaktır.</span></span>
+<span><span class="fu">new_factory</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Fabrikanın içine baktığınızda, alt klasörlerin ve bazı dosyaların otomatik olarak oluşturulduğunu görebilirsiniz.</p>
+<div class="inline-figure"><img src="images/factory_new2.png" width="424"></div>
+<ul>
+<li>
+<em>report_sources</em> klasörü, raporlarınızı oluşturan R Markdown komut dosyalarınızı tutacaktır.</li>
+<li>
+<em>outputs</em> klasörü, rapor çıktılarını tutmak için(ör. HTML, Word, PDF, vb.)</li>
+<li>
+<em>scripts</em> klasörü, diğer R komut dosyalarını depolamak için kullanılabilir (örneğin, Rmd komut dosyalarınız tarafından sağlananlar)</li>
+<li>
+<em>data</em> klasörü verilerinizi tutmak için kullanılabilir (“ham” ve “temiz” alt klasörler dahildir)</li>
+<li>Bir <em>.here</em> dosyası, böylece alt klasörlerdeki dosyaları bu kök klasörle ilişkilerine göre çağırmak için <strong>here</strong> paketini kullanabilirsiniz (ayrıntılar için <a href="r-projeleri.html#r-projeleri">R projeleri</a> sayfasına bakabilirsiniz)</li>
+<li>Bu R projesini bir Github deposuna bağlamanız durumunda bir <em>gitignore</em> dosyası oluşturulur (bkz. [Sürüm kontrolü ve Github ile işbirliği])</li>
+<li>Github deposu kullanıyorsanız, boş bir BENİOKU dosyası oluşur.</li>
+</ul>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> bilgisayarınızın ayarına bağlı olarak, “.here” gibi dosyalar var olabilir ancak görünmez olabilir.</span></p>
+<p>Varsayılan ayarlardan, ‘new_factory()’ komutuyla ayarlamak isteyebileceğiniz birkaç tanesi aşağıdadır:</p>
+<ul>
+<li>
+<code>factory =</code> - Fabrika klasörü için bir ad girin (varsayılan “new_factory”)</li>
+<li>
+<code>path =</code> - Yeni fabrika için bir dosya yolu belirleyin (varsayılan çalışma dizinidir)</li>
+<li>
+<code>report_sources =</code> R Markdown komut dosyalarını içeren alt klasör için alternatif bir ad sağlayın (varsayılan “report_sources”)</li>
+<li>
+<code>outputs =</code> Rapor çıktılarını tutan klasör için alternatif bir ad sağlayın (varsayılan “outputs”)</li>
+</ul>
+<p>Değişkenlerin tam listesi için “?new_factory” konusuna bakabilirsiniz.</p>
+<p>Yeni fabrika oluşturduğunuzda, R oturumunuz yeni R projesine aktarılır, bu nedenle <strong>reportfactory</strong> paketini tekrar yüklemelisiniz.</p>
+<div class="sourceCode" id="cb1821"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">reportfactory</span><span class="op">)</span></span></code></pre></div>
+<p>Artık fabrikadaki iç yapıyı (tüm klasörler ve dosyalar) görmek için <code>factory_overview()</code> komutunu çalıştırabilirsiniz.</p>
+<div class="sourceCode" id="cb1822"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">factory_overview</span><span class="op">(</span><span class="op">)</span>            <span class="co"># fabrikaya genel bakışı konsola yazdır</span></span></code></pre></div>
+<p>Fabrika klasörlerinin ve dosyalarının aşağıdaki “ağacı” R konsoluna yazdırılır. “Veri” klasöründe “ham” ve “temiz” veriler ve örnek CSV verileri için alt klasörler bulunduğunu unutmayın. Ayrıca “report_sources” klasöründe “example_report.Rmd” vardır.</p>
+<div class="inline-figure"><img src="images/factory_overview.png" width="202"></div>
+</div>
+<div id="bir-rapor-oluşturun" class="section level2" number="41.3">
+<h2>
+<span class="header-section-number">41.3</span> Bir rapor oluşturun<a class="anchor" aria-label="anchor" href="#bir-rapor-olu%C5%9Fturun"><i class="fas fa-link"></i></a>
+</h2>
+<p>Fabrika R projesinin içinden, normalde yaptığınız gibi bir R Markdown raporu oluşturun ve bunu “report_sources” klasörüne kaydedin. Talimatlar için <a href="r-markdown-ile-raporlar.html#r-markdown-ile-raporlar">R Markdown</a> sayfasına bakabilirsiniz. Örnek olması açısından, fabrikaya aşağıdakileri ekledik:</p>
+<ul>
+<li>“report_sources” klasörüne kaydedilen “daily_sitrep.Rmd” başlıklı yeni bir R işaretleme komut dosyası</li>
+<li>Rapor (“linelist_cleaned.rds”) verileri, “data” klasörü içindeki “clean” alt klasörüne kaydedilir</li>
+</ul>
+<p><code>factory_overview()</code> kullanarak “report_sources” klasöründeki R Markdown’ımızı ve “clean” veri klasöründeki (vurgulanan) veri dosyasını görebiliriz:</p>
+<div class="inline-figure"><img src="images/factory_overview2.png" width="149"></div>
+<p>Aşağıda, R Markdown “daily_sitrep.Rmd” başlangıcının bir ekran görüntüsü bulunmaktadır. YAML başlığı “output: html_document” aracılığıyla çıktı biçiminin HTML olarak ayarlandığını görebilirsiniz.</p>
+<div class="inline-figure"><img src="images/factory_new_rmd.png" width="420"></div>
+<p>Bu basit komut dosyasında şu komutlar vardır:</p>
+<ul>
+<li>Gerekli paketleri yükleyin</li>
+<li>
+<strong>here</strong> paketindeki bir dosya yolunu kullanarak satır listesi verilerini içe aktarın (daha fazlasını [İçe aktarma ve dışa aktarma] sayfasından okuyun)</li>
+</ul>
+<div class="sourceCode" id="cb1823"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"clean"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>Vakaların bir özet tablosunu yazdırın ve bunu bir .csv dosyası olarak <code><a href="https://rdrr.io/pkg/plotly/man/export.html">export()</a></code> ile dışa aktarın</li>
+<li>Bir salgın eğrisi yazdırın ve <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> ile .png dosyası olarak dışa aktarın</li>
+</ul>
+<p>Bu komutla “report_sources” klasöründeki yalnızca R Markdown raporlarının listesini inceleyebilirsiniz:</p>
+<div class="sourceCode" id="cb1824"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">list_reports</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="derlemek-compile" class="section level2" number="41.4">
+<h2>
+<span class="header-section-number">41.4</span> Derlemek (Compile)<a class="anchor" aria-label="anchor" href="#derlemek-compile"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir rapor fabrikasında, bir R Markdown raporunu “derlemek”, .Rmd komut dosyasının çalıştırılacağı ve çıktının üretileceği anlamına gelir (YAML komut dosyasında belirtildiği gibi, örneğin HTML, Word, PDF, vb. olarak).</p>
+<p><em>Fabrika, “outputs” klasöründeki çıktılar için otomatik olarak tarih ve zaman damgalı bir klasör oluşturacaktır.</em></p>
+<p>Raporun kendisi ve komut dosyası tarafından üretilen tüm dışa aktarılan dosyalar (örn. csv, png, xlsx) bu klasöre kaydedilecektir. Ek olarak, Rmd betiğinin kendisi bu klasöre kaydedilecektir, böylece betiğin o sürümünün bir kaydı olur.</p>
+<p>Bu, çıktıları Rmd komut dosyasının konumuna kaydeden “örülmüş” bir R Markdown’ın normal davranışıyla çelişir. Bu varsayılan davranış, kalabalık, dağınık klasörlere neden olabilir. Fabrika, sık sık rapor çalıştırması gerektiğinde organizasyonu iyileştirmeyi amaçlar.</p>
+<div id="adına-göre-derleyin" class="section level3 unnumbered">
+<h3>Adına göre derleyin<a class="anchor" aria-label="anchor" href="#ad%C4%B1na-g%C3%B6re-derleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Belirli bir raporu ‘compile_reports()’ çalıştırarak ve Rmd komut dosyası adını (.Rmd uzantısı olmadan) ‘reports =’ olarak sağlayarak derleyebilirsiniz. Basit olması için, <code>reports =</code> kısmını atlayabilir ve R Markdown adını aşağıdaki gibi tırnak işaretleri içinde yazabilirsiniz.</p>
+<div class="inline-figure"><img src="images/factory_compile1.png" width="271"></div>
+<p>Bu komut, yalnızca “daily_sitrep.Rmd” raporunu derleyerek, HTML raporunu ve .csv tablosunu ve .png epicurve dışa aktarmalarını, “outputs” klasörü içinde, rapora özel tarih ve zaman damgalı bir alt klasöre kaydeder.</p>
+<p>.Rmd uzantısını sağlamayı seçerseniz, uzantıyı dosya adına kaydedilirken doğru şekilde yazmanız gerektiğini unutmayın (.rmd ve .Rmd).</p>
+<p>Ayrıca, derlerken, “report_sources” klasöründe geçici olarak birkaç dosyanın görünebileceğini unutmayın - ancak doğru “outputs” klasörüne aktarıldıkları için kısa sürede kaybolacaklardır.</p>
+</div>
+<div id="numarasına-göre-derleyin" class="section level3 unnumbered">
+<h3>Numarasına göre derleyin<a class="anchor" aria-label="anchor" href="#numaras%C4%B1na-g%C3%B6re-derleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ayrıca, <code>reports =</code> için bir sayı veya sayı vektörü sağlayarak derlenecek Rmd betiğini de belirtebilirsiniz. Rakamlar, <code>list_reports()</code> çalıştırdığınızda raporların göründüğü sıraya göre hizalanmalıdır.</p>
+<div class="sourceCode" id="cb1825"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># İkinci ve dördüncü Rmds'yi "report_sources" klasöründe derleyin</span></span>
+<span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="tümünü-derleyin" class="section level3 unnumbered">
+<h3>Tümünü Derleyin<a class="anchor" aria-label="anchor" href="#t%C3%BCm%C3%BCn%C3%BC-derleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p>“report_sources” klasöründeki <em>tüm</em> R Markdown raporlarını, <code>reports =</code> değişkenini TRUE olarak ayarlayarak derleyebilirsiniz.</p>
+<div class="inline-figure"><img src="images/factory_compile_all.png" width="268"></div>
+</div>
+<div id="alt-klasöründen-derleyin" class="section level3 unnumbered">
+<h3>Alt klasöründen derleyin<a class="anchor" aria-label="anchor" href="#alt-klas%C3%B6r%C3%BCnden-derleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p>“report_sources” klasörüne alt klasörler ekleyebilirsiniz. Bir alt klasörden R Markdown raporu çalıştırmak için, klasörün adını <code>subfolder =</code> olarak sağlamanız yeterlidir. Aşağıda, “report_sources” alt_klasöründe yaşayan bir Rmd raporunu derlemek için bir kod örneği verilmiştir.</p>
+<div class="sourceCode" id="cb1826"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
+<span>     reports <span class="op">=</span> <span class="st">"summary_for_partners.Rmd"</span>,</span>
+<span>     subfolder <span class="op">=</span> <span class="st">"for_partners"</span><span class="op">)</span></span></code></pre></div>
+<p>Aşağıdaki gibi sonunda bir eğik çizgi ile <code>reports =</code> alt klasör adını sağlayarak bir alt klasör içindeki tüm Rmd raporlarını derleyebilirsiniz.</p>
+<div class="sourceCode" id="cb1827"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="st">"for_partners/"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="parametrelendirme" class="section level3 unnumbered">
+<h3>Parametrelendirme<a class="anchor" aria-label="anchor" href="#parametrelendirme"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="r-markdown-ile-raporlar.html#r-markdown-ile-raporlar">R Markdown ile Raporlar</a> sayfasında belirtildiği gibi, belirtilen parametrelerle raporlar çalıştırabilirsiniz. Bu parametreleri, ‘params =’ değişkeni aracılığıyla ‘compile_reports()’ öğesine bir liste olarak iletebilirsiniz. Örneğin, bu kurgusal raporda, R Markdown raporlarına sağlanan üç parametre vardır.</p>
+<div class="sourceCode" id="cb1828"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
+<span>  reports <span class="op">=</span> <span class="st">"daily_sitrep.Rmd"</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>most_recent_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                region <span class="op">=</span> <span class="st">"NORTHERN"</span>,</span>
+<span>                rates_denominator <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span>,</span>
+<span>  subfolder <span class="op">=</span> <span class="st">"regional"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="çalışma-dosyası-kullanma" class="section level3 unnumbered">
+<h3>“Çalışma dosyası” kullanma<a class="anchor" aria-label="anchor" href="#%C3%A7al%C4%B1%C5%9Fma-dosyas%C4%B1-kullanma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Çalıştırılacak birden fazla raporunuz varsa, tüm ‘compile_reports()’ komutlarını içeren bir R betiği oluşturmayı düşünün. Bir kullanıcı bu R betiğindeki tüm komutları basitçe çalıştırabilir ve tüm raporlar derlenecektir. Bu “run-file” dosyasını “scripts” klasörüne kaydedebilirsiniz.</p>
+</div>
+</div>
+<div id="çıktılar-1" class="section level2" number="41.5">
+<h2>
+<span class="header-section-number">41.5</span> Çıktılar<a class="anchor" aria-label="anchor" href="#%C3%A7%C4%B1kt%C4%B1lar-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Raporları birkaç kez derledikten sonra, “outputs” klasörü şöyle görünebilir (açıklık için vurgular eklendi):</p>
+<div class="inline-figure"><img src="images/factory_overview_all.png" width="350"></div>
+<ul>
+<li>“Outputs” içerisinde her bir Rmd raporu için alt klasörler oluşturulmuştur.</li>
+<li>Bunların içinde, her benzersiz derleme için başka alt klasörler oluşturulmuştur.
+<ul>
+<li>Bunlar tarih ve zaman damgalıdır (“2021-04-23_T11-07-36”, 23 Nisan 2021, 11:07:36 anlamına gelir)</li>
+<li>Tarih/zaman damgası biçimini düzenleyebilirsiniz. <code>?compile_reports</code> konusuna bakabilirsiniz.</li>
+</ul>
+</li>
+<li>Her bir tarih/saat derlenmiş klasöründe, rapor çıktısı (ör. HTML, PDF, Word) Rmd betiği (sürüm kontrolü!) ve dışa aktarılan diğer dosyalar (ör. table.csv, epidemi_curve.png) ile birlikte depolanır.</li>
+</ul>
+<p>“daily_sitrep” raporu için tarih/saat damgalı klasörlerden birinin içindeki bir görünüm buradadır. Dosya yolu, vurgu için sarı renkle vurgulanmıştır.</p>
+<div class="inline-figure"><img src="images/factory_compile_folder.png" width="435"></div>
+<p>Son olarak, aşağıda HTML rapor çıktısının bir ekran görüntüsü bulunmaktadır.</p>
+<div class="inline-figure"><img src="images/factory_html.png" width="452"></div>
+<p>Çıktıların listesini gözden geçirmek için <code>list_outputs()</code> kullanabilirsiniz.</p>
+</div>
+<div id="muhtelif-içerikler" class="section level2" number="41.6">
+<h2>
+<span class="header-section-number">41.6</span> Muhtelif İçerikler<a class="anchor" aria-label="anchor" href="#muhtelif-i%C3%A7erikler"><i class="fas fa-link"></i></a>
+</h2>
+<div id="knit" class="section level3 unnumbered">
+<h3>Knit<a class="anchor" aria-label="anchor" href="#knit"><i class="fas fa-link"></i></a>
+</h3>
+<p>İsterseniz “knit” düğmesine basarak R Markdown raporlarınızdan birini hala “örebilirsiniz”. Bunu yaparsanız, varsayılan olarak, çıktılar Rmd’nin kaydedildiği klasörde - “report_sources” klasöründe görünecektir. <strong>reportfactory</strong>’nin önceki sürümlerinde, “report_sources” içinde Rmd olmayan dosyaların bulunması derlemeyi engellerdi, ancak artık durum böyle değil. <code>compile_reports()</code> komutunu çalıştırabilirsiniz ve herhangi bir hata oluşmaz.</p>
+</div>
+<div id="betikler" class="section level3 unnumbered">
+<h3>Betikler<a class="anchor" aria-label="anchor" href="#betikler"><i class="fas fa-link"></i></a>
+</h3>
+<p>.Rmd komut dosyalarınız tarafından sağlanan “runfiles” veya .R komut dosyalarını depolamak için “scripts” klasörünü kullanmanızı öneririz. Kodunuzu birkaç dosyada nasıl yapılandıracağınıza ilişkin ipuçları için <a href="r-markdown-ile-raporlar.html#r-markdown-ile-raporlar">R Markdown</a> hakkındaki sayfaya bakabilirsiniz.</p>
+</div>
+<div id="ekstralar" class="section level3 unnumbered">
+<h3>Ekstralar<a class="anchor" aria-label="anchor" href="#ekstralar"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p><strong>reportfactory</strong> ile, tüm fabrikadaki tüm raporlarda gerekli tüm paketleri listelemek için ‘list_deps()’ fonksiyonunu kullanabilirsiniz.</p></li>
+<li>
+<p>Geliştirme aşamasında, raporların oluşturulmasında size yardımcı olacak daha fazla yardımcı fonksiyon sunan <strong>rfextras</strong> adlı bir paket vardır, örneğin:</p>
+<ul>
+<li>
+<code>load_scripts()</code> - belirli bir klasördeki tüm .R komut dosyalarını kaynaklar/yükler (varsayılan olarak “scripts” klasörü)</li>
+<li>
+<code>find_latest()</code> - bir dosyanın en son sürümünü bulur (örneğin, en son veri kümesi)</li>
+</ul>
+</li>
+</ul>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="kaynaklar-33" class="section level2" number="41.7">
+<h2>
+<span class="header-section-number">41.7</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-33"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>reportfactory</strong> paketleri <a href="https://github.com/reconverse/reportfactory">Github sayfası</a></p>
+<p><strong>rfextras</strong> paketleri <a href="https://github.com/reconhub/rfextras">Github sayfası</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></div>
+<div class="next"><a href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-33"><span class="header-section-number">41.1</span> Hazırlık</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#paketleri-y%C3%BCklemek-1">Paketleri yüklemek</a></li></ul>
+</li>
+<li><a class="nav-link" href="#yeni-fabrika"><span class="header-section-number">41.2</span> Yeni fabrika</a></li>
+<li><a class="nav-link" href="#bir-rapor-olu%C5%9Fturun"><span class="header-section-number">41.3</span> Bir rapor oluşturun</a></li>
+<li>
+<a class="nav-link" href="#derlemek-compile"><span class="header-section-number">41.4</span> Derlemek (Compile)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ad%C4%B1na-g%C3%B6re-derleyin">Adına göre derleyin</a></li>
+<li><a class="nav-link" href="#numaras%C4%B1na-g%C3%B6re-derleyin">Numarasına göre derleyin</a></li>
+<li><a class="nav-link" href="#t%C3%BCm%C3%BCn%C3%BC-derleyin">Tümünü Derleyin</a></li>
+<li><a class="nav-link" href="#alt-klas%C3%B6r%C3%BCnden-derleyin">Alt klasöründen derleyin</a></li>
+<li><a class="nav-link" href="#parametrelendirme">Parametrelendirme</a></li>
+<li><a class="nav-link" href="#%C3%A7al%C4%B1%C5%9Fma-dosyas%C4%B1-kullanma">“Çalışma dosyası” kullanma</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#%C3%A7%C4%B1kt%C4%B1lar-1"><span class="header-section-number">41.5</span> Çıktılar</a></li>
+<li>
+<a class="nav-link" href="#muhtelif-i%C3%A7erikler"><span class="header-section-number">41.6</span> Muhtelif İçerikler</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#knit">Knit</a></li>
+<li><a class="nav-link" href="#betikler">Betikler</a></li>
+<li><a class="nav-link" href="#ekstralar">Ekstralar</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-33"><span class="header-section-number">41.7</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

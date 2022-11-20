@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>11 Faktörler | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="R’da faktörler, sabit, kabul edilebilir değerler kümesiyle sıralı kategorilere izin veren bir veri sınıfıdır. Tipik olarak, değerleri (“levels”), grafik ve tablolarda alfabetik olmayan bir şekilde...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="11 Faktörler | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="R’da faktörler, sabit, kabul edilebilir değerler kümesiyle sıralı kategorilere izin veren bir veri sınıfıdır. Tipik olarak, değerleri (“levels”), grafik ve tablolarda alfabetik olmayan bir şekilde...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11 Faktörler | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="R’da faktörler, sabit, kabul edilebilir değerler kümesiyle sıralı kategorilere izin veren bir veri sınıfıdır. Tipik olarak, değerleri (“levels”), grafik ve tablolarda alfabetik olmayan bir şekilde...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="active" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="faktörler" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Faktörler<a class="anchor" aria-label="anchor" href="#fakt%C3%B6rler"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="images/Factors_1500x500.png" width="100%"></div>
+<p>R’da <em>faktörler</em>, sabit, kabul edilebilir değerler kümesiyle sıralı kategorilere izin veren bir veri sınıfıdır.</p>
+<p>Tipik olarak, değerleri (“<em>levels</em>”), grafik ve tablolarda alfabetik olmayan bir şekilde görüntülenebilmeleri için özel bir sıralamaya tabi tutmak isterseniz bir sütunu karakter veya sayısal sınıftan bir faktöre dönüştürmeniz gerekir. Faktörlerin diğer bir yaygın kullanımı, verilerin geçici olarak yok olması nedeniyle oluşabilecek dalgalanmamaları engellemek için grafik açıklamalarını standart hale getirmektir.</p>
+<p>Bu sayfa, <strong>forcats</strong> (“<strong>for</strong> ve <strong>kat</strong>egorik değişkenler” için kısa bir ad) paketi ve bazı R tabanındaki fonkisyonların kullanımını göstermektedir. Epidemiyolojik haftalarla ilgili özel faktör vakaları için <strong>lubridat</strong> ve <strong>aweek</strong> kullanımına da değiniyoruz.</p>
+<p><strong>forcats</strong> fonksiyonlarının tam listesi çevrimiçi olarak <a href="https://forcats.tidyverse.org/reference/index.html">burada</a> bulunabilir. Aşağıda en yaygın olanlardan bazılarını gösteriyoruz.</p>
+<!-- ======================================================= -->
+<div id="hazırlık-2" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-2"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketlerin-yüklenmesi-1" class="section level3 unnumbered">
+<h3>Paketlerin yüklenmesi<a class="anchor" aria-label="anchor" href="#paketlerin-y%C3%BCklenmesi-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıdaki kod parçası, analizler için gereken paketlerin yüklenmesini göstermektedir. Bu el kitabında, gerekirse paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’dan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> vurgulamaktayız. R tabanından <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri de yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R temelleri] sayfasına bakın.</p>
+<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">rio</span>,           <span class="co"># içe/dışa aktar</span></span>
+<span>  <span class="va">here</span>,          <span class="co"># dosya yolu</span></span>
+<span>  <span class="va">lubridate</span>,     <span class="co"># tarihlerle çalışma</span></span>
+<span>  <span class="va">forcats</span>,       <span class="co"># faktörler</span></span>
+<span>  <span class="va">aweek</span>,         <span class="co"># otomatik faktör seviyeleri ile epiweeks oluştur</span></span>
+<span>  <span class="va">janitor</span>,       <span class="co"># tablolar</span></span>
+<span>  <span class="va">tidyverse</span>      <span class="co"># data yönetim ve görselleştirmesi</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+</div>
+<div id="veriyi-içe-aktarma" class="section level3 unnumbered">
+<h3>Veriyi içe aktarma<a class="anchor" aria-label="anchor" href="#veriyi-i%C3%A7e-aktarma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Simüle edilmiş bir Ebola salgınına ait vakaların veri setini içe aktarıyoruz. Takip etmek isterseniz, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">“temiz satır listesi” dosyasını indirmek için tıklayın.</a> (.rds dosyası olarak). Verilerinizi <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> işleviyle içe aktarın (.xlsx, .rds, .csv gibi birçok dosya türünü kabul eder - ayrıntılar için [İçe ve dışa aktarma] sayfasına bakın).</p>
+<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># veri setini indir</span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="fct_newcat" class="section level3 unnumbered">
+<h3>Yeni kategorik değişken<a class="anchor" aria-label="anchor" href="#fct_newcat"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu sayfada gösterim için ortak bir senaryo kullanacağız - yeni bir kategorik değişkenin oluşturulması.</p>
+<p>Sayısal bir sütunu sınıf faktörüne dönüştürürseniz, bunun üzerinde sayısal istatistikleri hesaplayamayacağınızı unutmayın.</p>
+<div id="sütun-oluşturma" class="section level4 unnumbered">
+<h4>Sütun oluşturma<a class="anchor" aria-label="anchor" href="#s%C3%BCtun-olu%C5%9Fturma"><i class="fas fa-link"></i></a>
+</h4>
+<p>Biz, mevcut <code>days_onset_hosp</code> sütununu (semptom başlangıcından hastaneye kabule kadar geçen gün) kullanarak her satırı birkaç kategoriden birine sınıflandırıp yeni bir <code>delay_cat</code> sütunu oluşturuyoruz. Bunu, her satıra sırayla mantıksal ölçütleri (sağ taraf) uygulayan ve yeni <code>delay_cat</code> sütununa karşılık gelen sol taraf değerini döndüren, <strong>dplyr</strong> paktenin fonksiyonu <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> ile yapıyoruz. [Temizleme verileri ve temel işlevler] bölümünde <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> hakkında daha fazla bilgi edinebilirsiniz.</p>
+<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>    <span class="co"># criteria                                   # eğer doğruysa yeni değer</span></span>
+<span>    <span class="va">days_onset_hosp</span> <span class="op">&lt;</span> <span class="fl">2</span>                        <span class="op">~</span> <span class="st">"&lt;2 days"</span>,</span>
+<span>    <span class="va">days_onset_hosp</span> <span class="op">&gt;=</span> <span class="fl">2</span> <span class="op">&amp;</span> <span class="va">days_onset_hosp</span> <span class="op">&lt;</span> <span class="fl">5</span> <span class="op">~</span> <span class="st">"2-5 days"</span>,</span>
+<span>    <span class="va">days_onset_hosp</span> <span class="op">&gt;=</span> <span class="fl">5</span>                       <span class="op">~</span> <span class="st">"&gt;5 days"</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">days_onset_hosp</span><span class="op">)</span>                     <span class="op">~</span> <span class="cn">NA_character_</span>,</span>
+<span>    <span class="cn">TRUE</span>                                       <span class="op">~</span> <span class="st">"Check me"</span><span class="op">)</span><span class="op">)</span>  </span></code></pre></div>
+</div>
+<div id="varsayılan-değer-sırası" class="section level4 unnumbered">
+<h4>Varsayılan değer sırası<a class="anchor" aria-label="anchor" href="#varsay%C4%B1lan-de%C4%9Fer-s%C4%B1ras%C4%B1"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> ile oluşturulduğu gibi, yeni <code>delay_cat</code> sütunu, karakter sınıfının kategorik bir sütunudur - <em>henüz bir faktör değildir</em>. Bu nedenle, bir sıklık tablosunda, benzersiz değerlerin varsayılan bir alfa-numerik düzende sıralandığını görüyoruz - bu, sezgisel olarak pek mantıklı olmayan bir sıradır:</p>
+<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">delay_cat</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  &lt;2 days  &gt;5 days 2-5 days     &lt;NA&gt; 
+##     2990      602     2040      256</code></pre>
+<p>Benzer şekilde, bir çubuk grafiği yaparsak, değerler de x ekseninde bu sırayla görünür (R’deki en yaygın görselleştirme paketi olan <strong>ggplot2</strong> hakkında daha fazla bilgi için <a href="ggplot-temelleri.html#ggplot-temelleri-1">ggplot temelleri</a> sayfasına bakın).</p>
+<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-378-1.png" width="672"></div>
+</div>
+</div>
+</div>
+<div id="faktöre-dönüştürme" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Faktöre dönüştürme<a class="anchor" aria-label="anchor" href="#fakt%C3%B6re-d%C3%B6n%C3%BC%C5%9Ft%C3%BCrme"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir karakteri veya sayısal sütunu <em>faktör</em> sınıfına dönüştürmek için, <strong>forcats</strong> paketindeki herhangi bir fonksiyonu kullanabilirsiniz (birçoğu <a href="fakt%C3%B6rler.html#fct_adjust">aşağıda</a> ayrıntılı olarak verilmiştir). Bu fonksiyonlarla veriler sınıf faktörüne dönüşecek ve daha sonra seviyelerin belirli şekilde sıralanmasını gerçekleşecek veya buna izin verilecek - örneğin <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> kullanmak seviye sırasını manuel olarak belirlemenizi sağlar. <code><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor()</a></code> fonksiyonu, başka bir özellik eklemeden sınıfı basitçe dönüştürür.</p>
+<p>R tabanı fonksiyonu olan <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>, bir sütunu faktöre dönüştürür ve karakter vektöründeki <code>levels =</code> argümanına göre seviyelerin sırasını manuel olarak düzenlemenizi sağlar.</p>
+<p>Aşağıda, <code>delay_cat</code> sütununu sınıf karakterinden sınıf faktörüne dönüştürmek için <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> ve <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> kullanıyoruz. <code>delay_cat</code> sütunu, yukarıdaki <a href="fakt%C3%B6rler.html#fct_newcat">Hazırlık</a> bölümünde oluşturulmuştur.</p>
+<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><em>The unique “values” in this column are now considered “levels” of the factor.</em> The levels have an <em>order</em>, which can be printed with the <strong>base</strong> R function <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code>, or alternatively viewed in a count table via <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> from <strong>base</strong> R or <code>tabyl()</code> from <strong>janitor</strong>. By default, the order of the levels will be alpha-numeric, as before. Note that <code>NA</code> is not a factor level.</p>
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "&lt;2 days"  "&gt;5 days"  "2-5 days"</code></pre>
+<p><code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> fonksiyonu, seviye sırasını manuel olarak belirlemenize izin veren ek bir özelliğe sahiptir. Düzey değerlerini, aşağıda gösterildiği gibi virgülle ayırarak sırayla, tırnak içinde yazmanız yeterlidir. Yazımın değerlerle tam olarak eşleşmesi gerektiğini unutmayın. Verilerde mevcut olmayan düzeyler oluşturmak istiyorsanız, bunun yerine <a href="fakt%C3%B6rler.html#fct_add"><code>fct_expand()</code> kullanın</a>).</p>
+<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Artık seviyelerin bir önceki komutta belirtildiği gibi mantıklı bir sırayla sıralandığını görebiliriz.</p>
+<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "&lt;2 days"  "2-5 days" "&gt;5 days"</code></pre>
+<p>Şimdi tablodaki sırası da daha sezgisel bir anlam ifade ediyor.</p>
+<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-383-1.png" width="672"></div>
+</div>
+<div id="seviye-ekleme-ve-çıkarma" class="section level2" number="11.3">
+<h2>
+<span class="header-section-number">11.3</span> Seviye ekleme ve çıkarma<a class="anchor" aria-label="anchor" href="#seviye-ekleme-ve-%C3%A7%C4%B1karma"><i class="fas fa-link"></i></a>
+</h2>
+<div id="fct_add" class="section level3 unnumbered">
+<h3>Ekleme<a class="anchor" aria-label="anchor" href="#fct_add"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir faktöre seviye eklemeniz gerekiyorsa, bunu <code><a href="https://forcats.tidyverse.org/reference/fct_expand.html">fct_expand()</a></code> ile yapabilirsiniz. Sütun adını ve ardından yeni seviyeleri (virgülle ayırarak) yazmanız yeterlidir. Değerleri tablolaştırarak yeni seviyeleri ve sıfır sayılarını görebiliriz. R tabanından <code><a href="https://rdrr.io/r/base/table.html">table()</a></code>ı veya <strong>janitor</strong>’dan <code>tabyl()</code> kullanabilirsiniz:</p>
+<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_expand.html">fct_expand</a></span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"Not admitted to hospital"</span>, <span class="st">"Transfer to other jurisdiction"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span>   <span class="co"># print table</span></span></code></pre></div>
+<pre><code>##                       delay_cat    n    percent valid_percent
+##                         &lt;2 days 2990 0.50781250     0.5308949
+##                        2-5 days 2040 0.34646739     0.3622159
+##                         &gt;5 days  602 0.10224185     0.1068892
+##        Not admitted to hospital    0 0.00000000     0.0000000
+##  Transfer to other jurisdiction    0 0.00000000     0.0000000
+##                            &lt;NA&gt;  256 0.04347826            NA</code></pre>
+<p>Not: Eksik değerleri (<code>NA</code>) seviyelere kolayca eklemek için özel bir <strong>forcats</strong> fonksiyonu mevcuttur. Aşağıdaki <a href="fakt%C3%B6rler.html#fct_missing">Eksik değerler</a> ile ilgili bölüme bakın.</p>
+</div>
+<div id="çıkarma" class="section level3 unnumbered">
+<h3>Çıkarma<a class="anchor" aria-label="anchor" href="#%C3%A7%C4%B1karma"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://forcats.tidyverse.org/reference/fct_drop.html">fct_drop()</a></code>ı kullanırsanız, sıfır sayımlı “kullanılmayan” seviyeler, seviyeler grubundan çıkarılacaktır. Yukarıda eklediğimiz seviyeler (“Hastaneye kabul edilmedi”) bir seviye olarak mevcuttur, ancak hiçbir satır aslında bu değere sahip değildir. Böylece, faktör sütunumuza <code><a href="https://forcats.tidyverse.org/reference/fct_drop.html">fct_drop()</a></code> uygulanarak çıkarılır:</p>
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_drop.html">fct_drop</a></span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  delay_cat    n    percent valid_percent
+##    &lt;2 days 2990 0.50781250     0.5308949
+##   2-5 days 2040 0.34646739     0.3622159
+##    &gt;5 days  602 0.10224185     0.1068892
+##       &lt;NA&gt;  256 0.04347826            NA</code></pre>
+</div>
+</div>
+<div id="fct_adjust" class="section level2" number="11.4">
+<h2>
+<span class="header-section-number">11.4</span> Seviye sırasını düzenleme<a class="anchor" aria-label="anchor" href="#fct_adjust"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>forcats</strong> paketi, faktör düzeylerinin sırasını kolayca ayarlamak için kullanışlı fonksiyonlar da sunar (bir sütun sınıf faktörü olarak tanımlandıktan sonra):</p>
+<p>Bu fonksiyonlar, iki bağlamda faktör sütununa uygulanabilir:</p>
+<ol style="list-style-type: decimal">
+<li>Her zamanki gibi veri çerçevesindeki sütuna uygulanır, böylece değişen veriler daha sonra da kullanılabilir</li>
+<li>
+<em>Bir grafik içine</em> uygulanabilir, böylece değişiklik sadece grafik içinde kalır</li>
+</ol>
+<div id="elle-düzenleme" class="section level3 unnumbered">
+<h3>Elle düzenleme<a class="anchor" aria-label="anchor" href="#elle-d%C3%BCzenleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu fonksiyon, faktör seviyelerini manuel olarak sıralamak için kullanılır. Faktör olmayan bir sütunda kullanılırsa, sütun önce sınıf faktörüne dönüştürülür.</p>
+<p>Parantez içinde önce faktör sütun adını girin, ardından aşağıdakilerden birini sağlayın:</p>
+<ul>
+<li>Tüm seviyeleri istenen sırada (karakter vektörü <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> olarak) veya</li>
+<li>Bir seviye ve <code>after =</code> argümanı kullanılarak düzeltilmiş sıralama</li>
+</ul>
+<p>Burada, (zaten Faktör sınıfı olan) <code>delay_cat</code> sütununu yeniden tanımlamaya ve istenen tüm düzey sırasını belirtmeye bir örnek verilmiştir.</p>
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># seviye sırasını yeniden düzenle</span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">delay_cat</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Sadece bir seviyeyi taşımak istiyorsanız, bunu tek başına <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> olarak belirtebilir ve <code>after =</code> argümanına hangi sırada olması gerektiğini belirtmek için sayı verebilirsiniz. Örneğin, aşağıdaki komut “&lt;2 gün” ifadesini ikinci konuma kaydırır:</p>
+<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># seviye sırasını yeniden düzenle</span></span>
+<span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">delay_cat</span>, <span class="st">"&lt;2 days"</span>, after <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="grafik-içinde" class="section level3 unnumbered">
+<h3>Grafik içinde<a class="anchor" aria-label="anchor" href="#grafik-i%C3%A7inde"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>forcats</strong> komutları, veri çerçevesinde veya yalnızca bir grafik içinde seviye sırasını ayarlamak için kullanılabilir. Sütun adını <em>grafik içinde</em> <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>un “sarma” komutunu kullanarak, tersine çevirebilir veya yeniden seviyelendirebilirsiniz. Değişim yalnızca bu grafik için geçerli olacaktır.</p>
+<p>Aşağıda, <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> ile iki grafik oluşturulmuştur (<a href="ggplot-temelleri.html#ggplot-temelleri-1">ggplot temelleri</a> sayfasına bakın). İlkinde, <code>delay_cat</code> sütunu, “satır listesi” verisinde olduğu gibi varsayılan düzey sırası ile grafiğin x eksenine eşlenir. İkinci örnekte <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> içine sarılmış ve grafikteki sırası değiştirilmiştir.</p>
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Alfa-numerik varsayılan sıra - ggplot'ta düzenleme yapılmadı</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ggplot içinde faktör seviyesi düzenlendi</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">delay_cat</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"&lt;2 days"</span>, <span class="st">"2-5 days"</span>, <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-389-1.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-389-2.png" width="50%"></p>
+<p>Varsayılan x ekseni başlığının oldukça karmaşık olduğuna dikkat edin - bu başlığı <strong>ggplot2</strong> <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> argümanı ile değiştirebilirsiniz.</p>
+</div>
+<div id="tersine-döndürme" class="section level3 unnumbered">
+<h3>Tersine döndürme<a class="anchor" aria-label="anchor" href="#tersine-d%C3%B6nd%C3%BCrme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Seviye sırasını tersine çevirmek işlemi oldukça yaygındır. Faktörü <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev()</a></code> ile sarmanız yeterlidir.</p>
+<p>Gerçek faktör seviyelerini değil de <em>yalnızca</em> bir grafiğin açıklamasını tersine çevirmek istiyorsanız, bunu <code><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides()</a></code> ile yapabileceğinizi unutmayın (bkz. <a href="ggplot-ipu%C3%A7lar%C4%B1.html#ggplot-ipu%C3%A7lar%C4%B1">ggplot ipuçları</a>).</p>
+</div>
+<div id="sıklığa-göre" class="section level3 unnumbered">
+<h3>Sıklığa göre<a class="anchor" aria-label="anchor" href="#s%C4%B1kl%C4%B1%C4%9Fa-g%C3%B6re"><i class="fas fa-link"></i></a>
+</h3>
+<p>Değerleri verilerde görünme sıklığına göre sıralamak için <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq()</a></code> kullanın. Eksik değerler (<code>NA</code>), açık bir düzeye dönüştürülmediği sürece otomatik olarak sona eklenir (bkz. <a href="fakt%C3%B6rler.html#fct_missing">bu bölüm</a>). <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev()</a></code> ile bir daha sarmalayarak sırayı tersine çevirebilirsiniz.</p>
+<p>Bu fonksiyon, aşağıda gösterildiği gibi bir <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> içinde kullanılabilir.</p>
+<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sıklığa göre sırala</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,</span>
+<span>       title <span class="op">=</span> <span class="st">"Ordered by frequency"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># sıralamayı tersine çevir</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,</span>
+<span>       title <span class="op">=</span> <span class="st">"Reverse of order by frequency"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-390-1.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-390-2.png" width="50%"></p>
+</div>
+<div id="karşılaşmaya-göre" class="section level3 unnumbered">
+<h3>Karşılaşmaya göre<a class="anchor" aria-label="anchor" href="#kar%C5%9F%C4%B1la%C5%9Fmaya-g%C3%B6re"><i class="fas fa-link"></i></a>
+</h3>
+<p>Seviye sırasını, ilk satırdan başlayarak verilerdeki karşılaşma sırasına uyacak şekilde ayarlamak için <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder()</a></code> fonksiyonunu kullanın. Bu komut, veri çerçevesindeki verileri <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> fonksiyonu ile düzenledikten sonra faktör sırasını tekrardan ayarlamak için faydalı olacaktır.</p>
+</div>
+<div id="başka-bir-sütunun-özet-istatistiğine-göre" class="section level3 unnumbered">
+<h3>Başka bir sütunun özet istatistiğine göre<a class="anchor" aria-label="anchor" href="#ba%C5%9Fka-bir-s%C3%BCtunun-%C3%B6zet-istatisti%C4%9Fine-g%C3%B6re"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir sütunun seviyelerini <em>başka bir sütunun özet istatistiğine</em> göre sıralamak için <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code>yı kullanabilirsiniz. Görsel olarak, bu, çubukların/noktaların grafik boyunca istikrarlı bir şekilde yükseldiği veya alçaldığı hoş grafiklerle sonuçlanabilir.</p>
+<p>Aşağıdaki örneklerde, x ekseni <code>delay_cat</code> ve y ekseni <code>ct_blood</code> (döngü eşiği) sayısal sütunudur. Kutu grafikleri, <code>delay_cat</code> grubuna göre CT değeri dağılımını gösterir. Kutu grafiklerini grup medyan CT değerine göre artan sırada sıralamak istiyoruz.</p>
+<p>Aşağıdaki ilk örnekte, varsayılan sıra olarak alfa-numerik sırası kullanılır. Kutu çizim yüksekliklerinin karışık olduğunu ve belirli bir sırada olmadığını görebilirsiniz. İkinci örnekte ise, <code>delay_cat</code> sütunu (x eksenine eşlenmiştir) <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code> içine sarılmıştır, <code>ct_blood</code> sütunu ikinci ve <code>medyan</code> üçüncü argüman olarak verilmiştir. (<code>maks</code>, <code>ortalama</code>, <code>min</code> vb. de kullanabilirsiniz). Böylece, <code>delay_cat</code> seviyelerinin sırası artan medyan CT değerlerini yansıtacaktır. Bu, ikinci grafikte gösterilmektedir - kutu çizimleri yükselecek şekilde yeniden düzenlenmiştir. Açık bir düzeye dönüştürülmediği sürece, “NA”nın (eksik) sonunda nasıl görüldüğüne dikkat edin.</p>
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># kutu grafiği orjinal faktör seviyelerine göre sıralanmıştır</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delay_cat</span>,</span>
+<span>        y <span class="op">=</span> <span class="va">ct_blood</span>, </span>
+<span>        fill <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,</span>
+<span>       title <span class="op">=</span> <span class="st">"Ordered by original alpha-numeric levels"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># kutu grafiği medyan CT düzeylerine göre sıralanmıştır</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">delay_cat</span>, <span class="va">ct_blood</span>, <span class="st">"median"</span><span class="op">)</span>,</span>
+<span>        y <span class="op">=</span> <span class="va">ct_blood</span>,</span>
+<span>        fill <span class="op">=</span> <span class="va">delay_cat</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Delay onset to admission (days)"</span>,</span>
+<span>       title <span class="op">=</span> <span class="st">"Ordered by median CT value in group"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-391-1.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-391-2.png" width="50%"></p>
+<p>Yukarıdaki örnekte, <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> komutundan önce gerekli hiçbir adım olmadığına dikkat edin - gruplama ve hesaplamaların tümü dahili olarak ggplot komutunda yapılır.</p>
+</div>
+<div id="son-değere-göre" class="section level3 unnumbered">
+<h3>“Son” değere göre<a class="anchor" aria-label="anchor" href="#son-de%C4%9Fere-g%C3%B6re"><i class="fas fa-link"></i></a>
+</h3>
+<p>Gruplandırılmış çizgi grafiklerinde <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder2()</a></code>, düzeylerin (ve dolayısıyla <em>başlığın</em>) grafik “sonu” çizgilerin dikey sıralamasıyla hizalandırırr. Teknik olarak konuşursak, “en büyük x değerleriyle ilişkili y değerlerine göre sıralanır.”</p>
+<p>Örneğin, zaman içinde hastaneye göre vaka sayılarını gösteren satırlarınız varsa, <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> içindeki <code>color =</code> argümanına <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder2()</a></code> komutunu uygulayabilirsiniz. Öyle ki açıklamada görünen hastanelerin dikey sırası grafik sonundaki satır sırasıyla hizalanır. <a href="https://forcats.tidyverse.org/reference/fct_reorder.html">Çevrimiçi belgelerde</a> daha fazlasını okuyuabilirsiniz.</p>
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">epidemic_data</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>         <span class="co"># satır listesiyle başla   </span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date_onset</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2014-09-21"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    <span class="co"># görsel netlik için son tarih</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>                                            <span class="co"># haftalık ve hastaneye göre vaka sayılarını al</span></span>
+<span>      epiweek <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span>,  </span>
+<span>      <span class="va">hospital</span>                                            </span>
+<span>    <span class="op">)</span> </span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">epidemic_data</span><span class="op">)</span><span class="op">+</span>                       <span class="co"># grafiği başlat</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>                                        <span class="co"># çizgileri hazırla</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">epiweek</span>,                                  <span class="co"># x-axis epiweek</span></span>
+<span>      y <span class="op">=</span> <span class="va">n</span>,                                        <span class="co"># boyu haftalık vaka sayısıdır</span></span>
+<span>      color <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder2</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">epiweek</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span> <span class="co"># veriyi, grafik sonu yüksekliği ve hastaneye göre gruplandırılıp renklendir</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Factor levels (and legend display) by line height at end of plot"</span>,</span>
+<span>       color <span class="op">=</span> <span class="st">"Hospital"</span><span class="op">)</span>                          <span class="co"># başlığı değiştir</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-392-1.png" width="672"></div>
+</div>
+</div>
+<div id="fct_missing" class="section level2" number="11.5">
+<h2>
+<span class="header-section-number">11.5</span> Eksik değerler<a class="anchor" aria-label="anchor" href="#fct_missing"><i class="fas fa-link"></i></a>
+</h2>
+<p>Faktör sütununuzda <code>NA</code> değerleri varsa, bunları <code><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">fct_explicit_na()</a></code> ile kolayca “Eksik” gibi adlandırılmış bir düzeye dönüştürebilirsiniz. <code>NA</code> değerleri, sıralamanın sonunda varsayılan olarak “(Eksik)” değerine dönüştürülür. Seviye adını <code>na_level =</code> argümanıyla ayarlayabilirsiniz.</p>
+<p>Aşağıda, bu işlem <code>delay_cat</code> sütununda ’NA’ları “Missing delay”e dönüştürür. Bu, <code>tabyl()</code> ile bir tabloya yazdırılır.</p>
+<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">fct_explicit_na</a></span><span class="op">(</span><span class="va">delay_cat</span>, na_level <span class="op">=</span> <span class="st">"Missing delay"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      delay_cat    n    percent
+##       2-5 days 2040 0.34646739
+##        &lt;2 days 2990 0.50781250
+##        &gt;5 days  602 0.10224185
+##  Missing delay  256 0.04347826</code></pre>
+</div>
+<div id="seviyeleri-birleştirme" class="section level2" number="11.6">
+<h2>
+<span class="header-section-number">11.6</span> Seviyeleri birleştirme<a class="anchor" aria-label="anchor" href="#seviyeleri-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h2>
+<div id="elle-düzenleme-1" class="section level3 unnumbered">
+<h3>Elle düzenleme<a class="anchor" aria-label="anchor" href="#elle-d%C3%BCzenleme-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Seviye göstergelerini <code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code> ile manuel olarak ayarlayabilirsiniz. Bu, <strong>dplyr</strong> fonksiyonu <code><a href="https://dplyr.tidyverse.org/reference/recode.html">recode()</a></code> gibidir (bkz. [Temizleme verileri ve temel işlevler]), farklı olarak yeni faktör seviyelerinin oluşturulmasına izin verir. Bir faktörde basit <code><a href="https://dplyr.tidyverse.org/reference/recode.html">recode()</a></code>komutunu kullanırsanız, önceden izin verilen seviyeler ayarlanmadıkça yeni kodlanmış değerler reddedilecektir.</p>
+<p>Bu araç, yeniden kodlanmış değeri birden çok seviyeye atayarak seviyeleri “birleştirmek” için de kullanılabilir. Sadece bilgileri kaybetmemeye dikkat edin! Bu birleştirme adımlarını yeni bir sütunda yapmayı düşünün (mevcut sütunun üzerine yazmayın).</p>
+<p><code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/recode.html">recode()</a></code>dan farklı bir sözdizimine sahiptir. <code><a href="https://dplyr.tidyverse.org/reference/recode.html">recode()</a></code>, <code>ESKİ = YENİ</code>yi kullanırken, <code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>, <code>YENİ = ESKİ</code>yi kullanır.</p>
+<p>Geçerli <code>delay_cat</code> seviyeleri şunlardır:</p>
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "&lt;2 days"  "2-5 days" "&gt;5 days"</code></pre>
+<p>Yeni düzeyler, <code>fct_recode(column, "new" = "old", "new" = "old", "new" = "old")</code> sözdizimi kullanılarak oluşturulur ve yazdırılır:</p>
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode</a></span><span class="op">(</span></span>
+<span>    <span class="va">delay_cat</span>,</span>
+<span>    <span class="st">"Less than 2 days"</span> <span class="op">=</span> <span class="st">"&lt;2 days"</span>,</span>
+<span>    <span class="st">"2 to 5 days"</span>      <span class="op">=</span> <span class="st">"2-5 days"</span>,</span>
+<span>    <span class="st">"More than 5 days"</span> <span class="op">=</span> <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##         delay_cat    n    percent valid_percent
+##  Less than 2 days 2990 0.50781250     0.5308949
+##       2 to 5 days 2040 0.34646739     0.3622159
+##  More than 5 days  602 0.10224185     0.1068892
+##              &lt;NA&gt;  256 0.04347826            NA</code></pre>
+<p>Burada seviyeler <code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code> ile manuel olarak birleştirilirler. “5 günden az” yeni bir düzeyin oluşturulmasında herhangi bir hata olmadığını unutmayın.</p>
+<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>delay_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode</a></span><span class="op">(</span></span>
+<span>    <span class="va">delay_cat</span>,</span>
+<span>    <span class="st">"Less than 5 days"</span> <span class="op">=</span> <span class="st">"&lt;2 days"</span>,</span>
+<span>    <span class="st">"Less than 5 days"</span> <span class="op">=</span> <span class="st">"2-5 days"</span>,</span>
+<span>    <span class="st">"More than 5 days"</span> <span class="op">=</span> <span class="st">"&gt;5 days"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">delay_cat</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##         delay_cat    n    percent valid_percent
+##  Less than 5 days 5030 0.85427989     0.8931108
+##  More than 5 days  602 0.10224185     0.1068892
+##              &lt;NA&gt;  256 0.04347826            NA</code></pre>
+</div>
+<div id="diğerine-indirgeme" class="section level3 unnumbered">
+<h3>“Diğerine” indirgeme<a class="anchor" aria-label="anchor" href="#di%C4%9Ferine-indirgeme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Faktör seviyelerini bir “Diğer” seviyeye manuel olarak atamak için <code><a href="https://forcats.tidyverse.org/reference/fct_other.html">fct_other()</a></code> komutunu kullanabilirsiniz. Aşağıda, “Port Hospital” ve “Central Hospital” dışındaki “hospital” sütunundaki tüm seviyeler “Other Hospital” olarak birleştirilmiştir. <code>keep =</code> veya <code>drop =</code> için bir vektör sağlayabilirsiniz. “Diğer” düzeyinin görünümünü <code>other_level =</code> ile değiştirebilirsiniz.</p>
+<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hospital <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_other.html">fct_other</a></span><span class="op">(</span>                      <span class="co"># adjust levels</span></span>
+<span>    <span class="va">hospital</span>,</span>
+<span>    keep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Port Hospital"</span>, <span class="st">"Central Hospital"</span><span class="op">)</span>,  <span class="co"># keep these separate</span></span>
+<span>    other_level <span class="op">=</span> <span class="st">"Other Hospital"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>            <span class="co"># All others as "Other Hospital"</span></span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span>                                   <span class="co"># print table</span></span></code></pre></div>
+<pre><code>##          hospital    n    percent
+##  Central Hospital  454 0.07710598
+##     Port Hospital 1762 0.29925272
+##    Other Hospital 3672 0.62364130</code></pre>
+</div>
+<div id="frekansa-göre-indirgeme" class="section level3 unnumbered">
+<h3>Frekansa göre indirgeme<a class="anchor" aria-label="anchor" href="#frekansa-g%C3%B6re-indirgeme"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump()</a></code> kullanarak az görülen faktör düzeylerini otomatik olarak birleştirebilirsiniz.</p>
+<p>Birçok düşük frekans düzeyini bir “Diğer” grubuna “toplamak” için aşağıdakilerden birini yapın:</p>
+<ul>
+<li>Tutmak istediğiniz grup sayısını <code>n =</code> olarak ayarlayın. En çok görülen n seviyeleri tutulacak ve diğerlerinin tamamı “Diğer” olarak birleştirilecektir.</li>
+<li>“prop =” değerini, üzerinde tutmak istediğiniz seviyeler için eşik frekans oranı olarak ayarlayın. Diğer tüm değerler “Diğer” olarak birleşecektir.</li>
+</ul>
+<p>“Diğer” düzeyinin görünümünü <code>other_level =</code> ile değiştirebilirsiniz. Aşağıda, en sık rastlanan iki hastane dışındaki tüm hastaneler “Other Hospital” olarak birleştirilmiştir.</p>
+<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hospital <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump</a></span><span class="op">(</span>                      <span class="co"># seviyeleri düzenle</span></span>
+<span>    <span class="va">hospital</span>,</span>
+<span>    n <span class="op">=</span> <span class="fl">2</span>,                                          <span class="co"># ilk 2 seviyeyi tut</span></span>
+<span>    other_level <span class="op">=</span> <span class="st">"Other Hospital"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>            <span class="co"># geri kalanını "Other Hospital" olarak tanımla</span></span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span>                                   <span class="co"># tabloyu yazdır</span></span></code></pre></div>
+<pre><code>##        hospital    n   percent
+##         Missing 1469 0.2494905
+##   Port Hospital 1762 0.2992527
+##  Other Hospital 2657 0.4512568</code></pre>
+</div>
+</div>
+<div id="tüm-seviyeleri-gösterme" class="section level2" number="11.7">
+<h2>
+<span class="header-section-number">11.7</span> Tüm seviyeleri gösterme<a class="anchor" aria-label="anchor" href="#t%C3%BCm-seviyeleri-g%C3%B6sterme"><i class="fas fa-link"></i></a>
+</h2>
+<p>Faktörleri kullanmanın bir diğer faydası da, bir veri kümesinde gerçekte hangi değerlerin mevcut olduğuna bakılmaksızın, grafik açıklamalarının ve tabloların görünümünü standart hale getirmesidir.</p>
+<p>Çok sayıda analiz hazırlıyorsanız (örneğin, birden fazla analiz için), gösterge ve tabloların, değişen seviyelerde veri kompozisyonu ile bile aynı görünmesini isteyebilirsiniz.</p>
+<div id="grafiklerde" class="section level3 unnumbered">
+<h3>Grafiklerde<a class="anchor" aria-label="anchor" href="#grafiklerde"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> grafiğinde, ilgili <code>scale_xxxx()</code> fonksiyonuna “drop = FALSE” argümanını eklemeniz yeterlidir. Verilerde bulunup bulunmadıklarına bakılmaksızın tüm faktör seviyeleri görüntülenecektir. Faktör sütun seviyeleriniz <code>fill =</code> kullanılarak görüntüleniyorsa, o zaman <code><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete()</a></code> içine aşağıda gösterildiği gibi <code>drop = FALSE</code> değerini eklersiniz. Seviyeleriniz <code>x =</code> (x eksenine göre) <code>color =</code> veya <code>size =</code> ile görüntüleniyorsa, bunu <code><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_color_discrete()</a></code> veya <code><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size_discrete()</a></code> argümanlarıyla sağlayabilirsiniz.</p>
+<p>Aşağıdaki örnek, hastaneye göre yaş kategorisine ait çubuk grafiğidir. <code>scale_fill_discrete(drop = FALSE)</code> eklenmesi, verilerde mevcut olmasa bile tüm yaş gruplarının açıklamada görünmesini sağlar.</p>
+<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hospital</span>, fill <span class="op">=</span> <span class="va">age_cat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">+</span>                        <span class="co"># boş olsa bile tüm verileri açıklamada göster</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"All age groups will appear in legend, even if not present in data"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-400-1.png" width="672"></div>
+</div>
+<div id="tablolarda" class="section level3 unnumbered">
+<h3>Tablolarda<a class="anchor" aria-label="anchor" href="#tablolarda"><i class="fas fa-link"></i></a>
+</h3>
+<p>Hem R tabanında <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> hem de <strong>janitor</strong>’dan <code>tabyl()</code> tüm faktör seviyelerini (kullanılmayan seviyeler bile) gösterecektir.</p>
+<p>Bir tablo oluşturmak için <strong>dplyr</strong>’den <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> veya <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> kullanırsanız, kullanılmamış olanlar da dahil tüm faktör düzeylerini dahil etmek için ‘.drop = FALSE’ bağımsız değişkenini ekleyin.</p>
+<p>[Açıklayıcı tablolar] sayfasında, <a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_discrete belgelerinde</a> veya <a href="https://dplyr.%20tidyverse.org/reference/count.html">count() belgelerinde</a>. [Bulaşıcı takibi] sayfasında başka bir örnek görebilirsiniz.</p>
+</div>
+</div>
+<div id="epiweeks" class="section level2" number="11.8">
+<h2>
+<span class="header-section-number">11.8</span> Epiweeks<a class="anchor" aria-label="anchor" href="#epiweeks"><i class="fas fa-link"></i></a>
+</h2>
+<p>Lütfen [Gruplama verileri] sayfasında epidemiyolojik haftaların nasıl oluşturulacağına ilişkin kapsamlı tartışmaya bakın.</p>
+<p>Epidemiyolojik haftaların nasıl oluşturulacağı ve biçimlendirileceğiyle ilgili ipuçları için lütfen <a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#tarihlerle-%C3%A7al%C4%B1%C5%9Fma-1">Tarihlerle çalışma</a> sayfasına da bakın.</p>
+<div id="grafiklerde-epiweeks" class="section level3 unnumbered">
+<h3>Grafiklerde epiweeks<a class="anchor" aria-label="anchor" href="#grafiklerde-epiweeks"><i class="fas fa-link"></i></a>
+</h3>
+<p>Amacınız bir grafikte görüntülenecek epiweeks oluşturmaksa, bunu [Gruplama verileri] sayfasında açıklandığı gibi <strong>lubridate</strong>’nin <code>floor_date()</code> ile yapabilirsiniz. Döndürülen değerler YYYY-AA-GG biçiminde Date sınıfında olacaktır. Bu sütunu bir grafik içinde kullanırsanız, tarihler doğal olarak sıralanır; seviyeler veya sınıf Faktörüne dönüştürme konusunda endişelenmenize gerek yoktur. Aşağıdaki başlangıç tarihlerine ait <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> histogramına bakın.</p>
+<p>Bu yaklaşımda, <code><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date()</a></code> ile bir eksen üzerindeki tarihlerin <em>görüntülenmesini</em> ayarlayabilirsiniz. Daha fazla bilgi için <a href="salg%C4%B1n-e%C4%9Frileri.html#salg%C4%B1n-e%C4%9Frileri">Salgın eğrileri</a> ile ilgili sayfaya bakın. <code><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date()</a></code> öğesinin ‘date_labels =’ bağımsız değişkenine bir “strptime” görüntüleme biçimi belirleyebilirsiniz. Bu biçimler “%” yer tutucularını kullanır. Yer tutucular <a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#tarihlerle-%C3%A7al%C4%B1%C5%9Fma-1">Tarihlerle çalışma</a> sayfasında ele alınmıştır. 4 basamaklı bir yılı temsil etmek için “%Y” ve hafta numarasını temsil etmek için “%W” veya “%U” kullanın (sırasıyla Pazartesi veya Pazar haftaları).</p>
+<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>epiweek_date <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># hafta sütununu oluştur</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>                                                  <span class="co"># ggplotu başlat</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek_date</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>           <span class="co"># başlangıç tarihinin histogramı</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span>date_labels <span class="op">=</span> <span class="st">"%Y-W%W"</span><span class="op">)</span>                       <span class="co"># tarihlerin gösterimini YYYY-WWw olacak şekilde ayarla</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-401-1.png" width="672"></div>
+</div>
+<div id="verilerde-epiweeks" class="section level3 unnumbered">
+<h3>Verilerde epiweeks<a class="anchor" aria-label="anchor" href="#verilerde-epiweeks"><i class="fas fa-link"></i></a>
+</h3>
+<p>Verileri faktöre çevirmedeki amacınız grafik yapmak <em>değilse</em>, bunu iki yoldan yapabilirsiniz:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>Görüntüleme üzerindeki hassas kontrol</em> için, <strong>lubridate</strong> epiweek sütununu (YYYY-AA-GG) istenen formatına (YYYY-WWw) ve ardından bunu sınıf Faktörüne dönüştürün .</li>
+</ol>
+<p>İlk olarak, tarih gösterimini YYYY-AA-GG’den YYYY-Www gösterimine dönüştürmek için R tabanından <code><a href="https://rdrr.io/r/base/format.html">format()</a></code> komutunu kullanın (bkz. <a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#tarihlerle-%C3%A7al%C4%B1%C5%9Fma-1">Tarihlerle çalışma</a> sayfası). Bu süreçte veriler sınıftan karaktere dönüşmüş olacaktır. Ardından, <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> ile karakterden tekrar sınıf Factor’a dönüştürün.</p>
+<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>epiweek_date <span class="op">=</span> <span class="fu">floor_date</span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"week"</span><span class="op">)</span>,       <span class="co"># epiweeks oluştur (YYYY-AA-GG)</span></span>
+<span>         epiweek_formatted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">epiweek_date</span>, <span class="st">"%Y-W%W"</span><span class="op">)</span>,  <span class="co"># (YYYY-HHh) formatına dönüştür</span></span>
+<span>         epiweek_formatted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">epiweek_formatted</span><span class="op">)</span><span class="op">)</span>       <span class="co"># faktöre dönüştür</span></span>
+<span></span>
+<span><span class="co"># seviyeleri göster</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">epiweek_formatted</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] "2014-W13" "2014-W14" "2014-W15" "2014-W16" "2014-W17" "2014-W18" "2014-W19" "2014-W20" "2014-W21" "2014-W22"
+## [11] "2014-W23" "2014-W24" "2014-W25" "2014-W26" "2014-W27" "2014-W28" "2014-W29" "2014-W30" "2014-W31" "2014-W32"
+## [21] "2014-W33" "2014-W34" "2014-W35" "2014-W36" "2014-W37" "2014-W38" "2014-W39" "2014-W40" "2014-W41" "2014-W42"
+## [31] "2014-W43" "2014-W44" "2014-W45" "2014-W46" "2014-W47" "2014-W48" "2014-W49" "2014-W50" "2014-W51" "2015-W00"
+## [41] "2015-W01" "2015-W02" "2015-W03" "2015-W04" "2015-W05" "2015-W06" "2015-W07" "2015-W08" "2015-W09" "2015-W10"
+## [51] "2015-W11" "2015-W12" "2015-W13" "2015-W14" "2015-W15" "2015-W16"</code></pre>
+<p><span style="color: red;"><strong><em>TEHLİKE:</em></strong> Haftaları yılların önüne koyarsanız (“Www-YYYY”) (“%W-%Y”), varsayılan alfa-numerik sıralaması yanlış olacaktır (ör. 01-2015, 35-2014’ten önce olacaktır). Uzun ve sancılı bir süreçle, sırayı manuel olarak ayarlamanız gerekebilir.</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<em>Hızlı varsayılan görüntüleme</em> için <strong>aweek</strong> paketini ve <code>date2week()</code> fonksiyonunu kullanın. <code>week_start =</code> ile haftanın ilk gününü ayarlayabilirsiniz. <code>factor = TRUE</code> olarak ayarlarsanız, çıktı sütunu sıralı bir faktör olacaktır. Ek olarak, faktör, o hafta hiç vaka olmasa bile, aralıktaki <em>tüm</em> haftalar için seviyeleri içermektedir.</li>
+</ol>
+<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>epiweek <span class="op">=</span> <span class="fu">date2week</span><span class="op">(</span><span class="va">date_onset</span>, week_start <span class="op">=</span> <span class="st">"Monday"</span>, factor <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span></span></code></pre></div>
+<p><strong>aweek</strong> hakkında daha fazla bilgi için <a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#tarihlerle-%C3%A7al%C4%B1%C5%9Fma-1">Tarihlerle çalışma</a> sayfasına bakın. Ayrıca <code>week2date()</code> ters fonksiyonu da bu paket içinde mevcuttur.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="kaynaklar-4" class="section level2" number="11.9">
+<h2>
+<span class="header-section-number">11.9</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-4"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://r4ds.had.co.nz/factors.html">faktörler ile ilgili Veri Bilimi sayfası için R</a><br><a href="https://cran.r-project.org/web/packages/aweek/vignettes/introduction.html">aweek paketi skeci</a></p>
+
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+<!-- ======================================================= -->
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></div>
+<div class="next"><a href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#fakt%C3%B6rler"><span class="header-section-number">11</span> Faktörler</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-2"><span class="header-section-number">11.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketlerin-y%C3%BCklenmesi-1">Paketlerin yüklenmesi</a></li>
+<li><a class="nav-link" href="#veriyi-i%C3%A7e-aktarma">Veriyi içe aktarma</a></li>
+<li><a class="nav-link" href="#fct_newcat">Yeni kategorik değişken</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#fakt%C3%B6re-d%C3%B6n%C3%BC%C5%9Ft%C3%BCrme"><span class="header-section-number">11.2</span> Faktöre dönüştürme</a></li>
+<li>
+<a class="nav-link" href="#seviye-ekleme-ve-%C3%A7%C4%B1karma"><span class="header-section-number">11.3</span> Seviye ekleme ve çıkarma</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#fct_add">Ekleme</a></li>
+<li><a class="nav-link" href="#%C3%A7%C4%B1karma">Çıkarma</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#fct_adjust"><span class="header-section-number">11.4</span> Seviye sırasını düzenleme</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#elle-d%C3%BCzenleme">Elle düzenleme</a></li>
+<li><a class="nav-link" href="#grafik-i%C3%A7inde">Grafik içinde</a></li>
+<li><a class="nav-link" href="#tersine-d%C3%B6nd%C3%BCrme">Tersine döndürme</a></li>
+<li><a class="nav-link" href="#s%C4%B1kl%C4%B1%C4%9Fa-g%C3%B6re">Sıklığa göre</a></li>
+<li><a class="nav-link" href="#kar%C5%9F%C4%B1la%C5%9Fmaya-g%C3%B6re">Karşılaşmaya göre</a></li>
+<li><a class="nav-link" href="#ba%C5%9Fka-bir-s%C3%BCtunun-%C3%B6zet-istatisti%C4%9Fine-g%C3%B6re">Başka bir sütunun özet istatistiğine göre</a></li>
+<li><a class="nav-link" href="#son-de%C4%9Fere-g%C3%B6re">“Son” değere göre</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#fct_missing"><span class="header-section-number">11.5</span> Eksik değerler</a></li>
+<li>
+<a class="nav-link" href="#seviyeleri-birle%C5%9Ftirme"><span class="header-section-number">11.6</span> Seviyeleri birleştirme</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#elle-d%C3%BCzenleme-1">Elle düzenleme</a></li>
+<li><a class="nav-link" href="#di%C4%9Ferine-indirgeme">“Diğerine” indirgeme</a></li>
+<li><a class="nav-link" href="#frekansa-g%C3%B6re-indirgeme">Frekansa göre indirgeme</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#t%C3%BCm-seviyeleri-g%C3%B6sterme"><span class="header-section-number">11.7</span> Tüm seviyeleri gösterme</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#grafiklerde">Grafiklerde</a></li>
+<li><a class="nav-link" href="#tablolarda">Tablolarda</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#epiweeks"><span class="header-section-number">11.8</span> Epiweeks</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#grafiklerde-epiweeks">Grafiklerde epiweeks</a></li>
+<li><a class="nav-link" href="#verilerde-epiweeks">Verilerde epiweeks</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-4"><span class="header-section-number">11.9</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

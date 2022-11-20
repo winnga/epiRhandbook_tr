@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>44 Yazma fonksiyonları | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="44.1 Hazırlık  Paketleri yüklemek Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’dan...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="44 Yazma fonksiyonları | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="44.1 Hazırlık  Paketleri yüklemek Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’dan...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="44 Yazma fonksiyonları | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="44.1 Hazırlık  Paketleri yüklemek Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’dan...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="active" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="yazma-fonksiyonları" class="section level1" number="44">
+<h1>
+<span class="header-section-number">44</span> Yazma fonksiyonları<a class="anchor" aria-label="anchor" href="#yazma-fonksiyonlar%C4%B1"><i class="fas fa-link"></i></a>
+</h1>
+<div id="hazırlık-36" class="section level2" number="44.1">
+<h2>
+<span class="header-section-number">44.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-36"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yüklemek-2" class="section level3 unnumbered">
+<h3>Paketleri yüklemek<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCklemek-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’dan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> vurgusu yapıyoruz. R <strong>tabanı</strong>ndan <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri de yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R basics] sayfasına bakabilirsiniz.</p>
+</div>
+<div id="verileri-içe-aktar-7" class="section level3 unnumbered">
+<h3>Verileri içe aktar<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktar-7"><i class="fas fa-link"></i></a>
+</h3>
+<p>Simüle edilmiş bir Ebola salgınından vakaların veri setini içe aktarıyoruz. Adım adım izlenecek verileri indirmek istiyorsanız, [Kitap ve verileri indir] sayfasındaki talimatlara bakın. Veri kümesi, <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonuyla kullanılarak içe aktarılır. Verileri içe aktarmanın çeşitli yolları için <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> hakkındaki sayfaya bakabilirsiniz.</p>
+<p>Ayrıca bu sayfanın son bölümünde 2013’ten itibaren H7N9 gribiyle ilgili bazı verileri kullanacağız.</p>
+</div>
+</div>
+<div id="fonksiyonlar-1" class="section level2" number="44.2">
+<h2>
+<span class="header-section-number">44.2</span> Fonksiyonlar<a class="anchor" aria-label="anchor" href="#fonksiyonlar-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Fonksiyonlar, kodların daha kolay anlaşılmasını, bir şekilde daha kısa olmasını ve hataya daha az meyilli olmasını sağladıklarından (fonksiyonun kendisinde herhangi bir hata olmadığı göz önüne alındığında) programlamada faydalıdır.</p>
+<p>Bu el kitabında bu kadar ileri gittiyseniz, R’da her işlem bir fonksiyon çağrısı olduğundan sonsuz fonksiyonlarla karşılaşmışsınız demektir. <code>+, for, if, [, $, { …</code>. Örneğin, “x + y”, “+”(x, y)” ile aynıdır</p>
+<p>R, fonksiyonlarla en fazla çalışma olanağı sunan ve kullanıcıya bunları kolayca yazabilmesi için yeterli araçları sağlayan dillerden biridir. Fonksiyonları programlama zincirinin en üstünde veya sonunda sabit olarak düşünmemeliyiz, R onları vektörlermiş gibi kullanma ve hatta başka fonksiyonlar, listeler vb. içinde kullanma imkanı sunar.</p>
+<p>Fonksiyonel programlama üzerine çok sayıda gelişmiş kaynak mevcuttur ve biz burada yalnızca kısa pratik örneklerle fonksiyonel programlamaya başlamanıza yardımcı olacak bir fikir vereceğiz. Daha sonra bu konuda daha fazla okumak için referanslardaki bağlantıları ziyaret etmeniz önerilir.</p>
+</div>
+<div id="neden-bir-fonksiyon-kullanırsın" class="section level2" number="44.3">
+<h2>
+<span class="header-section-number">44.3</span> Neden bir fonksiyon kullanırsın?<a class="anchor" aria-label="anchor" href="#neden-bir-fonksiyon-kullan%C4%B1rs%C4%B1n"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bu soruyu yanıtlamadan önce, bu el kitabının <a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#yineleme-d%C3%B6ng%C3%BCler-ve-listeler">Yineleme, döngüler ve listeler</a> sayfasındaki ilk R fonksiyonunuzu yazmak için ipuçlarına zaten sahip olduğunuzu belirtmek önemlidir. Aslında, “if/else” ve döngülerin kullanımı, genellikle birden fazla koşula izin vererek kodumuzun uygulamasını genişletmeye veya görevleri tekrarlamak için kodları yinelemeye kolayca yardımcı olduklarından, çoğu fonksiyonumuzun temel bir parçasıdır.</p>
+<ul>
+<li><p>Farklı bir değişkene veya verilere uygulamak için aynı kod bloğunu birden çok kez mi tekrarlıyorum?</p></li>
+<li><p>Ondan kurtulmak, genel kodumu önemli ölçüde kısaltır ve daha hızlı çalışmasını sağlar mı?</p></li>
+<li><p>Yazdığım kodun tekrar kullanılması ancak kodun birçok yerinde farklı bir değerle kullanılması mümkün müdür?</p></li>
+</ul>
+<p>Önceki sorulardan birinin cevabı “EVET” ise, muhtemelen bir fonksiyon yazmanız gerekir.</p>
+</div>
+<div id="r-fonksiyonları-nasıl-oluşturur" class="section level2" number="44.4">
+<h2>
+<span class="header-section-number">44.4</span> R, fonksiyonları nasıl oluşturur?<a class="anchor" aria-label="anchor" href="#r-fonksiyonlar%C4%B1-nas%C4%B1l-olu%C5%9Fturur"><i class="fas fa-link"></i></a>
+</h2>
+<p>R’daki fonksiyonların üç ana bileşeni vardır:</p>
+<ul>
+<li><p>fonksiyonu nasıl çağırabileceğimizi kontrol eden değişkenlerin listesi olan <code><a href="https://rdrr.io/r/base/formals.html">formals()</a></code></p></li>
+<li><p>fonksiyonun içindeki kod olan <code><a href="https://rdrr.io/r/base/body.html">body()</a></code>, yani nasıl yazdığımıza bağlı olarak parantez içinde veya devamında</p></li>
+</ul>
+<p>ve,</p>
+<ul>
+<li>fonksiyonun değişkenlerini bulmaya yardımcı olacak ve fonksiyonun nasıl değer bulacağını belirleyen <code><a href="https://rdrr.io/r/base/environment.html">environment()</a></code>.</li>
+</ul>
+<p>Fonksiyonunuzu oluşturduktan sonra, ilişkili fonksiyonu çağırarak bu bileşenlerin her birini doğrulayabilirsiniz.</p>
+</div>
+<div id="temel-sözdizimi-ve-yapı" class="section level2" number="44.5">
+<h2>
+<span class="header-section-number">44.5</span> Temel sözdizimi ve yapı<a class="anchor" aria-label="anchor" href="#temel-s%C3%B6zdizimi-ve-yap%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>Bir fonksiyonun adını okuduğumuz anda işinin kolayca anlaşılması için düzgün bir şekilde adlandırılması gerekir. Aslında bu, temel R mimarisinin çoğunda zaten böyledir. ‘mean()’, ‘print()’, ‘summary()’ gibi fonksiyonların çok basit adları vardır.</p></li>
+<li><p>Bir fonksiyon, üzerinde çalışılacak veriler ve diğer seçenekler arasında statik değerler olabilen diğer nesneler gibi bağımsız değişkenlere ihtiyaç duyacaktır.</p></li>
+<li><p>Ve son olarak bir fonksiyon, temel görevine ve kendisine verilen değişkenlere dayalı olarak bir çıktı verecektir. Genellikle çıktıyı üretmek için yerleşik fonksiyonları <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>, <code><a href="https://rdrr.io/r/base/function.html">return()</a></code>… olarak kullanırız. Çıktı, mantıksal bir değer, bir sayı, bir karakter, bir veri çerçevesi… kısacası herhangi bir R nesnesi olabilir.</p></li>
+</ul>
+<p>Temel olarak bu, bir fonksiyonun bileşimidir:</p>
+<div class="sourceCode" id="cb1870"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">argument_1</span>, <span class="va">argument_2</span>, <span class="va">argument_3</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>           <span class="va">function_task</span></span>
+<span>  </span>
+<span>           <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><code>contain_covid19()</code> olarak adlandırılacak ilk fonksiyonumuzu oluşturabiliriz.</p>
+<div class="sourceCode" id="cb1871"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contain_covid19</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">barrier_gest</span>, <span class="va">wear_mask</span>, <span class="va">get_vaccine</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>                            <span class="kw">if</span><span class="op">(</span><span class="va">barrier_gest</span> <span class="op">==</span> <span class="st">"yes"</span> <span class="op">&amp;</span> <span class="va">wear_mask</span> <span class="op">==</span> <span class="st">"yes"</span> <span class="op">&amp;</span> <span class="va">get_vaccine</span> <span class="op">==</span> <span class="st">"yes"</span> <span class="op">)</span> </span>
+<span>       </span>
+<span>                            <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="st">"success"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">else</span><span class="op">(</span><span class="st">"please make sure all are yes, this pandemic has to end!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Daha sonra yeni oluşturulan fonksiyonumuzun bileşenlerini doğrulayabiliriz.</p>
+<div class="sourceCode" id="cb1872"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/formals.html">formals</a></span><span class="op">(</span><span class="va">contain_covid19</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## $barrier_gest
+## 
+## 
+## $wear_mask
+## 
+## 
+## $get_vaccine</code></pre>
+<div class="sourceCode" id="cb1874"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/body.html">body</a></span><span class="op">(</span><span class="va">contain_covid19</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## {
+##     if (barrier_gest == "yes" &amp; wear_mask == "yes" &amp; get_vaccine == 
+##         "yes") 
+##         return("success")
+##     else ("please make sure all are yes, this pandemic has to end!")
+## }</code></pre>
+<div class="sourceCode" id="cb1876"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/environment.html">environment</a></span><span class="op">(</span><span class="va">contain_covid19</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<p>Şimdi fonksiyonumuzu test edeceğiz. Yazılı fonksiyonumuzu çağırmak için, onu tüm R fonksiyonlarını kullandığınız gibi, yani fonksiyon adını yazıp gerekli değişkenleri ekleyerek kullanabilirsiniz.</p>
+<div class="sourceCode" id="cb1878"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">contain_covid19</span><span class="op">(</span>barrier_gest <span class="op">=</span> <span class="st">"yes"</span>, wear_mask <span class="op">=</span> <span class="st">"yes"</span>, get_vaccine <span class="op">=</span> <span class="st">"yes"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "success"</code></pre>
+<p>Önlem amaçlı olarak her bir değişkenin adını tekrar yazabiliriz. Ancak bunları belirtmeden kod çalışmalıdır çünkü R bellekte her değişkenin konumu vardır. Değişkenlerin değerlerini doğru sıraya koyduğun sürece, fonksiyonları çağırırken değişken isimlerini yazmayı atlayabilirsiniz.</p>
+<div class="sourceCode" id="cb1880"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">contain_covid19</span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"yes"</span>, <span class="st">"yes"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "success"</code></pre>
+<p>O zaman değerlerden biri <code>"hayır"</code> veya <code>"evet"</code> <strong>değil</strong> ise ne olduğuna bakalım.</p>
+<div class="sourceCode" id="cb1882"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">contain_covid19</span><span class="op">(</span>barrier_gest <span class="op">=</span> <span class="st">"yes"</span>, wear_mask <span class="op">=</span> <span class="st">"yes"</span>, get_vaccine <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "please make sure all are yes, this pandemic has to end!"</code></pre>
+<p>Tanınmayan bir değişken sağlarsak bir hata alırız:</p>
+<div class="sourceCode" id="cb1884"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">contain_covid19</span><span class="op">(</span>barrier_gest <span class="op">=</span> <span class="st">"sometimes"</span>, wear_mask <span class="op">=</span> <span class="st">"yes"</span>, get_vaccine <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
+<p><code>Error in contain_covid19(barrier_gest = "sometimes", wear_mask = "yes",  :    "contain_covid19"</code> fonksiyonu bulunamadı</p>
+<p><span style="color: black;"><strong><em>NOT:</em></strong> Bazı fonksiyonlar(çoğu zaman çok kısa ve anlaşılır) bir ada ihtiyaç duymayabilir ve hızlı görev yapmak için doğrudan bir kod satırında veya başka bir fonksiyonun içinde kullanılabilir. Bunlara <strong>anonim fonksiyonlar</strong> denir.</span></p>
+<p>Örneğin, aşağıdaki veri kümesinde yalnızca karakter değişkenlerini tutan ilk anonim fonksiyondur.</p>
+<div class="sourceCode" id="cb1885"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co">#R tabanı "head" fonksiyonuna eşdeğerdir ve bu, veri kümesinin ilk n gözlemini döndürür</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div id="htmlwidget-15f6f3ff55e93cf96e83" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-15f6f3ff55e93cf96e83">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca"],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death"],["m","f","m","f","m","f","f","f","m","f"],["years","years","years","years","years","years","years","years","years","years"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing"],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null],["other",null,null,"other","other","other","other","other",null,null],["no",null,null,"no","no","no",null,"no","no","no"],["no",null,null,"no","no","no",null,"no","no","no"],["yes",null,null,"no","yes","yes",null,"yes","yes","yes"],["no",null,null,"no","no","no",null,"no","no","no"],["yes",null,null,"no","yes","yes",null,"yes","yes","no"],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age_unit<\/th>\n      <th>hospital<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>time_admission<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script><p>Daha sonra, veri setimizin her ikinci gözlemini seçen başka bir fonksiyon (örneğin, tarihe veya ziyarete göre sıralandıktan sonra hasta başına çok sayıda kayıt içeren boylamsal verilerimiz olduğunda alakalı olabilir). Bu durumda, dplyr dışına yazan uygun fonksiyon, tüm satır numaralarını içeren vektöre uygulanacak <code>function (x) (x%%2 == 0)</code> olacaktır.</p>
+<div class="sourceCode" id="cb1886"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   </span>
+<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># son seçimi net bir şekilde görmek için her bir gözlemin indekslerini satır isimleri olarak ekleyin</span></span>
+<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span><span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-79abcbf33ad73f59d385" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-79abcbf33ad73f59d385">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"3\" data-max=\"9\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1403049600000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1403740800000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1403913600000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1405036800000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"42\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"42\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2572163655863\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48528034195779\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"84\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"186\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"21\" data-max=\"23\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"71.8184429761563\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["2","4","6","8","10","12","14","16","18","20"],["8689b7","b8812a","be99c8","369449","1389ca","57a565","2eaa9a","c97dd9","3a7673","ddddee"],[4,3,3,4,4,4,5,9,8,6],[null,"2014-05-04","2014-05-03","2014-05-28",null,"2014-05-28","2014-06-07",null,null,"2014-06-18"],["2014-05-13","2014-05-18","2014-05-22","2014-06-02","2014-06-05","2014-06-13","2014-06-17","2014-06-19","2014-06-23","2014-06-26"],["2014-05-14","2014-05-20","2014-05-23","2014-06-03","2014-06-07","2014-06-15","2014-06-17","2014-06-19","2014-06-24","2014-06-28"],["2014-05-18",null,"2014-05-24","2014-06-07","2014-06-09",null,null,"2014-07-11","2014-06-25","2014-07-02"],["Recover",null,"Recover","Death","Death","Death","Recover","Recover",null,"Death"],["f","f","f","f","f","m","f","m","f","f"],[3,18,16,0,27,42,7,13,17,11],["years","years","years","years","years","years","years","years","years","years"],[3,18,16,0,27,42,7,13,17,11],["0-4","15-19","15-19","0-4","20-29","30-49","5-9","10-14","15-19","10-14"],["0-4","15-19","15-19","0-4","25-29","40-44","5-9","10-14","15-19","10-14"],["Missing","Port Hospital","Port Hospital","Missing","Missing","Military Hospital","Missing","Port Hospital","Port Hospital","Other"],[-13.2152339775486,-13.2363711169728,-13.222625321098,-13.2320975453153,-13.2572163655863,-13.253989309478,-13.209391925612,-13.2243437095992,-13.21422143145,-13.2535640411465],[8.45171855856465,8.4754761613651,8.46183062600728,8.46144367534271,8.47292327643506,8.45837125340844,8.47570184950483,8.47145134147474,8.48528034195779,8.45957352078114],[null,"f90f5f","aec8ec","133ee7",null,"133ee7","9f6884",null,null,"8e104d"],[null,"other","other","other",null,"other","other",null,null,"other"],[25,41,56,0,69,84,44,66,47,47],[59,135,116,11,174,186,90,152,137,131],[22,23,21,22,22,22,21,22,21,23],[null,"no","no","no","no","no","no","no","no","no"],[null,"no","no","no","no","no","no","no","no","no"],[null,"no","yes","yes","yes","yes","yes","yes","yes","yes"],[null,"no","no","no","no","no","no","yes","no","no"],[null,"no","yes","yes","no","no","no","no","no","no"],[36.9,36.8,37.6,37,35.9,36.9,37.1,37.3,38,36],["09:36","11:22","14:13","09:25","10:55","11:14","11:06","08:45","15:41","18:58"],[71.8184429761563,22.4965706447188,41.6171224732461,0,22.7903289734443,24.2802636142907,54.320987654321,28.5664819944598,25.0412914912888,27.3876813705495],[1,2,1,1,2,2,0,0,1,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>rowname<\/th>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,9,11,15,16,19,20,21,27,29,30]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script><p>Aynı görev için olası bir temel R kodu şöyle olacaktır:</p>
+<div class="sourceCode" id="cb1887"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_firstobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">linelist</span>, <span class="fl">20</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">linelist_firstobs</span><span class="op">[</span><span class="fu">base</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Filter</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">(</span><span class="va">x</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span><span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">linelist_firstobs</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
+<div id="htmlwidget-e9354cd75a2f609f16ca" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e9354cd75a2f609f16ca">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"3\" data-max=\"9\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1403049600000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1403740800000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1403913600000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1405036800000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"42\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"42\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2572163655863\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48528034195779\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"84\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"186\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"21\" data-max=\"23\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"71.8184429761563\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["8689b7","b8812a","be99c8","369449","1389ca","57a565","2eaa9a","c97dd9","3a7673","ddddee"],[4,3,3,4,4,4,5,9,8,6],[null,"2014-05-04","2014-05-03","2014-05-28",null,"2014-05-28","2014-06-07",null,null,"2014-06-18"],["2014-05-13","2014-05-18","2014-05-22","2014-06-02","2014-06-05","2014-06-13","2014-06-17","2014-06-19","2014-06-23","2014-06-26"],["2014-05-14","2014-05-20","2014-05-23","2014-06-03","2014-06-07","2014-06-15","2014-06-17","2014-06-19","2014-06-24","2014-06-28"],["2014-05-18",null,"2014-05-24","2014-06-07","2014-06-09",null,null,"2014-07-11","2014-06-25","2014-07-02"],["Recover",null,"Recover","Death","Death","Death","Recover","Recover",null,"Death"],["f","f","f","f","f","m","f","m","f","f"],[3,18,16,0,27,42,7,13,17,11],["years","years","years","years","years","years","years","years","years","years"],[3,18,16,0,27,42,7,13,17,11],["0-4","15-19","15-19","0-4","20-29","30-49","5-9","10-14","15-19","10-14"],["0-4","15-19","15-19","0-4","25-29","40-44","5-9","10-14","15-19","10-14"],["Missing","Port Hospital","Port Hospital","Missing","Missing","Military Hospital","Missing","Port Hospital","Port Hospital","Other"],[-13.2152339775486,-13.2363711169728,-13.222625321098,-13.2320975453153,-13.2572163655863,-13.253989309478,-13.209391925612,-13.2243437095992,-13.21422143145,-13.2535640411465],[8.45171855856465,8.4754761613651,8.46183062600728,8.46144367534271,8.47292327643506,8.45837125340844,8.47570184950483,8.47145134147474,8.48528034195779,8.45957352078114],[null,"f90f5f","aec8ec","133ee7",null,"133ee7","9f6884",null,null,"8e104d"],[null,"other","other","other",null,"other","other",null,null,"other"],[25,41,56,0,69,84,44,66,47,47],[59,135,116,11,174,186,90,152,137,131],[22,23,21,22,22,22,21,22,21,23],[null,"no","no","no","no","no","no","no","no","no"],[null,"no","no","no","no","no","no","no","no","no"],[null,"no","yes","yes","yes","yes","yes","yes","yes","yes"],[null,"no","no","no","no","no","no","yes","no","no"],[null,"no","yes","yes","no","no","no","no","no","no"],[36.9,36.8,37.6,37,35.9,36.9,37.1,37.3,38,36],["09:36","11:22","14:13","09:25","10:55","11:14","11:06","08:45","15:41","18:58"],[71.8184429761563,22.4965706447188,41.6171224732461,0,22.7903289734443,24.2802636142907,54.320987654321,28.5664819944598,25.0412914912888,27.3876813705495],[1,2,1,1,2,2,0,0,1,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script><p><span style="color: orange;"><strong><em>UYARI:</em></strong> Fonksiyonları kullanmanın kodumuzda bize yardımcı olabileceği doğru olsa da, bazı fonksiyonları yazmak, iyice düşünülmemiş, yeterince yazılmamış ve sonuç olarak hatalar döndürüyorsa, o fonksiyonu düzeltmek zaman alıcı olabilir. Bu nedenle genellikle önce R kodunun yazılması, yapmak istediğimizi yaptığından emin olunması ve ardından yukarıda listelendiği gibi üç ana bileşeni ile bir fonksiyona dönüştürülmesi önerilir.</span></p>
+</div>
+<div id="örnekler-2" class="section level2" number="44.6">
+<h2>
+<span class="header-section-number">44.6</span> Örnekler<a class="anchor" aria-label="anchor" href="#%C3%B6rnekler-2"><i class="fas fa-link"></i></a>
+</h2>
+<div id="birkaç-sütun-için-orantı-tablolarını-döndürmek" class="section level3 unnumbered">
+<h3>Birkaç sütun için orantı tablolarını döndürmek<a class="anchor" aria-label="anchor" href="#birka%C3%A7-s%C3%BCtun-i%C3%A7in-orant%C4%B1-tablolar%C4%B1n%C4%B1-d%C3%B6nd%C3%BCrmek"><i class="fas fa-link"></i></a>
+</h3>
+<p>Evet, zaten birçok pakette bilgileri çok kolay ve güzel bir şekilde özetlememizi sağlayan güzel fonksiyonlarımız var. Ama yine de yazma fonksiyonlarına alışmak için ilk adımlarımızda kendimizinkini yapmaya çalışacağız.</p>
+<p>Bu örnekte, basit bir fonksiyon yazmanın, aynı kodu defalarca kopyalayıp yapıştırmanızı nasıl önleyeceğini göstermek istiyoruz.</p>
+<div class="sourceCode" id="cb1888"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">proptab_multiple</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">my_data</span>, <span class="va">var_to_tab</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co">#tablolamayı yapmadan önce ilgilenilen her değişkenin adını yazdırın</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">var_to_tab</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">my_data</span>,</span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span> <span class="co">#aşağıdaki iki fonksiyonun sonuçlarını satıra bağla</span></span>
+<span>        <span class="co">#ilgilenilen değişkeni tablo haline getirin: sadece sayıları verir</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="va">var_to_tab</span><span class="op">]</span><span class="op">]</span>, useNA <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span>,</span>
+<span>          <span class="co">#ilgilenilen her değişken için oranları hesaplayın ve değeri 2 ondalık basamağa yuvarlayın</span></span>
+<span>         <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">[[</span><span class="va">var_to_tab</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span></span>
+<span>         <span class="op">)</span></span>
+<span>       <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">proptab_multiple</span><span class="op">(</span><span class="va">linelist</span>, <span class="st">"gender"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "gender"</code></pre>
+<pre><code>##            f       m
+## [1,] 2807.00 2803.00
+## [2,]   50.04   49.96</code></pre>
+<div class="sourceCode" id="cb1891"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">proptab_multiple</span><span class="op">(</span><span class="va">linelist</span>, <span class="st">"age_cat"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "age_cat"</code></pre>
+<pre><code>##          0-4     5-9  10-14  15-19   20-29 30-49 50-69 70+
+## [1,] 1095.00 1095.00 941.00 743.00 1073.00   754 95.00 6.0
+## [2,]   18.87   18.87  16.22  12.81   18.49    13  1.64 0.1</code></pre>
+<div class="sourceCode" id="cb1894"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">proptab_multiple</span><span class="op">(</span><span class="va">linelist</span>, <span class="st">"outcome"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "outcome"</code></pre>
+<pre><code>##        Death Recover
+## [1,] 2582.00 1983.00
+## [2,]   56.56   43.44</code></pre>
+<p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> Yukarıda gösterildiği gibi, genel programlama için yaptığınız fonksiyonlarınızı yorumlamanız çok önemlidir. Bir fonksiyonun amacının bir kodu okunmaya hazır, daha kısa ve daha verimli hale getirmek olduğunu unutmayın. O zaman sadece adını okuyarak fonksiyonun ne yaptığını anlayabilmeli ve yorumları okuyarak daha fazla ayrıntıya sahip olmalıyız.</span></p>
+<p>İkinci bir seçenek, işlemi bir kerede yapmak için bu fonksiyonu bir döngü aracılığıyla başka bir fonksiyonda kullanmaktır:</p>
+<div class="sourceCode" id="cb1897"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">var_to_tab</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gender"</span>,<span class="st">"age_cat"</span>,  <span class="st">"outcome"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">proptab_multiple</span><span class="op">(</span><span class="va">linelist</span>, <span class="va">var_to_tab</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] "gender"
+##            f       m
+## [1,] 2807.00 2803.00
+## [2,]   50.04   49.96
+## [1] "age_cat"
+##          0-4     5-9  10-14  15-19   20-29 30-49 50-69 70+
+## [1,] 1095.00 1095.00 941.00 743.00 1073.00   754 95.00 6.0
+## [2,]   18.87   18.87  16.22  12.81   18.49    13  1.64 0.1
+## [1] "outcome"
+##        Death Recover
+## [1,] 2582.00 1983.00
+## [2,]   56.56   43.44</code></pre>
+<p>Daha basit bir yol, aşağıda ifade edildiği gibi “for loop” yerine R “apply” tabanını kullanmak olabilir:</p>
+<p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong>R genellikle işlevsel bir programlama dili olarak tanımlanır ve neredeyse her zaman bir kod satırı çalıştırdığınızda bazı yerleşik fonksiyonları kullanırsınız. Yazma fonksiyonları konusunda daha rahat olmak için iyi bir alışkanlık, günlük olarak kullandığınız temel fonksiyonların nasıl oluşturulduğunu sık sık içsel olarak incelemektir. Bunu yapmanın kısayolu, fonksiyonun adını seçmek ve ardından <code>Ctrl+F2</code> veya <code>fn+F2</code> veya <code>Cmd+F2</code> (bilgisayarınıza bağlı olarak) üzerine tıklamaktır.</span></p>
+</div>
+</div>
+<div id="purrr-kullanımı-yinelemeli-olarak-uygulanabilen-yazma-fonksiyonları" class="section level2" number="44.7">
+<h2>
+<span class="header-section-number">44.7</span> <strong>purrr</strong> kullanımı: yinelemeli olarak uygulanabilen yazma fonksiyonları<a class="anchor" aria-label="anchor" href="#purrr-kullan%C4%B1m%C4%B1-yinelemeli-olarak-uygulanabilen-yazma-fonksiyonlar%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="bir-veri-kümesindeki-birden-çok-sütunun-sınıfını-değiştirin" class="section level3 unnumbered">
+<h3>Bir veri kümesindeki birden çok sütunun sınıfını değiştirin<a class="anchor" aria-label="anchor" href="#bir-veri-k%C3%BCmesindeki-birden-%C3%A7ok-s%C3%BCtunun-s%C4%B1n%C4%B1f%C4%B1n%C4%B1-de%C4%9Fi%C5%9Ftirin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Orijinal ‘satır listesi’ verilerindeki birçok karakter değişkeninin analiz ve çizim amaçları için “faktör” olarak değiştirilmesi gerektiğini varsayalım. Adımı birkaç kez tekrarlamak yerine, ilgili tüm değişkenlerin dönüşümünü tek bir kod satırında yapmak için sadece <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> kullanabiliriz.</p>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> bir liste döndürür, bu nedenle kullanımı son adım olarak ek bir değişiklik gerektirebilir.</span></p>
+<p>Aynı adım, <strong>purrr</strong> paketindeki <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if()</a></code> fonksiyonu kullanılarak da yapılabilir.</p>
+<div class="sourceCode" id="cb1899"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_factor2</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if</a></span><span class="op">(</span><span class="va">is.character</span>, <span class="va">as.factor</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">linelist_factor2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## List of 30
+##  $ case_id             : Factor w/ 5888 levels "00031d","00086d",..: 2134 3022 396 4203 3084 4347 179 1241 5594 430 ...
+##  $ generation          : num [1:5888] 4 4 2 3 3 3 4 4 4 4 ...
+##  $ date_infection      : Date[1:5888], format: "2014-05-08" NA NA "2014-05-04" ...
+##  $ date_onset          : Date[1:5888], format: "2014-05-13" "2014-05-13" "2014-05-16" "2014-05-18" ...
+##  $ date_hospitalisation: Date[1:5888], format: "2014-05-15" "2014-05-14" "2014-05-18" "2014-05-20" ...
+##  $ date_outcome        : Date[1:5888], format: NA "2014-05-18" "2014-05-30" NA ...
+##  $ outcome             : Factor w/ 2 levels "Death","Recover": NA 2 2 NA 2 2 2 1 2 1 ...
+##  $ gender              : Factor w/ 2 levels "f","m": 2 1 2 1 2 1 1 1 2 1 ...
+##  $ age                 : num [1:5888] 2 3 56 18 3 16 16 0 61 27 ...
+##  $ age_unit            : Factor w/ 2 levels "months","years": 2 2 2 2 2 2 2 2 2 2 ...
+##  $ age_years           : num [1:5888] 2 3 56 18 3 16 16 0 61 27 ...
+##  $ age_cat             : Factor w/ 8 levels "0-4","5-9","10-14",..: 1 1 7 4 1 4 4 1 7 5 ...
+##  $ age_cat5            : Factor w/ 18 levels "0-4","5-9","10-14",..: 1 1 12 4 1 4 4 1 13 6 ...
+##  $ hospital            : Factor w/ 6 levels "Central Hospital",..: 4 3 6 5 2 5 3 3 3 3 ...
+##  $ lon                 : num [1:5888] -13.2 -13.2 -13.2 -13.2 -13.2 ...
+##  $ lat                 : num [1:5888] 8.47 8.45 8.46 8.48 8.46 ...
+##  $ infector            : Factor w/ 2697 levels "00031d","002e6c",..: 2594 NA NA 2635 180 1799 1407 195 NA NA ...
+##  $ source              : Factor w/ 2 levels "funeral","other": 2 NA NA 2 2 2 2 2 NA NA ...
+##  $ wt_kg               : num [1:5888] 27 25 91 41 36 56 47 0 86 69 ...
+##  $ ht_cm               : num [1:5888] 48 59 238 135 71 116 87 11 226 174 ...
+##  $ ct_blood            : num [1:5888] 22 22 21 23 23 21 21 22 22 22 ...
+##  $ fever               : Factor w/ 2 levels "no","yes": 1 NA NA 1 1 1 NA 1 1 1 ...
+##  $ chills              : Factor w/ 2 levels "no","yes": 1 NA NA 1 1 1 NA 1 1 1 ...
+##  $ cough               : Factor w/ 2 levels "no","yes": 2 NA NA 1 2 2 NA 2 2 2 ...
+##  $ aches               : Factor w/ 2 levels "no","yes": 1 NA NA 1 1 1 NA 1 1 1 ...
+##  $ vomit               : Factor w/ 2 levels "no","yes": 2 NA NA 1 2 2 NA 2 2 1 ...
+##  $ temp                : num [1:5888] 36.8 36.9 36.9 36.8 36.9 37.6 37.3 37 36.4 35.9 ...
+##  $ time_admission      : Factor w/ 1072 levels "00:10","00:29",..: NA 308 746 415 514 589 609 297 409 387 ...
+##  $ bmi                 : num [1:5888] 117.2 71.8 16.1 22.5 71.4 ...
+##  $ days_onset_hosp     : num [1:5888] 2 1 2 2 1 1 2 1 1 2 ...</code></pre>
+</div>
+<div id="değişkeninin-farklı-seviyeleri-için-yinelemeli-olarak-grafikler-üretin" class="section level3 unnumbered">
+<h3>Değişkeninin farklı seviyeleri için yinelemeli olarak grafikler üretin<a class="anchor" aria-label="anchor" href="#de%C4%9Fi%C5%9Fkeninin-farkl%C4%B1-seviyeleri-i%C3%A7in-yinelemeli-olarak-grafikler-%C3%BCretin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Her eyalet için H7N9 salgını sırasında Çin’de hastaların sonucunun dağılımına bakmak için burada pasta grafiği üreteceğiz. Her biri için kodu tekrarlamak yerine sadece oluşturacağımız bir fonksiyonu uygulayacağız.</p>
+<div class="sourceCode" id="cb1901"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#highchart kullanımı için kusursuz seçenekler</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>highcharter.theme <span class="op">=</span>   <span class="fu">highcharter</span><span class="fu">::</span><span class="fu"><a href="https://jkunst.com/highcharter/reference/hc_theme_smpl.html">hc_theme_smpl</a></span><span class="op">(</span>tooltip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>valueDecimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#"chart_outcome_province" adında, veri kümesini ve sonucun dağılımını çizeceği ilin adını değişken olarak alan bir fonksiyon oluşturun.</span></span>
+<span></span>
+<span><span class="va">chart_outcome_province</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data_used</span>, <span class="va">prov</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">tab_prov</span> <span class="op">&lt;-</span> <span class="va">data_used</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">province</span> <span class="op">==</span> <span class="va">prov</span>,</span>
+<span>           <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">adorn_totals</span><span class="op">(</span>where <span class="op">=</span> <span class="st">"row"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu">adorn_percentages</span><span class="op">(</span>denominator <span class="op">=</span> <span class="st">"col"</span>, <span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>        perc_outcome<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  </span>
+<span>  <span class="va">tab_prov</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">!=</span> <span class="st">"Total"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">highcharter</span><span class="fu">::</span><span class="fu"><a href="https://jkunst.com/highcharter/reference/hchart.html">hchart</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pie"</span>, <span class="fu">hcaes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">outcome</span>, y <span class="op">=</span> <span class="va">perc_outcome</span><span class="op">)</span>,</span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Distibution of the outcome in:"</span>, <span class="va">prov</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">chart_outcome_province</span><span class="op">(</span><span class="va">flu_china</span>, <span class="st">"Shanghai"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-cd32eaddcdde69ad945f" style="width:672px;height:480px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cd32eaddcdde69ad945f">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"perc_outcome"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"outcome":"Death","n":0.533333333333333,"perc_outcome":53.33,"y":53.33,"name":"Death"},{"outcome":"Recover","n":0.466666666666667,"perc_outcome":46.67,"y":46.67,"name":"Recover"}],"type":"pie","name":"Distibution of the outcome in:Shanghai"}],"xAxis":{"type":"category","title":{"text":"outcome"},"categories":null}},"theme":{"colors":["#d35400","#2980b9","#2ecc71","#f1c40f","#2c3e50","#7f8c8d"],"chart":{"style":{"fontFamily":"Roboto","color":"#666666"}},"title":{"align":"left","style":{"fontFamily":"Roboto Condensed","fontWeight":"bold"}},"subtitle":{"align":"left","style":{"fontFamily":"Roboto Condensed"}},"legend":{"align":"right","verticalAlign":"bottom"},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"plotOptions":{"line":{"marker":{"enabled":false}},"spline":{"marker":{"enabled":false}},"area":{"marker":{"enabled":false}},"areaspline":{"marker":{"enabled":false}},"arearange":{"marker":{"enabled":false}},"bubble":{"maxSize":"10%"}},"tooltip":{"valueDecimals":2}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":["Roboto","Roboto+Condensed"],"debug":false},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb1902"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">chart_outcome_province</span><span class="op">(</span><span class="va">flu_china</span>,<span class="st">"Zhejiang"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-7717b9e916d49994f4b8" style="width:672px;height:480px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7717b9e916d49994f4b8">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"perc_outcome"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"outcome":"Death","n":0.428571428571429,"perc_outcome":42.86,"y":42.86,"name":"Death"},{"outcome":"Recover","n":0.571428571428571,"perc_outcome":57.14,"y":57.14,"name":"Recover"}],"type":"pie","name":"Distibution of the outcome in:Zhejiang"}],"xAxis":{"type":"category","title":{"text":"outcome"},"categories":null}},"theme":{"colors":["#d35400","#2980b9","#2ecc71","#f1c40f","#2c3e50","#7f8c8d"],"chart":{"style":{"fontFamily":"Roboto","color":"#666666"}},"title":{"align":"left","style":{"fontFamily":"Roboto Condensed","fontWeight":"bold"}},"subtitle":{"align":"left","style":{"fontFamily":"Roboto Condensed"}},"legend":{"align":"right","verticalAlign":"bottom"},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"plotOptions":{"line":{"marker":{"enabled":false}},"spline":{"marker":{"enabled":false}},"area":{"marker":{"enabled":false}},"areaspline":{"marker":{"enabled":false}},"arearange":{"marker":{"enabled":false}},"bubble":{"maxSize":"10%"}},"tooltip":{"valueDecimals":2}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":["Roboto","Roboto+Condensed"],"debug":false},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb1903"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">chart_outcome_province</span><span class="op">(</span><span class="va">flu_china</span>,<span class="st">"Jiangsu"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-9630bdec3710faab57d3" style="width:672px;height:480px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9630bdec3710faab57d3">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"perc_outcome"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"outcome":"Death","n":0.285714285714286,"perc_outcome":28.57,"y":28.57,"name":"Death"},{"outcome":"Recover","n":0.714285714285714,"perc_outcome":71.43,"y":71.43,"name":"Recover"}],"type":"pie","name":"Distibution of the outcome in:Jiangsu"}],"xAxis":{"type":"category","title":{"text":"outcome"},"categories":null}},"theme":{"colors":["#d35400","#2980b9","#2ecc71","#f1c40f","#2c3e50","#7f8c8d"],"chart":{"style":{"fontFamily":"Roboto","color":"#666666"}},"title":{"align":"left","style":{"fontFamily":"Roboto Condensed","fontWeight":"bold"}},"subtitle":{"align":"left","style":{"fontFamily":"Roboto Condensed"}},"legend":{"align":"right","verticalAlign":"bottom"},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"plotOptions":{"line":{"marker":{"enabled":false}},"spline":{"marker":{"enabled":false}},"area":{"marker":{"enabled":false}},"areaspline":{"marker":{"enabled":false}},"arearange":{"marker":{"enabled":false}},"bubble":{"maxSize":"10%"}},"tooltip":{"valueDecimals":2}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":["Roboto","Roboto+Condensed"],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="bir-değişkenin-farklı-seviyeleri-için-yinelemeli-olarak-tablolar-üretin" class="section level3 unnumbered">
+<h3>Bir değişkenin farklı seviyeleri için yinelemeli olarak tablolar üretin<a class="anchor" aria-label="anchor" href="#bir-de%C4%9Fi%C5%9Fkenin-farkl%C4%B1-seviyeleri-i%C3%A7in-yinelemeli-olarak-tablolar-%C3%BCretin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Burada bir tablo halinde özetlemek için üç gösterge oluşturacağız ve bu tabloyu her il için üretmek istiyoruz. Göstergelerimiz, başlangıç ile hastaneye yatış arasındaki gecikme, iyileşme yüzdesi ve vakaların medyan yaşıdır.</p>
+<div class="sourceCode" id="cb1904"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">indic_1</span> <span class="op">&lt;-</span> <span class="va">flu_china</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">province</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    date_hosp<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">date_of_hospitalisation</span>, format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span>,</span>
+<span>    date_ons<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">date_of_onset</span>, format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span>, </span>
+<span>    delay_onset_hosp<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_hosp</span> <span class="op">-</span> <span class="va">date_ons</span><span class="op">)</span><span class="op">/</span><span class="fl">86400</span>,</span>
+<span>    mean_delay_onset_hosp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">delay_onset_hosp</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span> <span class="op">)</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">province</span>, <span class="va">mean_delay_onset_hosp</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>     </span>
+<span></span>
+<span><span class="va">indic_2</span> <span class="op">&lt;-</span>  <span class="va">flu_china</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">province</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>            <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">outcome</span>, values_from <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu">adorn_totals</span><span class="op">(</span>where <span class="op">=</span> <span class="st">"col"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>        perc_recovery<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">Recover</span><span class="op">/</span><span class="va">Total</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">province</span>, <span class="va">perc_recovery</span><span class="op">)</span></span>
+<span>    </span>
+<span>    </span>
+<span>    </span>
+<span><span class="va">indic_3</span> <span class="op">&lt;-</span>  <span class="va">flu_china</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">province</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>                    median_age_cases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>            <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">province</span>, <span class="va">median_age_cases</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning in median(as.numeric(age), na.rm = TRUE): NAs introduced by coercion</code></pre>
+<div class="sourceCode" id="cb1906"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#üç gösterge veri kümesine katılın</span></span>
+<span></span>
+<span><span class="va">table_indic_all</span> <span class="op">&lt;-</span> <span class="va">indic_1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">indic_2</span>, by <span class="op">=</span> <span class="st">"province"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">indic_3</span>, by <span class="op">=</span> <span class="st">"province"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">#göstergeleri esnek bir tabloda yazdırın</span></span>
+<span></span>
+<span></span>
+<span><span class="va">print_indic_prov</span> <span class="op">&lt;-</span>  <span class="kw">function</span><span class="op">(</span><span class="va">table_used</span>, <span class="va">prov</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co">#önce yazdırma kolaylığı için veri çerçevesini biraz dönüştürün</span></span>
+<span>  <span class="va">indic_prov</span> <span class="op">&lt;-</span> <span class="va">table_used</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">province</span><span class="op">==</span><span class="va">prov</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>names_to <span class="op">=</span> <span class="st">"Indicateurs"</span>, cols <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> indic_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Indicateurs</span>,</span>
+<span>   levels<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mean_delay_onset_hosp"</span>,<span class="st">"perc_recovery"</span>,<span class="st">"median_age_cases"</span><span class="op">)</span>,</span>
+<span>   labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mean delay onset-hosp"</span>,<span class="st">"Percentage of recovery"</span>, <span class="st">"Median age of the cases"</span><span class="op">)</span><span class="op">)</span></span>
+<span>   <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="va">province</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">indic_label</span>, <span class="va">value</span><span class="op">)</span></span>
+<span>  </span>
+<span></span>
+<span>    <span class="va">tab_print</span> <span class="op">&lt;-</span> <span class="fu">flextable</span><span class="op">(</span><span class="va">indic_prov</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">theme_vanilla</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/fontsize.html">fontsize</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"body"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> </span>
+<span>    </span>
+<span>    </span>
+<span>     <span class="va">tab_print</span> <span class="op">&lt;-</span> <span class="va">tab_print</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>                  <span class="fu">autofit</span><span class="op">(</span><span class="op">)</span>   <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>                  <span class="fu">set_header_labels</span><span class="op">(</span> </span>
+<span>                indic_label<span class="op">=</span> <span class="st">"Indicateurs"</span>, value<span class="op">=</span> <span class="st">"Estimation"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/bg.html">bg</a></span><span class="op">(</span> bg <span class="op">=</span> <span class="st">"darkblue"</span>, part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/bold.html">bold</a></span><span class="op">(</span>part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/color.html">color</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span>, part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu">add_header_lines</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Indicateurs pour la province de: "</span>, <span class="va">prov</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="fu">bold</span><span class="op">(</span>part <span class="op">=</span> <span class="st">"header"</span><span class="op">)</span></span>
+<span> </span>
+<span> <span class="va">tab_print</span> <span class="op">&lt;-</span> <span class="fu">set_formatter_type</span><span class="op">(</span><span class="va">tab_print</span>,</span>
+<span>   fmt_double <span class="op">=</span> <span class="st">"%.2f"</span>,</span>
+<span>   na_str <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tab_print</span> </span>
+<span>    </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="fu">print_indic_prov</span><span class="op">(</span><span class="va">table_indic_all</span>, <span class="st">"Shanghai"</span><span class="op">)</span></span></code></pre></div>
+<template id="47b34e6a-3e11-4d76-8035-f31a28a86569"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style>
+<div class="tabwid">
+<style>.cl-a2f28dfa{}.cl-a2e6ad14{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-a2e6ad1e{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a2eb94aa{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a2eb94be{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a2ebaa76{width:1.799in;background-color:rgba(0, 0, 139, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a2ebaa80{width:0.676in;background-color:rgba(0, 0, 139, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a2ebaa81{width:1.799in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a2ebaa8a{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a2ebaa8b{width:1.799in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a2ebaa94{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a2ebaa95{width:1.799in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a2ebaa9e{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table class="cl-a2f28dfa">
+<thead>
+<tr style="overflow-wrap:break-word;"><td colspan="2" class="cl-a2ebaa76"><p class="cl-a2eb94aa"><span class="cl-a2e6ad14">Indicateurs pour la province de: Shanghai</span></p></td></tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a2ebaa76"><p class="cl-a2eb94aa"><span class="cl-a2e6ad14">Indicateurs</span></p></td>
+<td class="cl-a2ebaa80"><p class="cl-a2eb94be"><span class="cl-a2e6ad14">Estimation</span></p></td>
+</tr>
+</thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a2ebaa81"><p class="cl-a2eb94aa"><span class="cl-a2e6ad1e">Mean delay onset-hosp</span></p></td>
+<td class="cl-a2ebaa8a"><p class="cl-a2eb94be"><span class="cl-a2e6ad1e">4.0</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a2ebaa8b"><p class="cl-a2eb94aa"><span class="cl-a2e6ad1e">Percentage of recovery</span></p></td>
+<td class="cl-a2ebaa94"><p class="cl-a2eb94be"><span class="cl-a2e6ad1e">46.7</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a2ebaa95"><p class="cl-a2eb94aa"><span class="cl-a2e6ad1e">Median age of the cases</span></p></td>
+<td class="cl-a2ebaa9e"><p class="cl-a2eb94be"><span class="cl-a2e6ad1e">67.0</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div></template><div class="flextable-shadow-host" id="25968f92-4bdc-4e10-8c67-d0fb5975e9a8"></div>
+<script>
+var dest = document.getElementById("25968f92-4bdc-4e10-8c67-d0fb5975e9a8");
+var template = document.getElementById("47b34e6a-3e11-4d76-8035-f31a28a86569");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script><div class="sourceCode" id="cb1907"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">print_indic_prov</span><span class="op">(</span><span class="va">table_indic_all</span>, <span class="st">"Jiangsu"</span><span class="op">)</span></span></code></pre></div>
+<template id="cd018aef-227c-497d-bfe8-338968297b15"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style>
+<div class="tabwid">
+<style>.cl-a3144dd2{}.cl-a308eb18{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(255, 255, 255, 1.00);background-color:transparent;}.cl-a308eb22{font-family:'Arial';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a30d537e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a30d5392{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a30d6c38{width:1.799in;background-color:rgba(0, 0, 139, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a30d6c39{width:0.676in;background-color:rgba(0, 0, 139, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a30d6c42{width:1.799in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a30d6c4c{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a30d6c56{width:1.799in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a30d6c57{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a30d6c60{width:1.799in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a30d6c61{width:0.676in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<div class="inline-table"><table class="cl-a3144dd2">
+<thead>
+<tr style="overflow-wrap:break-word;"><td colspan="2" class="cl-a30d6c38"><p class="cl-a30d537e"><span class="cl-a308eb18">Indicateurs pour la province de: Jiangsu</span></p></td></tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a30d6c38"><p class="cl-a30d537e"><span class="cl-a308eb18">Indicateurs</span></p></td>
+<td class="cl-a30d6c39"><p class="cl-a30d5392"><span class="cl-a308eb18">Estimation</span></p></td>
+</tr>
+</thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a30d6c42"><p class="cl-a30d537e"><span class="cl-a308eb22">Mean delay onset-hosp</span></p></td>
+<td class="cl-a30d6c4c"><p class="cl-a30d5392"><span class="cl-a308eb22">6.0</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a30d6c56"><p class="cl-a30d537e"><span class="cl-a308eb22">Percentage of recovery</span></p></td>
+<td class="cl-a30d6c57"><p class="cl-a30d5392"><span class="cl-a308eb22">71.4</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-a30d6c60"><p class="cl-a30d537e"><span class="cl-a308eb22">Median age of the cases</span></p></td>
+<td class="cl-a30d6c61"><p class="cl-a30d5392"><span class="cl-a308eb22">55.0</span></p></td>
+</tr>
+</tbody>
+</table></div>
+</div></template><div class="flextable-shadow-host" id="667b8d68-bccd-410e-bcb9-5f418c9b96d5"></div>
+<script>
+var dest = document.getElementById("667b8d68-bccd-410e-bcb9-5f418c9b96d5");
+var template = document.getElementById("cd018aef-227c-497d-bfe8-338968297b15");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+</div>
+</div>
+<div id="iyi-işleyen-fonksiyonlar-için-ipuçları-ve-en-iyi-uygulamalar" class="section level2" number="44.8">
+<h2>
+<span class="header-section-number">44.8</span> İyi işleyen fonksiyonlar için ipuçları ve en iyi Uygulamalar<a class="anchor" aria-label="anchor" href="#iyi-i%C5%9Fleyen-fonksiyonlar-i%C3%A7in-ipu%C3%A7lar%C4%B1-ve-en-iyi-uygulamalar"><i class="fas fa-link"></i></a>
+</h2>
+<p>Fonksiyonel programlama, kodu kolaylaştırmak içindir ve okunmasını kolaylaştırır. Aşağıdaki ipuçları, temiz bir koda ve okunması kolay bir koda sahip olmanıza yardımcı olacaktır.</p>
+<div id="adlandırma-ve-sözdizimi" class="section level3 unnumbered">
+<h3>Adlandırma ve sözdizimi<a class="anchor" aria-label="anchor" href="#adland%C4%B1rma-ve-s%C3%B6zdizimi"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p>Ortamınızda zaten mevcut olan diğer fonksiyonlar tarafından kolayca alınmış olabilecek karakterleri kullanmaktan kaçının</p></li>
+<li><p>Fonksiyon adının başka bir okuyucu için kısa ve anlaşılır olması önerilir.</p></li>
+<li><p>Fonksiyon adı olarak fiiller, değişken adları için isimler kullanılması tercih edilir.</p></li>
+</ul>
+</div>
+<div id="sütun-adları-ve-düzenli-değerlendirme" class="section level3 unnumbered">
+<h3>Sütun adları ve düzenli değerlendirme<a class="anchor" aria-label="anchor" href="#s%C3%BCtun-adlar%C4%B1-ve-d%C3%BCzenli-de%C4%9Ferlendirme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Değişken olarak kodunuza sağlanan <em>sütun adlarına</em> nasıl başvuracağınızı öğrenmek istiyorsanız, bu <a href="https://dplyr.tidyverse.org/articles/programming.html">tidyverse programlama kılavuzunu</a> okuyabilirsiniz. Kapsanan konular arasında <em>tidy evaluation</em> ve <em>embrace</em> <code>{{ }}</code> “çift ayraç” kullanımı yer alır.</p>
+<p>Örneğin, hemen yukarıda bahsedilen sayfa eğitiminden hızlı bir iskelet şablon kodu:</p>
+<div class="sourceCode" id="cb1908"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">var_summary</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">var_summary</span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="test-ve-hata-işleme" class="section level3 unnumbered">
+<h3>Test ve Hata işleme<a class="anchor" aria-label="anchor" href="#test-ve-hata-i%C5%9Fleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir fonksiyonun görevi ne kadar karmaşıksa, hata olasılığı da o kadar yüksek olur. Bu nedenle, bazen hatanın nereden geldiğini hızlı bir şekilde anlamaya ve düzeltmenin bir yolunu bulmaya yardımcı olmak için fonksiyona bazı doğrulamalar eklemek gerekir.</p>
+<ul>
+<li>
+<code>eksik(değişken)</code> kullanarak bir değişkenin eksikliğini kontrol etmek şiddetle tavsiye edilmektedir. Bu basit kontrol, “DOĞRU” veya “YANLIŞ” değerini döndürebilir.</li>
+</ul>
+<div class="sourceCode" id="cb1909"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contain_covid19_missing</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">barrier_gest</span>, <span class="va">wear_mask</span>, <span class="va">get_vaccine</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/missing.html">missing</a></span><span class="op">(</span><span class="va">barrier_gest</span><span class="op">)</span><span class="op">)</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"please provide arg1"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/missing.html">missing</a></span><span class="op">(</span><span class="va">wear_mask</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"please provide arg2"</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/missing.html">missing</a></span><span class="op">(</span><span class="va">get_vaccine</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"please provide arg3"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">barrier_gest</span> <span class="op">==</span> <span class="st">"yes"</span> <span class="op">|</span> <span class="va">wear_mask</span> <span class="op">==</span><span class="st">"yes"</span> <span class="op">|</span> <span class="va">get_vaccine</span> <span class="op">==</span> <span class="st">"yes"</span> <span class="op">)</span> </span>
+<span>       </span>
+<span>       <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span><span class="st">"you can do better"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">else</span><span class="op">(</span><span class="st">"please make sure all are yes, this pandemic has to end!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">contain_covid19_missing</span><span class="op">(</span>get_vaccine <span class="op">=</span> <span class="st">"yes"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "please provide arg1"
+## [1] "please provide arg2"</code></pre>
+<pre><code>## Error in contain_covid19_missing(get_vaccine = "yes"): argument "barrier_gest" is missing, with no default</code></pre>
+<ul>
+<li>Daha fazla algılanabilir hata için <code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code> kullanın.</li>
+</ul>
+<div class="sourceCode" id="cb1912"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contain_covid19_stop</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">barrier_gest</span>, <span class="va">wear_mask</span>, <span class="va">get_vaccine</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">barrier_gest</span><span class="op">)</span><span class="op">)</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"arg1 should be a character, please enter the value with `yes`, `no` or `sometimes"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">barrier_gest</span> <span class="op">==</span> <span class="st">"yes"</span> <span class="op">&amp;</span> <span class="va">wear_mask</span> <span class="op">==</span><span class="st">"yes"</span> <span class="op">&amp;</span> <span class="va">get_vaccine</span> <span class="op">==</span> <span class="st">"yes"</span> <span class="op">)</span> </span>
+<span>       </span>
+<span>       <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span><span class="st">"success"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">else</span><span class="op">(</span><span class="st">"please make sure all are yes, this pandemic has to end!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">contain_covid19_stop</span><span class="op">(</span>barrier_gest<span class="op">=</span><span class="fl">1</span>, wear_mask<span class="op">=</span><span class="st">"yes"</span>, get_vaccine <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Error in contain_covid19_stop(barrier_gest = 1, wear_mask = "yes", get_vaccine = "no"): arg1 should be a character, please enter the value with `yes`, `no` or `sometimes</code></pre>
+<ul>
+<li><p>Yerleşik fonksiyonların çoğunu çalıştırdığımızda gördüğümüz gibi, belirli koşullarda açılabilen mesajlar ve uyarılar vardır. Bunları yazılı fonksiyonlarımıza <code><a href="https://rdrr.io/r/base/message.html">message()</a></code> ve <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code> fonksiyonlarını kullanarak entegre edebiliriz.</p></li>
+<li><p>Bir fonksiyonu değişken olarak alan ve onu güvenli bir şekilde yürüten <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code> kullanarak da hataları halledebiliriz. Aslında, bir hatayla karşılaşırsa fonksiyon durmadan yürütülür. <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code> çıktı olarak, sonuçlar ve “atladığı” hata olan iki nesne içeren bir <strong>liste</strong> döndürür.</p></li>
+</ul>
+<p>Önce <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> fonksiyonunu fonksiyon olarak çalıştırıp sonra <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code> ile çalıştırarak doğrulayabiliriz.</p>
+<div class="sourceCode" id="cb1914"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">linelist</span>, <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## $case_id
+## [1] NA
+## 
+## $generation
+## [1] 16.56165
+## 
+## $date_infection
+## [1] NA
+## 
+## $date_onset
+## [1] NA
+## 
+## $date_hospitalisation
+## [1] "2014-11-03"
+## 
+## $date_outcome
+## [1] NA
+## 
+## $outcome
+## [1] NA
+## 
+## $gender
+## [1] NA
+## 
+## $age
+## [1] NA
+## 
+## $age_unit
+## [1] NA
+## 
+## $age_years
+## [1] NA
+## 
+## $age_cat
+## [1] NA
+## 
+## $age_cat5
+## [1] NA
+## 
+## $hospital
+## [1] NA
+## 
+## $lon
+## [1] -13.23381
+## 
+## $lat
+## [1] 8.469638
+## 
+## $infector
+## [1] NA
+## 
+## $source
+## [1] NA
+## 
+## $wt_kg
+## [1] 52.64487
+## 
+## $ht_cm
+## [1] 124.9633
+## 
+## $ct_blood
+## [1] 21.20686
+## 
+## $fever
+## [1] NA
+## 
+## $chills
+## [1] NA
+## 
+## $cough
+## [1] NA
+## 
+## $aches
+## [1] NA
+## 
+## $vomit
+## [1] NA
+## 
+## $temp
+## [1] NA
+## 
+## $time_admission
+## [1] NA
+## 
+## $bmi
+## [1] 46.89023
+## 
+## $days_onset_hosp
+## [1] NA</code></pre>
+<div class="sourceCode" id="cb1916"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">safe_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">safe_mean</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## $case_id
+## $case_id$result
+## [1] NA
+## 
+## $case_id$error
+## NULL
+## 
+## 
+## $generation
+## $generation$result
+## [1] 16.56165
+## 
+## $generation$error
+## NULL
+## 
+## 
+## $date_infection
+## $date_infection$result
+## [1] NA
+## 
+## $date_infection$error
+## NULL
+## 
+## 
+## $date_onset
+## $date_onset$result
+## [1] NA
+## 
+## $date_onset$error
+## NULL
+## 
+## 
+## $date_hospitalisation
+## $date_hospitalisation$result
+## [1] "2014-11-03"
+## 
+## $date_hospitalisation$error
+## NULL
+## 
+## 
+## $date_outcome
+## $date_outcome$result
+## [1] NA
+## 
+## $date_outcome$error
+## NULL
+## 
+## 
+## $outcome
+## $outcome$result
+## [1] NA
+## 
+## $outcome$error
+## NULL
+## 
+## 
+## $gender
+## $gender$result
+## [1] NA
+## 
+## $gender$error
+## NULL
+## 
+## 
+## $age
+## $age$result
+## [1] NA
+## 
+## $age$error
+## NULL
+## 
+## 
+## $age_unit
+## $age_unit$result
+## [1] NA
+## 
+## $age_unit$error
+## NULL
+## 
+## 
+## $age_years
+## $age_years$result
+## [1] NA
+## 
+## $age_years$error
+## NULL
+## 
+## 
+## $age_cat
+## $age_cat$result
+## [1] NA
+## 
+## $age_cat$error
+## NULL
+## 
+## 
+## $age_cat5
+## $age_cat5$result
+## [1] NA
+## 
+## $age_cat5$error
+## NULL
+## 
+## 
+## $hospital
+## $hospital$result
+## [1] NA
+## 
+## $hospital$error
+## NULL
+## 
+## 
+## $lon
+## $lon$result
+## [1] -13.23381
+## 
+## $lon$error
+## NULL
+## 
+## 
+## $lat
+## $lat$result
+## [1] 8.469638
+## 
+## $lat$error
+## NULL
+## 
+## 
+## $infector
+## $infector$result
+## [1] NA
+## 
+## $infector$error
+## NULL
+## 
+## 
+## $source
+## $source$result
+## [1] NA
+## 
+## $source$error
+## NULL
+## 
+## 
+## $wt_kg
+## $wt_kg$result
+## [1] 52.64487
+## 
+## $wt_kg$error
+## NULL
+## 
+## 
+## $ht_cm
+## $ht_cm$result
+## [1] 124.9633
+## 
+## $ht_cm$error
+## NULL
+## 
+## 
+## $ct_blood
+## $ct_blood$result
+## [1] 21.20686
+## 
+## $ct_blood$error
+## NULL
+## 
+## 
+## $fever
+## $fever$result
+## [1] NA
+## 
+## $fever$error
+## NULL
+## 
+## 
+## $chills
+## $chills$result
+## [1] NA
+## 
+## $chills$error
+## NULL
+## 
+## 
+## $cough
+## $cough$result
+## [1] NA
+## 
+## $cough$error
+## NULL
+## 
+## 
+## $aches
+## $aches$result
+## [1] NA
+## 
+## $aches$error
+## NULL
+## 
+## 
+## $vomit
+## $vomit$result
+## [1] NA
+## 
+## $vomit$error
+## NULL
+## 
+## 
+## $temp
+## $temp$result
+## [1] NA
+## 
+## $temp$error
+## NULL
+## 
+## 
+## $time_admission
+## $time_admission$result
+## [1] NA
+## 
+## $time_admission$error
+## NULL
+## 
+## 
+## $bmi
+## $bmi$result
+## [1] 46.89023
+## 
+## $bmi$error
+## NULL
+## 
+## 
+## $days_onset_hosp
+## $days_onset_hosp$result
+## [1] NA
+## 
+## $days_onset_hosp$error
+## NULL</code></pre>
+<p>Daha önce de belirtildiği gibi, kodlarımızı iyi yorumlamak, çalışmalarımızda dokümantasyona sahip olmak için zaten iyi bir yoldur.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="kaynaklar-35" class="section level2" number="44.9">
+<h2>
+<span class="header-section-number">44.9</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-35"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://r4ds.had.co.nz/functions.html">Veri Bilimi için R</a></p>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf">İleri R Programlama Pratik Kılavuzu</a></p>
+<p><a href="https://purrr.tidyverse.org/">purr Paket Pratik Kılavuzu</a></p>
+<p><a href="https://youtube.videoken.com/embed/bzUmK0Y07ck">Hadley Wickham’dan Video-ACM konuşması: Fonksiyonel programlamanın keyfi (map_dbl nasıl çalışır?)</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></div>
+<div class="next"><a href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#yazma-fonksiyonlar%C4%B1"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-36"><span class="header-section-number">44.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCklemek-2">Paketleri yüklemek</a></li>
+<li><a class="nav-link" href="#verileri-i%C3%A7e-aktar-7">Verileri içe aktar</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#fonksiyonlar-1"><span class="header-section-number">44.2</span> Fonksiyonlar</a></li>
+<li><a class="nav-link" href="#neden-bir-fonksiyon-kullan%C4%B1rs%C4%B1n"><span class="header-section-number">44.3</span> Neden bir fonksiyon kullanırsın?</a></li>
+<li><a class="nav-link" href="#r-fonksiyonlar%C4%B1-nas%C4%B1l-olu%C5%9Fturur"><span class="header-section-number">44.4</span> R, fonksiyonları nasıl oluşturur?</a></li>
+<li><a class="nav-link" href="#temel-s%C3%B6zdizimi-ve-yap%C4%B1"><span class="header-section-number">44.5</span> Temel sözdizimi ve yapı</a></li>
+<li>
+<a class="nav-link" href="#%C3%B6rnekler-2"><span class="header-section-number">44.6</span> Örnekler</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#birka%C3%A7-s%C3%BCtun-i%C3%A7in-orant%C4%B1-tablolar%C4%B1n%C4%B1-d%C3%B6nd%C3%BCrmek">Birkaç sütun için orantı tablolarını döndürmek</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#purrr-kullan%C4%B1m%C4%B1-yinelemeli-olarak-uygulanabilen-yazma-fonksiyonlar%C4%B1"><span class="header-section-number">44.7</span> purrr kullanımı: yinelemeli olarak uygulanabilen yazma fonksiyonları</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bir-veri-k%C3%BCmesindeki-birden-%C3%A7ok-s%C3%BCtunun-s%C4%B1n%C4%B1f%C4%B1n%C4%B1-de%C4%9Fi%C5%9Ftirin">Bir veri kümesindeki birden çok sütunun sınıfını değiştirin</a></li>
+<li><a class="nav-link" href="#de%C4%9Fi%C5%9Fkeninin-farkl%C4%B1-seviyeleri-i%C3%A7in-yinelemeli-olarak-grafikler-%C3%BCretin">Değişkeninin farklı seviyeleri için yinelemeli olarak grafikler üretin</a></li>
+<li><a class="nav-link" href="#bir-de%C4%9Fi%C5%9Fkenin-farkl%C4%B1-seviyeleri-i%C3%A7in-yinelemeli-olarak-tablolar-%C3%BCretin">Bir değişkenin farklı seviyeleri için yinelemeli olarak tablolar üretin</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#iyi-i%C5%9Fleyen-fonksiyonlar-i%C3%A7in-ipu%C3%A7lar%C4%B1-ve-en-iyi-uygulamalar"><span class="header-section-number">44.8</span> İyi işleyen fonksiyonlar için ipuçları ve en iyi Uygulamalar</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#adland%C4%B1rma-ve-s%C3%B6zdizimi">Adlandırma ve sözdizimi</a></li>
+<li><a class="nav-link" href="#s%C3%BCtun-adlar%C4%B1-ve-d%C3%BCzenli-de%C4%9Ferlendirme">Sütun adları ve düzenli değerlendirme</a></li>
+<li><a class="nav-link" href="#test-ve-hata-i%C5%9Fleme">Test ve Hata işleme</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-35"><span class="header-section-number">44.9</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

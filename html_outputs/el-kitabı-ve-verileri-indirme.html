@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 El Kitabı ve verileri indirme | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="2.1 Çevrimdışı el kitabı indirme İnternet erişiminiz olmasa bile bu el kitabını web tarayıcınızda görüntüleyebilirsiniz. Bunun için HTML dosyalarını indirmeniz gerekmektedir. Epi R El Kitabını...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="2 El Kitabı ve verileri indirme | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="2.1 Çevrimdışı el kitabı indirme İnternet erişiminiz olmasa bile bu el kitabını web tarayıcınızda görüntüleyebilirsiniz. Bunun için HTML dosyalarını indirmeniz gerekmektedir. Epi R El Kitabını...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 El Kitabı ve verileri indirme | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="2.1 Çevrimdışı el kitabı indirme İnternet erişiminiz olmasa bile bu el kitabını web tarayıcınızda görüntüleyebilirsiniz. Bunun için HTML dosyalarını indirmeniz gerekmektedir. Epi R El Kitabını...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="active" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="el-kitabı-ve-verileri-indirme" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> El Kitabı ve verileri indirme<a class="anchor" aria-label="anchor" href="#el-kitab%C4%B1-ve-verileri-indirme"><i class="fas fa-link"></i></a>
+</h1>
+<!-- Note to self: If you want to create a download link to Github, right-click the "View Raw" button on Github, copy the address, and use that in the HTML below. -->
+<div id="çevrimdışı-el-kitabı-indirme" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Çevrimdışı el kitabı indirme<a class="anchor" aria-label="anchor" href="#%C3%A7evrimd%C4%B1%C5%9F%C4%B1-el-kitab%C4%B1-indirme"><i class="fas fa-link"></i></a>
+</h2>
+<p>İnternet erişiminiz olmasa bile bu el kitabını web tarayıcınızda görüntüleyebilirsiniz. Bunun için HTML dosyalarını indirmeniz gerekmektedir. Epi R El Kitabını çevrimdışı kullanmayı düşünüyorsanız, bilmeniz gereken gereken birkaç nokta mevcut:</p>
+<ul>
+<li>Dosyaları açtığınızda resimler ve İçindekiler’in yüklenmesi bir veya iki dakika sürebilir.</li>
+<li>Çevrimdışı kitabın düzeni biraz farklıdır - solda İçindekiler Tablosu olan uzun bir alan görecekseniz. Belirli terimleri aramak için Ctrl+F (Cmd-F) tuşlarını kullanabilirsiniz.</li>
+<li>İnternet bağlantınızı kesmeden önce uygun R paketlerini kurmanıza yardımcı olması için <a href="%C3%B6nerilen-paketler-1.html#%C3%B6nerilen-paketler-1">Önerilen paketler</a> sayfasına bakın.</li>
+<li>Tüm örnek verileri içeren R paketinizi <strong>epirhandbook</strong> kurun. (kurulum işlemi aşağıda açıklanmıştır)</li>
+</ul>
+<p><strong>El Kitabını iki farklı yoldan indirebilirsiniz:</strong></p>
+<div id="indirme-linkini-kullanarak" class="section level3 unnumbered">
+<h3>İndirme linkini kullanarak<a class="anchor" aria-label="anchor" href="#indirme-linkini-kullanarak"><i class="fas fa-link"></i></a>
+</h3>
+<p>Linke hızlıca erişebilmek için, <strong>bu linki sağ fare tuşunuzla tıklayın</strong> <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/offline_long/Epi_R_Handbook_offline.html">link</a> <strong>ve “Farklı Kaydet” seçeneğini seçin</strong>.</p>
+<p>Mac kullanıyorsanız, Cmd’ye basılı tutarak farenizle tıklayın. Cep telefonu kullanıyorsanız, bağlantıyı basılı tutun ve “Bağlantıyı kaydet”i seçin. Kitap cihazınıza indirilecektir. Görseller olmadan HTML kodu içeren bir ekran görürseniz, yukarıdaki talimatları uyguladığınızdan emin olun veya ikinci seçeneği deneyin.</p>
+</div>
+<div id="r-paketimizi-kullanın" class="section level3 unnumbered">
+<h3>R paketimizi kullanın<a class="anchor" aria-label="anchor" href="#r-paketimizi-kullan%C4%B1n"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sizin için <strong>epirhandbook</strong> adında bir R paketi tasarladık. El kitabını bilgisayarınıza indirebilmek için <code>download_book()</code> adlı bir fonksiyon oluşturduk. Bu fonksiyonu R programınızda kullanabilirsiniz.</p>
+<p>Bu pakette ayrıca <code>get_data()</code> adlı bir fonksiyon da mevcuttur. Bu fonskiyonla tüm örnek verileri bilgisayarınıza indirebilirsiniz.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook">Github sayfamızdan <em>appliedepi</em></a> <strong>epirhandbook</strong> R paketini indirmek için aşağıda verdiğimiz kodu kullanabilirsiniz. İndireceğiniz bu paket CRAN’da olmadığı için (Github’da kayıtlı) <code>p_install_gh()</code> özel fonksiyonunu kullanmanız gerekecektir.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Epi R El Kitabı paketinin en son sürümünü indirin</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_install_gh.html">p_install_gh</a></span><span class="op">(</span><span class="st">"appliedepi/epirhandbook"</span><span class="op">)</span></span></code></pre></div>
+<p>Şimdi, mevcut R oturumunuzda kullanmak üzere paketi yükleyin:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># paketi kullanmak için yükleyin</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">epirhandbook</span><span class="op">)</span></span></code></pre></div>
+<p>Ardından, el kitabını bilgisayarınıza indirmek için paketin <code>download_book()</code> (boş parantez ile) fonksiyonunu çalıştırın. RStudio kullandığınızı varsayarsak, dosyaları kaydetmeden önce konumu seçmenize izin veren bir pencere açılacaktır.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># çevrimdışı el kitabını bilgisayarınıza indirin</span></span>
+<span><span class="fu">download_book</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="örnek-bazlı-verileri-indirme" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Örnek bazlı verileri indirme<a class="anchor" aria-label="anchor" href="#%C3%B6rnek-bazl%C4%B1-verileri-indirme"><i class="fas fa-link"></i></a>
+</h2>
+<p>El kitabındaki örnekleri “takip etmek” için örnek veri ve çıktıları indirebilirsiniz.</p>
+<div id="r-paketimizi-kullanma" class="section level3 unnumbered">
+<h3>R paketimizi kullanma<a class="anchor" aria-label="anchor" href="#r-paketimizi-kullanma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Tüm verileri indirmenin en kolay yolu, R paketimiz olan <strong>epirhandbook</strong> kurmaktır. Bu paket tüm örnek verileri bilgisayarınızda seçtiğiniz bir klasöre kaydeden <code>get_data()</code> fonksiyonunu içerir.</p>
+<p>R paketini <strong>epirhandbook</strong>u kurmak için aşağıdaki kodu çalıştırın. Paketimiz CRAN’da bulunmamaktadır. Bu yüzden kurmak için <code>p_install_gh()</code> fonksiyonunu kullanın. Parantez içindeki referans, Github organizasyonumuza (“<em>appliedepi</em>”) ve <strong>epirhandbook</strong> proje adına atıfta bulunnmaktadır.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Epi R El Kitabı paketinin en son sürümünü indirin</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_install_gh.html">p_install_gh</a></span><span class="op">(</span><span class="st">"appliedepi/epirhandbook"</span><span class="op">)</span></span></code></pre></div>
+<p>Şimdi, mevcut R oturumunuzda kullanmak üzere paketi yükleyin:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># paketi kullanmak için yükleyin</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">epirhandbook</span><span class="op">)</span></span></code></pre></div>
+<p>Bu işlemlerin ardından, örnek verileri bilgisayarınıza indirmek için paketin <code>get_data()</code> fonksiyonunu kullanın. Örnek verilerin <em>tamamını</em> indirmek için <code>get_data("all")</code> komutunu çalıştırın veya yalnızca bir dosyayı almak için tırnak işaretleri içinde ilgili dosya adı ve uzantısını yazın.</p>
+<p>Veriler paketle birlikte indirilmiş olacaktır. Burada yapmanız gereken tek şey bilgisayarınızda indireceğiniz klasörü belirlemektir. İndirme konumunu seçmenize izin veren bir açılır pencere karşınıza çıkacaktır. Örnek veri ve çıktılar dahil yaklaşık 30 dosya olduğundan indirme konumunda yeni bir “veri” klasörü oluşturmanızı öneririz.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># tüm örnek verileri bilgisayarınızdaki bir klasöre indirin</span></span>
+<span><span class="fu">get_data</span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># bilgisayarınızdaki bir klasöre yalnızca belli bir satırın verilerini indirin</span></span>
+<span><span class="fu">get_data</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># belirli bir dosyayı bilgisayarınızdaki bir klasöre indirin</span></span>
+<span><span class="fu">get_data</span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+<p>İstediğiniz dosyayı bilgisayarınıza kaydetmek için <code>get_data()</code>yı kullandıktan sonra, yine de onu R’a aktarmanız gerekecektir. Ayrıntılar için <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> sayfasına bakabilirsiniz.</p>
+<p>Dilerseniz bu el kitabında kullanılan tüm verileri Github sayfamızın <strong><a href="https://github.com/appliedepi/epirhandbook_eng/tree/master/data">“data” klasöründe</a></strong> inceleyebilirsiniz.</p>
+</div>
+<div id="tek-tek-indirme" class="section level3 unnumbered">
+<h3>Tek tek indirme<a class="anchor" aria-label="anchor" href="#tek-tek-indirme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu seçenek, dosyaya özel bir bağlantı veya R komutu aracılığıyla Github sayfamızdan dosyaları sırasıyla indirmeyi içermektedir. Bazı dosya türleri indirme düğmesine izin verirken, diğerleri bir R komutuyla indirilebilir.</p>
+<div id="vaka-satır-listesi" class="section level4 unnumbered">
+<h4>Vaka satır listesi<a class="anchor" aria-label="anchor" href="#vaka-sat%C4%B1r-listesi"><i class="fas fa-link"></i></a>
+</h4>
+<p>Aşağıdaki linkler, <strong>outbreaks</strong> paketindeki <code>ebola_sim</code> uygulama veri kümesinde yer alan kitabın ekibi tarafından genişletilen kurgusal bir Ebola salgına aittir.</p>
+<ul>
+<li><p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_raw.xlsx" class="download-button">“Ham” satır listesini indirmek için tıklayın (.xlsx)</a>. “Ham” vaka satır listesi, dağınık veriler içeren bir excel tablosudur. [Verileri temizleme ve temel işlevler] sayfasını takip etmek için bunu kullanabilirsiniz.</p></li>
+<li><p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">“Temiz” satır listesini indirmek için tıklayın (.rds)</a>. Bu el kitabının satır listesini kullanan diğer tüm sayfaları için bu dosyayı kullanabilirsiniz. Rds dosyası, sütun sınıflarını koruyan R’a özgü bir dosya türüdür. Bu, verileri R’a aktardıktan sonra temizlik yapma ihtiyacını azaltır.</p></li>
+</ul>
+<p><em>Diğer dosyalar:</em></p>
+<ul>
+<li><p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.xlsx" class="download-button">“Temiz” satır listesini Excel dosyası olarak indirmek için tıklayın</a></p></li>
+<li><p>Temizleme sayfasının bir kısmı bir “temizleme sözlüğü” (.csv dosyası) kullanır. Aşağıdaki komutları çalıştırarak doğrudan R’a yükleyebilirsiniz:</p></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span><span class="op">)</span> <span class="co"># rio paketini kurun/yükleyin</span></span>
+<span></span>
+<span><span class="co"># dosyayı doğrudan Github'dan içe aktarın</span></span>
+<span><span class="va">cleaning_dict</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/cleaning_dict.csv"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="data_malaria" class="section level4 unnumbered">
+<h4>Sıtma sayısı verileri<a class="anchor" aria-label="anchor" href="#data_malaria"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bu veriler, yaş grubu, tesis ve güne göre sıtma vakalarının kurgusal sayılarıdır. Rds dosyası, sütun sınıflarını koruyan R’a özgü bir dosya türüdür. Bu, verileri R’a aktardıktan sonra temizlik yapma ihtiyacını azaltır.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_facility_count_data.rds" class="download-button">
+Sıtma sayılarını (.rds dosyası)
+<span>indirmek için tıklayın.</span>
+</a></p>
+</div>
+<div id="likert-ölçekli-veri" class="section level4 unnumbered">
+<h4>Likert ölçekli veri<a class="anchor" aria-label="anchor" href="#likert-%C3%B6l%C3%A7ekli-veri"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bunlar, [Demografik Piramitler ve Likert Ölçekleri] sayfasında kullanılan likert tarzı bir anketten alınan kurgusal verilerdir. Aşağıdaki komutları çalıştırarak bu verileri doğrudan R’a yükleyebilirsiniz:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span><span class="op">)</span> <span class="co"># rio paketini kurun/yükleyin</span></span>
+<span></span>
+<span><span class="co"># dosyayı doğrudan Github'dan içe aktarın</span></span>
+<span><span class="va">likert_data</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/nsbatra/Epi_R_handbook/master/data/likert_data.csv"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="esnek-pano" class="section level4 unnumbered">
+<h4>Esnek pano<a class="anchor" aria-label="anchor" href="#esnek-pano"><i class="fas fa-link"></i></a>
+</h4>
+<p>Aşağıda [R Markdown ile Kontrol Panelleri]’ndeki sayfayla ilişkili dosyaya bağlantılar verilmiştir:</p>
+<ul>
+<li>Salgın panosu ile ilgili R Markdown’ı indirmek için <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/flexdashboard/outbreak_dashboard.Rmd">linke</a> sağ fare tuşuyla tıklayın (Mac için Cmd + tıkla) ve “Farklı Kaydet” seçeneğini seçin.<br>
+</li>
+<li>HTML kontrol panelini indirmek için <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/flexdashboard/outbreak_dashboard_test.html">linke</a> sağ fare tuşuyla tıklayın (Mac için Cmd + tıkla) ve “Farklı Kaydet” seçeneğini seçin.</li>
+</ul>
+</div>
+<div id="temaslı-izleme" class="section level4 unnumbered">
+<h4>Temaslı İzleme<a class="anchor" aria-label="anchor" href="#temasl%C4%B1-izleme"><i class="fas fa-link"></i></a>
+</h4>
+<p><a href="el-kitab%C4%B1-ve-verileri-indirme.html#temasl%C4%B1-izleme">Temaslı İzleme</a> sayfası, aşağıdaki örnek verileri kullanarak kişi izleme verilerinin analizini göstermektedir. <a href="https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting">Go.Data</a>. Sayfada kullanılan veriler aşağıdaki linklere tıklanarak .rds dosyaları olarak indirilebilir:</p>
+<p><a href="https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/cases_clean.rds?raw=true" class="download-button">
+Vaka inceleme verilerini (.rds dosyası)
+<span>indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/contacts_clean.rds?raw=true" class="download-button">
+Temaslı kayıt verilerini (.rds dosyası)
+<span>indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/followups_clean.rds?raw=true" class="download-button">
+Temaslı takip verilerini (.rds dosyası)
+<span>indirmek için tıklayın.</span>
+</a></p>
+<p><span style="color: black;"><strong><em>NOT:</em></strong> Diğer yazılımlarda (örn. KoBo, DHIS2 Tracker, CommCare) yapılandırılmış temaslı izleme verileri farklı görünebilir. Bu sayfa için alternatif örnek veri veya içeriğe katkıda bulunmak isterseniz lütfen <a href="#contact_us">bize ulaşın</a>.</span></p>
+<p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> Go.Data kullanmak istiyorsanız ve örneklerinizin API’sine bağlanmak istiyorsanız, İçe ve Dışa Aktarma sayfasına <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#import_api">(API bölümü)</a> ve <a href="https://community-godata.who.int/">Go.Data Uygulama Topluluğu</a>’na bakabilirsiniz.</span></p>
+</div>
+<div id="gis" class="section level4 unnumbered">
+<h4>GIS<a class="anchor" aria-label="anchor" href="#gis"><i class="fas fa-link"></i></a>
+</h4>
+<p>Şekil dosyaları, her biri farklı uzantıya sahip birçok alt bileşen dosyasına sahiptir. Bir dosya “.shp” uzantısına sahipken, bir diğeri “.dbf”, “.prj” vb. uzantıya sahip olabilir.</p>
+<p>[GIS temel bilgileri] sayfası, sıkıştırılmış şekil dosyalarını indirebileceğiniz <em>Humanitarian Data Exchange</em> web sitesine ait bağlantıları barındırmaktadır.</p>
+<p>Örneğin sağlık tesisi puan verileri <a href="https://data.humdata.org/dataset/hotosm_sierra_leone_health_facilities">buradan</a> indirilebilir. “hotosm_sierra_leone_health_facilities_points_shp.zip” dosyasını indirin. Bilgisayarınıza kaydettikten sonra, klasörü “açın”. Farklı uzantılara sahip birkaç dosya göreceksiniz (örneğin “.shp”, “.prj”, “.shx”) - bunların tümü bilgisayarınızda aynı klasöre kaydedilmelidir. Ardından, R’a aktarmak için “.shp” dosyasının dosya yolunu ve adını <strong>sf</strong> paketinden <code>st_read()</code> fonksiyonuna ekleyin ([GIS temel bilgileri] sayfasında açıklandığı gibi)</p>
+<p>Tüm örnek verileri indirmek için Seçenek 1’i izlediyseniz (R paketimiz <strong>epirhandbook</strong> aracılığıyla), şekil dosyalarının tamamı içeride olacaktır.</p>
+<p>Alternatif olarak, şekil dosyalarını Github sayfamızdaki “data” klasöründen indirebilirsiniz (“gis” alt klasörüne bakın). Ancak, <em>her bir</em> alt dosyayı ayrı ayrı bilgisayarınıza indirmeniz gerekeceğini unutmayın. Github’da her bir dosyaya tek tek tıklayın ve “İndir” butonuna basarak indirin. Aşağıda örnek olarak, “sle_adm3” şekil dosyasının Github bölümünde kayıtlı birçok alt dosyadan oluştuğunu görebilirsiniz.</p>
+<div class="inline-figure"><img src="images/download_shp.png" width="918" height="50%" style="display: block; margin: auto;"></div>
+</div>
+<div id="filogenetik-ağaçlar" class="section level4 unnumbered">
+<h4>Filogenetik ağaçlar<a class="anchor" aria-label="anchor" href="#filogenetik-a%C4%9Fa%C3%A7lar"><i class="fas fa-link"></i></a>
+</h4>
+<p><a href="filogenetik-a%C4%9Fa%C3%A7lar-1.html#filogenetik-a%C4%9Fa%C3%A7lar-1">Filogenetik ağaçlar</a> sayfayasında, 299 Shigella sonnei örneğinin tüm genom dizilimi ve buna karşılık gelen vaka verilerinden (bir metin dosyası halinde) oluşturulan filogenetik ağacı Newick dosyası göreceksiniz. Belçika örneklerinden elde edilen veriler, ECDC EUPHEM asistanı tarafından yürütülen bir proje kapsamında üretilmiştir. Salmonella ve Shigella’dan elde edilen bu veriler Belçika NRC’si tarafından sağlanmaktadır.Bu veriler yayına dönüştürülme aşamasındadır. Kullanılan uluslararası veriler kamuya açık veri tabanlarına (ncbi) kayıtlı ve yayınlanmış verilerden elde edilmiştir.</p>
+<ul>
+<li>“Shigella_tree.txt” filogenetik ağaç dosyasını indirmek için <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/phylo/Shigella_tree.txt">linke</a> sağ fare tuşuyla tıklayın (Mac için Cmd + tıkla) ve “Farklı Kaydet” seçeneğini seçin.<br>
+</li>
+<li>Her örnekle ilgili ek bilgiler içeren “sample_data_Shigella_tree.csv” dosyasını indirmek için <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/phylo/sample_data_Shigella_tree.csv">linke</a> sağ fare tuşuyla tıklayın (Mac için Cmd + tıkla) ve “Farklı Kaydet” seçeneğini seçin.<br>
+</li>
+<li>Yeni oluşturulan altküme ağacını görmek için <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/phylo/Shigella_subtree_2.txt">linke</a> sağ fare tuşuyla tıklayın (Mac için Cmd + tıkla) ve “Farklı Kaydet” seçeneğini seçin.</li>
+</ul>
+<p>Daha sonra sayfada açıklandığı gibi <strong>ape</strong> paketinden <code>read.tree()</code> ile .txt dosyalarını içe aktarabilirsiniz.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html">read.tree</a></span><span class="op">(</span><span class="st">"Shigella_tree.txt"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="standardizasyon" class="section level4 unnumbered">
+<h4>Standardizasyon<a class="anchor" aria-label="anchor" href="#standardizasyon"><i class="fas fa-link"></i></a>
+</h4>
+<p>[Standartlaştırılmış oranlar] ile ilgili sayfaya bakın. Verileri doğrudan internetteki Github sayfamızdan aşağıdaki komutlarla R oturumunuza yükleyebilirsiniz:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># rio paketini kurun/yükleyin</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">##############</span></span>
+<span><span class="co"># A Ülkesi</span></span>
+<span><span class="co">##############</span></span>
+<span><span class="co"># A ülkesi için demografi bilgilerini Github'dan içeri aktarın</span></span>
+<span><span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># A ülkesi için ölüm bilgilerini Github'dan içeri aktarın</span></span>
+<span><span class="va">A_deaths</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">##############</span></span>
+<span><span class="co"># B Ülkesi</span></span>
+<span><span class="co">##############</span></span>
+<span><span class="co"># B ülkesi için demografi bilgilerini Github'dan içeri aktarın</span></span>
+<span><span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># B ülkesi için ölüm bilgilerini Github'dan içeri aktarın</span></span>
+<span><span class="va">B_deaths</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">###############</span></span>
+<span><span class="co"># Referans</span></span>
+<span><span class="co">###############</span></span>
+<span><span class="co"># Referans demografik bilgileri Github'dan içeri aktarın</span></span>
+<span><span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="data_outbreak" class="section level4 unnumbered">
+<h4>Zaman serileri ve salgın tespiti<a class="anchor" aria-label="anchor" href="#data_outbreak"><i class="fas fa-link"></i></a>
+</h4>
+<p>[Zaman serisi ve salgın tespiti] sayfasında Almanya 2002-2011’de rapor edilen Campylobacter vakalarını <strong>surveillance</strong> R paketinde olduğu gibi kullanıyoruz. (<em>ek bilgi:</em> bu veri seti orijinalinden uyarlanmıştır, 2011’in son 3 aylık verileri demo amacıyla silinmiştir)</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/campylobacter_germany.xlsx" class="download-button">
+Almanya Campylobacter verilerini (.xlsx)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p>Kitapta ayrıca Almanya 2002-2011 iklim verilerini kullanıyoruz (santigrat derece cinsinden sıcaklık ve milimetre cinsinden yağış bilgileri mevcut). Bu veriler, <strong>ecmwfr</strong> paketi kullanılarak EU Copernicus uydu yeniden analiz veri setinden indirilmiştir. Bunların hepsini indirmeniz ve zaman serisi sayfasında açıklandığı gibi <code><a href="https://r-spatial.github.io/stars/reference/read_stars.html">stars::read_stars()</a></code> ile içe aktarmanız gerekecektir.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2002.nc" class="download-button">
+Almanya Hava Durumu 2002 verilerini(.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2003.nc" class="download-button">
+Almanya Hava Durumu 2003 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2004.nc" class="download-button">
+Almanya Hava Durumu 2004 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2005.nc" class="download-button">
+Almanya Hava Durumu 2005 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2006.nc" class="download-button">
+Almanya Hava Durumu 2006 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2007.nc" class="download-button">
+Almanya Hava Durumu 2007 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2008.nc" class="download-button">
+Almanya Hava Durumu 2008 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2009.nc" class="download-button">
+Almanya Hava Durumu 2009 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2010.nc" class="download-button">
+Almanya Hava Durumu 2010 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/weather/germany_weather2011.nc" class="download-button">
+Almanya Hava Durumu 2011 verilerini (.nc dosyası)
+<span> indirmek için tıklayın.</span>
+</a></p>
+</div>
+<div id="data_survey" class="section level4 unnumbered">
+<h4>Anket analizi<a class="anchor" aria-label="anchor" href="#data_survey"><i class="fas fa-link"></i></a>
+</h4>
+<p><a href="https://epirhandbook.com/survey-analysis.html">Anket analizi</a> sayfası için MSF OCA anket şablonlarına dayalı kurgusal ölüm anketi verilerini kullandık. Bu kurgusal veriler <a href="https://r4epis.netlify.app/">“R4Epis” projesi</a> kapsamında oluşturulmuştur.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/surveys/survey_data.xlsx" class="download-button">
+Kurgusal anket verilerini (.xlsx)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/surveys/survey_dict.xlsx" class="download-button">
+Kurgusal anket veri sözlüğünü (.xlsx)
+<span> indirmek için tıklayın.</span>
+</a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/surveys/population.xlsx" class="download-button">
+Kurgusal anket nüfus verilerini (.xlsx)
+<span> indirmek için tıklayın.</span>
+</a></p>
+</div>
+<div id="data_shiny" class="section level4 unnumbered">
+<h4>Shiny<a class="anchor" aria-label="anchor" href="#data_shiny"><i class="fas fa-link"></i></a>
+</h4>
+<p>[Shiny Gösterge Tabloları] ile ilgili sayfa, sıtma verilerini görüntülemek için uygulamanın yapısını göstermektedir.</p>
+<p>Shiny uygulamasını oluşturan R dosyalarını indirmek için:</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_app/app.R" class="download-button">Shiny uygulaması için hem kullanıcı arayüzünü hem de sunucu kodunu içeren app.R dosyasını<span> indirmek için burayı tıklayabilirsiniz.</span></a></p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/blob/master/data/malaria_app/data/facility_count_data.rds" class="download-button">Shiny uygulaması için sıtma verilerini içeren property_count_data.rds dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> <code>here()</code> fonksiyonunun doğru çalışması için onu bir “data” klasöründe saklamayı unutmayın.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/blob/master/data/malaria_app/global.R" class="download-button">Sayfada açıklandığı gibi, uygulama açılmadan önce çalışması gereken global.R dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> Sayfada açıklandığı gibi, uygulama açılmadan önce çalıştırmayı unutmayın.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_app/funcs/plot_epicurve.R" class="download-button">global.R tarafından sağlanan plot_epicurve.R dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> <code>here()</code> fonksiyonlarının doğru çalışması için onu bir “funcs” klasöründe saklamayı unutmayın.</p>
+
+</div>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></div>
+<div class="next"><a href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#el-kitab%C4%B1-ve-verileri-indirme"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li>
+<a class="nav-link" href="#%C3%A7evrimd%C4%B1%C5%9F%C4%B1-el-kitab%C4%B1-indirme"><span class="header-section-number">2.1</span> Çevrimdışı el kitabı indirme</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#indirme-linkini-kullanarak">İndirme linkini kullanarak</a></li>
+<li><a class="nav-link" href="#r-paketimizi-kullan%C4%B1n">R paketimizi kullanın</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#%C3%B6rnek-bazl%C4%B1-verileri-indirme"><span class="header-section-number">2.2</span> Örnek bazlı verileri indirme</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-paketimizi-kullanma">R paketimizi kullanma</a></li>
+<li><a class="nav-link" href="#tek-tek-indirme">Tek tek indirme</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

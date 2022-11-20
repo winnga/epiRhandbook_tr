@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Tek değişkenli ve çok değişkenli regresyon | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bu sayfa, “glm()” ve gtsummary paketi gibi base R regresyon fonksiyonlarının kullanımını gösterir. Değişkenler arasındaki ilişkilere bakarak bunu yapar (örneğin, odds oranları, risk oranları ve...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="3 Tek değişkenli ve çok değişkenli regresyon | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bu sayfa, “glm()” ve gtsummary paketi gibi base R regresyon fonksiyonlarının kullanımını gösterir. Değişkenler arasındaki ilişkilere bakarak bunu yapar (örneğin, odds oranları, risk oranları ve...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Tek değişkenli ve çok değişkenli regresyon | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bu sayfa, “glm()” ve gtsummary paketi gibi base R regresyon fonksiyonlarının kullanımını gösterir. Değişkenler arasındaki ilişkilere bakarak bunu yapar (örneğin, odds oranları, risk oranları ve...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">1</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">2</span> Basit istatistiksel testler</a></li>
+<li><a class="active" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">3</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">4</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">5</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">6</span> Hareketli ortalamalar</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tek-değişkenli-ve-çok-değişkenli-regresyon" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Tek değişkenli ve çok değişkenli regresyon<a class="anchor" aria-label="anchor" href="#tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon"><i class="fas fa-link"></i></a>
+</h1>
+<!-- ============================================= ========= -->
+<p>Bu sayfa, “glm()” ve <strong>gtsummary</strong> paketi gibi <strong>base</strong> R regresyon fonksiyonlarının kullanımını gösterir.
+Değişkenler arasındaki ilişkilere bakarak bunu yapar (örneğin, odds oranları, risk oranları ve tehlike oranları). Ayrıca regresyon çıktılarını temizlemek için <strong>broom</strong> paketindeki ‘tidy()’ gibi fonksiyonları kullanır.</p>
+<ol style="list-style-type: decimal">
+<li>Tek değişkenli: ikiye iki tablo</li>
+<li>Tabakalı: mantel-haenszel tahminleri</li>
+<li>Çok değişkenli: değişken seçimi, model seçimi, final tablosu</li>
+<li>Forest Grafikleri</li>
+</ol>
+<p>Cox orantılı tehlike regresyonu için [Hayatta kalma analizi] sayfasına bakınız.</p>
+<p><span style="color: black;"><strong><em>NOT:</em></strong> <em>Çok değişkenli</em> terimini, birden fazla açıklayıcı değişken içeren bir regresyona atıfta bulunmak için kullanırız. Bu anlamda <em>çok değişkenli</em> bir model, çeşitli sonuçları olan bir regresyon olacaktır - ayrıntılar için <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3518362/">editoryal</a> e bakabilirsiniz </span></p>
+<!-- ============================================= ========= -->
+<div id="hazırlık-2" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-2"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yükleyin-1" class="section level3 unnumbered">
+<h3>Paketleri yükleyin<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleyin-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’dan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> vurgusunu yapıyoruz. <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri de yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R basics] sayfasına bakın.</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">rio</span>,          <span class="co"># Dosyayı içe aktarma</span></span>
+<span>  <span class="va">here</span>,         <span class="co"># Dosyayı konumlama</span></span>
+<span>  <span class="va">tidyverse</span>,    <span class="co"># veri yönetimi + ggplo2 grafikleri </span></span>
+<span>  <span class="va">stringr</span>,      <span class="co"># metin dizelerini düzenle </span></span>
+<span>  <span class="va">purrr</span>,        <span class="co"># düzenli bir şekilde nesneler üzerinde döngü sağlama</span></span>
+<span>  <span class="va">gtsummary</span>,    <span class="co"># özet istatistikler ve testler</span></span>
+<span>  <span class="va">broom</span>,        <span class="co"># regresyonlardan elde edilen sonuçları toparlama</span></span>
+<span>  <span class="va">lmtest</span>,       <span class="co"># olasılık oranı testleri</span></span>
+<span>  <span class="va">parameters</span>,   <span class="co"># regresyonlardan elde edilen sonuçları toparlamaya alternatif</span></span>
+<span>  <span class="va">see</span>          <span class="co"># Forest grafiklerini görselleştirmeye alternatif</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+</div>
+<div id="verileri-içe-aktar-1" class="section level3 unnumbered">
+<h3>Verileri içe aktar<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktar-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Simüle edilmiş bir Ebola salgınından vakaların veri setini içe aktarıyoruz. Takip etmek isterseniz, <a href="https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">“clean” linelist indirmek için tıklayın</a> (.rds dosyası olarak). Verilerinizi <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonuyla içe aktarın (.xlsx, .rds, .csv gibi birçok dosya türünü kabul eder - ayrıntılar için [İçe aktarma ve dışa aktarma] sayfasına bakınız).</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Vaka listesini içe aktarma</span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+<p>Vaka listesinin ilk 50 satırı aşağıda görüntülenir.</p>
+<div id="htmlwidget-bd76b574eec8b759447f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd76b574eec8b759447f">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="temiz-veri" class="section level3 unnumbered">
+<h3>Temiz veri<a class="anchor" aria-label="anchor" href="#temiz-veri"><i class="fas fa-link"></i></a>
+</h3>
+<div id="açıklayıcı-değişkenleri-saklayın" class="section level4 unnumbered">
+<h4>Açıklayıcı değişkenleri saklayın<a class="anchor" aria-label="anchor" href="#a%C3%A7%C4%B1klay%C4%B1c%C4%B1-de%C4%9Fi%C5%9Fkenleri-saklay%C4%B1n"><i class="fas fa-link"></i></a>
+</h4>
+<p>Açıklayıcı sütunların adlarını bir karakter vektörü olarak saklıyoruz. Buna daha sonra atıfta bulunulacaktır.</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## ilgilenilen değişkenleri tanımlama </span></span>
+<span><span class="va">explanatory_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"fever"</span>, <span class="st">"chills"</span>, <span class="st">"cough"</span>, <span class="st">"aches"</span>, <span class="st">"vomit"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="lere-ve-0lara-dönüştür" class="section level4 unnumbered">
+<h4>1’lere ve 0’lara dönüştür<a class="anchor" aria-label="anchor" href="#lere-ve-0lara-d%C3%B6n%C3%BC%C5%9Ft%C3%BCr"><i class="fas fa-link"></i></a>
+</h4>
+<p>Aşağıda, lojistik regresyon modellerinin beklentileriyle işbirliği yapmak için “evet”/“hayır”, “e”/“k” ve “ölü”/“canlı” olan açıklayıcı sütunları <strong>1/0</strong>’a çeviriyoruz. Bunu verimli bir şekilde yapmak için, aynı anda birden çok sütunu dönüştürmek için <strong>dplyr</strong>’den ‘across()’ kullanıldı. Her sütuna uyguladığımız fonksiyon, belirtilen değerleri 1’lere ve 0’lara dönüştürmek için mantık uygulayan ‘case_while()’ (ayrıca <strong>dplyr</strong>) fonksiyonudur. <a href="#clean_across">Temizleme verileri ve temel işlevler sayfasındaki</a> ‘across()’ ve ‘case_while()’ ile ilgili bölümlere bakınız</p>
+<p>Not: “.” aşağıdaki, ‘cross()’ tarafından işlenmekte olan sütunu temsil eder.</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## ikili değişkenleri 0/1'e dönüştür</span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>                                      </span>
+<span>    .cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">explanatory_vars</span>, <span class="st">"outcome"</span><span class="op">)</span><span class="op">)</span>,  <span class="co">## listelenen her sütun ve "sonuç" için</span></span>
+<span>    .fns <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>                              </span>
+<span>      <span class="va">.</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="st">"yes"</span>, <span class="st">"Death"</span><span class="op">)</span>   <span class="op">~</span> <span class="fl">1</span>,           <span class="co">## erkek, evet ve ölü'yü 1 olarak yeniden kodla</span></span>
+<span>      <span class="va">.</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"f"</span>, <span class="st">"no"</span>,  <span class="st">"Recover"</span><span class="op">)</span> <span class="op">~</span> <span class="fl">0</span>,           <span class="co">## kadın, hayır ve iyileşme'yi sıfır olarak kodla</span></span>
+<span>      <span class="cn">TRUE</span>                            <span class="op">~</span> <span class="cn">NA_real_</span><span class="op">)</span>    <span class="co">## geri kalanını kayıp veri olarak kaydet</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+</div>
+<div id="eksik-değerlere-sahip-satırları-bırakın" class="section level4 unnumbered">
+<h4>Eksik değerlere sahip satırları bırakın<a class="anchor" aria-label="anchor" href="#eksik-de%C4%9Ferlere-sahip-sat%C4%B1rlar%C4%B1-b%C4%B1rak%C4%B1n"><i class="fas fa-link"></i></a>
+</h4>
+<p>Eksik değerleri olan satırları bırakmak için, <strong>tidyr</strong> <code><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na()</a></code> fonksiyonunu kullanabilirsiniz. Ancak, bunu yalnızca ilgilenilen sütunlarda değerleri eksik olan satırlar için yapmak istiyoruz.</p>
+<p>Yapmamız gereken ilk şey, “explanatory_vars” vektörümüzün “age” sütununu içerdiğinden emin olmaktır (“age”, yalnızca ikili değişkenler için olan önceki “case_while()” işleminde bir hata üretebilirdi). Ardından, “outcome” sütununda veya “explanatory_vars” sütunlarından herhangi birinde eksik değerleri olan satırları kaldırmak için “linelist”i “drop_na()”ya yönlendiririz.</p>
+<p>Kodu çalıştırmadan önce, ‘linelist’teki satır sayısı ’nrow(linelist)’ şeklindedir.</p>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## açıklayıcı değişkenlere age_category ekleyin </span></span>
+<span><span class="va">explanatory_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">explanatory_vars</span>, <span class="st">"age_cat"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## ilgilenilen değişkenler için eksik bilgi içeren satırları bırak </span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"outcome"</span>, <span class="va">explanatory_vars</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>‘linelist’te’ kalan satır sayısı ‘nrow(linelist)’ şeklindedir.</p>
+<!-- ============================================ ========= -->
+</div>
+</div>
+</div>
+<div id="tek-değişkenli" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Tek değişkenli<a class="anchor" aria-label="anchor" href="#tek-de%C4%9Fi%C5%9Fkenli"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tıpkı <a href="https://epirhandbook.com/descriptive-tables.html">Açıklayıcı tablolar</a> sayfasında olduğu gibi, kullandığınız senaryo hangi R paketini kullanacağınızı belirleyecektir. Tek değişkenli analiz yapmak için iki seçenek sunuyoruz:</p>
+<ul>
+<li>Sonuçları konsola hızlı bir şekilde yazdırmak için <strong>base</strong> R’da bulunan fonksiyonları kullanın. Çıktıları düzenlemek için <strong>broom</strong> paketini kullanın.</li>
+<li>Yayına hazır çıktıları modellemek ve almak için <strong>gtsummary</strong> paketini kullanın</li>
+</ul>
+<!-- ============================================ ========= --><div id="base-r" class="section level3 unnumbered">
+<h3>
+<strong>base</strong> R<a class="anchor" aria-label="anchor" href="#base-r"><i class="fas fa-link"></i></a>
+</h3>
+<div id="doğrusal-lineer-regresyon" class="section level4 unnumbered">
+<h4>Doğrusal (Lineer) regresyon<a class="anchor" aria-label="anchor" href="#do%C4%9Frusal-lineer-regresyon"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>base</strong> R fonskiyonu ‘lm()’, sayısal yanıt ile doğrusal bir ilişkiye sahip olduğu varsayılan açıklayıcı değişkenler arasındaki ilişkiyi değerlendirerek doğrusal regresyon gerçekleştirir.</p>
+<p>Denklemi, yanıt ve açıklayıcı sütun adları yaklaşık bir “~” ile ayrılmış şekilde bir formül olarak sağlayın. Ayrıca, veri kümesini <code>data =</code> olarak belirtin. Model sonuçlarını daha sonra kullanmak üzere bir R nesnesi olarak tanımlayın.</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lm_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">ht_cm</span> <span class="op">~</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span></code></pre></div>
+<p>Daha sonra katsayıları (Tahminler), P-değerini, artıkları ve diğer ölçüleri görmek için model sonuçlarında “summary()” komutunu çalıştırabilirsiniz.</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm_results</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ht_cm ~ age, data = linelist)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -128.579  -15.854    1.177   15.887  175.483 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  69.9051     0.5979   116.9   &lt;2e-16 ***
+## age           3.4354     0.0293   117.2   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 23.75 on 4165 degrees of freedom
+## Multiple R-squared:  0.7675, Adjusted R-squared:  0.7674 
+## F-statistic: 1.375e+04 on 1 and 4165 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Alternatif olarak, <strong>broom</strong> paketindeki <code>tidy()</code> fonksiyonunu kullanabilirsiniz. Sonuçlar bir tabloya dönüştürülür. Sonuçlarda her yıl yaş arttıkça boy da 3.5 cm artıyor ve bu istatistiksel olarak anlamlıdır.</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tidy</span><span class="op">(</span><span class="va">lm_results</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##   term        estimate std.error statistic p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)    69.9     0.598       117.       0
+## 2 age             3.44    0.0293      117.       0</code></pre>
+<p>Daha sonra bu regresyonu bir <strong>ggplot</strong>’a eklemek için de kullanabilirsiniz, bunu yapmak için önce <strong>broom</strong>dan ‘augment()’ fonksiyonunu kullanarak gözlemlenen veri ve uygun çizgi için noktaları tek bir veri çerçevesine çekeriz.</p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## regresyon noktalarını ve gözlemlenen verileri tek bir veri kümesine çekin</span></span>
+<span><span class="va">points</span> <span class="op">&lt;-</span> <span class="fu">augment</span><span class="op">(</span><span class="va">lm_results</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## x ekseni olarak yaşı kullanarak verileri grafikleştirin</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">points</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## boy için noktalar koyun </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">ht_cm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## regresyon çizginizi çizin </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.fitted</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/lin_reg_res_plot-1.png" width="672"></div>
+<p>Ayrıca, “geom_smooth()” fonksiyonunu kullanarak <strong>ggplot</strong>’a doğrudan basit bir doğrusal regresyon eklemek de mümkündür.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## verinizi bir grafiğe ekleyin </span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">linelist</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">ht_cm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## noktaları gösterin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## lineer regresyon ekleyin </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = 'y ~ x'</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/geom_smooth-1.png" width="672"></div>
+<p>Daha ayrıntılı öğreticiler için bu bölümün sonundaki Kaynak bölümüne bakabilirsiniz.</p>
+</div>
+<div id="lojistik-regresyon" class="section level4 unnumbered">
+<h4>Lojistik regresyon<a class="anchor" aria-label="anchor" href="#lojistik-regresyon"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>stats</strong> paketindeki (<strong>base</strong> R’ın bir parçası) ‘glm()’ fonksiyonu, Genelleştirilmiş Doğrusal Modellere (GLM) uymak için kullanılır.</p>
+<p><code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>, tek değişkenli ve çok değişkenli lojistik regresyon için kullanılabilir (örneğin, Odds Ratio’ları elde etmek için). İşte temel parçalar:</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># glm() için değişkenler</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">formula</span>, <span class="va">family</span>, <span class="va">data</span>, <span class="va">weights</span>, <span class="va">subset</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>
+<code>formül =</code> Model <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> için bir denklem olarak sağlanır, tilde <code>~</code> nin sağında çıktısı, solunda açıklayıcı değişkenler bulunur.</li>
+<li>
+<code>family =</code> Bu, çalıştırılacak modelin türünü belirler. Lojistik regresyon için <code>family= "binom"</code> kullanın, poisson için <code>family = "poisson"</code> kullanın. Diğer örnekler aşağıdaki tablodadır.</li>
+<li>
+<code>data =</code> Veri çerçevenizi belirtin</li>
+</ul>
+<p>Gerekirse, bağlantı işlevini <code>family = familytype(link = "linkfunction"))</code> sözdizimi aracılığıyla da belirtebilirsiniz. Diğer aileler ve ‘ağırlıklar =’ ve ‘alt küme =’ (‘?glm’) gibi isteğe bağlı bağımsız değişkenler hakkındaki belgelerde daha fazlasını okuyabilirsiniz.</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Family</th>
+<th>Varsayılan bağlantı fonksiyonu</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>"binomial"</code></td>
+<td><code>(link = "logit")</code></td>
+</tr>
+<tr class="even">
+<td><code>"gaussian"</code></td>
+<td><code>(link = "identity")</code></td>
+</tr>
+<tr class="odd">
+<td><code>"Gamma"</code></td>
+<td><code>(link = "inverse")</code></td>
+</tr>
+<tr class="even">
+<td><code>"inverse.gaussian"</code></td>
+<td><code>(link = "1/mu^2")</code></td>
+</tr>
+<tr class="odd">
+<td><code>"poisson"</code></td>
+<td><code>(link = "log")</code></td>
+</tr>
+<tr class="even">
+<td><code>"quasi"</code></td>
+<td><code>(link = "identity", variance = "constant")</code></td>
+</tr>
+<tr class="odd">
+<td><code>"quasibinomial"</code></td>
+<td><code>(link = "logit")</code></td>
+</tr>
+<tr class="even">
+<td><code>"quasipoisson"</code></td>
+<td><code>(link = "log")</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> çalıştırıldığında, sonuçların adlandırılmış bir R nesnesi olarak kaydedilmesi en yaygın yöntemdir. Ardından, aşağıda gösterildiği gibi <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> kullanarak sonuçları konsolunuza yazdırabilir veya sonuçlar üzerinde diğer işlemleri gerçekleştirebilirsiniz ( örneğin; üstünü almak gibi).</p>
+<p>Negatif bir binom regresyonu çalıştırmanız gerekiyorsa <strong>MASS</strong> paketini kullanabilirsiniz; “glm.nb()”, “glm()” ile aynı sözdizimini kullanır.
+Farklı regresyonların gözden geçirilmesi için <a href="https://stats.idre.ucla.edu/other/dae/">UCLA istatistik sayfasına</a> bakabilirsiniz.</p>
+</div>
+<div id="tek-değişkenli-glm" class="section level4 unnumbered">
+<h4>Tek değişkenli <code>glm()</code><a class="anchor" aria-label="anchor" href="#tek-de%C4%9Fi%C5%9Fkenli-glm"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bu örnekte, farklı yaş kategorileri ile ölümün sonucu arasındaki ilişkiyi değerlendiriyoruz (Hazırlık bölümünde 1 olarak kodlanmıştır). Aşağıda, “age_cat” tarafından “sonucun” tek değişkenli bir modeli verilmiştir. Model çıktısını <code>model</code> olarak kaydedip ardından <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> ile konsola yazdırıyoruz. Sağlanan tahminlerin <em>log oranları</em> olduğunu ve temel seviyenin “age_cat” (“0-4”) birinci faktör seviyesi olduğunu unutmayınız.</p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">~</span> <span class="va">age_cat</span>, family <span class="op">=</span> <span class="st">"binomial"</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = outcome ~ age_cat, family = "binomial", data = linelist)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.339  -1.278   1.024   1.080   1.354  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept)   0.233738   0.072805   3.210  0.00133 **
+## age_cat5-9   -0.062898   0.101733  -0.618  0.53640   
+## age_cat10-14  0.138204   0.107186   1.289  0.19726   
+## age_cat15-19 -0.005565   0.113343  -0.049  0.96084   
+## age_cat20-29  0.027511   0.102133   0.269  0.78765   
+## age_cat30-49  0.063764   0.113771   0.560  0.57517   
+## age_cat50-69 -0.387889   0.259240  -1.496  0.13459   
+## age_cat70+   -0.639203   0.915770  -0.698  0.48518   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 5712.4  on 4166  degrees of freedom
+## Residual deviance: 5705.1  on 4159  degrees of freedom
+## AIC: 5721.1
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Belirli bir değişkenin temel seviyesini değiştirmek için, sütunun Faktör sınıfı olduğundan emin olun ve istenen seviyeyi <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> ile ilk konuma taşıyın ([Faktörler] sayfasındaki sayfaya bakabilirsiniz). Örneğin, aşağıda ‘age_cat’ sütununu alıyoruz ve değiştirilmiş veri çerçevesini ‘glm()’ içine aktarmadan önce temel olarak “20-29” ayarlıyoruz.</p>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>age_cat <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">age_cat</span>, <span class="st">"20-29"</span>, after <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">outcome</span> <span class="op">~</span> <span class="va">age_cat</span>, family <span class="op">=</span> <span class="st">"binomial"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = outcome ~ age_cat, family = "binomial", data = .)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.339  -1.278   1.024   1.080   1.354  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.26125    0.07163   3.647 0.000265 ***
+## age_cat0-4   -0.02751    0.10213  -0.269 0.787652    
+## age_cat5-9   -0.09041    0.10090  -0.896 0.370220    
+## age_cat10-14  0.11069    0.10639   1.040 0.298133    
+## age_cat15-19 -0.03308    0.11259  -0.294 0.768934    
+## age_cat30-49  0.03625    0.11302   0.321 0.748390    
+## age_cat50-69 -0.41540    0.25891  -1.604 0.108625    
+## age_cat70+   -0.66671    0.91568  -0.728 0.466546    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 5712.4  on 4166  degrees of freedom
+## Residual deviance: 5705.1  on 4159  degrees of freedom
+## AIC: 5721.1
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div id="sonuçları-yazdırmak" class="section level4 unnumbered">
+<h4>Sonuçları yazdırmak<a class="anchor" aria-label="anchor" href="#sonu%C3%A7lar%C4%B1-yazd%C4%B1rmak"><i class="fas fa-link"></i></a>
+</h4>
+<p>Çoğu kullanım için, yukarıdaki çıktılarda birkaç değişiklik yapılmalıdır. <strong>broom</strong> paketindeki ‘tidy()’ fonksiyonu, model sonuçlarını sunulabilir kılmak için uygundur.</p>
+<p>Burada model çıktılarının bir sayım tablosuyla nasıl birleştirileceğini gösteriyoruz.</p>
+<ol style="list-style-type: decimal">
+<li>Modeli “tidy()” öğesine geçirerek ve “üssel = TRUE” ve “conf.int = TRUE” ayarını yaparak <em>üslü</em> günlük odds oranı tahminlerini ve güven aralıklarını(GA) alın.</li>
+</ol>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">~</span> <span class="va">age_cat</span>, family <span class="op">=</span> <span class="st">"binomial"</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tidy</span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># GA'larını üret ve üstelleştir</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">round</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>  <span class="co"># tüm sayısal sütunları yuvarla</span></span></code></pre></div>
+<p>Çıktı alınan tibble ‘model’ aşağıdadır:</p>
+<div id="htmlwidget-4d315e2db0b86b106da9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4d315e2db0b86b106da9">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.26,0.94,1.15,0.99,1.03,1.07,0.68,0.53],[0.07,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[3.21,-0.62,1.29,-0.05,0.27,0.56,-1.5,-0.7],[0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07],[1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><ol start="2" style="list-style-type: decimal">
+<li>Bu model sonuçlarını bir sayım tablosuyla birleştirin. Aşağıda, [Açıklayıcı tablolar] sayfasında anlatıldığı gibi, <strong>janitor</strong>’dan ‘tabyl()’ fonksiyonuyla bir sayımlar çapraz tablosunu oluşturuyoruz.</li>
+</ol>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">counts_table</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/janitor/man/tabyl.html">tabyl</a></span><span class="op">(</span><span class="va">age_cat</span>, <span class="va">outcome</span><span class="op">)</span></span></code></pre></div>
+<!-- * Group rows by outcome, and get counts by age category   -->
+<!-- * Pivot wider so the column are `age_cat`, `0`, and `1`   -->
+<!-- * Remove row for `NA` `age_cat`, if applicable, to align with the model results   -->
+<!-- ```{r} -->
+<!-- counts_table <- linelist %>%  -->
+<!--   filter(!is.na(outcome) & !is.na(age_cat)) %>%    # ensure outcome and age_cat are present  -->
+<!--   group_by(outcome) %>%                            # get counts of variable of interest grouped by outcome -->
+<!--   count(age_cat) %>%   ## gets number or rows by unique outcome-age category combinations   -->
+<!--   pivot_wider(names_from = outcome, values_from = n)    ## spread data to wide format (as in cross-tabulation) -->
+<!-- ``` -->
+<p>Bu “counts_table” veri çerçevesi şöyle görünür:</p>
+<div id="htmlwidget-470525a8227a7f148257" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-470525a8227a7f148257">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+"],[338,365,273,238,345,228,35,3],[427,433,396,299,448,307,30,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Şimdi ‘counts_table’ ve ‘model’ sonuçlarını ‘bind_cols()’ (<strong>dplyr</strong>) ile yatay olarak birbirine bağlayabiliriz. <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols()</a></code> ile iki veri çerçevesindeki satırların mükemmel şekilde hizalanması gerektiğini unutmayın. Bu kodda, bir tünel zinciri içinde bağlı olduğumuz için, tünelli nesneyi “counts_table” olarak temsil etmek için “.” kullanırız ve onu “model”e bağlarız. İşlemi bitirmek için, istenen sütunları ve sıralarını seçmek için ‘select()’ kullanırız ve son olarak 2 ondalık basamak belirtmek için tüm sayısal sütunlara <strong>base</strong> R ‘round()’ fonksiyonunu uygularız.</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="va">counts_table</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>           <span class="co"># sayım tablosuyla başla</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">model</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>              <span class="co"># regresyonun çıktıları ile birleştir </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">term</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="va">estimate</span>,          <span class="co"># sütunları seç ve yeniden düzenle</span></span>
+<span>         <span class="va">conf.low</span>, <span class="va">conf.high</span>, <span class="va">p.value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">round</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co">## 2 basamak şeklinde yuvarla</span></span></code></pre></div>
+<p>Birleştirilmiş veri çerçevesinin nasıl göründüğü, <strong>flextable</strong> fonksiyonuyla güzel bir görüntü olarak yazdırılmıştır. [Tablolar sunum], bu tür tabloların <strong>flextable</strong> ile nasıl özelleştirileceğini veya <strong>knitr</strong> veya <strong>GT</strong> gibi çok sayıda başka paketin nasıl kullanılacağını açıklar.</p>
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="va">combined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html">qflextable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="birden-çok-tek-değişkenli-modeli-döngüye-alma" class="section level4 unnumbered">
+<h4>Birden çok tek değişkenli modeli döngüye alma<a class="anchor" aria-label="anchor" href="#birden-%C3%A7ok-tek-de%C4%9Fi%C5%9Fkenli-modeli-d%C3%B6ng%C3%BCye-alma"><i class="fas fa-link"></i></a>
+</h4>
+<p>Aşağıda daha basit bir yaklaşım için <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> ve <code>tidy()</code> kullanan bir yöntem sunuyoruz, <strong>gtsummary</strong> bölümüne bakın.</p>
+<p>Tek değişkenli olasılık oranları (yani birbirini kontrol etmeyen) üretmek için modelleri çeşitli maruziyet değişkenleri üzerinde çalıştırmak için aşağıdaki yaklaşımı kullanabilirsiniz. Tek değişkenli formüller oluşturmak için <strong>stringr</strong>’den str_c()’ kullanır (bkz. )<code>ve son olarak **tidyr**'den</code>bind_rows()<code>ile birlikte tüm model çıktılarını daraltır. Bu yaklaşım, yineleme için **purrr** paketinden</code>map()` kullanır - bu araç hakkında daha fazla bilgi için [Yineleme, döngüler ve listeler] sayfasına bakın.</p>
+<ol style="list-style-type: decimal">
+<li><p>Açıklayıcı değişkenlerin sütun adlarından oluşan bir vektör oluşturun. Bunu zaten bu sayfanın Hazırlık bölümünden ‘açıklayıcı_değişkenler’ olarak aldık.</p></li>
+<li><p>Solda “sonuç” ve sağda “açıklayıcı_değişkenler”den bir sütun adı ile birden çok dize formülü oluşturmak için “str_c()” kullanın. “.” noktası, “açıklayıcı_değişkenler”deki sütun adının yerini alır.</p></li>
+</ol>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">explanatory_vars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"outcome ~ "</span>, <span class="va">.</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "outcome ~ gender"  "outcome ~ fever"   "outcome ~ chills"  "outcome ~ cough"   "outcome ~ aches"   "outcome ~ vomit"  
+## [7] "outcome ~ age_cat"</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Bu dizi formüllerini ‘map()’ öğesine iletin ve her girişe uygulanacak fonksiyon olarak ‘~glm()’ öğesini ayarlayın. “glm()” içinde, regresyon formülünü “as.formula(.x)” olarak ayarlayın, burada “.x”, yukarıdaki adımda tanımlanan dizi formülüyle değiştirilecektir. <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, her biri için gerilemeler çalıştırarak, dizi formüllerinin her biri üzerinde döngü yapacaktır.</p></li>
+<li><p>Bu ilk ‘map()’ çıktıları, regresyon çıktılarına ‘tidy()’ uygulayan ikinci bir ‘map()’ komutuna iletilir.</p></li>
+<li><p>Son olarak, ikinci ‘map()’ çıktısı (düzenlenmiş veri çerçevelerinin bir listesi) ‘bind_rows()’ ile yoğunlaştırılır, bu da tüm tek değişkenli sonuçları içeren bir veri çerçevesiyle sonuçlanır.</p></li>
+</ol>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">models</span> <span class="op">&lt;-</span> <span class="va">explanatory_vars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>       <span class="co"># ilgilenilen değişkenlerle başla</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"outcome ~ "</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>         <span class="co"># her değişkeni formüle birleştir ("outcome ~ variable of interest")</span></span>
+<span>  </span>
+<span>  <span class="co"># her tek değişkenli formülü yineleyin</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>                               </span>
+<span>    .f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span>                       <span class="co"># formülleri birer birer glm() öğesine iletin</span></span>
+<span>      formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/formula.html">as.formula</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>,      <span class="co"># glm() içinde, dizİ formülü .x'tir</span></span>
+<span>      family <span class="op">=</span> <span class="st">"binomial"</span>,           <span class="co"># glm (logistic) tipini belirle</span></span>
+<span>      data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>          <span class="co"># veri kümesi</span></span>
+<span>  </span>
+<span>  <span class="co"># glm regresyon çıktılarının her birini düzenleyin</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<span>    .f <span class="op">=</span> <span class="op">~</span><span class="fu">tidy</span><span class="op">(</span></span>
+<span>      <span class="va">.x</span>, </span>
+<span>      exponentiate <span class="op">=</span> <span class="cn">TRUE</span>,           <span class="co"># üstelleştirme </span></span>
+<span>      conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>          <span class="co"># güven aralığına dönme</span></span>
+<span>  </span>
+<span>  <span class="co"># regresyon çıktılarının listesini bir veri çerçevesine daralt</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co"># tüm sayısal sütunları yuvarla</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">round</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Bu sefer, son nesne ‘modelleri’ daha uzundur çünkü artık birkaç tek değişkenli regresyonun birleşik sonuçlarını temsil etmektedir. Tüm “model” satırlarını görmek için tıklayın.</p>
+<div id="htmlwidget-28dcb4b5cb94e18976af" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-28dcb4b5cb94e18976af">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.94,1.15,0.99,1.03,1.07,0.68,0.53],[0.04,0.06,0.07,0.08,0.03,0.08,0.08,0.09,0.03,0.1,0.04,0.06,0.07,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[5.67,-0.04,3.44,0.01,6.98,0.41,1.53,1.58,7.78,-0.66,4.67,1.39,3.21,-0.62,1.29,-0.05,0.27,0.56,-1.5,-0.7],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Daha önce olduğu gibi, her açıklayıcı değişken için ‘vaka listesi’nden bir sayım tablosu oluşturabilir, onu ’modellere’ bağlayabilir ve güzel bir tablo yapabiliriz. Değişkenlerle başlıyoruz ve onları <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> ile yineliyoruz. <strong>dplyr</strong> fonksiyonlarıyla bir sayım tablosu oluşturmayı içeren kullanıcı tanımlı bir fonksiyonu yineliyoruz. Daha sonra sonuçlar birleştirilir ve ‘modeller’ model sonuçlarıyla birleştirilir.</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Her açıklayıcı değişken için</span></span>
+<span><span class="va">univ_tab_base</span> <span class="op">&lt;-</span> <span class="va">explanatory_vars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> </span>
+<span>    <span class="op">~</span><span class="op">{</span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                <span class="co">## vaka listesiyle başla</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>     <span class="co">## veri setini çıktıya göre gruplandırma</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    <span class="co">## ilgilenilen değişken için sayılar üret</span></span>
+<span>        <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>              <span class="co">## geniş formata yayılma (çapraz tablodaki gibi)</span></span>
+<span>          names_from <span class="op">=</span> <span class="va">outcome</span>,</span>
+<span>          values_from <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>        <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>         <span class="co">## eksik olan satırları bırak</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"variable"</span> <span class="op">=</span> <span class="va">.x</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>      <span class="co">## ilgili sütununun değişkenini "değişken" olarak değiştir</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">}</span> <span class="co">## karaktere dönüştürün, aksi takdirde ikili olmayan (kategorik) değişkenler faktör olarak ortaya çıkar ve birleştirilemez</span></span>
+<span>      <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co">## sayım çıktılarının listesini bir veri çerçevesine daralt</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co">## regresyon çıktıları ile birleştirme </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">models</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co">## yalnızca ilgilenilen sütunları tutma </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">term</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="va">estimate</span>, <span class="va">conf.low</span>, <span class="va">conf.high</span>, <span class="va">p.value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co">## ondalık basamakları yuvarla</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">round</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Aşağıda veri çerçevesinin neye benzediği görülmektedir. Bu tablonun güzel HTML çıktısına nasıl dönüştürüleceği hakkında fikirler için [Tablolar] hakkındaki sayfaya bakın (ör. <strong>flextable</strong> ile).</p>
+<div id="htmlwidget-3c70d29cca8fbec9661e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3c70d29cca8fbec9661e">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[909,916,340,1485,1472,353,272,1553,1636,189,931,894,338,365,273,238,345,228,35,3],[1168,1174,436,1906,1877,465,309,2033,2114,228,1144,1198,427,433,396,299,448,307,30,2],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.94,1.15,0.99,1.03,1.07,0.68,0.53],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n      <th>estimate<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n      <th>p.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+</div>
+<div id="reg_gt_uni" class="section level3 unnumbered">
+<h3>
+<strong>gtsummary</strong> paketi<a class="anchor" aria-label="anchor" href="#reg_gt_uni"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıda <strong>gtsummary</strong> paketinden <code>tbl_uvregression()</code> kullanımını sunuyoruz. Tıpkı <a href="https://epirhandbook.com/descriptive-tables.html">Tanımlayıcı tablolar</a> sayfasındaki gibi, <strong>gtsummary</strong> fonksiyonları istatistikleri çalıştırmada <em>ve</em> profesyonel görünümlü çıktılar üretmede iyi bir iş çıkarır. Bu fonksiyon, tek değişkenli regresyon sonuçlarının bir tablosunu üretir.</p>
+<p>‘Vaka listesi’nden (açıklayıcı değişkenler ve sonuç değişkeni) yalnızca gerekli sütunları seçiyoruz ve bunları ’tbl_uvregression()’ içine aktarıyoruz. Veri Hazırlama bölümünde ‘açıklayıcı_değişkenler’ olarak tanımladığımız sütunların her biri üzerinde (cinsiyet, ateş, titreme, öksürük, ağrı, kusmuk ve yaş_kedi) tek değişkenli regresyon uygulayacağız.</p>
+<p>Fonksiyonun kendi içinde, <code>method =</code> as <code>glm</code> (tırnak işaretleri olmadan), <code>y =</code> sonuç sütununu (<code>outcome</code>) sağlarız, <code>family= binomial</code> yoluyla, lojistik regresyonu çalıştırmak istediğimizi <code>method.args =</code> ile belirtiriz. Ve ona sonuçları üslü hale getirmesini söylüyoruz.</p>
+<p>Çıktı HTML’dir ve sayıları içermektedir.</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">univ_tab</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">explanatory_vars</span>, <span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">## ilgilenilen değişkenleri seç</span></span>
+<span></span>
+<span>  <span class="fu">tbl_uvregression</span><span class="op">(</span>                         <span class="co">## tek değişkenli tablo üret</span></span>
+<span>    method <span class="op">=</span> <span class="va">glm</span>,                           <span class="co">## çalıştırmak istediğiniz regresyonu tanımlayın (genelleştirilmiş doğrusal model)</span></span>
+<span>    y <span class="op">=</span> <span class="va">outcome</span>,                            <span class="co">## sonuç değişkenini tanımlayın</span></span>
+<span>    method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span>,  <span class="co">## ne tür bir glm çalıştırmak istediğini tanımla (lojistik)</span></span>
+<span>    exponentiate <span class="op">=</span> <span class="cn">TRUE</span>                     <span class="co">## odds oranlarını üretmek için üstelleştir (logaritmik oranlar yerine)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co">## tek değişkenli sonuç tablosunu göster </span></span>
+<span><span class="va">univ_tab</span></span></code></pre></div>
+<div id="ayrlqtrqgi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ayrlqtrqgi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ayrlqtrqgi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ayrlqtrqgi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ayrlqtrqgi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ayrlqtrqgi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ayrlqtrqgi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ayrlqtrqgi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ayrlqtrqgi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ayrlqtrqgi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ayrlqtrqgi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ayrlqtrqgi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ayrlqtrqgi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ayrlqtrqgi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayrlqtrqgi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ayrlqtrqgi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ayrlqtrqgi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayrlqtrqgi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ayrlqtrqgi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayrlqtrqgi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ayrlqtrqgi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayrlqtrqgi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ayrlqtrqgi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ayrlqtrqgi .gt_left {
+  text-align: left;
+}
+
+#ayrlqtrqgi .gt_center {
+  text-align: center;
+}
+
+#ayrlqtrqgi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ayrlqtrqgi .gt_font_normal {
+  font-weight: normal;
+}
+
+#ayrlqtrqgi .gt_font_bold {
+  font-weight: bold;
+}
+
+#ayrlqtrqgi .gt_font_italic {
+  font-style: italic;
+}
+
+#ayrlqtrqgi .gt_super {
+  font-size: 65%;
+}
+
+#ayrlqtrqgi .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#ayrlqtrqgi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ayrlqtrqgi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ayrlqtrqgi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ayrlqtrqgi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ayrlqtrqgi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ayrlqtrqgi .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<div class="inline-table"><table class="gt_table">
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>N</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>OR</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>95% CI</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>p-value</strong></th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_left">gender</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.88, 1.13</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">fever</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.85, 1.17</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">chills</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.89, 1.21</td>
+<td class="gt_row gt_center">0.7</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">cough</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.97, 1.37</td>
+<td class="gt_row gt_center">0.11</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">aches</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">0.93</td>
+<td class="gt_row gt_center">0.76, 1.14</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">vomit</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.09</td>
+<td class="gt_row gt_center">0.96, 1.23</td>
+<td class="gt_row gt_center">0.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">age_cat</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    0-4</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center"></td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    5-9</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.94</td>
+<td class="gt_row gt_center">0.77, 1.15</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    10-14</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.93, 1.42</td>
+<td class="gt_row gt_center">0.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    15-19</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.99</td>
+<td class="gt_row gt_center">0.80, 1.24</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    20-29</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.84, 1.26</td>
+<td class="gt_row gt_center">0.8</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    30-49</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">1.07</td>
+<td class="gt_row gt_center">0.85, 1.33</td>
+<td class="gt_row gt_center">0.6</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    50-69</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.68</td>
+<td class="gt_row gt_center">0.41, 1.13</td>
+<td class="gt_row gt_center">0.13</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    70+</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.53</td>
+<td class="gt_row gt_center">0.07, 3.20</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+</tbody>
+<tfoot class="gt_footnotes"><tr>
+<td class="gt_footnote" colspan="5">
+<sup class="gt_footnote_marks">1</sup> OR = Odds Ratio, CI = Confidence Interval</td>
+    </tr></tfoot>
+</table></div>
+</div>
+<p>Bu tablo çıktısında, metin etiketlerini ayarlamak, satırları p değerlerine göre kalınlaştırmak vb. gibi birçok değişiklik yapabilirsiniz. Öğreticilere <a href="http://www.danieldsjoberg.com/gtsummary/articles/tbl_regression%20.html">buradan</a> ve başka çevrimiçi yerlerden bakabilirsiniz.</p>
+<!-- ============================================ ========= -->
+</div>
+</div>
+<div id="tabakalı" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Tabakalı<a class="anchor" aria-label="anchor" href="#tabakal%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tabakalı analiz şu anda <strong>gtsummary</strong> üzerinde çalışıyor,
+bu sayfa zamanı gelince güncellenecektir.</p>
+</div>
+<div id="çok-değişkenli" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Çok Değişkenli<a class="anchor" aria-label="anchor" href="#%C3%A7ok-de%C4%9Fi%C5%9Fkenli"><i class="fas fa-link"></i></a>
+</h2>
+<p>Çok değişkenli analiz için yine iki yaklaşım sunuyoruz:</p>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> ve <code>tidy()</code>
+</li>
+<li>
+<strong>gtsummary</strong> paketi</li>
+</ul>
+<p>İş akışı her biri için benzerdir ve yalnızca son tabloyu bir araya getirmenin son adımı farklıdır.</p>
+<div id="çok-değişkenli-yürütme" class="section level3 unnumbered">
+<h3>Çok değişkenli yürütme<a class="anchor" aria-label="anchor" href="#%C3%A7ok-de%C4%9Fi%C5%9Fkenli-y%C3%BCr%C3%BCtme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Burada <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> kullanıyoruz ama denklemin sağ tarafına artı sembolleriyle (<code>+</code>) ayırarak daha fazla değişken ekliyoruz.</p>
+<p>Modeli tüm açıklayıcı değişkenlerimizle çalıştırmak için şunu çalıştırırız:</p>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mv_reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">fever</span> <span class="op">+</span> <span class="va">chills</span> <span class="op">+</span> <span class="va">cough</span> <span class="op">+</span> <span class="va">aches</span> <span class="op">+</span> <span class="va">vomit</span> <span class="op">+</span> <span class="va">age_cat</span>, family <span class="op">=</span> <span class="st">"binomial"</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mv_reg</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = outcome ~ gender + fever + chills + cough + aches + 
+##     vomit + age_cat, family = "binomial", data = linelist)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.383  -1.279   1.029   1.078   1.346  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)   0.069054   0.131726   0.524    0.600
+## gender        0.002448   0.065133   0.038    0.970
+## fever         0.004309   0.080522   0.054    0.957
+## chills        0.034112   0.078924   0.432    0.666
+## cough         0.138584   0.089909   1.541    0.123
+## aches        -0.070705   0.104078  -0.679    0.497
+## vomit         0.086098   0.062618   1.375    0.169
+## age_cat5-9   -0.063562   0.101851  -0.624    0.533
+## age_cat10-14  0.136372   0.107275   1.271    0.204
+## age_cat15-19 -0.011074   0.113640  -0.097    0.922
+## age_cat20-29  0.026552   0.102780   0.258    0.796
+## age_cat30-49  0.059569   0.116402   0.512    0.609
+## age_cat50-69 -0.388964   0.262384  -1.482    0.138
+## age_cat70+   -0.647443   0.917375  -0.706    0.480
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 5712.4  on 4166  degrees of freedom
+## Residual deviance: 5700.2  on 4153  degrees of freedom
+## AIC: 5728.2
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>İki değişken ve aralarında bir etkileşim eklemek istiyorsanız, bunları “+” yerine yıldız işareti “*” ile ayırabilirsiniz. Yalnızca etkileşimi belirtiyorsanız, bunları iki nokta üst üste <code>:</code> ile ayırın. Örneğin:</p>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">age_cat</span> <span class="op">*</span> <span class="va">fever</span>, family <span class="op">=</span> <span class="st">"binomial"</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span></code></pre></div>
+<p><em>İsteğe bağlı olarak</em>, bu kodu, önceden tanımlanmış sütun adları vektöründen yararlanmak ve <code><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c()</a></code> kullanarak yukarıdaki komutu yeniden oluşturmak için kullanabilirsiniz. Bu, açıklayıcı değişken adlarınız değişiyorsa veya hepsini yeniden yazmak istemiyorsanız yararlı olabilir.</p>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">##  ilgilenilen tüm değişkenlerle bir regresyon çalıştırın </span></span>
+<span><span class="va">mv_reg</span> <span class="op">&lt;-</span> <span class="va">explanatory_vars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co">## açıklayıcı sütun adlarının vektörüyle başlayın</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">"+"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>     <span class="co">## bir artı ile ayrılmış ilgilenilen değişkenlerin tüm adlarını birleştirin</span></span>
+<span>  <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"outcome ~ "</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    <span class="co">## formül stilinde sonuç ile ilgilenilen değişkenlerin adlarını birleştirin</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"binomial"</span>,      <span class="co">## glm tipini lojistik olarak tanımlayın</span></span>
+<span>      data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span>          <span class="co">## veri setinizi tanımlayın</span></span></code></pre></div>
+<div id="modeli-oluşturma" class="section level4 unnumbered">
+<h4>Modeli oluşturma<a class="anchor" aria-label="anchor" href="#modeli-olu%C5%9Fturma"><i class="fas fa-link"></i></a>
+</h4>
+<p>Belirli açıklayıcı değişkenleri içeren çeşitli modelleri kaydederek modelinizi adım adım oluşturabilirsiniz. Bu modelleri, aşağıdaki gibi <strong>lmtest</strong> paketinden <code>lrtest()</code> kullanarak olasılık-oran testleri ile karşılaştırabilirsiniz:</p>
+<p><span style="color: black;"><strong><em>NOT:</em></strong> <strong>base</strong> <code>anova(model1, model2, test = "Chisq)</code> kullanılması aynı sonuçları verir </span></p>
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">~</span> <span class="va">age_cat</span>, family <span class="op">=</span> <span class="st">"binomial"</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span>
+<span><span class="va">model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">~</span> <span class="va">age_cat</span> <span class="op">+</span> <span class="va">gender</span>, family <span class="op">=</span> <span class="st">"binomial"</span>, data <span class="op">=</span> <span class="va">linelist</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/lrtest.html">lrtest</a></span><span class="op">(</span><span class="va">model1</span>, <span class="va">model2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: outcome ~ age_cat
+## Model 2: outcome ~ age_cat + gender
+##   #Df  LogLik Df  Chisq Pr(&gt;Chisq)
+## 1   8 -2852.6                     
+## 2   9 -2852.6  1 0.0002     0.9883</code></pre>
+<p>Diğer bir seçenek ise model nesnesini alıp <strong>stats</strong> paketinden <code><a href="https://rdrr.io/r/stats/step.html">step()</a></code> fonksiyonunu uygulamaktır. Modeli oluştururken hangi değişken seçim yönünü kullanmak istediğinizi belirtin.</p>
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## AIC'ye (Akaike information criterion) dayalı ileri seçimi kullanarak bir model seçin</span></span>
+<span><span class="co">## yönü ayarlayarak "geri" veya "her ikisini" de yapabilirsiniz.</span></span>
+<span><span class="va">final_mv_reg</span> <span class="op">&lt;-</span> <span class="va">mv_reg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/step.html">step</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"forward"</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>Netlik için R oturumunuzda bilimsel gösterimi de kapatabilirsiniz:</p>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scipen<span class="op">=</span><span class="fl">999</span><span class="op">)</span></span></code></pre></div>
+<p>Tek değişkenli analiz bölümünde açıklandığı gibi, log oranlarını ve GA’nı üslendirmek için model çıktısını ‘tidy()’ öğesine iletin. Son olarak, tüm sayısal sütunları iki ondalık basamağa yuvarlarız. Tüm satırları görmek için kaydırın.</p>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mv_tab_base</span> <span class="op">&lt;-</span> <span class="va">final_mv_reg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co">## düzenli veri çerçevesinin tahminlerini elde edin </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">round</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>          <span class="co">## yuvarlama </span></span></code></pre></div>
+<p>Ortaya çıkan veri çerçevesi şöyle görünür:</p>
+<div id="htmlwidget-3119344aa8ab468083ae" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3119344aa8ab468083ae">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","fever","chills","cough","aches","vomit","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.07,1,1,1.03,1.15,0.93,1.09,0.94,1.15,0.99,1.03,1.06,0.68,0.52],[0.13,0.07,0.08,0.08,0.09,0.1,0.06,0.1,0.11,0.11,0.1,0.12,0.26,0.92],[0.52,0.04,0.05,0.43,1.54,-0.68,1.37,-0.62,1.27,-0.1,0.26,0.51,-1.48,-0.71],[0.6,0.97,0.96,0.67,0.12,0.5,0.17,0.53,0.2,0.92,0.8,0.61,0.14,0.48],[0.83,0.88,0.86,0.89,0.96,0.76,0.96,0.77,0.93,0.79,0.84,0.85,0.4,0.07],[1.39,1.14,1.18,1.21,1.37,1.14,1.23,1.15,1.41,1.24,1.26,1.33,1.13,3.19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+</div>
+<div id="tek-değişkenli-ve-çok-değişkenli-birleştirme" class="section level3 unnumbered">
+<h3>Tek değişkenli ve çok değişkenli birleştirme<a class="anchor" aria-label="anchor" href="#tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h3>
+<div id="gtsummary-ile-birleştirme" class="section level4 unnumbered">
+<h4>
+<strong>gtsummary</strong> ile birleştirme<a class="anchor" aria-label="anchor" href="#gtsummary-ile-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>gtsummary</strong> paketi, <code>tbl_regression()</code> fonksiyonunu sağlar.
+Bu paket regresyondan çıktıları alan (bu durumda <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>) ve güzel bir sonuç üreten özet tablodur.</p>
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## son regresyonun sonuç tablosunu göster</span></span>
+<span><span class="va">mv_tab</span> <span class="op">&lt;-</span> <span class="fu">tbl_regression</span><span class="op">(</span><span class="va">final_mv_reg</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Tabloyu görelim:</p>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mv_tab</span></span></code></pre></div>
+<div id="vroygugrur" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#vroygugrur .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vroygugrur .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vroygugrur .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vroygugrur .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vroygugrur .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vroygugrur .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vroygugrur .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vroygugrur .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vroygugrur .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vroygugrur .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vroygugrur .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vroygugrur .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vroygugrur .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vroygugrur .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vroygugrur .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vroygugrur .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vroygugrur .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vroygugrur .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vroygugrur .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vroygugrur .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vroygugrur .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vroygugrur .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vroygugrur .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vroygugrur .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vroygugrur .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vroygugrur .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vroygugrur .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vroygugrur .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vroygugrur .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vroygugrur .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vroygugrur .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vroygugrur .gt_left {
+  text-align: left;
+}
+
+#vroygugrur .gt_center {
+  text-align: center;
+}
+
+#vroygugrur .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vroygugrur .gt_font_normal {
+  font-weight: normal;
+}
+
+#vroygugrur .gt_font_bold {
+  font-weight: bold;
+}
+
+#vroygugrur .gt_font_italic {
+  font-style: italic;
+}
+
+#vroygugrur .gt_super {
+  font-size: 65%;
+}
+
+#vroygugrur .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#vroygugrur .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vroygugrur .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vroygugrur .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vroygugrur .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vroygugrur .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vroygugrur .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<div class="inline-table"><table class="gt_table">
+<thead class="gt_col_headings"><tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>OR</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>95% CI</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>p-value</strong></th>
+    </tr></thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_left">gender</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.88, 1.14</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">fever</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.86, 1.18</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">chills</td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.89, 1.21</td>
+<td class="gt_row gt_center">0.7</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">cough</td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.96, 1.37</td>
+<td class="gt_row gt_center">0.12</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">aches</td>
+<td class="gt_row gt_center">0.93</td>
+<td class="gt_row gt_center">0.76, 1.14</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">vomit</td>
+<td class="gt_row gt_center">1.09</td>
+<td class="gt_row gt_center">0.96, 1.23</td>
+<td class="gt_row gt_center">0.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">age_cat</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    0-4</td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center"></td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    5-9</td>
+<td class="gt_row gt_center">0.94</td>
+<td class="gt_row gt_center">0.77, 1.15</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    10-14</td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.93, 1.41</td>
+<td class="gt_row gt_center">0.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    15-19</td>
+<td class="gt_row gt_center">0.99</td>
+<td class="gt_row gt_center">0.79, 1.24</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    20-29</td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.84, 1.26</td>
+<td class="gt_row gt_center">0.8</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    30-49</td>
+<td class="gt_row gt_center">1.06</td>
+<td class="gt_row gt_center">0.85, 1.33</td>
+<td class="gt_row gt_center">0.6</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    50-69</td>
+<td class="gt_row gt_center">0.68</td>
+<td class="gt_row gt_center">0.40, 1.13</td>
+<td class="gt_row gt_center">0.14</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    70+</td>
+<td class="gt_row gt_center">0.52</td>
+<td class="gt_row gt_center">0.07, 3.19</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+</tbody>
+<tfoot class="gt_footnotes"><tr>
+<td class="gt_footnote" colspan="4">
+<sup class="gt_footnote_marks">1</sup> OR = Odds Ratio, CI = Confidence Interval</td>
+    </tr></tfoot>
+</table></div>
+</div>
+<p><strong>gtsummary</strong> tarafından üretilen birkaç farklı çıktı tablosunu <code>tbl_merge()</code> fonksiyonuyla da birleştirebilirsiniz. Şimdi çok değişkenli sonuçları, oluşturduğumuz <strong>gtsummary</strong> <em>tek değişkenli</em> sonuçlarla birleştiriyoruz <a href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html#reg_gt_uni">yukarıda</a>:</p>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## tek değişkenli sonuçlarla birleştir</span></span>
+<span><span class="fu">tbl_merge</span><span class="op">(</span></span>
+<span>  tbls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">univ_tab</span>, <span class="va">mv_tab</span><span class="op">)</span>,                          <span class="co"># birleştir</span></span>
+<span>  tab_spanner <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"**Univariate**"</span>, <span class="st">"**Multivariable**"</span><span class="op">)</span><span class="op">)</span> <span class="co"># başlık adlarını ayarla</span></span></code></pre></div>
+<div id="iibewanveg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#iibewanveg .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#iibewanveg .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iibewanveg .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#iibewanveg .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#iibewanveg .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iibewanveg .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iibewanveg .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#iibewanveg .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#iibewanveg .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#iibewanveg .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#iibewanveg .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#iibewanveg .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#iibewanveg .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#iibewanveg .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#iibewanveg .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#iibewanveg .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#iibewanveg .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iibewanveg .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#iibewanveg .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#iibewanveg .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iibewanveg .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#iibewanveg .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#iibewanveg .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iibewanveg .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iibewanveg .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#iibewanveg .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#iibewanveg .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iibewanveg .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iibewanveg .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iibewanveg .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iibewanveg .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iibewanveg .gt_left {
+  text-align: left;
+}
+
+#iibewanveg .gt_center {
+  text-align: center;
+}
+
+#iibewanveg .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#iibewanveg .gt_font_normal {
+  font-weight: normal;
+}
+
+#iibewanveg .gt_font_bold {
+  font-weight: bold;
+}
+
+#iibewanveg .gt_font_italic {
+  font-style: italic;
+}
+
+#iibewanveg .gt_super {
+  font-size: 65%;
+}
+
+#iibewanveg .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#iibewanveg .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#iibewanveg .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#iibewanveg .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#iibewanveg .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#iibewanveg .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#iibewanveg .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<div class="inline-table"><table class="gt_table">
+<thead class="gt_col_headings">
+<tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col"><strong>Characteristic</strong></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup">
+        <span class="gt_column_spanner"><strong>Univariate</strong></span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup">
+        <span class="gt_column_spanner"><strong>Multivariable</strong></span>
+      </th>
+    </tr>
+<tr>
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>N</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>OR</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>95% CI</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>p-value</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>OR</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col">
+<strong>95% CI</strong><sup class="gt_footnote_marks">1</sup>
+</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>p-value</strong></th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td class="gt_row gt_left">gender</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.88, 1.13</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.88, 1.14</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">fever</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.85, 1.17</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+<td class="gt_row gt_center">1.00</td>
+<td class="gt_row gt_center">0.86, 1.18</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">chills</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.89, 1.21</td>
+<td class="gt_row gt_center">0.7</td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.89, 1.21</td>
+<td class="gt_row gt_center">0.7</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">cough</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.97, 1.37</td>
+<td class="gt_row gt_center">0.11</td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.96, 1.37</td>
+<td class="gt_row gt_center">0.12</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">aches</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">0.93</td>
+<td class="gt_row gt_center">0.76, 1.14</td>
+<td class="gt_row gt_center">0.5</td>
+<td class="gt_row gt_center">0.93</td>
+<td class="gt_row gt_center">0.76, 1.14</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">vomit</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center">1.09</td>
+<td class="gt_row gt_center">0.96, 1.23</td>
+<td class="gt_row gt_center">0.2</td>
+<td class="gt_row gt_center">1.09</td>
+<td class="gt_row gt_center">0.96, 1.23</td>
+<td class="gt_row gt_center">0.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">age_cat</td>
+<td class="gt_row gt_center">4,167</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    0-4</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center">—</td>
+<td class="gt_row gt_center"></td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    5-9</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.94</td>
+<td class="gt_row gt_center">0.77, 1.15</td>
+<td class="gt_row gt_center">0.5</td>
+<td class="gt_row gt_center">0.94</td>
+<td class="gt_row gt_center">0.77, 1.15</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    10-14</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.93, 1.42</td>
+<td class="gt_row gt_center">0.2</td>
+<td class="gt_row gt_center">1.15</td>
+<td class="gt_row gt_center">0.93, 1.41</td>
+<td class="gt_row gt_center">0.2</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    15-19</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.99</td>
+<td class="gt_row gt_center">0.80, 1.24</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+<td class="gt_row gt_center">0.99</td>
+<td class="gt_row gt_center">0.79, 1.24</td>
+<td class="gt_row gt_center">&gt;0.9</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    20-29</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.84, 1.26</td>
+<td class="gt_row gt_center">0.8</td>
+<td class="gt_row gt_center">1.03</td>
+<td class="gt_row gt_center">0.84, 1.26</td>
+<td class="gt_row gt_center">0.8</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    30-49</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">1.07</td>
+<td class="gt_row gt_center">0.85, 1.33</td>
+<td class="gt_row gt_center">0.6</td>
+<td class="gt_row gt_center">1.06</td>
+<td class="gt_row gt_center">0.85, 1.33</td>
+<td class="gt_row gt_center">0.6</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    50-69</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.68</td>
+<td class="gt_row gt_center">0.41, 1.13</td>
+<td class="gt_row gt_center">0.13</td>
+<td class="gt_row gt_center">0.68</td>
+<td class="gt_row gt_center">0.40, 1.13</td>
+<td class="gt_row gt_center">0.14</td>
+</tr>
+<tr>
+<td class="gt_row gt_left">    70+</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center">0.53</td>
+<td class="gt_row gt_center">0.07, 3.20</td>
+<td class="gt_row gt_center">0.5</td>
+<td class="gt_row gt_center">0.52</td>
+<td class="gt_row gt_center">0.07, 3.19</td>
+<td class="gt_row gt_center">0.5</td>
+</tr>
+</tbody>
+<tfoot class="gt_footnotes"><tr>
+<td class="gt_footnote" colspan="8">
+<sup class="gt_footnote_marks">1</sup> OR = Odds Ratio, CI = Confidence Interval</td>
+    </tr></tfoot>
+</table></div>
+</div>
+</div>
+<div id="dplyr-ile-birleştirme" class="section level4 unnumbered">
+<h4>
+<strong>dplyr</strong> ile birleştirme<a class="anchor" aria-label="anchor" href="#dplyr-ile-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>/<code>tidy()</code> tek değişkenli ve çok değişkenli çıktıları birleştirmenin alternatif bir yolu, <strong>dplyr</strong> birleştirme fonksiyonlarıdır.</p>
+<ul>
+<li>Daha önceki tek değişkenli sonuçları (sayıları içeren ‘univ_tab_base’) derlenmiş çok değişkenli sonuçlar ‘mv_tab_base’ ile birleştirebilirsiniz</li>
+<li>Yalnızca istediğimiz sütunları tutmak, sıralarını belirlemek ve yeniden adlandırmak için <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> kullanabilirsiniz</li>
+<li>Double sınıfı olan tüm sütunlarda iki ondalık basamakla <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> kullanabilirsiniz</li>
+</ul>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## tek ve çok değişkenli tabloları birleştir</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">univ_tab_base</span>, <span class="va">mv_tab_base</span>, by <span class="op">=</span> <span class="st">"term"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sütunları seç ve yeniden isimlendir</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span> <span class="co"># yeni isim =  eski isim</span></span>
+<span>    <span class="st">"characteristic"</span> <span class="op">=</span> <span class="va">term</span>, </span>
+<span>    <span class="st">"recovered"</span>      <span class="op">=</span> <span class="st">"0"</span>, </span>
+<span>    <span class="st">"dead"</span>           <span class="op">=</span> <span class="st">"1"</span>, </span>
+<span>    <span class="st">"univ_or"</span>        <span class="op">=</span> <span class="va">estimate.x</span>, </span>
+<span>    <span class="st">"univ_ci_low"</span>    <span class="op">=</span> <span class="va">conf.low.x</span>, </span>
+<span>    <span class="st">"univ_ci_high"</span>   <span class="op">=</span> <span class="va">conf.high.x</span>,</span>
+<span>    <span class="st">"univ_pval"</span>      <span class="op">=</span> <span class="va">p.value.x</span>, </span>
+<span>    <span class="st">"mv_or"</span>          <span class="op">=</span> <span class="va">estimate.y</span>, </span>
+<span>    <span class="st">"mvv_ci_low"</span>     <span class="op">=</span> <span class="va">conf.low.y</span>, </span>
+<span>    <span class="st">"mv_ci_high"</span>     <span class="op">=</span> <span class="va">conf.high.y</span>,</span>
+<span>    <span class="st">"mv_pval"</span>        <span class="op">=</span> <span class="va">p.value.y</span> </span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.double</span><span class="op">)</span>, <span class="va">round</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>   </span></code></pre></div>
+<pre><code>## # A tibble: 20 × 11
+##    characteristic recovered  dead univ_or univ_ci_low univ_ci_high univ_pval mv_or mvv_ci_low mv_ci_high mv_pval
+##    &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+##  1 (Intercept)          909  1168    1.28        1.18         1.4       0     1.07       0.83       1.39    0.6 
+##  2 gender               916  1174    1           0.88         1.13      0.97  1          0.88       1.14    0.97
+##  3 (Intercept)          340   436    1.28        1.11         1.48      0     1.07       0.83       1.39    0.6 
+##  4 fever               1485  1906    1           0.85         1.17      0.99  1          0.86       1.18    0.96
+##  5 (Intercept)         1472  1877    1.28        1.19         1.37      0     1.07       0.83       1.39    0.6 
+##  6 chills               353   465    1.03        0.89         1.21      0.68  1.03       0.89       1.21    0.67
+##  7 (Intercept)          272   309    1.14        0.97         1.34      0.13  1.07       0.83       1.39    0.6 
+##  8 cough               1553  2033    1.15        0.97         1.37      0.11  1.15       0.96       1.37    0.12
+##  9 (Intercept)         1636  2114    1.29        1.21         1.38      0     1.07       0.83       1.39    0.6 
+## 10 aches                189   228    0.93        0.76         1.14      0.51  0.93       0.76       1.14    0.5 
+## 11 (Intercept)          931  1144    1.23        1.13         1.34      0     1.07       0.83       1.39    0.6 
+## 12 vomit                894  1198    1.09        0.96         1.23      0.17  1.09       0.96       1.23    0.17
+## 13 (Intercept)          338   427    1.26        1.1          1.46      0     1.07       0.83       1.39    0.6 
+## 14 age_cat5-9           365   433    0.94        0.77         1.15      0.54  0.94       0.77       1.15    0.53
+## 15 age_cat10-14         273   396    1.15        0.93         1.42      0.2   1.15       0.93       1.41    0.2 
+## 16 age_cat15-19         238   299    0.99        0.8          1.24      0.96  0.99       0.79       1.24    0.92
+## 17 age_cat20-29         345   448    1.03        0.84         1.26      0.79  1.03       0.84       1.26    0.8 
+## 18 age_cat30-49         228   307    1.07        0.85         1.33      0.58  1.06       0.85       1.33    0.61
+## 19 age_cat50-69          35    30    0.68        0.41         1.13      0.13  0.68       0.4        1.13    0.14
+## 20 age_cat70+             3     2    0.53        0.07         3.2       0.49  0.52       0.07       3.19    0.48</code></pre>
+<!-- ======================================================= -->
+</div>
+</div>
+</div>
+<div id="forest-grafiği" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Forest Grafiği<a class="anchor" aria-label="anchor" href="#forest-grafi%C4%9Fi"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bu bölüm, regresyonunuzun çıktılarıyla bir grafiğin nasıl üretileceğini gösterir.
+İki seçenek vardır, <strong>ggplot2</strong> kullanarak kendiniz bir grafik oluşturabilir veya <strong>easystats</strong> (birçok paket içeren bir paket) adlı bir meta paket kullanabilirsiniz.</p>
+<p><strong>ggplot2</strong> çizim paketine aşina değilseniz [ggplot temelleri] sayfasına bakın.</p>
+<!-- ============================================ ========= -->
+<div id="ggplot2-paketi" class="section level3 unnumbered">
+<h3>
+<strong>ggplot2</strong> paketi<a class="anchor" aria-label="anchor" href="#ggplot2-paketi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Çok değişkenli regresyon sonuçlarının öğelerini çizerek <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> ile bir Forest grafiği oluşturabilirsiniz. Bu “geomları” kullanarak grafiklerin katmanlarını ekleyin:</p>
+<ul>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> ile tahminler</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code> ile güven aralıkları</li>
+<li>OR(Odds Ratio)= 1’de <code><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline()</a></code> ile dikey bir çizgi</li>
+</ul>
+<p>Çizmeden önce, y eksenindeki değişkenlerin/seviyelerin sırasını ayarlamak için <strong>forcats</strong> paketinden <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> kullanmak isteyebilirsiniz. “ggplot()”, bu yaş kategorisi değerleri için iyi çalışmayan (“30”, “5”ten önce görünür) alfa-sayısal sırada görüntüleyebilir. Daha fazla ayrıntı için [Faktörler] sayfasına bakın.</p>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## kesme değerini çok değişkenli sonuçlarınızdan kaldırın</span></span>
+<span><span class="va">mv_tab_base</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co">#y ekseni boyunca görünecek seviyelerin sırasını ayarlayın</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>term <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span></span>
+<span>    <span class="va">term</span>,</span>
+<span>    <span class="st">"vomit"</span>, <span class="st">"gender"</span>, <span class="st">"fever"</span>, <span class="st">"cough"</span>, <span class="st">"chills"</span>, <span class="st">"aches"</span>,</span>
+<span>    <span class="st">"age_cat5-9"</span>, <span class="st">"age_cat10-14"</span>, <span class="st">"age_cat15-19"</span>, <span class="st">"age_cat20-29"</span>,</span>
+<span>    <span class="st">"age_cat30-49"</span>, <span class="st">"age_cat50-69"</span>, <span class="st">"age_cat70+"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># grafikten "kesme değeri" satırını kaldır</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">!=</span> <span class="st">"(Intercept)"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co">## değişkeni y eksenine göre grafikleştir, x eksenini tahmin et(OR)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">estimate</span>, y <span class="op">=</span> <span class="va">term</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="co">## tahminini nokta olarak göster</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  </span>
+<span>  <span class="co">## güven aralıkları için bir hata çubuğu ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">conf.low</span>, xmax <span class="op">=</span> <span class="va">conf.high</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  </span>
+<span>  <span class="co">## OR = 1'in referans için nerede olduğunu kesikli çizgi olarak göster</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/ggplot_forest-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+<div id="easystats-paketleri" class="section level3 unnumbered">
+<h3>
+<strong>easystats</strong> paketleri<a class="anchor" aria-label="anchor" href="#easystats-paketleri"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>ggplot2</strong>’nin sağladığı iyi düzeyde kontrolü istemiyorsanız, alternatif olarak <strong>easystats</strong> paketlerinin bir kombinasyonunu kullanabilirsiniz.</p>
+<p><strong>parameters</strong> paketindeki ‘model_parameters()’ fonksiyonu, <strong>broom</strong> paket işlevi ‘tidy()’ ile eşdeğerdir. <strong>see</strong> paketi daha sonra bu çıktıları kabul eder ve bir “ggplot()” nesnesi olarak varsayılan bir Forest grafiği oluşturur.</p>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">easystats</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co">## kesme değerini çok değişkenli sonuçlarınızdan kaldırın </span></span>
+<span><span class="va">final_mv_reg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">model_parameters</span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/easystats_forest-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="kaynaklar-2" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bu sayfanın içeriği şu kaynaklar ve çevrimiçi gösterimlerden yararlanılarak hazırlanmıştır.</p>
+<p><a href="https://www.datacamp.com/community/tutorials/linear-regression-R">R’da Linear regression</a></p>
+<p><a href="http://www.danieldsjoberg.com/gtsummary/articles/tbl_regression.html">gtsummary</a></p>
+<p><a href="https://stats.idre.ucla.edu/other/dae/">UCLA stats sayfası</a></p>
+<p><a href="http://www.sthda.com/english/articles/36-classification-methods-essentials/150-stepwise-logistic-regression-essentials-in-r/">sthda stepwise regression</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="basit-istatistiksel-testler.html"><span class="header-section-number">2</span> Basit istatistiksel testler</a></div>
+<div class="next"><a href="eksik-veri.html"><span class="header-section-number">4</span> Eksik Veri</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon"><span class="header-section-number">3</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-2"><span class="header-section-number">3.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleyin-1">Paketleri yükleyin</a></li>
+<li><a class="nav-link" href="#verileri-i%C3%A7e-aktar-1">Verileri içe aktar</a></li>
+<li><a class="nav-link" href="#temiz-veri">Temiz veri</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#tek-de%C4%9Fi%C5%9Fkenli"><span class="header-section-number">3.2</span> Tek değişkenli</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#base-r">base R</a></li>
+<li><a class="nav-link" href="#reg_gt_uni">gtsummary paketi</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#tabakal%C4%B1"><span class="header-section-number">3.3</span> Tabakalı</a></li>
+<li>
+<a class="nav-link" href="#%C3%A7ok-de%C4%9Fi%C5%9Fkenli"><span class="header-section-number">3.4</span> Çok Değişkenli</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%C3%A7ok-de%C4%9Fi%C5%9Fkenli-y%C3%BCr%C3%BCtme">Çok değişkenli yürütme</a></li>
+<li><a class="nav-link" href="#tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-birle%C5%9Ftirme">Tek değişkenli ve çok değişkenli birleştirme</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#forest-grafi%C4%9Fi"><span class="header-section-number">3.5</span> Forest Grafiği</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ggplot2-paketi">ggplot2 paketi</a></li>
+<li><a class="nav-link" href="#easystats-paketleri">easystats paketleri</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-2"><span class="header-section-number">3.6</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

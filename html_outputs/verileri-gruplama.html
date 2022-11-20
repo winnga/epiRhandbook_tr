@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>13 Verileri Gruplama | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bu sayfa, tanımlayıcı analiz için verilerin nasıl gruplandırılacağını ve toplanacağını kapsar. Ortak ve kullanımı kolay fonksiyonlar için tidyverse paket ailesini kullanır. Verileri gruplamak,...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="13 Verileri Gruplama | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bu sayfa, tanımlayıcı analiz için verilerin nasıl gruplandırılacağını ve toplanacağını kapsar. Ortak ve kullanımı kolay fonksiyonlar için tidyverse paket ailesini kullanır. Verileri gruplamak,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="13 Verileri Gruplama | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bu sayfa, tanımlayıcı analiz için verilerin nasıl gruplandırılacağını ve toplanacağını kapsar. Ortak ve kullanımı kolay fonksiyonlar için tidyverse paket ailesini kullanır. Verileri gruplamak,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="active" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="verileri-gruplama" class="section level1" number="13">
+<h1>
+<span class="header-section-number">13</span> Verileri Gruplama<a class="anchor" aria-label="anchor" href="#verileri-gruplama"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="images/Grouping_1500x500.png" width="100%"></div>
+<p>Bu sayfa, tanımlayıcı analiz için verilerin nasıl gruplandırılacağını ve toplanacağını kapsar. Ortak ve kullanımı kolay fonksiyonlar için <strong>tidyverse</strong> paket ailesini kullanır.</p>
+<p>Verileri gruplamak, veri yönetimi ve analizinin temel bir bileşenidir. Gruplandırılmış veriler istatistiksel olarak grup tarafından özetlenir ve grup tarafından çizilebilir. <strong>dplyr</strong> paketindeki fonksiyonlar (<strong>tidyverse</strong>’in bir parçası) gruplandırmayı ve sonraki işlemleri oldukça kolaylaştırır.</p>
+<p>Bu sayfa aşağıdaki konuları ele alacaktır:</p>
+<ul>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> fonksiyonuyla verileri gruplayın</li>
+<li>Grubun verilerini kaldırma</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> istatistiklerle gruplandırılmış veriler</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> ve <code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> arasındaki fark</li>
+<li>gruplandırılmış verilere uygulanan <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code>
+</li>
+<li>gruplandırılmış verilere uygulanan <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>
+</li>
+<li>gruplandırılmış verilere uygulanan <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>
+</li>
+<li>gruplandırılmış verilere uygulanan <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>
+</li>
+<li>Alternatif olarak R <strong>tabanı</strong> <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> komutu</li>
+</ul>
+<div id="hazırlık-4" class="section level2" number="13.1">
+<h2>
+<span class="header-section-number">13.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-4"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yükleyin" class="section level3 unnumbered">
+<h3>Paketleri yükleyin<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod parçası, analizler için gereken paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’dan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> vurgusunu yapıyoruz. R <strong>tabanı</strong>ndan <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri de yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R basics] sayfasına bakabilirsiniz.</p>
+<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">rio</span>,       <span class="co"># verileri içe aktarma</span></span>
+<span>  <span class="va">here</span>,      <span class="co"># dosyaları konumlama</span></span>
+<span>  <span class="va">tidyverse</span>, <span class="co"># veriyi temizleme, işleme ve grafikleştirme (dplyr dahil)</span></span>
+<span>  <span class="va">janitor</span><span class="op">)</span>   <span class="co"># toplam satır ve süruna ekleme yapma</span></span></code></pre></div>
+</div>
+<div id="verileri-içe-aktar-2" class="section level3 unnumbered">
+<h3>Verileri içe aktar<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktar-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Simüle edilmiş bir Ebola salgınından vakaların veri setini içe aktarıyoruz. Takip etmek isterseniz, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">“clean” dosyasını indirmek için tıklayın</a> (.rds dosyası olarak). Veri kümesi, <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonu kullanılarak içe aktarılır. Verileri içe aktarmanın çeşitli yolları için <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> hakkındaki sayfaya bakın.</p>
+<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+<p>“linelist”in ilk 50 satırı:</p>
+<div id="htmlwidget-f3f2de6ecd5928db143e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f3f2de6ecd5928db143e">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1407024000000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="gruplandırma" class="section level2" number="13.2">
+<h2>
+<span class="header-section-number">13.2</span> Gruplandırma<a class="anchor" aria-label="anchor" href="#grupland%C4%B1rma"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>dplyr</strong>’den <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> fonsiyonu, satırları kendisine belirtilen sütundaki benzersiz değerlere göre gruplandırır. Birden çok sütun belirtilirse, satırlar sütunlar boyunca benzersiz değer kombinasyonlarına göre gruplanır. Her benzersiz değer (veya değer kombinasyonu) bir grup oluşturur. Veri kümesinde veya hesaplamalarda sonraki değişiklikler daha sonra her grup bağlamında gerçekleştirilebilir.</p>
+<p>Örneğin, aşağıdaki komut “linelist”i alır ve satırları “outcome” sütunundaki benzersiz değerlere göre gruplayarak çıktıyı yeni bir “ll_by_outcome” veri çerçevesi olarak kaydeder. Gruplandırma sütunu/sütunları, ‘group_by()’ fonksiyonunun parantezlerin içine yerleştirilir.</p>
+<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ll_by_outcome</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Veri kümesinde algılanabilir bir değişiklik olmadığını unutmayın</strong>
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> çalıştırıldıktan sonra, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> veya <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> gibi başka bir <strong>dplyr</strong> fiili “gruplandırılmış” veri çerçevesine <em>kadar</em> uygulanır.</p>
+<p>Bununla birlikte, veri çerçevesini yazdırarak gruplamaları “görebilirsiniz”. Gruplandırılmış bir veri çerçevesi yazdırdığınızda, bunun yazdırıldığında hangi gruplamaların uygulandığını ve kaç tane olduğunu gösteren bir <a href="https://tibble.tidyverse.org/"><code>tibble</code> sınıf nesnesine</a> dönüştürüldüğünü göreceksiniz - başlık satırının hemen üstüne yazılır.</p>
+<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># hangi grupların aktif olduğunu görmek için yazdır</span></span>
+<span><span class="va">ll_by_outcome</span></span></code></pre></div>
+<pre><code>## # A tibble: 5,888 × 30
+## # Groups:   outcome [3]
+##    case_id generation date_infe…¹ date_onset date_hos…² date_out…³ outcome gender   age age_u…⁴ age_y…⁵ age_cat age_c…⁶
+##    &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;      &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt;  
+##  1 5fe599           4 2014-05-08  2014-05-13 2014-05-15 NA         &lt;NA&gt;    m          2 years         2 0-4     0-4    
+##  2 8689b7           4 NA          2014-05-13 2014-05-14 2014-05-18 Recover f          3 years         3 0-4     0-4    
+##  3 11f8ea           2 NA          2014-05-16 2014-05-18 2014-05-30 Recover m         56 years        56 50-69   55-59  
+##  4 b8812a           3 2014-05-04  2014-05-18 2014-05-20 NA         &lt;NA&gt;    f         18 years        18 15-19   15-19  
+##  5 893f25           3 2014-05-18  2014-05-21 2014-05-22 2014-05-29 Recover m          3 years         3 0-4     0-4    
+##  6 be99c8           3 2014-05-03  2014-05-22 2014-05-23 2014-05-24 Recover f         16 years        16 15-19   15-19  
+##  7 07e3e8           4 2014-05-22  2014-05-27 2014-05-29 2014-06-01 Recover f         16 years        16 15-19   15-19  
+##  8 369449           4 2014-05-28  2014-06-02 2014-06-03 2014-06-07 Death   f          0 years         0 0-4     0-4    
+##  9 f393b4           4 NA          2014-06-05 2014-06-06 2014-06-18 Recover m         61 years        61 50-69   60-64  
+## 10 1389ca           4 NA          2014-06-05 2014-06-07 2014-06-09 Death   f         27 years        27 20-29   25-29  
+## # … with 5,878 more rows, 17 more variables: hospital &lt;chr&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;, infector &lt;chr&gt;, source &lt;chr&gt;,
+## #   wt_kg &lt;dbl&gt;, ht_cm &lt;dbl&gt;, ct_blood &lt;dbl&gt;, fever &lt;chr&gt;, chills &lt;chr&gt;, cough &lt;chr&gt;, aches &lt;chr&gt;, vomit &lt;chr&gt;,
+## #   temp &lt;dbl&gt;, time_admission &lt;chr&gt;, bmi &lt;dbl&gt;, days_onset_hosp &lt;dbl&gt;, and abbreviated variable names
+## #   ¹​date_infection, ²​date_hospitalisation, ³​date_outcome, ⁴​age_unit, ⁵​age_years, ⁶​age_cat5</code></pre>
+<div id="benzersiz-gruplar" class="section level3 unnumbered">
+<h3>Benzersiz gruplar<a class="anchor" aria-label="anchor" href="#benzersiz-gruplar"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Oluşturulan gruplar, gruplandırma sütunlarında her benzersiz değer kombinasyonunu yansıtır.</strong></p>
+<p>Grupları <em>ve her gruptaki</em> satır sayısını görmek için gruplanmış verileri ‘tally()’ öğesine iletin. Sadece benzersiz, sayısız grupları görmek için <code><a href="https://dplyr.tidyverse.org/reference/group_data.html">group_keys()</a></code> öğesine geçebilirsiniz.</p>
+<p>Aşağıda, “sonuç” gruplandırma sütununda <strong>üç</strong> benzersiz değer olduğunu görün: “Ölüm”, “İyileşme” ve “NA”. <code>nrow(linelist %&gt;% filter(outcome == "Death"))</code> ölümler, <code>nrow(linelist %&gt;% filter(outcome == "Recover"))</code> ve <code>nrow(linelist %)</code> olduğunu görün &gt;% filter(is.na(outcome)))` hiçbir sonuç kaydedilmedi.</p>
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   outcome     n
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 Death    2582
+## 2 Recover  1983
+## 3 &lt;NA&gt;     1323</code></pre>
+<p>Birden fazla sütuna göre gruplandırabilirsiniz. Aşağıda, veri çerçevesi “sonuç” ve “cinsiyet”e göre gruplandırılır ve ardından hesaplanır. “Sonuç” ve “cinsiyet”in her benzersiz kombinasyonunun kendi grubu olarak nasıl kaydedildiğine dikkat edin - her iki sütun için de eksik değerler dahil edilmektedir.</p>
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 9 × 3
+## # Groups:   outcome [3]
+##   outcome gender     n
+##   &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
+## 1 Death   f       1227
+## 2 Death   m       1228
+## 3 Death   &lt;NA&gt;     127
+## 4 Recover f        953
+## 5 Recover m        950
+## 6 Recover &lt;NA&gt;      80
+## 7 &lt;NA&gt;    f        627
+## 8 &lt;NA&gt;    m        625
+## 9 &lt;NA&gt;    &lt;NA&gt;      71</code></pre>
+</div>
+<div id="yeni-sütunlar-1" class="section level3 unnumbered">
+<h3>Yeni sütunlar<a class="anchor" aria-label="anchor" href="#yeni-s%C3%BCtunlar-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ayrıca, “group_by()” ifadesinin <em>içinde</em> yeni bir gruplandırma sütunu da oluşturabilirsiniz. Bu, ‘group_by()’dan önce ’mutate()’ çağrısına eşdeğerdir. Hızlı bir tablolama için bu stil kullanışlı olabilir, ancak kodunuzda daha fazla netlik için bu sütunu kendi <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> adımında oluşturmayı ve ardından <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> ile bağlantı kurmayı düşünün.</p>
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># group_by() komut satırı listesi %&gt;% *içinde* oluşturulan bir ikili sütuna dayalı grup verileri</span></span>
+<span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span></span>
+<span>          age_class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span>, <span class="st">"adult"</span>, <span class="st">"child"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>sort <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   age_class     n
+##   &lt;chr&gt;     &lt;int&gt;
+## 1 child      3618
+## 2 adult      2184
+## 3 &lt;NA&gt;         86</code></pre>
+</div>
+<div id="gruplandırma-sütunlarını-eklebırak" class="section level3 unnumbered">
+<h3>Gruplandırma sütunlarını ekle/bırak<a class="anchor" aria-label="anchor" href="#grupland%C4%B1rma-s%C3%BCtunlar%C4%B1n%C4%B1-ekleb%C4%B1rak"><i class="fas fa-link"></i></a>
+</h3>
+<p>Varsayılan olarak, zaten gruplanmış veriler üzerinde <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> çalıştırırsanız, eski gruplar kaldırılacak ve yenileri uygulanacaktır. Mevcut gruplara yeni gruplar eklemek istiyorsanız, <code>.add = TRUE</code> değişkenini ekleyin.</p>
+<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Çıktıya göre gruplama</span></span>
+<span><span class="va">by_outcome</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># İlave olarak cinsiyet olarak gruplama eklemesi</span></span>
+<span><span class="va">by_outcome_gender</span> <span class="op">&lt;-</span> <span class="va">by_outcome</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">gender</span>, .add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>** Tüm grupları tut**</p>
+<p>Bir sınıf faktörü sütununda gruplandırırsanız, şu anda verilerde mevcut olmayan faktör seviyeleri olabilir. Bu sütunda gruplandırırsanız, varsayılan olarak mevcut olmayan seviyeler bırakılır ve grup olarak dahil edilmez. Bunu, tüm seviyelerin gruplar halinde görüneceği şekilde değiştirmek için (verilerde mevcut olmasa bile), <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> komutunuzda <code>.drop = FALSE</code> değerini ayarlayın.</p>
+</div>
+</div>
+<div id="grubu-kaldır" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> Grubu kaldır<a class="anchor" aria-label="anchor" href="#grubu-kald%C4%B1r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Gruplandırılmış veriler, ‘ungroup()’ aracılığıyla özellikle işlenene kadar gruplanmış olarak kalacaktır. Grubu çözmeyi unutursanız, yanlış hesaplamalara yol açabilir! Aşağıda tüm gruplamaların kaldırılmasına ilişkin bir örnek verilmiştir:</p>
+<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Ayrıca, sütun adını “ungroup()” içine yerleştirerek yalnızca belirli sütunlar için gruplamayı kaldırabilirsiniz.</p>
+<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span> <span class="co"># cinsiyete göre gruplamayı kaldır, sonuca göre gruplamayı bırak</span></span></code></pre></div>
+<p><span style="color: black;"><strong><em>NOT:</em></strong> <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> fiili saydıktan sonra verilerin grubunu otomatik olarak çözer.</span></p>
+</div>
+<div id="group_summarise" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> Özetleme<a class="anchor" aria-label="anchor" href="#group_summarise"><i class="fas fa-link"></i></a>
+</h2>
+<p>Özet tablolarının “summarise()” ile nasıl oluşturulacağına ilişkin ayrıntılı bir açıklama için <a href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html#tan%C4%B1mlay%C4%B1c%C4%B1-tablolar">Tanımlayıcı tablolar</a> sayfasının <strong>dplyr</strong> bölümüne bakın. Burada, gruplandırılmış verilere uygulandığında davranışının nasıl değiştiğini kısaca ele alıyoruz.</p>
+<p><strong>dplyr</strong> fonksiyonu<code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> (veya <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>) bir veri çerçevesi alır ve onu tanımladığınız özet istatistikleri içeren sütunlarla birlikte <em>yeni</em> bir özet veri çerçevesine dönüştürür. Gruplandırılmamış bir veri çerçevesinde, tüm satırlardan özet istatistikler hesaplanacaktır. Gruplandırılmış verilere ‘summarise()’ uygulamak, <em>her grup için</em> bu özet istatistikleri üretir.</p>
+<p><code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> sözdizimi, <strong>yeni</strong> özet sütun(lar)ının adlarını, bir eşittir işaretini ve ardından aşağıda gösterildiği gibi verilere uygulanacak istatistiksel bir fonksiyon sağlayacak şekildedir. Örneğin, “min()”, “max()”, “median()” veya “sd()”. İstatistiksel fonksiyon içinde, üzerinde çalışılacak sütunu ve ilgili herhangi bir değişkeni listeleyebilir (ör. “na.rm = TRUE”). Mantıksal bir ölçütü karşılayan satırların sayısını saymak için <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> kullanabilirsiniz (çift eşittir <code>==</code> ile).</p>
+<p>Aşağıda, <em>gruplandırılmış veriler olmadan</em> uygulanan bir <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> örneği verilmiştir. Döndürülen istatistikler, tüm veri kümesinden üretilir.</p>
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># gruplandırılmamış satır listesindeki özet istatistikler</span></span>
+<span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    n_cases  <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_years</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    max_age  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">age_years</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    min_age  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">age_years</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    n_males  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">==</span> <span class="st">"m"</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   n_cases mean_age max_age min_age n_males
+## 1    5888 16.01831      84       0    2803</code></pre>
+<p>Buna karşılık, aşağıda gruplanmış verilere uygulanan aynı “summarise()” ifadesi yer almaktadır. İstatistikler, her bir “sonuç” grubu için hesaplanır. Gruplandırma sütunlarının yeni veri çerçevesine nasıl taşınacağına dikkat edin.</p>
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># gruplandırılmış satır listesindeki özet istatistikler</span></span>
+<span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    n_cases  <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age_years</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    max_age  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">age_years</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    min_age  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">age_years</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>    n_males    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">gender</span> <span class="op">==</span> <span class="st">"m"</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 6
+##   outcome n_cases mean_age max_age min_age n_males
+##   &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;
+## 1 Death      2582     15.9      76       0    1228
+## 2 Recover    1983     16.1      84       0     950
+## 3 &lt;NA&gt;       1323     16.2      69       0     625</code></pre>
+<p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> TÖzetleme işlevi hem Birleşik Krallık hem de ABD yazımıyla çalışır - <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> ve <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> aynı fonksiyonu çağırır.</span></p>
+</div>
+<div id="sayımlar-ve-seriler" class="section level2" number="13.5">
+<h2>
+<span class="header-section-number">13.5</span> Sayımlar ve seriler<a class="anchor" aria-label="anchor" href="#say%C4%B1mlar-ve-seriler"><i class="fas fa-link"></i></a>
+</h2>
+<p><code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> ve <code><a href="https://dplyr.tidyverse.org/reference/count.html">tally()</a></code> benzer işlevsellik sağlar ancak farklıdır. “tally()” ve “count()” arasındaki fark hakkında daha fazla bilgiyi <a href="https://dplyr.tidyverse.org/reference/tally.html">buradan</a> okuyabilirsiniz.</p>
+<div id="tally" class="section level3 unnumbered">
+<h3>
+<code>tally()</code><a class="anchor" aria-label="anchor" href="#tally"><i class="fas fa-link"></i></a>
+</h3>
+<p>“tally()”, “summarise(n = n())” ifadesinin kısaltmasıdır ve verileri <em>gruplandırmaz</em>. Bu nedenle, gruplandırılmış çetelelere ulaşmak için bir ‘group_by()’ komutunu izlemesi gerekir. Önce en büyük grupları görmek için <code>sort = TRUE</code> ekleyebilirsiniz.</p>
+<div class="sourceCode" id="cb645"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      n
+## 1 5888</code></pre>
+<div class="sourceCode" id="cb647"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   outcome     n
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 Death    2582
+## 2 Recover  1983
+## 3 &lt;NA&gt;     1323</code></pre>
+</div>
+<div id="count" class="section level3 unnumbered">
+<h3>
+<code>count()</code><a class="anchor" aria-label="anchor" href="#count"><i class="fas fa-link"></i></a>
+</h3>
+<p>Buna karşılık, “count()” şunları yapar:</p>
+<ol style="list-style-type: decimal">
+<li>belirtilen sütun(lar)a <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> uygular</li>
+<li>“summarise()” uygular ve grup başına satır sayısıyla “n” sütununu döndürür</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> uygular</li>
+</ol>
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">outcome</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   outcome    n
+## 1   Death 2582
+## 2 Recover 1983
+## 3    &lt;NA&gt; 1323</code></pre>
+<p>Tıpkı ‘group_by()’ ile olduğu gibi, ‘count()’ komutu için de yeni bir sütun oluşturabilirsiniz:</p>
+<div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>age_class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span>, <span class="st">"adult"</span>, <span class="st">"child"</span><span class="op">)</span>, sort <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   age_class    n
+## 1     child 3618
+## 2     adult 2184
+## 3      &lt;NA&gt;   86</code></pre>
+<p><code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>, “yuvarlama”nın kullanışlılığı ile birden çok kez çağrılabilir. Örneğin, her bir cinsiyet için mevcut hastanelerin sayısını özetlemek için aşağıdakileri çalıştırın. Son sütunun adının, netlik için varsayılan “n” yerine değiştirildiğini unutmayın (<code>name =</code> ile).</p>
+<div class="sourceCode" id="cb653"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># benzersiz sonuç-cinsiyet gruplarına göre sayımlar üretmek</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">#cinsiyete göre satırları toplayın (3) ve cinsiyete göre hastane sayısını sayın (6)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">gender</span>, name <span class="op">=</span> <span class="st">"hospitals per gender"</span> <span class="op">)</span> </span></code></pre></div>
+<pre><code>##   gender hospitals per gender
+## 1      f                    6
+## 2      m                    6
+## 3   &lt;NA&gt;                    6</code></pre>
+</div>
+<div id="sayıları-ekle" class="section level3 unnumbered">
+<h3>Sayıları ekle<a class="anchor" aria-label="anchor" href="#say%C4%B1lar%C4%B1-ekle"><i class="fas fa-link"></i></a>
+</h3>
+<p>‘count()’ ve ‘summarise()’in aksine, diğer tüm veri çerçevesi sütunlarını korurken grup başına satır sayısıyla yeni bir ’n’ sütunu eklemek için ‘add_count()’ kullanabilirsiniz.</p>
+<p>Bu, yeni <code>n</code> sütunundaki bir grubun sayım numarasının grubun her satırına yazdırılacağı anlamına gelir. Gösteri amacıyla, bu sütunu ekliyoruz ve daha sonra daha kolay görüntüleme için sütunları yeniden düzenliyoruz. Başka bir örnek için aşağıdaki <a href="verileri-gruplama.html#group_filter_grp_size">grup boyutuna göre filtrele</a> bölümüne bakabilirsiniz.</p>
+<div class="sourceCode" id="cb655"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                   <span class="co"># daha güzel baskı için tibble'a dönüştürün</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">add_count</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>           <span class="co"># hastaneye göre sayılarla n sütunu ekle</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">n</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># demo amaçlı yeniden düzenlemek</span></span></code></pre></div>
+<pre><code>## # A tibble: 5,888 × 31
+##    hospital          n case_id gener…¹ date_inf…² date_onset date_hos…³ date_out…⁴ outcome gender   age age_u…⁵ age_y…⁶
+##    &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1 Other           885 5fe599        4 2014-05-08 2014-05-13 2014-05-15 NA         &lt;NA&gt;    m          2 years         2
+##  2 Missing        1469 8689b7        4 NA         2014-05-13 2014-05-14 2014-05-18 Recover f          3 years         3
+##  3 St. Mark's M…   422 11f8ea        2 NA         2014-05-16 2014-05-18 2014-05-30 Recover m         56 years        56
+##  4 Port Hospital  1762 b8812a        3 2014-05-04 2014-05-18 2014-05-20 NA         &lt;NA&gt;    f         18 years        18
+##  5 Military Hos…   896 893f25        3 2014-05-18 2014-05-21 2014-05-22 2014-05-29 Recover m          3 years         3
+##  6 Port Hospital  1762 be99c8        3 2014-05-03 2014-05-22 2014-05-23 2014-05-24 Recover f         16 years        16
+##  7 Missing        1469 07e3e8        4 2014-05-22 2014-05-27 2014-05-29 2014-06-01 Recover f         16 years        16
+##  8 Missing        1469 369449        4 2014-05-28 2014-06-02 2014-06-03 2014-06-07 Death   f          0 years         0
+##  9 Missing        1469 f393b4        4 NA         2014-06-05 2014-06-06 2014-06-18 Recover m         61 years        61
+## 10 Missing        1469 1389ca        4 NA         2014-06-05 2014-06-07 2014-06-09 Death   f         27 years        27
+## # … with 5,878 more rows, 18 more variables: age_cat &lt;fct&gt;, age_cat5 &lt;fct&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;, infector &lt;chr&gt;,
+## #   source &lt;chr&gt;, wt_kg &lt;dbl&gt;, ht_cm &lt;dbl&gt;, ct_blood &lt;dbl&gt;, fever &lt;chr&gt;, chills &lt;chr&gt;, cough &lt;chr&gt;, aches &lt;chr&gt;,
+## #   vomit &lt;chr&gt;, temp &lt;dbl&gt;, time_admission &lt;chr&gt;, bmi &lt;dbl&gt;, days_onset_hosp &lt;dbl&gt;, and abbreviated variable names
+## #   ¹​generation, ²​date_infection, ³​date_hospitalisation, ⁴​date_outcome, ⁵​age_unit, ⁶​age_years</code></pre>
+</div>
+<div id="toplamları-ekle" class="section level3 unnumbered">
+<h3>Toplamları ekle<a class="anchor" aria-label="anchor" href="#toplamlar%C4%B1-ekle"><i class="fas fa-link"></i></a>
+</h3>
+<p>“tally()” veya “count()” kullandıktan sonra toplam <em>sum</em> satırlarını veya sütunlarını kolayca eklemek için <a href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html#tbl_janitor">Tanımlayıcı tablolar</a> sayfasının <strong>janitor</strong> bölümüne bakın. Bu paket, toplamları eklemek ve yüzdeleri göstermek için dönüştürmek için ‘adorn_totals()’ ve ‘adorn_percentages()’ gibi fonksiyonlar sunar. Aşağıda kısa bir örnek verilmiştir:</p>
+<div class="sourceCode" id="cb657"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                  <span class="co"># vaka satır listesi </span></span>
+<span>  <span class="fu">tabyl</span><span class="op">(</span><span class="va">age_cat</span>, <span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                  <span class="co"># iki sütunun çapraz tablo sayımları</span></span>
+<span>  <span class="fu">adorn_totals</span><span class="op">(</span>where <span class="op">=</span> <span class="st">"row"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>             <span class="co"># toplam satır ekle</span></span>
+<span>  <span class="fu">adorn_percentages</span><span class="op">(</span>denominator <span class="op">=</span> <span class="st">"col"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># sütun paydası ile oranlara dönüştürme</span></span>
+<span>  <span class="fu">adorn_pct_formatting</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                  <span class="co"># oranları yüzdelere çevir</span></span>
+<span>  <span class="fu">adorn_ns</span><span class="op">(</span>position <span class="op">=</span> <span class="st">"front"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>            <span class="co"># "count (percent)" olarak göster</span></span>
+<span>  <span class="fu">adorn_title</span><span class="op">(</span>                                <span class="co"># başlıkları ayarla</span></span>
+<span>    row_name <span class="op">=</span> <span class="st">"Age Category"</span>,</span>
+<span>    col_name <span class="op">=</span> <span class="st">"Gender"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##                      Gender                           
+##  Age Category             f             m          NA_
+##           0-4  640  (22.8%)  416  (14.8%)  39  (14.0%)
+##           5-9  641  (22.8%)  412  (14.7%)  42  (15.1%)
+##         10-14  518  (18.5%)  383  (13.7%)  40  (14.4%)
+##         15-19  359  (12.8%)  364  (13.0%)  20   (7.2%)
+##         20-29  468  (16.7%)  575  (20.5%)  30  (10.8%)
+##         30-49  179   (6.4%)  557  (19.9%)  18   (6.5%)
+##         50-69    2   (0.1%)   91   (3.2%)   2   (0.7%)
+##           70+    0   (0.0%)    5   (0.2%)   1   (0.4%)
+##          &lt;NA&gt;    0   (0.0%)    0   (0.0%)  86  (30.9%)
+##         Total 2807 (100.0%) 2803 (100.0%) 278 (100.0%)</code></pre>
+<p><em>Toplamlar</em> dışında özet istatistikleri içeren daha karmaşık ‘sums’ satırları eklemek için <a href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html#tbl_dplyr_totals">Tanımlayıcı Tablolar sayfasının bu bölümüne</a> bakabilirsiniz.</p>
+</div>
+</div>
+<div id="tarihe-göre-gruplama" class="section level2" number="13.6">
+<h2>
+<span class="header-section-number">13.6</span> Tarihe göre gruplama<a class="anchor" aria-label="anchor" href="#tarihe-g%C3%B6re-gruplama"><i class="fas fa-link"></i></a>
+</h2>
+<p>Verileri tarihe göre gruplarken, ilgilenilen tarih birimi için bir sütuna sahip olmalısınız (veya oluşturmalısınız) (örneğin “gün”, “epiweek”, “ay”, vb.) <strong>lubridate</strong>’den ‘floor_date()’ kullanarak bu sütunu oluşturabilirsiniz. <a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#tarihlerle-%C3%A7al%C4%B1%C5%9Fma-1">Tarihlerle çalışma</a> sayfasının <a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#dates_epi_wks">Epidemiyolojik haftalar bölümünde</a> açıklandığı gibi. Bu sütuna sahip olduğunuzda, satırları bu benzersiz tarih değerlerine göre gruplandırmak ve toplam sayıları elde etmek için <strong>dplyr</strong>’den <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> kullanabilirsiniz.</p>
+<p>Tarih durumları için ortak bir ek adım, dizide verilerde mevcut olmayan tüm tarihleri ​​“doldurmaktır”. <strong>tidyr</strong>’den ‘complete()’ kullanın, böylece aralık içindeki <em>tüm olası tarih birimleri</em> dahil olmak üzere toplu tarih serisi tamamlanır. Bu adım olmadan, hiçbir vakanın bildirilmediği bir hafta verilerinizde görünmeyebilir!</p>
+<p>‘complete()’ içinde, tarih sütununuzu minimumdan maksimuma ‘seq.Date()’ tarihlerinin bir <em>dizisi</em> olarak <em>yeniden tanımlarsınız</em>. Böylece tarihler genişletilir. Varsayılan olarak, herhangi bir yeni “genişletilmiş” satırdaki büyük/küçük harf sayısı değerleri “NA” olacaktır. Adlandırılmış bir liste bekleyen ‘complete()’ öğesinin ‘fill =’ değişkenini kullanarak bunları 0’a ayarlayabilirsiniz (sayımlar sütununuz ‘n’ olarak adlandırılmışsa, ‘fill = list(n = 0)’ sağlayın. Ayrıntılar için ?complete’ komutuna ve örnek için <a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#dates_epi_wks">Tarihlerle çalışma</a> sayfasına bakabilirsiniz.</p>
+<div id="günlere-göre-satır-listesi-vakaları" class="section level3 unnumbered">
+<h3>Günlere göre satır listesi vakaları<a class="anchor" aria-label="anchor" href="#g%C3%BCnlere-g%C3%B6re-sat%C4%B1r-listesi-vakalar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Burada, “complete()” kullanılmadan ​günlere göre gruplandırma örneği verilmiştir. İlk satırların hiçbir durum olmadan tarihleri atladığını unutmayın.</p>
+<div class="sourceCode" id="cb659"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">daily_counts</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># date_onset eksik olanları kaldırın</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span>              <span class="co"># benzersiz tarih başına satır sayısını say</span></span></code></pre></div>
+<div id="htmlwidget-e755a56507bb3ba8b2d3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e755a56507bb3ba8b2d3">{"x":{"filter":"none","vertical":false,"data":[["2014-04-07","2014-04-15","2014-04-21","2014-04-25","2014-04-26","2014-04-27","2014-05-01","2014-05-03","2014-05-04","2014-05-05","2014-05-06","2014-05-07","2014-05-08","2014-05-09","2014-05-10","2014-05-11","2014-05-12","2014-05-13","2014-05-14","2014-05-16","2014-05-17","2014-05-18","2014-05-19","2014-05-20","2014-05-21","2014-05-22","2014-05-23","2014-05-24","2014-05-25","2014-05-26","2014-05-27","2014-05-28","2014-05-29","2014-05-30","2014-05-31","2014-06-02","2014-06-03","2014-06-05","2014-06-06","2014-06-07","2014-06-08","2014-06-09","2014-06-10","2014-06-11","2014-06-12","2014-06-13","2014-06-14","2014-06-15","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-20","2014-06-21","2014-06-22","2014-06-23","2014-06-24","2014-06-25","2014-06-26","2014-06-27","2014-06-28","2014-06-29","2014-06-30","2014-07-01","2014-07-02","2014-07-03","2014-07-04","2014-07-05","2014-07-06","2014-07-07","2014-07-08","2014-07-09","2014-07-10","2014-07-11","2014-07-12","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-21","2014-07-22","2014-07-23","2014-07-24","2014-07-25","2014-07-26","2014-07-27","2014-07-28","2014-07-29","2014-07-30","2014-07-31","2014-08-01","2014-08-02","2014-08-03","2014-08-04","2014-08-05","2014-08-06","2014-08-07","2014-08-08","2014-08-09","2014-08-10","2014-08-11","2014-08-12","2014-08-13","2014-08-14","2014-08-15","2014-08-16","2014-08-17","2014-08-18","2014-08-19","2014-08-20","2014-08-21","2014-08-22","2014-08-23","2014-08-24","2014-08-25","2014-08-26","2014-08-27","2014-08-28","2014-08-29","2014-08-30","2014-08-31","2014-09-01","2014-09-02","2014-09-03","2014-09-04","2014-09-05","2014-09-06","2014-09-07","2014-09-08","2014-09-09","2014-09-10","2014-09-11","2014-09-12","2014-09-13","2014-09-14","2014-09-15","2014-09-16","2014-09-17","2014-09-18","2014-09-19","2014-09-20","2014-09-21","2014-09-22","2014-09-23","2014-09-24","2014-09-25","2014-09-26","2014-09-27","2014-09-28","2014-09-29","2014-09-30","2014-10-01","2014-10-02","2014-10-03","2014-10-04","2014-10-05","2014-10-06","2014-10-07","2014-10-08","2014-10-09","2014-10-10","2014-10-11","2014-10-12","2014-10-13","2014-10-14","2014-10-15","2014-10-16","2014-10-17","2014-10-18","2014-10-19","2014-10-20","2014-10-21","2014-10-22","2014-10-23","2014-10-24","2014-10-25","2014-10-26","2014-10-27","2014-10-28","2014-10-29","2014-10-30","2014-10-31","2014-11-01","2014-11-02","2014-11-03","2014-11-04","2014-11-05","2014-11-06","2014-11-07","2014-11-08","2014-11-09","2014-11-10","2014-11-11","2014-11-12","2014-11-13","2014-11-14","2014-11-15","2014-11-16","2014-11-17","2014-11-18","2014-11-19","2014-11-20","2014-11-21","2014-11-22","2014-11-23","2014-11-24","2014-11-25","2014-11-26","2014-11-27","2014-11-28","2014-11-29","2014-11-30","2014-12-01","2014-12-02","2014-12-03","2014-12-04","2014-12-05","2014-12-06","2014-12-07","2014-12-08","2014-12-09","2014-12-10","2014-12-11","2014-12-12","2014-12-13","2014-12-14","2014-12-15","2014-12-16","2014-12-17","2014-12-18","2014-12-19","2014-12-20","2014-12-21","2014-12-22","2014-12-23","2014-12-24","2014-12-25","2014-12-26","2014-12-27","2014-12-28","2014-12-29","2014-12-30","2014-12-31","2015-01-01","2015-01-02","2015-01-03","2015-01-04","2015-01-05","2015-01-06","2015-01-07","2015-01-08","2015-01-09","2015-01-10","2015-01-11","2015-01-12","2015-01-13","2015-01-14","2015-01-15","2015-01-16","2015-01-17","2015-01-18","2015-01-19","2015-01-20","2015-01-21","2015-01-22","2015-01-23","2015-01-24","2015-01-25","2015-01-26","2015-01-27","2015-01-28","2015-01-29","2015-01-30","2015-01-31","2015-02-01","2015-02-02","2015-02-03","2015-02-04","2015-02-05","2015-02-06","2015-02-07","2015-02-08","2015-02-09","2015-02-10","2015-02-11","2015-02-12","2015-02-13","2015-02-14","2015-02-15","2015-02-16","2015-02-17","2015-02-18","2015-02-19","2015-02-20","2015-02-21","2015-02-22","2015-02-23","2015-02-24","2015-02-25","2015-02-26","2015-02-27","2015-02-28","2015-03-01","2015-03-02","2015-03-03","2015-03-04","2015-03-05","2015-03-06","2015-03-07","2015-03-08","2015-03-09","2015-03-10","2015-03-11","2015-03-12","2015-03-13","2015-03-14","2015-03-15","2015-03-16","2015-03-17","2015-03-18","2015-03-19","2015-03-20","2015-03-21","2015-03-22","2015-03-23","2015-03-24","2015-03-25","2015-03-26","2015-03-27","2015-03-28","2015-03-29","2015-03-30","2015-03-31","2015-04-01","2015-04-02","2015-04-03","2015-04-04","2015-04-05","2015-04-06","2015-04-07","2015-04-08","2015-04-09","2015-04-10","2015-04-11","2015-04-12","2015-04-13","2015-04-14","2015-04-15","2015-04-16","2015-04-17","2015-04-18","2015-04-19","2015-04-20","2015-04-21","2015-04-22","2015-04-23","2015-04-24","2015-04-25","2015-04-26","2015-04-27","2015-04-28","2015-04-29","2015-04-30"],[1,1,2,1,1,1,2,1,1,1,3,2,2,2,1,1,2,3,3,2,3,4,2,1,3,1,2,1,3,3,10,1,1,1,2,5,3,4,4,5,1,5,5,3,1,1,2,5,6,4,2,3,7,3,4,2,6,5,3,1,2,2,6,4,3,5,6,5,3,3,7,7,5,4,6,6,10,10,6,6,10,7,11,4,6,11,9,10,7,12,6,15,14,8,9,16,13,18,18,9,9,9,10,13,17,7,17,12,17,31,13,14,14,19,17,26,19,25,21,16,24,23,25,25,22,27,25,28,30,22,33,30,36,33,23,31,27,30,42,40,50,37,38,38,49,52,35,50,37,38,33,33,39,39,45,34,44,29,40,50,41,39,35,28,36,34,37,36,36,34,43,28,38,33,37,29,33,44,43,24,37,30,35,24,37,44,34,40,30,34,26,29,33,31,22,26,26,19,30,24,29,24,21,19,11,22,20,23,32,33,28,15,20,24,18,20,19,22,17,32,21,20,23,17,15,18,20,19,18,21,18,16,20,15,18,15,18,18,15,15,19,18,19,11,15,19,11,13,13,12,11,14,18,17,10,15,16,12,17,19,14,12,18,14,14,15,11,13,21,11,14,11,13,12,14,11,10,16,10,15,13,13,10,11,8,11,11,11,8,9,8,8,10,8,9,11,13,13,16,13,11,16,6,8,10,16,11,11,8,11,16,9,10,8,14,7,10,11,11,7,5,11,6,8,9,13,9,7,9,4,9,7,13,2,7,9,5,5,10,12,10,3,6,4,5,11,3,7,6,7,9,3,7,4,9,6,5,5,9,4,4,4,9,7,8,2,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date_onset<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Aşağıda, aralıktaki her günün temsil edilmesini sağlamak için <code><a href="https://tidyr.tidyverse.org/reference/complete.html">complete()</a></code> komutunu ekliyoruz.</p>
+<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">daily_counts</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                 <span class="co"># date_onset eksik vakayı kaldır</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                   <span class="co"># benzersiz tarih başına satır sayısını say</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span>                               <span class="co"># hiçbir vaka olmasa bile tüm günlerin görünmesini sağlayın</span></span>
+<span>    date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span><span class="op">(</span>                <span class="co"># tarih sütununu günlük tarih dizisi olarak yeniden tanımlayın</span></span>
+<span>      from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">date_onset</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, </span>
+<span>      to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">date_onset</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>      by <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span>,</span>
+<span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>                   <span class="co"># yeni doldurulmuş satırları n sütununda 0 gösterecek şekilde ayarla (varsayılan olarak NA değil) </span></span></code></pre></div>
+<div id="htmlwidget-adae4f4bdee026291281" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-adae4f4bdee026291281">{"x":{"filter":"none","vertical":false,"data":[["2014-04-07","2014-04-15","2014-04-21","2014-04-25","2014-04-26","2014-04-27","2014-05-01","2014-05-03","2014-05-04","2014-05-05","2014-05-06","2014-05-07","2014-05-08","2014-05-09","2014-05-10","2014-05-11","2014-05-12","2014-05-13","2014-05-14","2014-05-16","2014-05-17","2014-05-18","2014-05-19","2014-05-20","2014-05-21","2014-05-22","2014-05-23","2014-05-24","2014-05-25","2014-05-26","2014-05-27","2014-05-28","2014-05-29","2014-05-30","2014-05-31","2014-06-02","2014-06-03","2014-06-05","2014-06-06","2014-06-07","2014-06-08","2014-06-09","2014-06-10","2014-06-11","2014-06-12","2014-06-13","2014-06-14","2014-06-15","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-20","2014-06-21","2014-06-22","2014-06-23","2014-06-24","2014-06-25","2014-06-26","2014-06-27","2014-06-28","2014-06-29","2014-06-30","2014-07-01","2014-07-02","2014-07-03","2014-07-04","2014-07-05","2014-07-06","2014-07-07","2014-07-08","2014-07-09","2014-07-10","2014-07-11","2014-07-12","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-21","2014-07-22","2014-07-23","2014-07-24","2014-07-25","2014-07-26","2014-07-27","2014-07-28","2014-07-29","2014-07-30","2014-07-31","2014-08-01","2014-08-02","2014-08-03","2014-08-04","2014-08-05","2014-08-06","2014-08-07","2014-08-08","2014-08-09","2014-08-10","2014-08-11","2014-08-12","2014-08-13","2014-08-14","2014-08-15","2014-08-16","2014-08-17","2014-08-18","2014-08-19","2014-08-20","2014-08-21","2014-08-22","2014-08-23","2014-08-24","2014-08-25","2014-08-26","2014-08-27","2014-08-28","2014-08-29","2014-08-30","2014-08-31","2014-09-01","2014-09-02","2014-09-03","2014-09-04","2014-09-05","2014-09-06","2014-09-07","2014-09-08","2014-09-09","2014-09-10","2014-09-11","2014-09-12","2014-09-13","2014-09-14","2014-09-15","2014-09-16","2014-09-17","2014-09-18","2014-09-19","2014-09-20","2014-09-21","2014-09-22","2014-09-23","2014-09-24","2014-09-25","2014-09-26","2014-09-27","2014-09-28","2014-09-29","2014-09-30","2014-10-01","2014-10-02","2014-10-03","2014-10-04","2014-10-05","2014-10-06","2014-10-07","2014-10-08","2014-10-09","2014-10-10","2014-10-11","2014-10-12","2014-10-13","2014-10-14","2014-10-15","2014-10-16","2014-10-17","2014-10-18","2014-10-19","2014-10-20","2014-10-21","2014-10-22","2014-10-23","2014-10-24","2014-10-25","2014-10-26","2014-10-27","2014-10-28","2014-10-29","2014-10-30","2014-10-31","2014-11-01","2014-11-02","2014-11-03","2014-11-04","2014-11-05","2014-11-06","2014-11-07","2014-11-08","2014-11-09","2014-11-10","2014-11-11","2014-11-12","2014-11-13","2014-11-14","2014-11-15","2014-11-16","2014-11-17","2014-11-18","2014-11-19","2014-11-20","2014-11-21","2014-11-22","2014-11-23","2014-11-24","2014-11-25","2014-11-26","2014-11-27","2014-11-28","2014-11-29","2014-11-30","2014-12-01","2014-12-02","2014-12-03","2014-12-04","2014-12-05","2014-12-06","2014-12-07","2014-12-08","2014-12-09","2014-12-10","2014-12-11","2014-12-12","2014-12-13","2014-12-14","2014-12-15","2014-12-16","2014-12-17","2014-12-18","2014-12-19","2014-12-20","2014-12-21","2014-12-22","2014-12-23","2014-12-24","2014-12-25","2014-12-26","2014-12-27","2014-12-28","2014-12-29","2014-12-30","2014-12-31","2015-01-01","2015-01-02","2015-01-03","2015-01-04","2015-01-05","2015-01-06","2015-01-07","2015-01-08","2015-01-09","2015-01-10","2015-01-11","2015-01-12","2015-01-13","2015-01-14","2015-01-15","2015-01-16","2015-01-17","2015-01-18","2015-01-19","2015-01-20","2015-01-21","2015-01-22","2015-01-23","2015-01-24","2015-01-25","2015-01-26","2015-01-27","2015-01-28","2015-01-29","2015-01-30","2015-01-31","2015-02-01","2015-02-02","2015-02-03","2015-02-04","2015-02-05","2015-02-06","2015-02-07","2015-02-08","2015-02-09","2015-02-10","2015-02-11","2015-02-12","2015-02-13","2015-02-14","2015-02-15","2015-02-16","2015-02-17","2015-02-18","2015-02-19","2015-02-20","2015-02-21","2015-02-22","2015-02-23","2015-02-24","2015-02-25","2015-02-26","2015-02-27","2015-02-28","2015-03-01","2015-03-02","2015-03-03","2015-03-04","2015-03-05","2015-03-06","2015-03-07","2015-03-08","2015-03-09","2015-03-10","2015-03-11","2015-03-12","2015-03-13","2015-03-14","2015-03-15","2015-03-16","2015-03-17","2015-03-18","2015-03-19","2015-03-20","2015-03-21","2015-03-22","2015-03-23","2015-03-24","2015-03-25","2015-03-26","2015-03-27","2015-03-28","2015-03-29","2015-03-30","2015-03-31","2015-04-01","2015-04-02","2015-04-03","2015-04-04","2015-04-05","2015-04-06","2015-04-07","2015-04-08","2015-04-09","2015-04-10","2015-04-11","2015-04-12","2015-04-13","2015-04-14","2015-04-15","2015-04-16","2015-04-17","2015-04-18","2015-04-19","2015-04-20","2015-04-21","2015-04-22","2015-04-23","2015-04-24","2015-04-25","2015-04-26","2015-04-27","2015-04-28","2015-04-29","2015-04-30"],[1,1,2,1,1,1,2,1,1,1,3,2,2,2,1,1,2,3,3,2,3,4,2,1,3,1,2,1,3,3,10,1,1,1,2,5,3,4,4,5,1,5,5,3,1,1,2,5,6,4,2,3,7,3,4,2,6,5,3,1,2,2,6,4,3,5,6,5,3,3,7,7,5,4,6,6,10,10,6,6,10,7,11,4,6,11,9,10,7,12,6,15,14,8,9,16,13,18,18,9,9,9,10,13,17,7,17,12,17,31,13,14,14,19,17,26,19,25,21,16,24,23,25,25,22,27,25,28,30,22,33,30,36,33,23,31,27,30,42,40,50,37,38,38,49,52,35,50,37,38,33,33,39,39,45,34,44,29,40,50,41,39,35,28,36,34,37,36,36,34,43,28,38,33,37,29,33,44,43,24,37,30,35,24,37,44,34,40,30,34,26,29,33,31,22,26,26,19,30,24,29,24,21,19,11,22,20,23,32,33,28,15,20,24,18,20,19,22,17,32,21,20,23,17,15,18,20,19,18,21,18,16,20,15,18,15,18,18,15,15,19,18,19,11,15,19,11,13,13,12,11,14,18,17,10,15,16,12,17,19,14,12,18,14,14,15,11,13,21,11,14,11,13,12,14,11,10,16,10,15,13,13,10,11,8,11,11,11,8,9,8,8,10,8,9,11,13,13,16,13,11,16,6,8,10,16,11,11,8,11,16,9,10,8,14,7,10,11,11,7,5,11,6,8,9,13,9,7,9,4,9,7,13,2,7,9,5,5,10,12,10,3,6,4,5,11,3,7,6,7,9,3,7,4,9,6,5,5,9,4,4,4,9,7,8,2,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date_onset<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="haftalara-bölünmüş-satır-listesi-vakaları" class="section level3 unnumbered">
+<h3>Haftalara bölünmüş satır listesi vakaları<a class="anchor" aria-label="anchor" href="#haftalara-b%C3%B6l%C3%BCnm%C3%BC%C5%9F-sat%C4%B1r-listesi-vakalar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aynı prensip haftalarca uygulanabilir. İlk önce, <code>unit = "hafta"</code> ile <code>floor_date()</code> kullanarak vakanın haftası olan yeni bir sütun oluşturun. Ardından, haftalık vaka sayılarına ulaşmak için yukarıdaki gibi <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> kullanın. Hiçbir vaka içermeseler bile tüm haftaların temsil edildiğinden emin olmak için “complete()” ile bitirin.</p>
+<div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Haftalık vaka sayımlarının veri setini yapın</span></span>
+<span><span class="va">weekly_counts</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                 <span class="co"># date_onset eksik vakaları kaldırın</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>week <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date_onset</span>, unit <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># başlangıç haftasının yeni sütunu</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">week</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                         <span class="co"># verileri haftaya göre gruplandır ve grup başına satırları say</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span>                               <span class="co"># hiçbir vaka olmasa bile tüm günlerin görünmesini sağlayın</span></span>
+<span>    week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span><span class="op">(</span>                      <span class="co"># tarih sütununu günlük tarih dizisi olarak yeniden tanımlayın</span></span>
+<span>      from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">week</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, </span>
+<span>      to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">week</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>      by <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span>,</span>
+<span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>                   <span class="co"># yeni doldurulmuş satırları n sütununda 0 gösterecek şekilde ayarla (varsayılan olarak NA değil)</span></span></code></pre></div>
+<p>Ortaya çıkan veri çerçevesinin ilk 50 satırı:</p>
+<div id="htmlwidget-25ed534022209036e75f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-25ed534022209036e75f">{"x":{"filter":"none","vertical":false,"data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17","2014-08-24","2014-08-31","2014-09-07","2014-09-14","2014-09-21","2014-09-28","2014-10-05","2014-10-12","2014-10-19","2014-10-26","2014-11-02","2014-11-09","2014-11-16","2014-11-23","2014-11-30","2014-12-07","2014-12-14","2014-12-21","2014-12-28","2015-01-04","2015-01-11","2015-01-18","2015-01-25","2015-02-01","2015-02-08","2015-02-15","2015-02-22","2015-03-01","2015-03-08","2015-03-15","2015-03-22","2015-03-29","2015-04-05","2015-04-12","2015-04-19","2015-04-26"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122,159,187,210,294,278,270,263,252,243,241,223,176,140,170,151,130,123,122,94,101,106,99,87,80,66,80,80,76,68,61,51,58,39,45,37,28]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="aylara-ayrılmış-satır-listesi-vakaları" class="section level3 unnumbered">
+<h3>Aylara ayrılmış satır listesi vakaları<a class="anchor" aria-label="anchor" href="#aylara-ayr%C4%B1lm%C4%B1%C5%9F-sat%C4%B1r-listesi-vakalar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Vakaları aylara toplamak için, yine <strong>lubridate</strong> paketinden ‘floor_date()’ kullanın, ancak ‘unit= “months”’ bağımsız değişkeni ile. Bu, her tarihi ayın 1’ine yuvarlar. Çıktı, Date sınıfı olacaktır. <code><a href="https://tidyr.tidyverse.org/reference/complete.html">complete()</a></code> adımında <code>by = "aylar"</code> ifadesini de kullandığımızı unutmayın.</p>
+<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Aylık vaka sayımlarının veri setini yapın</span></span>
+<span><span class="va">monthly_counts</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">date_onset</span>, unit <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># yeni sütun, başlangıcın 1. ayı</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">month</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                          <span class="co"># vakaları aya göre saymak</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span></span>
+<span>    month <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">month</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,     <span class="co"># hiçbir vakanın bildirilmediği tüm ayları dahil et</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">month</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,</span>
+<span>      by<span class="op">=</span><span class="st">"month"</span><span class="op">)</span>,</span>
+<span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-95076aad52e961227f05" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-95076aad52e961227f05">{"x":{"filter":"none","vertical":false,"data":[["2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01"],[7,64,100,226,528,1070,1112,763,562,431,306,277,186]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>month<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="haftalara-göre-günlük-sayım" class="section level3 unnumbered">
+<h3>Haftalara göre günlük sayım<a class="anchor" aria-label="anchor" href="#haftalara-g%C3%B6re-g%C3%BCnl%C3%BCk-say%C4%B1m"><i class="fas fa-link"></i></a>
+</h3>
+<p>Günlük sayıları haftalık sayımlarda toplamak için yukarıdaki gibi <code>floor_date()</code> kullanın. Ancak, “count()” yerine “group_by()” ve “summarize()” kullanın, çünkü yalnızca haftalık satır sayısını saymak yerine günlük vaka sayılarını “sum()” yapmanız gerekir.</p>
+<div id="aylara-göre-günlük-sayımlar" class="section level4 unnumbered">
+<h4>Aylara göre günlük sayımlar<a class="anchor" aria-label="anchor" href="#aylara-g%C3%B6re-g%C3%BCnl%C3%BCk-say%C4%B1mlar"><i class="fas fa-link"></i></a>
+</h4>
+<p>Günlük sayıları ay sayılarına toplamak için, yukarıdaki gibi “unit =”month”” ile “floor_date()” kullanın. Ancak, ‘count()’ yerine ‘group_by()’ ve ‘summarize()’ kullanın çünkü sadece aylık satır sayısını saymak yerine günlük vaka sayılarını ‘sum()’ yapmanız gerekir.</p>
+</div>
+</div>
+</div>
+<div id="gruplandırılmış-verileri-düzenleme" class="section level2" number="13.7">
+<h2>
+<span class="header-section-number">13.7</span> Gruplandırılmış verileri düzenleme<a class="anchor" aria-label="anchor" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verileri-d%C3%BCzenleme"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir veri çerçevesindeki satırları sıralamak için <strong>dplyr</strong> fiilinin “arrange()” kullanılması, “.by_group =TRUE” bağımsız değişkenini ayarlamadığınız sürece, veriler gruplandığında aynı şekilde davranır. Bu durumda, satırlar önce gruplandırma sütunlarına ve ardından ‘arrange()’ için belirttiğiniz diğer sütunlara göre sıralanır.</p>
+</div>
+<div id="gruplandırılmış-verilere-filtre-uygula" class="section level2" number="13.8">
+<h2>
+<span class="header-section-number">13.8</span> Gruplandırılmış verilere filtre uygula<a class="anchor" aria-label="anchor" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verilere-filtre-uygula"><i class="fas fa-link"></i></a>
+</h2>
+<div id="filtre" class="section level3 unnumbered">
+<h3>
+<code>filtre()</code><a class="anchor" aria-label="anchor" href="#filtre"><i class="fas fa-link"></i></a>
+</h3>
+<p>Veri çerçevesini değerlendiren işlevlerle birlikte uygulandığında (‘max()’, ‘min()’, ‘mean()’ gibi), bu fonksiyonlar artık gruplara uygulanacaktır. Örneğin, hastaların medyan yaşın üzerinde olduğu satırları filtrelemek ve tutmak istiyorsanız, bu artık her grup için geçerli olacaktır - satırları <em>grubun</em> medyan yaşının üzerinde tutmak için filtreleyin.</p>
+</div>
+<div id="grup-başına-satırları-dilimleyin" class="section level3 unnumbered">
+<h3>Grup başına satırları dilimleyin<a class="anchor" aria-label="anchor" href="#grup-ba%C5%9F%C4%B1na-sat%C4%B1rlar%C4%B1-dilimleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Verilerdeki <a href="https://dplyr.tidyverse.org/reference/slice.html">satırları konumlarına göre filtreleyen</a> <strong>dplyr</strong> <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice()</a></code> fonksiyonu da grup başına uygulanabilir. İstenilen “dilimi” elde etmek için her grup içindeki verileri sıralamayı unutmayın.</p>
+<p>Örneğin, her hastaneden yalnızca en son 5 başvuruyu almak için:</p>
+<ol style="list-style-type: decimal">
+<li>Satır listesini “hastane” sütununa göre gruplandırın</li>
+<li>Kayıtları en geçten en erken ’hastaneye yatış tarihi’ne <em>her hastane grubu içinde</em> düzenleyin</li>
+<li>Her hastaneden ilk 5 sırayı almak için dilimleyin</li>
+</ol>
+<div class="sourceCode" id="cb663"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">date_hospitalisation</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                            </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">case_id</span>, <span class="va">hospital</span>, <span class="va">date_hospitalisation</span><span class="op">)</span>  <span class="co"># görüntülemek için</span></span></code></pre></div>
+<pre><code>## # A tibble: 30 × 3
+## # Groups:   hospital [6]
+##    case_id hospital          date_hospitalisation
+##    &lt;chr&gt;   &lt;chr&gt;             &lt;date&gt;              
+##  1 20b688  Central Hospital  2014-05-06          
+##  2 d58402  Central Hospital  2014-05-10          
+##  3 b8f2fd  Central Hospital  2014-05-13          
+##  4 acf422  Central Hospital  2014-05-28          
+##  5 275cc7  Central Hospital  2014-05-28          
+##  6 d1fafd  Military Hospital 2014-04-17          
+##  7 974bc1  Military Hospital 2014-05-13          
+##  8 6a9004  Military Hospital 2014-05-13          
+##  9 09e386  Military Hospital 2014-05-14          
+## 10 865581  Military Hospital 2014-05-15          
+## # … with 20 more rows</code></pre>
+<p><code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head()</a></code> - üstten n satır seçer
+<code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_tail()</a></code> - sondan n satır seçer
+<code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample()</a></code> - n satırı rastgele seçer
+<code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min()</a></code> - <code>order_by =</code> sütununda en yüksek değerlere sahip n satırı seçer, bağları korumak için <code>with_ties = TRUE</code> kullanın
+‘slice_max()’ - ‘order_by =’ sütununda en düşük değerlere sahip n satırı seçer, bağları korumak için ’with_ties = TRUE’yu kullanın</p>
+<p><code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice()</a></code> hakkında daha fazla örnek ve ayrıntı için <a href="tekille%C5%9Ftirme-1.html#tekille%C5%9Ftirme-2">Tekilleştirme</a> sayfasına bakabilirsiniz.</p>
+</div>
+<div id="group_filter_grp_size" class="section level3 unnumbered">
+<h3>Grup boyutuna göre filtreleyin<a class="anchor" aria-label="anchor" href="#group_filter_grp_size"><i class="fas fa-link"></i></a>
+</h3>
+<p>‘add_count()’ fonksiyonu, o satırın grubundaki satır sayısını veren orijinal verilere bir ‘n’ sütunu ekler.</p>
+<p>Aşağıda gösterildiği gibi, “hastane” sütununa “add_count()” uygulanır, bu nedenle yeni “n” sütunundaki değerler, o satırın hastane grubundaki satır sayısını yansıtır. ‘n’ sütunundaki değerlerin nasıl tekrarlandığına dikkat edin. Aşağıdaki örnekte, ‘n’ sütun adı ‘add_count()’ içindeki ‘name =’ kullanılarak değiştirilebilir. Gösteri amacıyla sütunları <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> ile yeniden düzenliyoruz.</p>
+<div class="sourceCode" id="cb665"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">add_count</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>          <span class="co"># "bu sıra ile aynı hastaneye kabul edilen sıra sayısı" ekle</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">n</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 5,888 × 31
+##    hospital          n case_id gener…¹ date_inf…² date_onset date_hos…³ date_out…⁴ outcome gender   age age_u…⁵ age_y…⁶
+##    &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1 Other           885 5fe599        4 2014-05-08 2014-05-13 2014-05-15 NA         &lt;NA&gt;    m          2 years         2
+##  2 Missing        1469 8689b7        4 NA         2014-05-13 2014-05-14 2014-05-18 Recover f          3 years         3
+##  3 St. Mark's M…   422 11f8ea        2 NA         2014-05-16 2014-05-18 2014-05-30 Recover m         56 years        56
+##  4 Port Hospital  1762 b8812a        3 2014-05-04 2014-05-18 2014-05-20 NA         &lt;NA&gt;    f         18 years        18
+##  5 Military Hos…   896 893f25        3 2014-05-18 2014-05-21 2014-05-22 2014-05-29 Recover m          3 years         3
+##  6 Port Hospital  1762 be99c8        3 2014-05-03 2014-05-22 2014-05-23 2014-05-24 Recover f         16 years        16
+##  7 Missing        1469 07e3e8        4 2014-05-22 2014-05-27 2014-05-29 2014-06-01 Recover f         16 years        16
+##  8 Missing        1469 369449        4 2014-05-28 2014-06-02 2014-06-03 2014-06-07 Death   f          0 years         0
+##  9 Missing        1469 f393b4        4 NA         2014-06-05 2014-06-06 2014-06-18 Recover m         61 years        61
+## 10 Missing        1469 1389ca        4 NA         2014-06-05 2014-06-07 2014-06-09 Death   f         27 years        27
+## # … with 5,878 more rows, 18 more variables: age_cat &lt;fct&gt;, age_cat5 &lt;fct&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;, infector &lt;chr&gt;,
+## #   source &lt;chr&gt;, wt_kg &lt;dbl&gt;, ht_cm &lt;dbl&gt;, ct_blood &lt;dbl&gt;, fever &lt;chr&gt;, chills &lt;chr&gt;, cough &lt;chr&gt;, aches &lt;chr&gt;,
+## #   vomit &lt;chr&gt;, temp &lt;dbl&gt;, time_admission &lt;chr&gt;, bmi &lt;dbl&gt;, days_onset_hosp &lt;dbl&gt;, and abbreviated variable names
+## #   ¹​generation, ²​date_infection, ³​date_hospitalisation, ⁴​date_outcome, ⁵​age_unit, ⁶​age_years</code></pre>
+<p>Ardından “küçük” bir hastanede, örneğin 500’den az hastayı kabul eden bir hastanede yatan vaka sıralarını filtrelemek kolaylaşıyor:</p>
+<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">add_count</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&lt;</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="gruplandırılmış-verileri-dönüştürün" class="section level2" number="13.9">
+<h2>
+<span class="header-section-number">13.9</span> Gruplandırılmış verileri dönüştürün<a class="anchor" aria-label="anchor" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verileri-d%C3%B6n%C3%BC%C5%9Ft%C3%BCr%C3%BCn"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tüm sütunları ve satırları (özetleme değil) korumak ve <em>grup istatistiklerini</em> içeren yeni bir sütun eklemek için, ‘özet()’ yerine ‘group_by()’dan sonra ’mutate()’ kullanın.</p>
+<p>Bu, orijinal veri kümesinde diğer tüm sütunların mevcut olduğu grup istatistiklerini istiyorsanız yararlıdır - ör. bir satırı kendi grubuyla karşılaştıran hesaplamalar için.</p>
+<p>Örneğin, aşağıdaki kod, bir satırın kabul gecikmesi ile hastaneleri için medyan gecikme arasındaki farkı hesaplar. Adımlar:</p>
+<ol style="list-style-type: decimal">
+<li>Verileri hastaneye göre gruplandırın</li>
+<li>
+<em>o satırın</em> hastanede ortalama gecikmesini içeren yeni bir sütun oluşturmak için “days_onset_hosp” (hastaneye yatış gecikmesi) sütununu kullanın</li>
+<li>İki sütun arasındaki farkı hesaplayın</li>
+</ol>
+<p>Gösteri amacıyla yalnızca belirli sütunları “select()” olarak seçiyoruz.</p>
+<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># hastaneye göre grup verileri (henüz satır listesinde değişiklik yok)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="co"># Yeni sütunlar</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># hastaneye kabule kadar geçen ortalama gün sayısı (1 ondalık sayıya yuvarlanır)</span></span>
+<span>    group_delay_admit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">days_onset_hosp</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="co"># sıra gecikmesi ile hastanelerindeki ortalama gecikme arasındaki fark (1 ondalık basamağa yuvarlanır)</span></span>
+<span>    diff_to_group     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">days_onset_hosp</span> <span class="op">-</span> <span class="va">group_delay_admit</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># yalnızca belirli satırları seçin - gösterim/görüntüleme amaçlı</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">case_id</span>, <span class="va">hospital</span>, <span class="va">days_onset_hosp</span>, <span class="va">group_delay_admit</span>, <span class="va">diff_to_group</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 5,888 × 5
+## # Groups:   hospital [6]
+##    case_id hospital                             days_onset_hosp group_delay_admit diff_to_group
+##    &lt;chr&gt;   &lt;chr&gt;                                          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
+##  1 5fe599  Other                                              2               2             0  
+##  2 8689b7  Missing                                            1               2.1          -1.1
+##  3 11f8ea  St. Mark's Maternity Hospital (SMMH)               2               2.1          -0.1
+##  4 b8812a  Port Hospital                                      2               2.1          -0.1
+##  5 893f25  Military Hospital                                  1               2.1          -1.1
+##  6 be99c8  Port Hospital                                      1               2.1          -1.1
+##  7 07e3e8  Missing                                            2               2.1          -0.1
+##  8 369449  Missing                                            1               2.1          -1.1
+##  9 f393b4  Missing                                            1               2.1          -1.1
+## 10 1389ca  Missing                                            2               2.1          -0.1
+## # … with 5,878 more rows</code></pre>
+</div>
+<div id="gruplandırılmış-verileri-seçin" class="section level2" number="13.10">
+<h2>
+<span class="header-section-number">13.10</span> Gruplandırılmış verileri seçin<a class="anchor" aria-label="anchor" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verileri-se%C3%A7in"><i class="fas fa-link"></i></a>
+</h2>
+<p>‘select()’ fiili gruplandırılmış veriler üzerinde çalışır, ancak gruplandırma sütunları her zaman dahil edilir (‘select()’ içinde belirtilmemiş olsa bile). Bu gruplama sütunlarını istemiyorsanız, önce <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code> kullanın.</p>
+<!-- ======================================================= -->
+</div>
+<div id="kaynaklar-6" class="section level2" number="13.11">
+<h2>
+<span class="header-section-number">13.11</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-6"><i class="fas fa-link"></i></a>
+</h2>
+<p>Daha fazla bilgi için bazı yararlı kaynaklar şunlardır:</p>
+<p>Gruplandırılmış veriler üzerinde herhangi bir özet fonksiyonu gerçekleştirebilirsiniz; <a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">RStudio veri dönüştürme bilgi sayfasına</a> bakabilirsiniz.</p>
+<p><a href="https://datacarpentry.org/R-genomics/04-dplyr.html"><strong>dplyr</strong></a> adresindeki Veri Marangozluğu sayfası
+<a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a> ve <a href="https://dplyr.tidyverse.org/articles/grouping.html">grouping</a> üzerindeki <strong>tidyverse</strong> referans sayfaları.</p>
+<p>Bu sayfa <a href="https://itsalocke.com/files/DataManipulationinR.pdf">Veri manipülasyonu</a></p>
+<p><a href="https://stackoverflow.com/questions/23528862/summarize-with-conditions-in-dplyr">dplyr’deki koşullarla özetleyin</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></div>
+<div class="next"><a href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#verileri-gruplama"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-4"><span class="header-section-number">13.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleyin">Paketleri yükleyin</a></li>
+<li><a class="nav-link" href="#verileri-i%C3%A7e-aktar-2">Verileri içe aktar</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#grupland%C4%B1rma"><span class="header-section-number">13.2</span> Gruplandırma</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#benzersiz-gruplar">Benzersiz gruplar</a></li>
+<li><a class="nav-link" href="#yeni-s%C3%BCtunlar-1">Yeni sütunlar</a></li>
+<li><a class="nav-link" href="#grupland%C4%B1rma-s%C3%BCtunlar%C4%B1n%C4%B1-ekleb%C4%B1rak">Gruplandırma sütunlarını ekle/bırak</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#grubu-kald%C4%B1r"><span class="header-section-number">13.3</span> Grubu kaldır</a></li>
+<li><a class="nav-link" href="#group_summarise"><span class="header-section-number">13.4</span> Özetleme</a></li>
+<li>
+<a class="nav-link" href="#say%C4%B1mlar-ve-seriler"><span class="header-section-number">13.5</span> Sayımlar ve seriler</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tally">tally()</a></li>
+<li><a class="nav-link" href="#count">count()</a></li>
+<li><a class="nav-link" href="#say%C4%B1lar%C4%B1-ekle">Sayıları ekle</a></li>
+<li><a class="nav-link" href="#toplamlar%C4%B1-ekle">Toplamları ekle</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#tarihe-g%C3%B6re-gruplama"><span class="header-section-number">13.6</span> Tarihe göre gruplama</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#g%C3%BCnlere-g%C3%B6re-sat%C4%B1r-listesi-vakalar%C4%B1">Günlere göre satır listesi vakaları</a></li>
+<li><a class="nav-link" href="#haftalara-b%C3%B6l%C3%BCnm%C3%BC%C5%9F-sat%C4%B1r-listesi-vakalar%C4%B1">Haftalara bölünmüş satır listesi vakaları</a></li>
+<li><a class="nav-link" href="#aylara-ayr%C4%B1lm%C4%B1%C5%9F-sat%C4%B1r-listesi-vakalar%C4%B1">Aylara ayrılmış satır listesi vakaları</a></li>
+<li><a class="nav-link" href="#haftalara-g%C3%B6re-g%C3%BCnl%C3%BCk-say%C4%B1m">Haftalara göre günlük sayım</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verileri-d%C3%BCzenleme"><span class="header-section-number">13.7</span> Gruplandırılmış verileri düzenleme</a></li>
+<li>
+<a class="nav-link" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verilere-filtre-uygula"><span class="header-section-number">13.8</span> Gruplandırılmış verilere filtre uygula</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#filtre">filtre()</a></li>
+<li><a class="nav-link" href="#grup-ba%C5%9F%C4%B1na-sat%C4%B1rlar%C4%B1-dilimleyin">Grup başına satırları dilimleyin</a></li>
+<li><a class="nav-link" href="#group_filter_grp_size">Grup boyutuna göre filtreleyin</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verileri-d%C3%B6n%C3%BC%C5%9Ft%C3%BCr%C3%BCn"><span class="header-section-number">13.9</span> Gruplandırılmış verileri dönüştürün</a></li>
+<li><a class="nav-link" href="#grupland%C4%B1r%C4%B1lm%C4%B1%C5%9F-verileri-se%C3%A7in"><span class="header-section-number">13.10</span> Gruplandırılmış verileri seçin</a></li>
+<li><a class="nav-link" href="#kaynaklar-6"><span class="header-section-number">13.11</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

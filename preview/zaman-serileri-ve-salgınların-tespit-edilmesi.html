@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>1 Zaman serileri ve salgınların tespit edilmesi | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="1.1 Genel bakış Bu sekme, zaman serisi analizi için gereken birkaç paketin kullanımını göstermektedir. Bu tip analizler öncelikle tidyvers tidyverts ailesinden gelen paketlerle yapılır, ancak...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="1 Zaman serileri ve salgınların tespit edilmesi | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="1.1 Genel bakış Bu sekme, zaman serisi analizi için gereken birkaç paketin kullanımını göstermektedir. Bu tip analizler öncelikle tidyvers tidyverts ailesinden gelen paketlerle yapılır, ancak...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1 Zaman serileri ve salgınların tespit edilmesi | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="1.1 Genel bakış Bu sekme, zaman serisi analizi için gereken birkaç paketin kullanımını göstermektedir. Bu tip analizler öncelikle tidyvers tidyverts ailesinden gelen paketlerle yapılır, ancak...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="active" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">1</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="zaman-serileri-ve-salgınların-tespit-edilmesi" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> Zaman serileri ve salgınların tespit edilmesi<a class="anchor" aria-label="anchor" href="#zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi"><i class="fas fa-link"></i></a>
+</h1>
+<!-- ======================================================= -->
+<div id="genel-bakış" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Genel bakış<a class="anchor" aria-label="anchor" href="#genel-bak%C4%B1%C5%9F"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bu sekme, zaman serisi analizi için gereken birkaç paketin kullanımını göstermektedir. Bu tip analizler öncelikle tidyvers <a href="https://tidyverts.org/"><strong>tidyverts</strong></a> ailesinden gelen paketlerle yapılır, ancak bulaşıcı hastalık epidemiyolojisi için daha uygun olan RECON trend paketini <a href="https://github.com/reconhub/trending"><strong>trending</strong></a> de kullanır.</p>
+<p>Aşağıdaki örnekte, Almanya’da hazırlanmış Campylobacter bir veri setini kullandığımıza dikkat edin (ayrıntılar için el kitabının <a href="https://epirhandbook.com/download-handbook-and-data.html">veri bölümüne</a> bakabilirsiniz). Ancak, aynı kodu birden fazla ülke veya başka tabakalar içeren bir veritabanlarında çalıştırmak istiyorsanız, r4epis github deposunda örnek bir kod şablonu bulunmaktadır.<a href="https://github.com/R4EPI/epitsa">r4epis github repo</a>.</p>
+<p>Kapsanan konular:</p>
+<ol style="list-style-type: decimal">
+<li>Zaman serisi verileri</li>
+<li>Tanımlayıcı analiz</li>
+<li>Uyum (fitting) regresyonları</li>
+<li>İki zaman serisinin ilişkisi</li>
+<li>Salgın tespiti</li>
+<li>Kesintili zaman serisi</li>
+</ol>
+<!-- ======================================================= -->
+</div>
+<div id="hazırlık" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketler" class="section level3 unnumbered">
+<h3>Paketler<a class="anchor" aria-label="anchor" href="#paketler"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod kümesi, analizler için gereken paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() fonksiyonunu vurguluyoruz. Ayrıca temel R’dan library() ile paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R temelleri sayfasına bakın. <a href="https://epirhandbook.com/r-basics.html">R temelleri</a></p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span>,          <span class="co"># Dosyanın içe aktarılması</span></span>
+<span>               <span class="va">here</span>,         <span class="co"># Dosyanın yerinin bulunması</span></span>
+<span>               <span class="va">tidyverse</span>,    <span class="co"># veri yönetimi + ggplot2 grafikleri</span></span>
+<span>               <span class="va">tsibble</span>,      <span class="co"># zaman serisi veri tabanlarını işlemek</span></span>
+<span>               <span class="va">slider</span>,       <span class="co"># hareketli ortalamaları hesaplamak için</span></span>
+<span>               <span class="va">imputeTS</span>,     <span class="co"># eksik değerleri doldurmak için</span></span>
+<span>               <span class="va">feasts</span>,       <span class="co"># zaman serilerinde ayrıştırma ve otokorelasyon için</span></span>
+<span>               <span class="va">forecast</span>,     <span class="co"># sin ve cosin terimlerini verilere uydurun (not: feasts sonrası yüklenmelidir)</span></span>
+<span>               <span class="va">trending</span>,     <span class="co"># model oluştur ve değerlendir</span></span>
+<span>               <span class="va">tmaptools</span>,    <span class="co"># yer adlarına göre coğrafi koordinatları (boylam/enlem) almak için</span></span>
+<span>               <span class="va">ecmwfr</span>,       <span class="co"># copernicus uydu CDS API ile etkileşim için</span></span>
+<span>               <span class="va">stars</span>,        <span class="co"># .nc (iklim verileri) dosyalarını okumak için</span></span>
+<span>               <span class="va">units</span>,        <span class="co"># for defining units of measurement (climate data)</span></span>
+<span>               <span class="va">yardstick</span>,    <span class="co"># model doğruluğuna bakmak için</span></span>
+<span>               <span class="va">surveillance</span>  <span class="co"># sapma tespiti için</span></span>
+<span>               <span class="op">)</span></span></code></pre></div>
+</div>
+<div id="veri-yükleme" class="section level3 unnumbered">
+<h3>Veri yükleme<a class="anchor" aria-label="anchor" href="#veri-y%C3%BCkleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu el kitabında kullanılan tüm verileri, [el kitabının ve verilerin indirilmesi] sayfasındaki talimatlar aracılığıyla indirebilirsiniz.</p>
+<p>Bu bölümde kullanılan örnek veri seti, 2001 ve 2011 yılları arasında Almanya’da rapor edilen haftalık kampilobakter vaka sayılarıdır. Bu veri dosyasını (.xlsx) indirmek için buraya tıklayabilirsiniz.<a href="https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/time_series/campylobacter_germany.xlsx" class="download-button">(.xlsx) olarak görülecektir.</a></p>
+<p>Bu veri seti, surveillance paketinde bulunan veri setinin küçültülmüş bir versiyonudur. (detaylar için surveillance paketini yükleyin ve bkz. ?campyDE) <a href="https://cran.r-project.org/web/packages/surveillance/"><strong>surveillance</strong></a></p>
+<p>Bu verileri rio paketinden import() fonksiyonu ile içe aktarın (.xlsx, .csv, .rds gibi birçok dosya türünü işler - ayrıntılar için [İçe Aktarma ve Dışa Aktarma] sayfasına bakın).</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sayımları R'ye aktar</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"campylobacter_germany.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<p>Sayımların ilk 10 satırı aşağıda gösterilmiştir</p>
+<div id="htmlwidget-c88deb3c7a5989abdfd3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c88deb3c7a5989abdfd3">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="temiz-veri" class="section level3 unnumbered">
+<h3>Temiz veri<a class="anchor" aria-label="anchor" href="#temiz-veri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıdaki kod, tarih sütununun uygun biçimde olmasını sağlar. Bu sekme için tsibble paketini kullanacağız ve bu nedenle bir takvim haftası değişkeni oluşturmak için yearweek fonksiyonu kullanılacaktır. Bunu yapmanın başka yolları da vardır (ayrıntılar için <a href="https://epirhandbook.com/working-with-dates.html">Tarihlerle çalışma</a> sayfasına bakın), ancak zaman serileri için en iyisi tarihleri tek bir çerçeve (<strong>tsibble</strong>) içinde tutmaktır.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## tarih sütununun uygun biçimde olduğundan emin olun</span></span>
+<span><span class="va">counts</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## bir takvim haftası değişkeni oluşturun</span></span>
+<span><span class="co">## Pazartesi gününden başlayarak haftaların ISO tanımlarına uyumlu hale getirilmesi</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>epiweek <span class="op">=</span> <span class="fu">yearweek</span><span class="op">(</span><span class="va">date</span>, week_start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="iklim-verisinin-indirilmesi" class="section level3 unnumbered">
+<h3>İklim verisinin indirilmesi<a class="anchor" aria-label="anchor" href="#iklim-verisinin-indirilmesi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu sayfanın iki zaman serisi bölümünde, kampilobakter vaka sayılarını iklim verileriyle karşılaştıracağız.
+Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan indirilebilir.</p>
+<p>Bunlar kesin ölçümler değildir, ancak bir modele dayalıdır (interpolasyona benzer), tahminlerin yanı sıra küresel saatlik bilgi kapsamı elde edilebilir.</p>
+<p>Bu iklim veri dosyalarının her birini [el kitabının ve verilerin indirilmesi] sayfasından indirebilirsiniz.</p>
+<p>Burada gösterim amacıyla, verileri Copernicus iklim veri deposundan çekmek için ecmwfr paketini kullanmak için gereken R kodunu tanıtacağız. Bunun çalışması için ücretsiz bir hesap oluşturmanız gerekecektir. Paketin web sitesinde bunun nasıl yapılacağına dair yararlı bir yol gösterilmiştir<a href="https://github.com/bluegreen-labs/ecmwfr#use-copernicus-climate-data-store-cds">walkthrough</a>.</p>
+<p>Aşağıda, uygun API anahtarlarına sahip olduğunuzda, bunun nasıl yapılacağına ilişkin örnek kod verilmiştir. Aşağıdaki X’leri hesap kimliklerinizle değiştirmeniz gerekir. Her seferinde bir yıllık veri indirmeniz gerekir, aksi takdirde sunucu zaman aşımına uğrayacaktır.</p>
+<p>Verilerini indirmek istediğiniz konumun koordinatlarından emin değilseniz, açık sokak haritalarından koordinatları almak için tmaptools paketini kullanabilirsiniz. Alternatif bir seçenek photon paketidir,<a href="https://github.com/rCarto/photon"><strong>photon</strong></a> ancak bu henüz CRAN’da yayınlanmamıştır; photon’un güzel yanı, aramanız için birkaç eşleşme olduğunda daha fazla bağlamsal veri sağlamasıdır.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## konum koordinatlarını al</span></span>
+<span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu">geocode_OSM</span><span class="op">(</span><span class="st">"Germany"</span>, geometry <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## ERA-5 sorgulaması için boylamları/enlemleri bir araya getirin (sınırlayıcı kutu)</span></span>
+<span><span class="co">## (tek bir noktanın koordinatlarının tekrar edebileceği gibi)</span></span>
+<span><span class="va">request_coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue_data</a></span><span class="op">(</span><span class="va">coords</span><span class="op">$</span><span class="va">coords</span>, <span class="st">"{y}/{x}/{y}/{x}"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co">## Kopernik uydusundan modellenen verileri çekme (ERA-5 yeniden analizi)</span></span>
+<span><span class="co">## https://cds.climate.copernicus.eu/cdsapp#!/software/app-era5-explorer?tab=app</span></span>
+<span><span class="co">## https://github.com/bluegreen-labs/ecmwfr</span></span>
+<span></span>
+<span><span class="co">## hava durumu verileri için anahtar ayarla</span></span>
+<span><span class="fu">wf_set_key</span><span class="op">(</span>user <span class="op">=</span> <span class="st">"XXXXX"</span>,</span>
+<span>           key <span class="op">=</span> <span class="st">"XXXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX"</span>,</span>
+<span>           service <span class="op">=</span> <span class="st">"cds"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">## ilgilenilen her yıl için çalıştırın (aksi takdirde sunucu zaman aşımına uğrar)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">2002</span><span class="op">:</span><span class="fl">2011</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co">## sorguyu bir araya getir</span></span>
+<span>  <span class="co">## nasıl yapılacağı için buraya bakın: https://bluegreen-labs.github.io/ecmwfr/articles/cds_vignette.html#the-request-syntax</span></span>
+<span>  <span class="co">## yukarıdaki eklenti düğmesini kullanarak isteği bir listeye dönüştürün (listeye python)</span></span>
+<span>  <span class="co">## Hedef, çıktı dosyasının adıdır!</span></span>
+<span></span>
+<span>  <span class="va">request</span> <span class="op">&lt;-</span> <span class="va">request</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    product_type <span class="op">=</span> <span class="st">"reanalysis"</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"netcdf"</span>,</span>
+<span>    variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2m_temperature"</span>, <span class="st">"total_precipitation"</span><span class="op">)</span>,</span>
+<span>    year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>,</span>
+<span>    month <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"01"</span>, <span class="st">"02"</span>, <span class="st">"03"</span>, <span class="st">"04"</span>, <span class="st">"05"</span>, <span class="st">"06"</span>, <span class="st">"07"</span>, <span class="st">"08"</span>, <span class="st">"09"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>, <span class="st">"12"</span><span class="op">)</span>,</span>
+<span>    day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"01"</span>, <span class="st">"02"</span>, <span class="st">"03"</span>, <span class="st">"04"</span>, <span class="st">"05"</span>, <span class="st">"06"</span>, <span class="st">"07"</span>, <span class="st">"08"</span>, <span class="st">"09"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>, <span class="st">"12"</span>,</span>
+<span>            <span class="st">"13"</span>, <span class="st">"14"</span>, <span class="st">"15"</span>, <span class="st">"16"</span>, <span class="st">"17"</span>, <span class="st">"18"</span>, <span class="st">"19"</span>, <span class="st">"20"</span>, <span class="st">"21"</span>, <span class="st">"22"</span>, <span class="st">"23"</span>, <span class="st">"24"</span>,</span>
+<span>            <span class="st">"25"</span>, <span class="st">"26"</span>, <span class="st">"27"</span>, <span class="st">"28"</span>, <span class="st">"29"</span>, <span class="st">"30"</span>, <span class="st">"31"</span><span class="op">)</span>,</span>
+<span>    time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"00:00"</span>, <span class="st">"01:00"</span>, <span class="st">"02:00"</span>, <span class="st">"03:00"</span>, <span class="st">"04:00"</span>, <span class="st">"05:00"</span>, <span class="st">"06:00"</span>, <span class="st">"07:00"</span>,</span>
+<span>             <span class="st">"08:00"</span>, <span class="st">"09:00"</span>, <span class="st">"10:00"</span>, <span class="st">"11:00"</span>, <span class="st">"12:00"</span>, <span class="st">"13:00"</span>, <span class="st">"14:00"</span>, <span class="st">"15:00"</span>,</span>
+<span>             <span class="st">"16:00"</span>, <span class="st">"17:00"</span>, <span class="st">"18:00"</span>, <span class="st">"19:00"</span>, <span class="st">"20:00"</span>, <span class="st">"21:00"</span>, <span class="st">"22:00"</span>, <span class="st">"23:00"</span><span class="op">)</span>,</span>
+<span>    area <span class="op">=</span> <span class="va">request_coords</span>,</span>
+<span>    dataset_short_name <span class="op">=</span> <span class="st">"reanalysis-era5-single-levels"</span>,</span>
+<span>    target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"germany_weather"</span>, <span class="va">i</span>, <span class="st">".nc"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span> <span class="co"># dosyayı indirin ve mevcut çalışma dizininde saklayın</span></span>
+<span>  <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu">wf_request</span><span class="op">(</span>user     <span class="op">=</span> <span class="st">"XXXXX"</span>,  <span class="co"># kullanıcı ID (kimlik doğrulama için)</span></span>
+<span>                     request  <span class="op">=</span> <span class="va">request</span>,  <span class="co"># istek</span></span>
+<span>                     transfer <span class="op">=</span> <span class="cn">TRUE</span>,     <span class="co"># dosyayı indir </span></span>
+<span>                     path     <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"Weather"</span><span class="op">)</span><span class="op">)</span> <span class="co">## dosyayı kaydetmek için yolak</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+</div>
+<div id="iklim-verisinin-yüklenmesi" class="section level3 unnumbered">
+<h3>İklim verisinin yüklenmesi<a class="anchor" aria-label="anchor" href="#iklim-verisinin-y%C3%BCklenmesi"><i class="fas fa-link"></i></a>
+</h3>
+<p>İster iklim verilerini el kitabımız üzerinden indirmiş olun, ister yukarıdaki kodu kullanmış olun, artık bilgisayarınızda aynı klasörde saklanan 10 yıllık “.nc” iklim veri dosyalarına sahip olmalısınız.</p>
+<p>Bu dosyaları stars paketiyle R’a aktarmak için aşağıdaki kodu kullanın.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## hava durumu klasörüne giden yolu tanımlayın </span></span>
+<span><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span></span>
+<span>  <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"time_series"</span>, <span class="st">"weather"</span><span class="op">)</span>, <span class="co"># replace with your own file path </span></span>
+<span>  full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## sadece şu anki ilgi alanına sahip olanları saklayın</span></span>
+<span><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="va">file_paths</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">file_paths</span>, <span class="st">"germany"</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">## tüm dosyaları stars nesnesi olarak oku</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">file_paths</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## t2m, tp, 
+## t2m, tp, 
+## t2m, tp, 
+## t2m, tp, 
+## t2m, tp, 
+## t2m, tp, 
+## t2m, tp, 
+## t2m, tp, 
+## t2m, tp, 
+## t2m, tp,</code></pre>
+<p>Bu dosyalar nesne verisi olarak içe aktarıldıktan sonra onları bir veri çerçevesine dönüştüreceğiz.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## veri çerçevesine değiştir</span></span>
+<span><span class="va">temp_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## değişkenler ekleyin ve birimleri düzeltin</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co">## takvim haftası değişkeni oluşturun</span></span>
+<span>    epiweek <span class="op">=</span> <span class="fu">tsibble</span><span class="fu">::</span><span class="fu"><a href="https://tsibble.tidyverts.org/reference/year-week.html">yearweek</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span>, </span>
+<span>    <span class="co">## tarih değişkeni oluşturun (takvim haftasının başlangıcı)</span></span>
+<span>    date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">epiweek</span><span class="op">)</span>,</span>
+<span>    <span class="co">## sıcaklığı kelvin'den santigrat dereceye değiştir</span></span>
+<span>    t2m <span class="op">=</span> <span class="fu">set_units</span><span class="op">(</span><span class="va">t2m</span>, <span class="va">celsius</span><span class="op">)</span>, </span>
+<span>    <span class="co">## yağışı metreden milimetreye değiştir</span></span>
+<span>    tp  <span class="op">=</span> <span class="fu">set_units</span><span class="op">(</span><span class="va">tp</span>, <span class="va">mm</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## haftaya göre gruplandır (tarihi de sakla)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">epiweek</span>, <span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## haftalık ortalamanın özetlenmesi</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>t2m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">t2m</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>            tp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">tp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by 'epiweek'. You can override using the `.groups` argument.</code></pre>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="zaman-serisi-verisi" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Zaman serisi verisi<a class="anchor" aria-label="anchor" href="#zaman-serisi-verisi"><i class="fas fa-link"></i></a>
+</h2>
+<p>Zaman serisi verilerini yapılandırmak ve işlemek için bir dizi farklı paket vardır. Bahsedildiği gibi, tidyverts paket ailesine odaklanacağız ve bu nedenle zaman serisi nesnemizi tanımlamak için tsibble paketini kullanacağız. Zaman serisi nesnesi olarak tanımlanan bir veri setine sahip olmak, analizimizi yapılandırmanın çok daha kolay olduğu anlamına gelir.</p>
+<p>Bunu yapmak için tsibble() fonksiyonunu kullanırız ve “indeks”i, yani ilgilenilen zaman birimini belirten değişkeni belirtiriz. Bizim durumumuzda bu, epiweek değişkenidir.</p>
+<p>Örneğin, il bazında haftalık sayıları olan bir veri setimiz olsaydı, key = değişkenini kullanarak gruplama değişkenini de belirleyebilirdik. Bu, her grup için analiz yapmamızı sağlar.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## zaman serisi nesnesini tanımla</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">tsibble</span><span class="op">(</span><span class="va">counts</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span></span></code></pre></div>
+<p>class(counts)’a baktığınızda, düzenli bir veri çerçevesi (“tbl_df”, “tbl”, “data.frame”) olmanın yanı sıra, bir zaman serisi veri çerçevesinin (“tbl_ts”) ek özelliklerine sahip olduğunu gösterir.</p>
+<p>ggplot2 kullanarak verilerinize hızlıca göz atabilirsiniz. Olay örgüsünde net bir mevsimsel motif olduğunu ve eksik veri olmadığını görüyoruz. Ancak, her yılın başında raporlama ile ilgili bir sorun var gibi görünüyor; vakalar yılın son haftasında düşmekte ve sonraki yılın ilk haftasında artmaktadır.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## haftaya göre vakaların bir çizgi grafiğini çizin</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span>, y <span class="op">=</span> <span class="va">case</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/basic_plot-1.png" width="672"></div>
+<p><span style="color: red;"><strong><em>TEHLİKE:</em></strong> Çoğu veri kümesi bu örnek kadar temiz değildir. Aşağıdaki gibi duplikasyonları ve eksikleri kontrol etmeniz gerekecektir. </span></p>
+<!-- ======================================================= -->
+<div id="duplikasyonlar" class="section level3 unnumbered">
+<h3>Duplikasyonlar<a class="anchor" aria-label="anchor" href="#duplikasyonlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>tsibble yinelenen gözlemlere izin vermez. Bu nedenle, her satırın benzersiz veya (anahtar değişkene göre) grup içinde benzersiz olması gerekir. Paket, kopyaları tanımlamaya yardımcı olan birkaç işleve sahiptir. Bunlar, satırın bir kopya olup olmadığına dair bir DOĞRU/YANLIŞ vektörü veren are_duplicated() ve size duplike satırların veri çerçevesini veren duplicates() fonksiyonlarını içerir.</p>
+<p>İstediğiniz satırları nasıl seçeceğinizle ilgili daha fazla ayrıntı için Tekilleştirme (De-duplikasyon) sayfasına bakabilirsiniz. <a href="https://epirhandbook.com/de-duplication.html">Tekilleştirme</a></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## satırların kopya olup olmadığını DOĞRU/YANLIŞ vektörü olarak çıkarın</span></span>
+<span><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">counts</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">## yinelenen satırların veri çerçevesini çıkarın</span></span>
+<span><span class="fu">duplicates</span><span class="op">(</span><span class="va">counts</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> </span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="eksikler" class="section level3 unnumbered">
+<h3>Eksikler<a class="anchor" aria-label="anchor" href="#eksikler"><i class="fas fa-link"></i></a>
+</h3>
+<p>Yukarıdaki kısa incelememizde hiçbir eksik olmadığını gördük, ancak yeni yıl civarında raporlama gecikmesinde bir sorun olduğunu da gördük. Bu sorunu çözmenin bir yolu, bu değerleri eksik olarak ayarlamak ve ardından değerleri atfetmek olabilir. Zaman serisi atamasının en basit şekli, en son kayıp olmayan ve bir sonraki kayıp olmayan değer arasına düz bir çizgi çizmektir. Bunu yapmak için imputeTS paketinden na_interpolation() fonksiyonunu kullanacağız.</p>
+<p>Tahmin için değerler atamada diğer seçenekler için <a href="https://epirhandbook.com/missing-data.html">Eksik veri</a> sayfasına bakabilirsiniz.</p>
+<p>Diğer bir alternatif, hareketli ortalama hesaplamak, belirgin raporlama sorunlarını denemek ve düzeltmek olabilir (bir sonraki bölüme ve Hareketli ortalamalar sayfasına bakın)<a href="https://epirhandbook.com/moving-averages.html">Hareketli ortalamalar</a>).</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## raporlama sorunları olan haftalar yerine eksikleri olan bir değişken oluşturun</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>case_miss <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
+<span>          <span class="co">## epiweek 52, 53, 1 veya 2 içeriyorsa</span></span>
+<span>          <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">epiweek</span>, <span class="st">"W51|W52|W53|W01|W02"</span><span class="op">)</span>, </span>
+<span>          <span class="co">## sonrasında eksik olarak ayarlayın</span></span>
+<span>          <span class="cn">NA_real_</span>, </span>
+<span>          <span class="co">## aksi takdirde değeri saklayın</span></span>
+<span>          <span class="va">case</span></span>
+<span>     <span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## alternatif olarak eksikleri doğrusal trendle interpolasyon yapın</span></span>
+<span><span class="co">## en yakın iki bitişik nokta arasında</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>case_int <span class="op">=</span> <span class="fu">imputeTS</span><span class="fu">::</span><span class="fu"><a href="https://SteffenMoritz.github.io/imputeTS/reference/na_interpolation.html">na_interpolation</a></span><span class="op">(</span><span class="va">case_miss</span><span class="op">)</span></span>
+<span>         <span class="op">)</span></span>
+<span></span>
+<span><span class="co">## orijinaline kıyasla hangi değerlerin atfedildiğini (impute) kontrol etmek için</span></span>
+<span><span class="fu">ggplot_na_imputations</span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_miss</span>, <span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## geleneksel bir grafik oluşturun (siyah eksenli ve beyaz arka planlı)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/missings-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="tanımlayıcı-analizler" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Tanımlayıcı analizler<a class="anchor" aria-label="anchor" href="#tan%C4%B1mlay%C4%B1c%C4%B1-analizler"><i class="fas fa-link"></i></a>
+</h2>
+<!-- ======================================================= -->
+<div id="timeseries_moving" class="section level3 unnumbered">
+<h3>Hareketli ortalamalar<a class="anchor" aria-label="anchor" href="#timeseries_moving"><i class="fas fa-link"></i></a>
+</h3>
+<p>Veriler çok gürültülüyse (yukarı ve aşağı atlamalar sayılır), hareketli bir ortalama hesaplamak yardımcı olabilir. Aşağıdaki örnekte, her hafta için önceki dört haftadaki ortalama vaka sayısını hesaplıyoruz. Bu hesap ile, verilerin daha yorumlanabilir hale gelmesi için düzeltme yapılır. Örneğimiz için bu düzeltmenin faydası kısıtlıdır, bu yüzden daha fazla analiz için interpolasyonlu verilere bağlı kalınacaktuır. Daha fazla ayrıntı için Hareketli ortalamalar sayfasına bakın. <a href="https://epirhandbook.com/moving-averages.html">Hareketli ortalamalar</a>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## hareketli bir ortalama değişkeni oluşturun (eksiklerle ilgilenilecektir)</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="co">## ma_4w değişkenini oluştur</span></span>
+<span>     <span class="co">## case değişkeninin her satırının üzerine kaydırın</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ma_4wk <span class="op">=</span> <span class="fu">slider</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/slider/man/slide.html">slide_dbl</a></span><span class="op">(</span><span class="va">case</span>, </span>
+<span>                               <span class="co">## her satır için ad hesapla</span></span>
+<span>                               <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                               <span class="co">## önceki dört haftayı kullan</span></span>
+<span>                               .before <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## farkını hızla görselleştirin </span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">ma_4wk</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/moving_averages-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+<div id="periyodisite" class="section level3 unnumbered">
+<h3>Periyodisite<a class="anchor" aria-label="anchor" href="#periyodisite"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıda bir periodogram oluşturmak için özel bir fonksiyon tanımlıyoruz. R’de fonksiyonların nasıl yazılacağı hakkında bilgi için Fonksiyon yazma sayfasına bakın.</p>
+<p>İlk olarak fonksiyon tanımlanır. Fonksiyonun argümanları, sütun sayıları olan bir veri tabanını, veri tabanının ilk haftası olan başlangıç_haftası =, yılda kaç periyot olduğunu gösteren bir sayıyı (örneğin 52, 12) ve son olarak çıktı stilini içerir (aşağıdaki koddaki ayrıntılara bakın).</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Fonksiyonun argümanları</span></span>
+<span><span class="co">#####################</span></span>
+<span><span class="co">## x veritabanıdır</span></span>
+<span><span class="co">## x içindeki oranlar ya da sayımlar değişkendir</span></span>
+<span><span class="co">## start_week is the first week in your dataset</span></span>
+<span><span class="co">## periyot bir yıldaki birim sayısıdır </span></span>
+<span><span class="co">## çıktı, dönüş spektral periodogramı ya da peak görülen haftalardır.</span></span>
+<span>  <span class="co">## "periodogram" veya "weeks"</span></span>
+<span></span>
+<span><span class="co"># Fonksiyonu tanımlamak</span></span>
+<span><span class="va">periodogram</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, </span>
+<span>                        <span class="va">counts</span>, </span>
+<span>                        <span class="va">start_week</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2002</span>, <span class="fl">1</span><span class="op">)</span>, </span>
+<span>                        <span class="va">period</span> <span class="op">=</span> <span class="fl">52</span>, </span>
+<span>                        <span class="va">output</span> <span class="op">=</span> <span class="st">"weeks"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span></span>
+<span>    <span class="co">## bir tsibble olmadığından emin olun, projeye filtre uygulayın ve yalnızca ilgilenilen sütunları tutun</span></span>
+<span>    <span class="va">prepare_data</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># veriyi hazırla &lt;- prepare_data[prepare_data[[strata]] == j, ]</span></span>
+<span>    <span class="va">prepare_data</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">prepare_data</span>, <span class="op">{</span><span class="op">{</span><span class="va">counts</span><span class="op">}</span><span class="op">}</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co">## spec.pgram ile kullanılabilecek bir ara zaman serisi (“zoo”) oluşturun</span></span>
+<span>    <span class="va">zoo_cases</span> <span class="op">&lt;-</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/zooreg.html">zooreg</a></span><span class="op">(</span><span class="va">prepare_data</span>, </span>
+<span>                             start <span class="op">=</span> <span class="va">start_week</span>, frequency <span class="op">=</span> <span class="va">period</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co">## hızlı fourier dönüşümü kullanmayan bir spektral periodogram elde edin</span></span>
+<span>    <span class="va">periodo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/spec.pgram.html">spec.pgram</a></span><span class="op">(</span><span class="va">zoo_cases</span>, fast <span class="op">=</span> <span class="cn">FALSE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co">## pieak haftaları elde edin </span></span>
+<span>    <span class="va">periodo_weeks</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">/</span> <span class="va">periodo</span><span class="op">$</span><span class="va">freq</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">periodo</span><span class="op">$</span><span class="va">spec</span><span class="op">)</span><span class="op">]</span> <span class="op">*</span> <span class="va">period</span></span>
+<span>    </span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">output</span> <span class="op">==</span> <span class="st">"weeks"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">periodo_weeks</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="va">periodo</span></span>
+<span>    <span class="op">}</span></span>
+<span>    </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">## en yüksek frekanslara sahip haftaları çıkarmak için spektral periodogram alın</span></span>
+<span><span class="co">## (mevsimsellik kontrolü)</span></span>
+<span><span class="va">periodo</span> <span class="op">&lt;-</span> <span class="fu">periodogram</span><span class="op">(</span><span class="va">counts</span>, </span>
+<span>                       <span class="va">case_int</span>, </span>
+<span>                       start_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2002</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                       output <span class="op">=</span> <span class="st">"periodogram"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## görselleştirme için bir veri çerçevesine tam spektrum ve frekans yerleştirilir</span></span>
+<span><span class="va">periodo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">periodo</span><span class="op">$</span><span class="va">freq</span>, <span class="va">periodo</span><span class="op">$</span><span class="va">spec</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## en sık meydana gelen periyodikliği gösteren bir periodogram çizin</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">periodo</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="va">periodo.freq</span><span class="op">/</span><span class="fl">52</span><span class="op">)</span>,  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">periodo.spec</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Period (Weeks)"</span>, y <span class="op">=</span> <span class="st">"Log(density)"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/periodogram-1.png" width="672"></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## haftaları içeren vektörü artan sırayla elde edin </span></span>
+<span><span class="va">peak_weeks</span> <span class="op">&lt;-</span> <span class="fu">periodogram</span><span class="op">(</span><span class="va">counts</span>, </span>
+<span>                          <span class="va">case_int</span>, </span>
+<span>                          start_week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2002</span>, <span class="fl">1</span><span class="op">)</span>, </span>
+<span>                          output <span class="op">=</span> <span class="st">"weeks"</span><span class="op">)</span></span></code></pre></div>
+<p><span style="color: black;"><strong><em>NOT:</em></strong> Yukarıdaki haftaları sinüs ve kosinüs terimlerine eklemek mümkündür, ancak bu terimleri oluşturmak için bir fonksiyon kullanacağız (aşağıdaki regresyon bölümüne bakınız) </span></p>
+<!-- ======================================================= -->
+</div>
+<div id="ayrıştırma" class="section level3 unnumbered">
+<h3>Ayrıştırma<a class="anchor" aria-label="anchor" href="#ayr%C4%B1%C5%9Ft%C4%B1rma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Klasik ayrıştırma, bir zaman serisini parçalara ayırmak için kullanılır ve bu parçalar birlikte gördüğünüz modeli oluşturur. Bu farklı parçalar şunlardır:</p>
+<p>• Trend döngüsü (verinin uzun vadeli seyri)
+• Mevsimsellik (tekrarlanan modeller)
+• Rastgele (trend ve sezon çıkarıldıktan sonra kalan)</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## sayımlar veri tabanını ayrıştır </span></span>
+<span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># additif klasik ayrıştırma modeli uygula </span></span>
+<span>  <span class="fu">model</span><span class="op">(</span><span class="fu">classical_decomposition</span><span class="op">(</span><span class="va">case_int</span>, type <span class="op">=</span> <span class="st">"additive"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## önemli bilgileri modelden çıkarın</span></span>
+<span>  <span class="fu">components</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## grafik oluştur </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/decomposition-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+<div id="otokorelasyon" class="section level3 unnumbered">
+<h3>Otokorelasyon<a class="anchor" aria-label="anchor" href="#otokorelasyon"><i class="fas fa-link"></i></a>
+</h3>
+<p>Otokorelasyon size her haftadaki sayımlar ile önceki haftalardaki sayımlar (gecikme olarak adlandırılır) arasındaki ilişkiyi anlatır.</p>
+<p>ACF() fonksiyonunu kullanarak, farklı gecikmelerdeki ilişkiyi bize bir dizi çizgi gösteren bir grafik oluşturabiliriz. Gecikmenin 0 (x = 0) olduğu yerde, çizgi gözlem ile kendisi arasındaki ilişkiyi gösterdiğinden (burada gösterilmemiştir) her zaman 1 olacaktır. Burada gösterilen ilk satır (x = 1), her gözlem ile bir önceki gözlem arasındaki ilişkiyi gösterir (1 gecikme), ikincisi gözlem ile iki önceki gözlem arasındaki ilişkiyi gösterir (2 gecikme) ve gecikme sayıları bu şekilde artarak devam eder (Her bir gözlem ile 1 yıllık (52 hafta öncesi) gözlem arasındaki ilişkiyi gösteren 52’ye kadar)</p>
+<p>PACF() fonksiyonunun kullanılması (kısmi otokorelasyon için) aynı ilişkiyi gösterir, ancak aradaki diğer tüm haftalar için ayarlanmış bir ölçüttür. Kısmi otokorelasyon, periyodikliği belirlemek için daha az yararlıdır.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## sayım veri tabanını kullanma</span></span>
+<span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## yıl içindeki gecikmeleri kullanarak otokorelasyonu hesaplayın</span></span>
+<span>  <span class="fu">ACF</span><span class="op">(</span><span class="va">case_int</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## grafik oluşturun</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/autocorrelation-1.png" width="672"></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## sayım veri tabanını kullanma </span></span>
+<span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## yıl içindeki gecikmeleri kullanarak kısmi otokorelasyonu hesaplayın</span></span>
+<span>  <span class="fu">PACF</span><span class="op">(</span><span class="va">case_int</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## grafik oluşturun</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/autocorrelation-2.png" width="672"></div>
+<p>Ljung-Box testini (stats paketinde) kullanarak zaman serisinde null hipotezini (yani otokorelasyonlu olup olmadığı) test edebilirsiniz. Anlamlı bir p değeri, verilerde otokorelasyon olduğunu gösterir.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## bağımsızlık testi </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html">Box.test</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span>, type <span class="op">=</span> <span class="st">"Ljung-Box"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  counts$case_int
+## X-squared = 462.65, df = 1, p-value &lt; 2.2e-16</code></pre>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="uyum-regresyonları" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Uyum regresyonları<a class="anchor" aria-label="anchor" href="#uyum-regresyonlar%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir zaman serisine çok sayıda farklı regresyon sığdırmak mümkündür, ancak burada negatif iki terimli regresyonun nasıl sığdırılacağını göstereceğiz - çünkü bu genellikle bulaşıcı hastalıklardaki sayım verileri için en uygun olanıdır.</p>
+<!-- ======================================================= -->
+<div id="fourier-terimleri" class="section level3 unnumbered">
+<h3>Fourier terimleri<a class="anchor" aria-label="anchor" href="#fourier-terimleri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Fourier terimleri, sinüs ve kosinüs eğrilerinin eş epi hafta ve case_int değişkenlerini kullanarak fourier terimleri ekleyindeğeridir. Aradaki fark, bu terimlerin verilerinizi açıklamak için en uygun eğri kombinasyonunu bulmaya dayalı bulunmasıdır.</p>
+<p>Yalnızca bir fourier terimine kullanacak olsaydınız, periodogramınızda görülen en sık meydana gelen gecikmeniz için (bizim durumumuzda 52 hafta) bir sinüs ve bir kosinüs kullanmaya eşdeğer olacaktır. Forecast paketindeki fourier() fonksiyonunu kullanıyoruz.</p>
+<p>Aşağıdaki kodda $ operatörünü kullanarak atadık, çünkü fourier() iki sütun oluşturur (biri sinüs, diğeri kosinüs için) ve bu nedenle bunlar veri tabanına “fourier” adı verilen bir liste olarak eklenir - ancak bu liste daha sonra regresyonda normal bir değişken olarak kullanılabilir:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## epi hafta ve case_int değişkenlerini kullanarak fourier terimleri ekleyin</span></span>
+<span><span class="va">counts</span><span class="op">$</span><span class="va">fourier</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">fourier</span><span class="op">(</span>K <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="negatif-binomial" class="section level3 unnumbered">
+<h3>Negatif binomial<a class="anchor" aria-label="anchor" href="#negatif-binomial"><i class="fas fa-link"></i></a>
+</h3>
+<p>Temel istatistik (base stats) veya MASS fonksiyonlarını (örn. lm(), glm() ve glm.nb()) kullanarak uyumlu regresyonlar oluşturmak mümkündür. Bununla birlikte, uygun güven ve tahmin aralıklarının (aksi takdirde mevcut olmayan) hesaplanmasına izin verdiği için, trending paketindeki fonksiyonları kullanacağız. Bu fonksiyonların sintaksı aynıdır ve bir çıktı değişkeni, ardından bir tilde (~) belirtir ve ardından artı (+) ile ayırarak ilgilendiğiniz çeşitli maruz kalma değişkenlerinizi eklersiniz.</p>
+<p>Diğer fark, önce modeli tanımlamamız ve ardından onu verilere fit() ile uydurmamızdır. Bu, aynı sintaksa sahip birden çok farklı modeli karşılaştırmaya izin verdiği için yararlıdır.</p>
+<p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> Sayılar yerine oranları kullanmak istiyorsanız, offset(log(population) terimini ekleyerek popülasyon değişkenini logaritmik bir offset terimi olarak dahil edebilirsiniz. Bu durumda bir oran oluşturmak için predict() fonksiyonunu kullanmadan önce popülasyonu 1 olarak ayarlamanız gerekir. </span></p>
+<p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> ARIMA veya prophet gibi daha karmaşık modelleri uygulamak için fable paketine bakAbilirsiniz. <a href="https://fable.tidyverts.org/index.html"><strong>fable</strong></a>.</span></p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
+<span>  <span class="co">## ilgilenilen sonuç olarak vaka sayısını belirlemek</span></span>
+<span>  <span class="va">case_int</span> <span class="op">~</span></span>
+<span>    <span class="co">## trendi hesaba katmak için epiweek'i kullanın</span></span>
+<span>    <span class="va">epiweek</span> <span class="op">+</span></span>
+<span>    <span class="co">## mevsimselliği hesaba katmak için fourier terimlerini kullanın</span></span>
+<span>    <span class="va">fourier</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## sayım veri tabanını kullanarak modelinize uydurun</span></span>
+<span><span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu">trending</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/trending/man/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## güven ve tahmin aralıklarını hesaplayın</span></span>
+<span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## regresyonunuzu görselleştirin </span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## model tahmini için bir satır ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">estimate</span><span class="op">)</span>,</span>
+<span>            col <span class="op">=</span> <span class="st">"Red"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## tahmin aralıkları için bir bant ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower_pi</span>, </span>
+<span>                  ymax <span class="op">=</span> <span class="va">upper_pi</span><span class="op">)</span>, </span>
+<span>              alpha <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## gözlemlenen vaka sayılarınız için bir satır ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span><span class="op">)</span>, </span>
+<span>            col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## geleneksel bir grafik oluşturun (siyah eksenli ve beyaz arka planlı)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/nb_reg-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+<div id="artıklar-residuals" class="section level3 unnumbered">
+<h3>Artıklar (Residuals)<a class="anchor" aria-label="anchor" href="#art%C4%B1klar-residuals"><i class="fas fa-link"></i></a>
+</h3>
+<p>Modelimizin gözlemlenen verilere ne kadar uyum gösterdiğini görmek için artıklara bakmamız gerekir. Artıklar, gözlemlenen değerler ile modelden tahmin edilen değerler arasındaki farktır. Bunu basitçe case_int - tahmin formülünü kullanarak hesaplayabiliriz, ancak residuals() fonksiyonu bunu bizim için doğrudan regresyondan çıkarır.</p>
+<p>Aşağıdan gördüğümüz gibi modelle tüm varyansı açıklamamaktayız. Daha fazla fourier terimi kullanmamız ve genliği ele almamız gerekebilir. Ancak bu örnek için olduğu gibi bırakacağız. Grafikler, modelimizin tepe ve diplerde (sayılar en yüksek ve en düşük olduğunda) daha kötü olduğunu ve gözlemlenen sayıları olduğundan daha az tahmin etme olasılığının (underestimate) yüksek olabileceğini gösteriyor.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## artıkların hesabı </span></span>
+<span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>resid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">fitted_model</span><span class="op">$</span><span class="va">fitted_model</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## artıklar zaman içinde oldukça sabit mi (değilse: salgın? uygulamada değişiklik?)</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span>, y <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"epiweek"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## artıklarda otokorelasyon var mı (hatanın bir motifi var mı?)</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">ACF</span><span class="op">(</span><span class="va">resid</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-6-2.png" width="672"></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## artıklar normal olarak dağılmış mı (tahminin altında mı yoksa üzerinde mi?)</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_rug.html">geom_rug</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-6-3.png" width="672"></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## gözlemlenen sayıları artıklarıyla karşılaştırın</span></span>
+<span>  <span class="co">## ayrıca motif görülmemeli</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">estimate</span>, y <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-6-4.png" width="672"></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## artıkların otokorelasyonunu test edin</span></span>
+<span><span class="co">## H0, artıkların beyaz gürültü (yani rastgele) olmasıdır</span></span>
+<span><span class="co">## bağımsızlık testi</span></span>
+<span><span class="co">## p değeri anlamlıysa rastgele değil</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html">Box.test</a></span><span class="op">(</span><span class="va">observed</span><span class="op">$</span><span class="va">resid</span>, type <span class="op">=</span> <span class="st">"Ljung-Box"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  observed$resid
+## X-squared = 346.64, df = 1, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## </span></span>
+<span><span class="co">##  Box-Ljung test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  observed$resid</span></span>
+<span><span class="co">## X-squared = 346.64, df = 1, p-value &lt; 2.2e-16</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="iki-zaman-serisinin-ilişkisi" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> İki zaman serisinin ilişkisi<a class="anchor" aria-label="anchor" href="#iki-zaman-serisinin-ili%C5%9Fkisi"><i class="fas fa-link"></i></a>
+</h2>
+<p>Burada, campylobacter vaka sayılarını açıklamak için hava durumu verilerini (özellikle sıcaklık) kullanmayı inceliyoruz.</p>
+<!-- ======================================================= -->
+<div id="veritabanlarının-birleştirilmesi" class="section level3 unnumbered">
+<h3>Veritabanlarının birleştirilmesi<a class="anchor" aria-label="anchor" href="#veritabanlar%C4%B1n%C4%B1n-birle%C5%9Ftirilmesi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Hafta değişkenini kullanarak veri tabanlarımızı birleştirebiliriz. Birleştirme hakkında daha fazla bilgi için birleştirme ilgili el kitabı bölümüne bakın. <a href="https://epirhandbook.com/joining-data.html">joining</a>.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## sol birleştirme, böylece yalnızca sayılarda mevcut olan satırlarımız olur </span></span>
+<span><span class="co">## temp_data'dan tarih değişkenini çıkarın (aksi takdirde yinelenir)</span></span>
+<span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">counts</span>, </span>
+<span>                    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">temp_data</span>, <span class="op">-</span><span class="va">date</span><span class="op">)</span>,</span>
+<span>                    by <span class="op">=</span> <span class="st">"epiweek"</span><span class="op">)</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="tanımlayıcı-analizler-1" class="section level3 unnumbered">
+<h3>Tanımlayıcı analizler<a class="anchor" aria-label="anchor" href="#tan%C4%B1mlay%C4%B1c%C4%B1-analizler-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Görünür bir ilişki olup olmadığını görmek için önce verilerinizi çizin. Aşağıdaki grafik, iki değişkenin mevsimselliği yönünden görünür bir ilişki olduğunu ve sıcaklığın vaka sayısından birkaç hafta önce zirveye ulaştığını göstermektedir. Verilerin pivotlanması hakkında daha fazla bilgi için, verilerin pivotlanmasıyla ilgili el kitabı bölümüne bakın. <a href="https://epirhandbook.com/pivoting-data.html">pivoting data</a>.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sadece ilgilendiğimiz değişkenler veritabanında kalır  </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">epiweek</span>, <span class="va">case_int</span>, <span class="va">t2m</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## verilerinizi uzun formatta değiştirin</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    <span class="co">## anahtar olarak epiweek'i kullanın</span></span>
+<span>    <span class="op">!</span><span class="va">epiweek</span>,</span>
+<span>    <span class="co">## sütun adlarını yeni "ölçü" sütununa taşıyın</span></span>
+<span>    names_to <span class="op">=</span> <span class="st">"measure"</span>, </span>
+<span>    <span class="co">## hücre değerlerini yeni "değerler" sütununa taşı</span></span>
+<span>    values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## yukarıdaki veritabanından bir grafik oluşturun </span></span>
+<span>  <span class="co">## epiweek'i x ekseninde ve değerler (sayılar/santigrat) y ekseninde grafik çizin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span>, y <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="co">## sıcaklık ve vaka sayıları için ayrı bir grafik oluşturun</span></span>
+<span>    <span class="co">## kendi y eksenlerini ayarlamalarına izin verin</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">measure</span> <span class="op">~</span> <span class="va">.</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="co">## ikisini de bir çizgi grafiği olarak çizin </span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/basic_plot_bivar-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+<div id="gecikmeler-ve-çapraz-korelasyonlar" class="section level3 unnumbered">
+<h3>Gecikmeler ve çapraz korelasyonlar<a class="anchor" aria-label="anchor" href="#gecikmeler-ve-%C3%A7apraz-korelasyonlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Vakalar ve sıcaklık arasında hangi haftaların en çok ilişkili olduğunu test etmek çapraz korelasyon uygulanır. feasts paketinden çapraz korelasyon fonksiyonunu (CCF()) kullanabiliriz. Ayrıca autoplot() fonksiyonunu kullanarak (arrange kullanmak yerine) grafik oluşturabilirsiniz.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## interpolasyonlu sayımlar ve sıcaklık arasındaki çapraz korelasyonu hesaplayın</span></span>
+<span>  <span class="fu">CCF</span><span class="op">(</span><span class="va">case_int</span>, <span class="va">t2m</span>,</span>
+<span>      <span class="co">## maksimum gecikmeyi 52 hafta olarak ayarlayın</span></span>
+<span>      lag_max <span class="op">=</span> <span class="fl">52</span>, </span>
+<span>      <span class="co">## korelasyon katsayısını hesaplayın</span></span>
+<span>      type <span class="op">=</span> <span class="st">"correlation"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## korelasyon katsayısını azalan biçimde dizin</span></span>
+<span>  <span class="co">## en yüksek ilişkili gecikmeleri göster</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">ccf</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sadece ilk 10'u gösterin </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tsibble: 10 x 2 [1W]
+##         lag   ccf
+##    &lt;cf_lag&gt; &lt;dbl&gt;
+##  1      -4W 0.749
+##  2      -5W 0.745
+##  3      -3W 0.735
+##  4      -6W 0.729
+##  5      -2W 0.727
+##  6      -7W 0.704
+##  7      -1W 0.695
+##  8      -8W 0.671
+##  9       0W 0.649
+## 10      47W 0.638</code></pre>
+<p>Burada 4 haftalık bir gecikmenin en yüksek oranda ilişkili olduğunu görüyoruz, bu nedenle regresyonumuza dahil etmek için gecikmeli bir sıcaklık değişkeni oluşturuyoruz.</p>
+<p><span style="color: red;"><strong><em>TEHLİKE:</em></strong> Gecikmeli sıcaklık değişkenindeki verilerin ilk dört haftasının eksik olduğunu (NA) unutmayın - çünkü veri almak için önceki dört hafta mevcut değildi. Bu veri tabanını trending predict() fonksiyonuyla kullanmak için, daha aşağıda predict() fonksiyonu içinde simulate_pi = FALSE argümanını kullanmamız gerekir. Simulate (simüle et) seçeneğini kullanmak istediysek, aşağıdaki kod parçasına drop_na(t2m_lag4) terimini ekleyerek eksikleri çıkararak yeni bir veri tabanı olarak kaydetmeliyiz.</span></p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sıcaklık için dört hafta gecikmeli yeni bir değişken oluşturun</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>t2m_lag4 <span class="op">=</span> <span class="fu">lag</span><span class="op">(</span><span class="va">t2m</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="iki-değişkenli-negatif-binomial" class="section level3 unnumbered">
+<h3>İki değişkenli negatif binomial<a class="anchor" aria-label="anchor" href="#iki-de%C4%9Fi%C5%9Fkenli-negatif-binomial"><i class="fas fa-link"></i></a>
+</h3>
+<p>Daha önce gösterildiği gibi negatif bir binom regresyon modeli geliştiriyoruz. Bu sefer modelimize dört hafta gecikmeli sıcaklık değişkenini ekliyoruz.</p>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> predict() değişkeninde simulate_pi = FALSE kullanımına dikkat edin. Bunun nedeni, trending’in varsayılan davranışının bir tahmin aralığı oluşturmak için ciTools paketini kullanmasıdır. NA (eksik) sayılar varsa bu paket çalışmaz ve daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
+<span>  <span class="co">## ilgilenilen çıktı olarak vaka sayısını belirleyin </span></span>
+<span>  <span class="va">case_int</span> <span class="op">~</span></span>
+<span>    <span class="co">## trendi hesaba katmak için epiweek'i kullanın</span></span>
+<span>    <span class="va">epiweek</span> <span class="op">+</span></span>
+<span>    <span class="co">## mevsimselliği hesaba katmak için fourier terimlerini kullanın</span></span>
+<span>    <span class="va">fourier</span> <span class="op">+</span> </span>
+<span>    <span class="co">## dört hafta gecikmeli sıcaklık değişkenini kullanın</span></span>
+<span>    <span class="va">t2m_lag4</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="co">## sayım veri tabanını kullanarak uyumlu modelinizi oluşturun</span></span>
+<span><span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu">trending</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/trending/man/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## güven aralıklarını ve tahmin aralıklarını hesaplayın</span></span>
+<span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>Tek tek terimleri araştırmak için, get_model() fonksiyonunu kullanarak orijinal negatif binom regresyonunu trend formatından çıkarabilir sonrasında üstel tahminleri ve ilişkili güven aralıklarını elde etmek için broom paketi tidy() işlevine iletebiliriz. Bu bize, trend ve mevsimsellik için kontrol edildikten sonra gecikmeli sıcaklığın vaka sayılarına benzer olduğunu ve vaka sayılarıyla anlamlı olarak ilişkili (tahmini ~ 1) olduğunu gösterir. Bu sonuç , gecikmeli sıcaklık değişkeninin gelecekteki vaka sayılarını tahmin etmek için iyi bir değişken olabileceğini düşündürmektedir (iklim tahminleri zaten hazır olduğu için).</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## orijinal negatif binom regresyonunu elde edin </span></span>
+<span>  <span class="fu">get_model</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sonuçların tidy veri çerçevesini elde edin</span></span>
+<span>  <span class="fu">tidy</span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>       conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 5 × 7
+##   term         estimate  std.error statistic  p.value conf.low conf.high
+##   &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)   339.    0.108          53.8  0         274.      419.   
+## 2 epiweek         1.00  0.00000774     10.9  8.13e-28    1.00      1.00 
+## 3 fourierS1-52    0.752 0.0214        -13.3  1.84e-40    0.721     0.784
+## 4 fourierC1-52    0.823 0.0200         -9.78 1.35e-22    0.791     0.855
+## 5 t2m_lag4        1.01  0.00269         2.48 1.30e- 2    1.00      1.01</code></pre>
+<p>Modelin hızlı görsel incelemesi, modelin gözlemlenen vaka sayılarını tahmin etmede daha iyi bir iş çıkarabileceğini gösterir.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## regresyonunuzu çiz</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## model tahmini için bir satır ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">estimate</span><span class="op">)</span>,</span>
+<span>            col <span class="op">=</span> <span class="st">"Red"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## tahmin aralıkları için bir bant ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower_pi</span>, </span>
+<span>                  ymax <span class="op">=</span> <span class="va">upper_pi</span><span class="op">)</span>, </span>
+<span>              alpha <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## gözlemlenen vaka sayılarınız için bir satır ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span><span class="op">)</span>, </span>
+<span>            col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## geleneksel bir grafik oluşturun (siyah eksenli ve beyaz arka planlı)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/plot_nb_reg_bivar-1.png" width="672"></div>
+<div id="rezidüeller-artıklar" class="section level4 unnumbered">
+<h4>Rezidüeller (Artıklar)<a class="anchor" aria-label="anchor" href="#rezid%C3%BCeller-art%C4%B1klar"><i class="fas fa-link"></i></a>
+</h4>
+<p>Modelimizin gözlemlenen verilerle ne kadar uyumlu olduğunu görmek için artıkları tekrar araştırırız. Buradaki sonuçlar ve yorum önceki regresyona benzer, bu nedenle sıcaklık değişkenini içermeyen daha basit bir modele bağlı kalmak daha uygun olabilir.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## artıkları hesapla</span></span>
+<span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>resid <span class="op">=</span> <span class="va">case_int</span> <span class="op">-</span> <span class="va">estimate</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## artıklar zaman içinde oldukça sabit mi (değilse: salgın? uygulamada değişiklik?)</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span>, y <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"epiweek"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: Removed 4 rows containing missing values (`geom_line()`).</code></pre>
+<pre><code>## Warning: Removed 4 rows containing missing values (`geom_point()`).</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 4 satır kaldırıldı (geom_path).</span></span>
+<span></span>
+<span> </span>
+<span><span class="co">## artıklarda otokorelasyon var mı (hatanın bir motifi var mı?)</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">ACF</span><span class="op">(</span><span class="va">resid</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-7-2.png" width="672"></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## artıklar normal dağılım gösteriyor mu (tahminin altında mı yoksa üzerinde mi?)</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_rug.html">geom_rug</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>## Warning: Removed 4 rows containing non-finite values (`stat_bin()`).</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-7-3.png" width="672"></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Uyarı: Sonlu olmayan değerler içeren 4 satır kaldırıldı (stat_bin).</span></span>
+<span></span>
+<span> </span>
+<span><span class="co">## gözlemlenen sayıları artıklarıyla karşılaştırın</span></span>
+<span>  <span class="co">## ayrıca tekrarlama olmamalı</span></span>
+<span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">estimate</span>, y <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: Removed 4 rows containing missing values (`geom_point()`).</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-7-4.png" width="672"></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 4 satır kaldırıldı (geom_point).</span></span>
+<span></span>
+<span> </span>
+<span><span class="co">## artıkların otokorelasyonunu test edin</span></span>
+<span><span class="co">## H0, artıkların beyaz gürültü (yani rastgele) olmasıdır</span></span>
+<span><span class="co">## bağımsızlık testi</span></span>
+<span><span class="co">## p değeri anlamlıysa rastgele değildir</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html">Box.test</a></span><span class="op">(</span><span class="va">observed</span><span class="op">$</span><span class="va">resid</span>, type <span class="op">=</span> <span class="st">"Ljung-Box"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  observed$resid
+## X-squared = 339.52, df = 1, p-value &lt; 2.2e-16</code></pre>
+<!-- ======================================================= -->
+</div>
+</div>
+</div>
+<div id="salgınların-tespit-edilmesi" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Salgınların tespit edilmesi<a class="anchor" aria-label="anchor" href="#salg%C4%B1nlar%C4%B1n-tespit-edilmesi"><i class="fas fa-link"></i></a>
+</h2>
+<p>Burada salgınları tespit etmek için iki (benzer) yöntem göstereceğiz. İlki, yukarıdaki bölümler üzerine kuruludur. Regresyonları önceki yıllara uydurmak için trending paketini kullanıyoruz ve ardından gelecek yıl görmeyi umduğumuzu değerleri tahmin ediyoruz. Gözlenen sayımlar beklediğimizin üzerindeyse, bir salgın olduğunu gösterebilir. İkinci yöntem benzer ilkelere dayanmaktadır ancak aşırı değerlerin (aberration) tespiti için bir dizi farklı algoritmaya sahip surveillance paketini kullanır.</p>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> Normalde, mevcut yılla ilgilenirsiniz (yalnızca mevcut haftaya kadar olan sayıları bildiğiniz için). Bu örnekte 2011’in 39. haftasındaymış gibi analiz yapıyoruz.</span></p>
+<!-- ======================================================= -->
+<div id="trending-paketi" class="section level3 unnumbered">
+<h3>
+<strong>trending</strong> paketi<a class="anchor" aria-label="anchor" href="#trending-paketi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu yöntem için bir temel tanımlarız, genellikle yaklaşık 5 yıllık veri olmalıdır). Temel veriler için bir regresyon modeli oluştururuz ve ardından bunu gelecek yıl için tahmin elde etmek için kullanırız.</p>
+<!-- ======================================================= -->
+<div id="kesim-eşik-tarihi" class="section level4 unnumbered">
+<h4>Kesim (eşik) tarihi<a class="anchor" aria-label="anchor" href="#kesim-e%C5%9Fik-tarihi"><i class="fas fa-link"></i></a>
+</h4>
+<p>Tarihlerinizi tek bir yerde tanımlamak ve ardından bunları kodunuzun geri kalanında kullanmak daha kolaydır.</p>
+<p>Burada bir başlangıç tarihi (gözlemlerimizin başladığı tarih) ve bir bitiş tarihi (temel dönemimizin sonu olan- ve tahmine ne zaman başlayacağımızın tarihi) tanımlarız. ~Ayrıca ilgilendiğimiz yılda (tahmin edeceğimiz yılda) kaç hafta olduğunu da tanımlarız ~. Ayrıca, temel kesim tarihimiz ile tahmin etmek istediğimiz bitiş tarihi arasında kaç hafta olduğunu da tanımlarız.</p>
+<p><span style="color: black;"><strong><em>NOT:</em></strong> Bu örnekte, şu anda Eylül 2011’in sonundaymış gibi davranıyoruz (“2011 W39”).</span></p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## başlangıç tarihini tanımlayın (gözlemlerin başladığı zaman)</span></span>
+<span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## bir bitiş haftası tanımlayın (temel verinin sonu, tahmin döneminin başlangıcı)</span></span>
+<span><span class="va">cut_off</span> <span class="op">&lt;-</span> <span class="fu">yearweek</span><span class="op">(</span><span class="st">"2010-12-31"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## ilgilenilen son tarihi tanımlayın (yani tahminin sonu)</span></span>
+<span><span class="va">end_date</span> <span class="op">&lt;-</span> <span class="fu">yearweek</span><span class="op">(</span><span class="st">"2011-12-31"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## ilgilenilen dönemde (yıl) kaç hafta bulun</span></span>
+<span><span class="va">num_weeks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">end_date</span> <span class="op">-</span> <span class="va">cut_off</span><span class="op">)</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="satır-eklemek" class="section level4 unnumbered">
+<h4>Satır eklemek<a class="anchor" aria-label="anchor" href="#sat%C4%B1r-eklemek"><i class="fas fa-link"></i></a>
+</h4>
+<p>Tidyverse formatında tahmin yapabilmek için, veri setimizde doğru sayıda satıra, yani yukarıda tanımlanan end_date tarihine kadar her hafta için bir satıra ihtiyacımız var. Aşağıdaki kod, bu satırları bir gruplama değişkenine göre eklemenize izin verir - örneğin, bir veri tabanında birden fazla ülkemiz varsa, ülkeye göre gruplayabilir ve ardından her biri için uygun satırlar ekleyebiliriz. tsibble’ın group_by_key() fonksiyonu , bu gruplandırmayı yapmamıza ve ardından gruplanmış verileri dplyr fonkisyonlarına, group_modify() ve add_row()’a geçirmemize izin verir. Ardından, verilerde mevcut olan maksimum hafta değerinden bir sonraki hafta ile bitiş haftası arasındaki hafta sırasını belirleriz.</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## yılın sonuna kadar eksik haftaları ekleyin</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co">## bölgeye göre grup</span></span>
+<span>  <span class="fu">group_by_key</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co">## her grup için en yüksek epiweek’ten yıl sonuna kadar satır ekleyin</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html">group_modify</a></span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/add_row.html">add_row</a></span><span class="op">(</span><span class="va">.</span>,</span>
+<span>                        epiweek <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>, </span>
+<span>                                      <span class="va">end_date</span>,</span>
+<span>                                      by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="fourier-terimleri-1" class="section level4 unnumbered">
+<h4>Fourier terimleri<a class="anchor" aria-label="anchor" href="#fourier-terimleri-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Fourier terimlerimizi yeniden tanımlamamız gerekiyor - çünkü bu terimleri temel tarihe uydurmak ve gelecek yıl için ekstrapole etmek istiyoruz. Bunu yapmak için fourier() fonkisyonundan iki çıktı listesini bir araya getirmemiz gerekiyor; ilki temel veriler içindir ve ikincisi ilgilenilen yılı (h argümanını tanımlayarak) tahmin eder.</p>
+<p>Not: Satırları bağlamak için rbind() (tidyverse’teki bind_rows yerine) kullanmalıyız, çünkü fourier sütunları bir liste biçimindedir (yani ayrı ayrı adlandırılmaz).</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## fourier terimlerini tanımlayın (sincos)</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co">## 2010 kesim tarihinden önceki ve sonraki haftalar için fourier terimlerini birleştirin</span></span>
+<span>    <span class="co">## (yani 2011 fourier terimleri tahmin edilmektedir)</span></span>
+<span>    fourier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span></span>
+<span>      <span class="co">## önceki yıllar için fourier terimlerini getirin </span></span>
+<span>      <span class="fu">fourier</span><span class="op">(</span></span>
+<span>        <span class="co">## sadece 2011'den önceki satırları tutun</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">counts</span>, </span>
+<span>               <span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cut_off</span><span class="op">)</span>, </span>
+<span>        <span class="co">## bir dizi sin cos terimini dahil et</span></span>
+<span>        K <span class="op">=</span> <span class="fl">1</span></span>
+<span>        <span class="op">)</span>, </span>
+<span>      <span class="co">## 2011 için fourier terimlerini tahmin edin (temel verileri kullanarak)</span></span>
+<span>      <span class="fu">fourier</span><span class="op">(</span></span>
+<span>        <span class="co">## sadece 2011'den önceki satırları tutun</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">counts</span>, </span>
+<span>               <span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cut_off</span><span class="op">)</span>,</span>
+<span>        <span class="co">## bir dizi sin cos terimini dahil et</span></span>
+<span>        K <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>        <span class="co">## 52 hafta sonrasını tahmin et</span></span>
+<span>        h <span class="op">=</span> <span class="va">num_weeks</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="verinin-bölünmesi-ve-uyumlu-regresyon" class="section level4 unnumbered">
+<h4>Verinin bölünmesi ve uyumlu regresyon<a class="anchor" aria-label="anchor" href="#verinin-b%C3%B6l%C3%BCnmesi-ve-uyumlu-regresyon"><i class="fas fa-link"></i></a>
+</h4>
+<p>Şimdi veri setimizi temel periyoda (tahminin başladığı zamana kadarki veri) ve tahmin periyoduna bölmemiz gerekiyor. Bu, group_by()’den sonra dplyr group_split() fonkisyonu kullanılarak yapılır ve biri kesme işleminden önce diğeri sonra olmak üzere iki veri çerçevesi içeren bir liste oluşturur.</p>
+<p>Daha sonra veri kümelerini listeden çıkarmak için purrr paketi pluck() fonksiyonunu kullanırız (bu fonksiyon köşeli parantez kullanmaya eşdeğer, örneğin dat[[1]] gibi ) ve daha sonra modelimizi temel verilere uydurabilir ve ardından kesintiden sonra ilgilendiğimiz veri için predict() fonksiyonunu kullanabiliriz.</p>
+<p>Purrr hakkında daha fazla bilgi edinmek için Yineleme (iterasyon), döngüler ve listeler sayfasına bakın.</p>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> predict() fonksiyonunda simulate_pi = FALSE argümanının kullanımına dikkat edin. Bunun nedeni, trend oluşturmanın varsayılan davranışının bir tahmin aralığını oluşturmak için ciTools paketinin kullanılmasıdır. NA (eksik) değerler varsa bu fonksiyon çalışmaz ve ayrıca daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># uyum ve tahmin için bölünmüş veriler</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cut_off</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
+<span>  <span class="co">## set number of cases as outcome of interest</span></span>
+<span>  <span class="va">case_int</span> <span class="op">~</span></span>
+<span>    <span class="co">## use epiweek to account for the trend</span></span>
+<span>    <span class="va">epiweek</span> <span class="op">+</span></span>
+<span>    <span class="co">## use the furier terms to account for seasonality</span></span>
+<span>    <span class="va">fourier</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Uyum ve tahmin için hangi verilerin kullanılacağını tanımlayın</span></span>
+<span><span class="va">fitting_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">case_int</span>, <span class="va">epiweek</span>, <span class="va">fourier</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># modeli uydurun</span></span>
+<span><span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu">trending</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/trending/man/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">fitting_data</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Uydurulan veriler için sınır ve tahmin değerleri elde edin</span></span>
+<span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span>simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># tahmin için kullanılacak veri ile tahmin </span></span>
+<span><span class="va">forecasts</span> <span class="op">&lt;-</span> <span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## temel ve tahmin edilmiş veri tabanlarını birleştirin </span></span>
+<span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">observed</span>, <span class="va">forecasts</span><span class="op">)</span></span></code></pre></div>
+<p>Daha önce olduğu gibi modelimizi ggplot ile görselleştirebiliriz. %95 tahmin aralığının üzerindeki gözlemlenen değerleri dikkat çekmek amacıyla kırmızı noktalarla vurgularız. Bu sefer tahminin başladığı tarihi etiketlemek için dikey bir çizgi de ekliyoruz.</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## regresyonunuzu görselleştirin </span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## model tahmini için bir satır ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">estimate</span><span class="op">)</span>,</span>
+<span>            col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## tahmin aralıkları için bir bant ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower_pi</span>, </span>
+<span>                  ymax <span class="op">=</span> <span class="va">upper_pi</span><span class="op">)</span>, </span>
+<span>              alpha <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## gözlemlenen vaka sayılarınız için bir çizgi grafiği ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span><span class="op">)</span>, </span>
+<span>            col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## beklenenin üzerinde gözlenen sayımlar için saçılım grafiği</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">observed</span>, <span class="va">case_int</span> <span class="op">&gt;</span> <span class="va">upper_pi</span><span class="op">)</span>, </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span><span class="op">)</span>, </span>
+<span>    colour <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>    size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## tahminin nerede başladığını göstermek için dikey çizgi ve etiket ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span></span>
+<span>           xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">cut_off</span><span class="op">)</span>, </span>
+<span>           linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, </span>
+<span>           label <span class="op">=</span> <span class="st">"Forecast"</span>, </span>
+<span>           x <span class="op">=</span> <span class="va">cut_off</span>, </span>
+<span>           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">observed</span><span class="op">$</span><span class="va">upper_pi</span><span class="op">)</span> <span class="op">-</span> <span class="fl">250</span>, </span>
+<span>           angle <span class="op">=</span> <span class="fl">90</span>, </span>
+<span>           vjust <span class="op">=</span> <span class="fl">1</span></span>
+<span>           <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## geleneksel bir grafik oluşturun (siyah eksenli ve beyaz arka planlı)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: Removed 13 rows containing missing values (`geom_line()`).</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/forecast_plot-1.png" width="672"></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 13 satır kaldırıldı(geom_path).</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="öngörünün-doğrulanması-validasyonu" class="section level4 unnumbered">
+<h4>Öngörünün doğrulanması (validasyonu)<a class="anchor" aria-label="anchor" href="#%C3%B6ng%C3%B6r%C3%BCn%C3%BCn-do%C4%9Frulanmas%C4%B1-validasyonu"><i class="fas fa-link"></i></a>
+</h4>
+<p>Artıkları incelemenin ötesinde, modelinizin gelecekteki durumları tahmin etmede ne kadar iyi olduğunu araştırmak önemlidir. Bu size eşik uyarılarınızın ne kadar güvenilir olduğu konusunda fikir verir.</p>
+<p>Doğrulamanın geleneksel yolu, önceki yılı ne kadar iyi tahmin edebileceğinizi görmektir (çünkü “şimdiki yıl” için sayıları henüz bilmiyorsunuz). Örneğin, veri setimizde 2010’u tahmin etmek için 2002’den 2009’a kadar olan verileri kullanıp sonra bu tahminlerin ne kadar doğru olduğunu ölçerdik. Ardından modeli 2010 verilerini içerecek şekilde uygulayıp 2011 sayılarını tahmin etmek için kullanın.</p>
+<p>Aşağıdaki şekilde Hyndman ve arkadaşlarının “Tahmin ilkeleri ve uygulaması” bölümünde görülebileceği gibi.
+<em>Hyndman et al</em> <a href="https://otexts.com/fpp3/">“Forecasting principles
+and practice”</a>.</p>
+<p><img src="https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png"><em>Görsel yazarlardan alınan izinle yeniden oluşturulmuştur</em></p>
+<p>Bu yöntemin dezavantajı, elinizdeki tüm verileri kullanmamanız ve modelin tahmin için kullandığınız son model olmamasıdır.</p>
+<p>Bir alternatif, çapraz doğrulama adı verilen bir yöntem kullanmaktır. Bu senaryoda, bir yıl sonrasını tahmin etmek için birden fazla modele uydurabilmek için mevcut tüm verileri kaydırırsınız. Aynı makaleden [Hyndman ve arkadaşlarına ait metninden]((<a href="https://otexts.com/fpp3/" class="uri">https://otexts.com/fpp3/</a>) alınan aşağıdaki şekilde görüldüğü gibi, her modelde giderek daha fazla veri kullanıyorsunuz.</p>
+<p>Örneğin, ilk model 2003’ü tahmin etmek için 2002’yi kullanıyor , ikincisi 2004’ü tahmin etmek için 2002 ve 2003’ü kullanır, vb.
+<img src="https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png"><em>Görsel yazarlardan alınan izinle yeniden oluşturulmuştur</em></p>
+<p>Aşağıda, veri kümeleri üzerinde döngü işlemini uygulamak için purrr paketinden map() fonksiyonunu kullanıyoruz. Daha sonra, doğruluk ölçülerini hesaplama amacıyla yardstick paketini kullanmak için elde ettiğimiz tahminleri bir veri tabanına aktarır ve orijinal vaka sayılarıyla birleştiririz. Aşağıda belirtilen dört ölçüyü hesaplıyoruz: Kök Ortalama Kare Hatası (RMSE), Ortalama mutlak hata (MAE), Ortalama mutlak ölçekli hata (MASE), Ortalama mutlak yüzde hatası (MAPE).</p>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> predict() fonksiyonunda simulate_pi = FALSE argümanının kullanımına dikkat edin. Bunun nedeni, trend oluşturmanın varsayılan davranışının bir tahmin aralığını oluşturmak için ciTools paketinin kullanılmasıdır. NA (eksik) değerler varsa bu fonksiyon çalışmaz ve ayrıca daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Çapraz doğrulama: Kayan pencereye dayalı olarak önümüzdeki haftaları tahmin etme</span></span>
+<span></span>
+<span><span class="co">## 52 haftalık pencerelerde kaydırarak verilerinizi genişletin (öncesi + sonrası)</span></span>
+<span><span class="co">## 52 hafta sonrasını tahmin etmek</span></span>
+<span><span class="co">## (daha uzun gözlem zincirleri oluşturur- eski verileri tutar)</span></span>
+<span></span>
+<span><span class="co">## kaydırmak istediğiniz pencereyi tanımlayın</span></span>
+<span><span class="va">roll_window</span> <span class="op">&lt;-</span> <span class="fl">52</span></span>
+<span></span>
+<span><span class="co">## tahmin etmek istediğiniz haftaları tanımlayın  </span></span>
+<span><span class="va">weeks_ahead</span> <span class="op">&lt;-</span> <span class="fl">52</span></span>
+<span></span>
+<span><span class="co">## yinelenen, giderek daha uzun verilerden oluşan bir veri seti oluşturun</span></span>
+<span><span class="co">## her veri setini benzersiz bir kimlikle etiketleyin</span></span>
+<span><span class="co">## yalnızca ilgilenilen yıldan önceki vakaları kullanın (yani 2011)</span></span>
+<span><span class="va">case_roll</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">epiweek</span> <span class="op">&lt;</span> <span class="va">cut_off</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sadece hafta ve vaka sayısı değişkenlerini veri tabanında tut </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="co">## en son x sayıda gözlemi uzaklaştırın </span></span>
+<span>    <span class="co">## önümüzdeki kaç haftayı tahmin etmek istediğinize bağlı olarak </span></span>
+<span>    <span class="co">## (aksi takdirde "bilinmeyen" için tahmin yapılacaktır)</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">weeks_ahead</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="co">## gruplandırma kimliği oluşturmak amacıyla x’teki her hafta için kaydırın</span></span>
+<span>    <span class="co">## kaydırma pencerisinin özgüllüğüne bağlı </span></span>
+<span>    <span class="fu">stretch_tsibble</span><span class="op">(</span>.init <span class="op">=</span> <span class="va">roll_window</span>, .step <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## önceki vakası yokmuş gibi ilk çifti uzaklaştırın drop the first couple </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.id</span> <span class="op">&gt;</span> <span class="va">roll_window</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## benzersiz veri setlerinin her biri için aşağıdaki kodu çalıştırın</span></span>
+<span><span class="va">forecasts</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">case_roll</span><span class="op">$</span><span class="va">.id</span><span class="op">)</span>, </span>
+<span>                        <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co">## yalnızca mevcut katlantının uygun olmasını sağlayın</span></span>
+<span>  <span class="va">mini_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">case_roll</span>, <span class="va">.id</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co">## tahmin için boş bir veri seti oluşturun</span></span>
+<span>  <span class="va">forecast_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>    epiweek <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">mini_data</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>,</span>
+<span>                  <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">mini_data</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span> <span class="op">+</span> <span class="va">weeks_ahead</span>,</span>
+<span>                  by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    case_int <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep.int</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="va">weeks_ahead</span><span class="op">)</span>,</span>
+<span>    .id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep.int</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">weeks_ahead</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co">## tahmin verilerini orijinale ekleyin</span></span>
+<span>  <span class="va">mini_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">mini_data</span>, <span class="va">forecast_data</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co">## en son eksik olmayan sayım verilerine dayalı olarak kesim tarhini tanımlayın</span></span>
+<span>  <span class="va">cv_cut_off</span> <span class="op">&lt;-</span> <span class="va">mini_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="co">## sadece eksik olmayan satırları tutun </span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="co">## en son haftayı elde edin </span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="co">## bir veri çerçevesinde olmayacak şekilde dışa aktar </span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co">## mini_data’yı tsibble haline getirin</span></span>
+<span>  <span class="va">mini_data</span> <span class="op">&lt;-</span> <span class="fu">tsibble</span><span class="op">(</span><span class="va">mini_data</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co">## fourier terimlerini tanımlayın (sincos) </span></span>
+<span>  <span class="va">mini_data</span> <span class="op">&lt;-</span> <span class="va">mini_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co">## fourier terimlerini kesim tarihinden önceki ve sonraki haftaları kombine etmek için kullanın </span></span>
+<span>    fourier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span></span>
+<span>      <span class="co">## önceki yıllardan fourier terimelerini getirin </span></span>
+<span>      <span class="fu">forecast</span><span class="fu">::</span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/fourier.html">fourier</a></span><span class="op">(</span></span>
+<span>        <span class="co">## sadece kesim öncesi satırları tutun </span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">mini_data</span>, </span>
+<span>               <span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cv_cut_off</span><span class="op">)</span>, </span>
+<span>        <span class="co">## bir sin cos terim setini dahil edin </span></span>
+<span>        K <span class="op">=</span> <span class="fl">1</span></span>
+<span>        <span class="op">)</span>, </span>
+<span>      <span class="co">## takiben eden yıl için fourier terimlerini tahmin edin (temel veriyi kullanarak)</span></span>
+<span>      <span class="fu">fourier</span><span class="op">(</span></span>
+<span>        <span class="co">## sadece kesim öncesi satırları tutun</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">mini_data</span>, </span>
+<span>               <span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cv_cut_off</span><span class="op">)</span>,</span>
+<span>        <span class="co">## bir sin cos terim setini dahil edin</span></span>
+<span>        K <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>        <span class="co">## 52 hafta sonrasını tahmin edin </span></span>
+<span>        h <span class="op">=</span> <span class="va">weeks_ahead</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span>  </span>
+<span>  </span>
+<span>    <span class="co"># uyum ve tahmin için bölünmüş veriler</span></span>
+<span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mini_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cv_cut_off</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
+<span>  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
+<span>    <span class="co">## ilgilenilen çıktı olarak vaka sayısını ayarlayın </span></span>
+<span>    <span class="va">case_int</span> <span class="op">~</span></span>
+<span>      <span class="co">## trendi hesaba katmak için epiweek'i kullanın</span></span>
+<span>      <span class="va">epiweek</span> <span class="op">+</span></span>
+<span>      <span class="co">## mevsimselliği hesaba katmak için fourier terimlerini kullanın</span></span>
+<span>      <span class="va">fourier</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Uyum ve tahmin için hangi verilerin kullanılacağını tanımlayın</span></span>
+<span>  <span class="va">fitting_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># modeli uydurun </span></span>
+<span>  <span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu">trending</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/trending/man/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">fitting_data</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># istenilen verilerle tahmin </span></span>
+<span>  <span class="va">forecasts</span> <span class="op">&lt;-</span> <span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">pred_data</span><span class="op">)</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="co">## sadece hafta ve tahmin değerini tutun </span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">epiweek</span>, <span class="va">estimate</span><span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co">## listeyi tüm tahminlerle birlikte bir veri çerçevesine dönüştürün</span></span>
+<span><span class="va">forecasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">forecasts</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## tahmin ile gözlenen verileri birleştirin </span></span>
+<span><span class="va">forecasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">forecasts</span>, </span>
+<span>                       <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span>,</span>
+<span>                       by <span class="op">=</span> <span class="st">"epiweek"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## {yardstick} ile ölçümlerin hesabı</span></span>
+<span>  <span class="co">## RMSE: Kök Ortalama Kare Hatası</span></span>
+<span>  <span class="co">## MAE:  Ortalama mutlak hata </span></span>
+<span>  <span class="co">## MASE: Ortalama mutlak ölçekli hata</span></span>
+<span>  <span class="co">## MAPE: Ortalama mutlak yüzde hatası</span></span>
+<span></span>
+<span><span class="va">model_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span></span>
+<span>  <span class="co">## tahmin edilen veri setinizde gözlemlenen ile tahmin edileni karşılaştırın</span></span>
+<span>  <span class="fu">rmse</span><span class="op">(</span><span class="va">forecasts</span>, <span class="va">case_int</span>, <span class="va">estimate</span><span class="op">)</span>, </span>
+<span>  <span class="fu">mae</span><span class="op">(</span> <span class="va">forecasts</span>, <span class="va">case_int</span>, <span class="va">estimate</span><span class="op">)</span>,</span>
+<span>  <span class="fu">mase</span><span class="op">(</span><span class="va">forecasts</span>, <span class="va">case_int</span>, <span class="va">estimate</span><span class="op">)</span>,</span>
+<span>  <span class="fu">mape</span><span class="op">(</span><span class="va">forecasts</span>, <span class="va">case_int</span>, <span class="va">estimate</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## yalnızca metrik türünü ve çıktısını tutun</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>Metric  <span class="op">=</span> <span class="va">.metric</span>, </span>
+<span>         Measure <span class="op">=</span> <span class="va">.estimate</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## geniş formatta yapın, böylece satırları bağlayın</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">Metric</span>, values_from <span class="op">=</span> <span class="va">Measure</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## metrik modeli getirin </span></span>
+<span><span class="va">model_metrics</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 × 4
+##    rmse   mae  mase  mape
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  252.  199.  1.96  17.3</code></pre>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="surveillance-paketi" class="section level3 unnumbered">
+<h3>
+<strong>surveillance</strong> paketi<a class="anchor" aria-label="anchor" href="#surveillance-paketi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu bölümde, salgın tespit algoritmalarına dayalı uyarı eşikleri oluşturmak için surveillance paketini kullanıyoruz. Pakette birkaç farklı yöntem mevcuttur, ancak burada iki seçeneğe odaklanacağız. Ayrıntılar için, kullanılan algoritmaların uygulaması ve teorisi hakkındaki bu makalelere bakın. <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/monitoringCounts.pdf">application</a>
+ve <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">theory</a>.</p>
+<p>İlk seçenek, iyileştirilmiş Farrington yöntemini kullanır. Bu yöntem, negatif bir binom glm’ye (trend dahil) uyum gösterir ve eşik değeri oluşturmak için geçmiş salgınları (aykırı değerler) düşük değer olarak kullanır.</p>
+<p>İkinci seçenek glrnb yöntemini kullanır. Bu aynı zamanda negatif bir binom glm’ye (genelleştirilmiş doğrusal modele) de uyar, ancak trend ve fourier terimlerini içerir (burada tercih edilir). Regresyon, “kontrol ortalamasını” (~uyumlu değerleri) hesaplamak için kullanılır - daha sonra her hafta için ortalamada kayma olup olmadığını değerlendirmek için hesaplanmış bir genelleştirilmiş olabilirlik oranı (likelihood ratio) istatistiği kullanır. Her hafta için eşiğin önceki haftaları hesaba kattığını unutmayın, bu nedenle sürekli bir kayma varsa bir alarm tetiklenecektir. (Ayrıca her alarmdan sonra algoritmanın sıfırlandığını unutmayın)</p>
+<p>surveillance paketiyle çalışmak için öncelikle çerçeveye sığacak bir “gözetim zaman serisi” nesnesi (sts() fonksiyonunu kullanarak) tanımlamamız gerekir.</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## gözetim zaman serisi nesnesini tanımla</span></span>
+<span><span class="co">## not. popülasyon nesnesine bir payda ekleyebilirsiniz (bkz. ?sts)</span></span>
+<span><span class="va">counts_sts</span> <span class="op">&lt;-</span> <span class="fu">sts</span><span class="op">(</span>observed <span class="op">=</span> <span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                 start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>              <span class="co">## yalnızca start_date tarihinden itibaren yılı tutmak için alt küme</span></span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html">str_sub</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>              <span class="co">## yalnızca start_date tarihinden itibaren haftayı tutmak için alt küme</span></span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_sub.html">str_sub</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="fl">7</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>              <span class="co">## veri türünü tanımlayın (bu durumda haftalık)</span></span>
+<span>              freq <span class="op">=</span> <span class="fl">52</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## dahil etmek istediğiniz hafta aralığını tanımlayın (ör. tahmin dönemi)</span></span>
+<span><span class="co">## not. sts nesnesi yalnızca kendilerine tanımlanmış hafta ya da yılları atamadan gözlemleri sayar </span></span>
+<span><span class="co">## bu nedenle uygun olanı tanımlamak için verilerimizi kullanırız</span></span>
+<span><span class="va">weekrange</span> <span class="op">&lt;-</span> <span class="va">cut_off</span> <span class="op">-</span> <span class="va">start_date</span></span></code></pre></div>
+<!-- ======================================================= -->
+<p>Daha sonra Farrington yöntemi için parametrelerimizi bir liste halinde tanımlarız. Ardından farringtonFlexible() fonksiyonunu kullanarak algoritmayı çalıştırırız ve ardından bunu veri setimize dahil etmek için <a href="mailto:farringtonmethod@upperbound" class="email">farringtonmethod@upperbound</a> kullanarak bir uyarı eşiğini çıkarabiliriz. <a href="mailto:Farringtonmethod@alarm" class="email">Farringtonmethod@alarm</a> kullanarak her hafta için uyarı tetiklendiyse (eşiğin üzerindeyse) DOĞRU/YANLIŞ değerlerini çıkarmak da mümkündür.</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## kontrolü tanımlayın </span></span>
+<span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## eşik için zaman periyodunu tanımlayın (yani 2011)</span></span>
+<span>  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">counts_sts</span><span class="op">@</span><span class="va">epoch</span> <span class="op">&gt;</span> <span class="va">weekrange</span><span class="op">)</span>,</span>
+<span>  b <span class="op">=</span> <span class="fl">9</span>, <span class="co">## temelden kaç yıl geriye </span></span>
+<span>  w <span class="op">=</span> <span class="fl">2</span>, <span class="co">## haftalar halinde kaydırma penceresi </span></span>
+<span>  weightsThreshold <span class="op">=</span> <span class="fl">2.58</span>, <span class="co">## geçmiş salgınların yeniden ağırlıklandırılması (geliştirilmiş noufaily yöntemi - orijinal öneriler 1)</span></span>
+<span>  <span class="co">## pastWeeksNotIncluded = 3, ## mevcut tüm haftaları kullanın (noufaily önerisi 26’yı çıkarın)</span></span>
+<span>  trend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  pThresholdTrend <span class="op">=</span> <span class="fl">1</span>, <span class="co">## 0.05 normally, however 1 is advised in the improved method (i.e. always keep)</span></span>
+<span>  thresholdMethod <span class="op">=</span> <span class="st">"nbPlugin"</span>,</span>
+<span>  populationOffset <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co">## farrington’ın esnek yöntemini uygulayın </span></span>
+<span><span class="va">farringtonmethod</span> <span class="op">&lt;-</span> <span class="fu">farringtonFlexible</span><span class="op">(</span><span class="va">counts_sts</span>, <span class="va">ctrl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## orijinal veri setinde eşik adı verilen yeni bir değişken oluşturun</span></span>
+<span><span class="co">## farrington'dan gelen üst sınırı içerir</span></span>
+<span><span class="co">## not: bu yalnızca 2011'deki haftalar içindir (bu nedenle satırları alt kümelere ayırmanız gerekir)</span></span>
+<span><span class="va">counts</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">epiweek</span> <span class="op">&gt;=</span> <span class="va">cut_off</span> <span class="op">&amp;</span> </span>
+<span>               <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              <span class="st">"threshold"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">farringtonmethod</span><span class="op">@</span><span class="va">upperbound</span></span></code></pre></div>
+<p>Daha sonra sonuçları daha önce olduğu gibi ggplot’ta görselleştirebiliriz.</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## gözlemlenen vaka sayılarını bir çizgi olarak ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## sapma algoritmasının üst sınırını ekleyin </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">threshold</span>, colour <span class="op">=</span> <span class="st">"Alert threshold"</span><span class="op">)</span>, </span>
+<span>            linetype <span class="op">=</span> <span class="st">"dashed"</span>, </span>
+<span>            size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co">## renkleri belirleyin </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Observed"</span> <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>                                 <span class="st">"Alert threshold"</span> <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## geleneksel bir grafik oluşturun (siyah eksenli ve beyaz arka planlı)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## lejantın (işaret tablosunun) başlığını kaldırın  </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/plot_farrington-1.png" width="672"></div>
+<!-- ======================================================= -->
+<div id="glrnb-yöntemi" class="section level4 unnumbered">
+<h4>GLRNB yöntemi<a class="anchor" aria-label="anchor" href="#glrnb-y%C3%B6ntemi"><i class="fas fa-link"></i></a>
+</h4>
+<p>Benzer şekilde GLRNB yöntemi için her bir parametremizi bir liste halinde tanımlıyoruz, ardından algoritmayı uygun hale getiriyoruz ve üst sınırları çıkarıyoruz.</p>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> Bu yöntem, eşikleri hesaplamak için “kaba kuvvet” (önyüklemeye [bootstrapping’e] benzer) kullanır, bu nedenle uzun zaman alabilir!</span></p>
+<p>Ayrıntılar için <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">GLRNB gösterimi</a>
+bakabilirsiniz.</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## kontrol ayarlarını belirleyin </span></span>
+<span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  <span class="co">## hangi zaman dilimi için eşik değer isteneceğini tanımlayın (yani 2011)</span></span>
+<span>  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">counts_sts</span><span class="op">@</span><span class="va">epoch</span> <span class="op">&gt;</span> <span class="va">weekrange</span><span class="op">)</span>,</span>
+<span>  mu0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>S <span class="op">=</span> <span class="fl">1</span>,    <span class="co">## dahil edilecek fourier terimlerinin (harmonik) sayısı</span></span>
+<span>  trend <span class="op">=</span> <span class="cn">TRUE</span>,   <span class="co">## trendin dahil edilip edilmeyeceği</span></span>
+<span>  refit <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, <span class="co">## her alarmdan sonra modelin yeniden uydurulup uydurulmayacağı </span></span>
+<span>  <span class="co">## cARL = GLR istatistiği için eşik (keyfi)</span></span>
+<span>     <span class="co">## 3 ~ yanlış pozitifleri en aza indirmek için orta yol</span></span>
+<span>     <span class="co">## 1, glm.nb'nin %99 tahmin aralığına uyar - zirvelerden sonraki değişikliklerle (uyarı için eşik düşürüldü)</span></span>
+<span>   c.ARL <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>   <span class="co"># theta = log(1.5), ## salgın vakalarında %50 artışa eşittir</span></span>
+<span>   ret <span class="op">=</span> <span class="st">"cases"</span>     <span class="co">## vaka sayısı olarak üst sınıra dönüş eşiği</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co">## glrnb yöntemini uygula</span></span>
+<span><span class="va">glrnbmethod</span> <span class="op">&lt;-</span> <span class="fu">glrnb</span><span class="op">(</span><span class="va">counts_sts</span>, control <span class="op">=</span> <span class="va">ctrl</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## orijinal veri setinde eşik adı verilen yeni bir değişken oluşturun</span></span>
+<span><span class="co">## glrnb'den üst sınırı içeren</span></span>
+<span><span class="co">## not. bu yalnızca 2011'deki haftalar içindir (bu nedenle satırları alt kümelere ayırmanız gerekir)</span></span>
+<span><span class="va">counts</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">epiweek</span> <span class="op">&gt;=</span> <span class="va">cut_off</span> <span class="op">&amp;</span> </span>
+<span>               <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              <span class="st">"threshold_glrnb"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">glrnbmethod</span><span class="op">@</span><span class="va">upperbound</span></span></code></pre></div>
+<p>Çıktıları daha önce olduğu gibi görselleştirin.</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## gözlemlenen vaka sayılarını bir çizgi olarak ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## sapma algoritmasının üst sınırına ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">threshold_glrnb</span>, colour <span class="op">=</span> <span class="st">"Alert threshold"</span><span class="op">)</span>, </span>
+<span>            linetype <span class="op">=</span> <span class="st">"dashed"</span>, </span>
+<span>            size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co">## renkleri belirleyin </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Observed"</span> <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>                                 <span class="st">"Alert threshold"</span> <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## geleneksel bir grafik oluşturun (siyah eksenli ve beyaz arka planlı)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## lejantın (işaret tablosunun) başlığını kaldırın  </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/plot_glrnb-1.png" width="672"></div>
+<!-- ======================================================= -->
+</div>
+</div>
+</div>
+<div id="kesintili-zaman-serileri" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> Kesintili zaman serileri<a class="anchor" aria-label="anchor" href="#kesintili-zaman-serileri"><i class="fas fa-link"></i></a>
+</h2>
+<p>Kesintili zaman serileri (ayrıca bölümlere ayrılmış regresyon veya müdahale analizi olarak da adlandırılır), genellikle aşıların hastalık insidansı üzerindeki etkisini değerlendirmede kullanılır. Ancak çok çeşitli müdahalelerin etkisini değerlendirmek için kullanılabilir. Örneğin, hastane prosedürlerinde değişiklikler veya bir popülasyona yeni bir hastalık türünün görülmesi. Bu örnekte, 2008’in sonunda Almanya’ya yeni bir Campylobacter türünün geldiğini farz edeceğiz ve bunun vaka sayısını etkileyip etkilemediğini göreceğiz. Negatif binom regresyonunu tekrar kullanacağız. Bu seferki regresyon, müdahaleden önce (veya burada yeni suşun gelişi) ve diğeri (ön/pre- ve son/post dönemler) olmak üzere iki kısma ayrılacaktır. Bu, iki zaman periyodunu karşılaştıran bir insidans oranı hesaplamamızı sağlar. Denklemi açıklamak anlatımı daha net hale getirebilir (eğer değilse, görmezden gelin!).</p>
+<p>Negatif binom regresyon aşağıdaki gibi tanımlanabilir:</p>
+<p><span class="math display">\[\log(Y_t)= β_0 + β_1 \times t+ β_2 \times δ(t-t_0) + β_3\times(t-t_0 )^+ + log(pop_t) + e_t\]</span></p>
+<p>Neresi:
+<span class="math inline">\(Y_t\)</span>, <span class="math inline">\(t\)</span> anında gözlemlenen vaka sayısıdır
+<span class="math inline">\(pop_t\)</span>, <span class="math inline">\(t\)</span> anındaki 100.000’lerdeki nüfus büyüklüğüdür (burada kullanılmaz)
+<span class="math inline">\(t_0\)</span> ön dönemin son yılıdır (varsa geçiş süresi dahil)
+<span class="math inline">\(δ(x\)</span> gösterge işlevidir (x≤0 ise 0 ve x&gt;0 ise 1’dir)
+<span class="math inline">\((x)^+\)</span> kesme operatörüdür (x&gt;0 ise x, aksi takdirde 0’dır)
+<span class="math inline">\(e_t\)</span> kalıntıyı belirtir
+Gerektiğinde ek terimler trend ve sezon eklenebilir.</p>
+<p><span class="math inline">\(β_2 \times δ(t-t_0) + β_3\times(t-t_0 )^+\)</span> genelleştirilmiş doğrusaldır
+sonrası dönemin bir parçasıdır ve ön dönemde sıfırdır.
+Bu, <span class="math inline">\(β_2\)</span> ve <span class="math inline">\(β_3\)</span> tahminlerinin müdahalenin etkileri olduğu anlamına gelir.</p>
+<p>Elimizdeki tüm verileri (yani geriye dönük olarak) kullanacağımızdan, burada tahmin yapmadan fourier terimlerini yeniden hesaplamamız gerekiyor. Ek olarak, regresyon için gereken ekstra terimleri hesaplamamız gerekiyor.</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## epi hafta ve case_int değişkenlerini kullanarak fourier terimleri ekleyin</span></span>
+<span><span class="va">counts</span><span class="op">$</span><span class="va">fourier</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">fourier</span><span class="op">(</span>K <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## müdahale haftasını tanımla</span></span>
+<span><span class="va">intervention_week</span> <span class="op">&lt;-</span> <span class="fu">yearweek</span><span class="op">(</span><span class="st">"2008-12-31"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## regresyon için değişkenleri tanımlayın</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co">## formüldeki t'ye karşılık gelir</span></span>
+<span>      <span class="co">## hafta sayısı (muhtemelen düz epiweeks değişkenini de kullanabilir)</span></span>
+<span>    <span class="co"># linear = row_number(epiweek), </span></span>
+<span>    <span class="co">## formüldeki delta(t-t0)'a karşılık gelir</span></span>
+<span>      <span class="co">## müdahale öncesi veya sonrası dönem</span></span>
+<span>    intervention <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">epiweek</span> <span class="op">&gt;=</span> <span class="va">intervention_week</span><span class="op">)</span>, </span>
+<span>    <span class="co">## formüldeki (t-t0)^+'a karşılık gelir</span></span>
+<span>      <span class="co">## müdahale sonrası hafta sayısı</span></span>
+<span>      <span class="co">## (0 ile hesaplanan değer arasındaki sayılardan daha büyük sayıyı seçin)</span></span>
+<span>    time_post <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">epiweek</span> <span class="op">-</span> <span class="va">intervention_week</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Daha sonra bu terimleri negatif bir binom regresyonuna uydurmak için kullanırız ve çıktısı yüzde değişimi olan bir tablo elde ederiz. Bu örnekte, önemli bir değişiklik görülmemiştir.</p>
+<p><span style="color: orange;"><strong><em>DİKKAT:</em></strong> Npredict() değişkeninde simulate_pi = FALSE kullanımına dikkat edin. Bunun nedeni, trending’in varsayılan davranışının bir tahmin aralığı oluşturmak için ciTools paketini kullanmasıdır. NA (eksik) sayılar varsa bu paket çalışmaz ve daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
+<span>  <span class="co">## ilgilenilen çıktı olarak vaka sayısını belirleyeni </span></span>
+<span>  <span class="va">case_int</span> <span class="op">~</span></span>
+<span>    <span class="co">## trendi hesaba katmak için epiweek'i kullanın</span></span>
+<span>    <span class="va">epiweek</span> <span class="op">+</span></span>
+<span>    <span class="co">## mevsimselliği hesaba katmak için fourier terimlerini kullanın</span></span>
+<span>    <span class="va">fourier</span> <span class="op">+</span> </span>
+<span>    <span class="co">## öncesi (pre-) veya sonrası (post-) dönemde ekleyin</span></span>
+<span>    <span class="va">intervention</span> <span class="op">+</span> </span>
+<span>    <span class="co">## müdahale sonrası zamanı ekleyin</span></span>
+<span>    <span class="va">time_post</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="co">## sayım veri setini kullanarak modelinizi uydurun </span></span>
+<span><span class="va">fitted_model</span> <span class="op">&lt;-</span> <span class="fu">trending</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/trending/man/fit.html">fit</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">counts</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## güven ve tahmin aralıklarını hesaplayın</span></span>
+<span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co">## tabloda tahminleri ve yüzde değişimini gösterin </span></span>
+<span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## orijinal negatif binom regresyonunu çıkarın</span></span>
+<span>  <span class="fu">get_model</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sonuçların düzenli (tidy) veri çerçevesini elde edin </span></span>
+<span>  <span class="fu">tidy</span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>       conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## sadece müdahale değerini koruyun</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"intervention"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## tahmin ve güven aralıkları için IRR'yi yüzde değişikliğine değiştirin</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co">## ilgilenilen sütunların her biri için - yeni bir sütun oluşturun</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"estimate"</span>, <span class="st">"conf.low"</span>, <span class="st">"conf.high"</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>      <span class="co">## yüzde değişimini hesaplamak için formülü uygulayın</span></span>
+<span>            .f <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>, </span>
+<span>      <span class="co">## yeni sütun adlarına bir sonek "_perc"  ekleyin</span></span>
+<span>      .names <span class="op">=</span> <span class="st">"{.col}_perc"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co">## yalnızca belirli sütunları tutun (ve yeniden adlandırın)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">"IRR"</span> <span class="op">=</span> <span class="va">estimate</span>, </span>
+<span>         <span class="st">"95%CI low"</span> <span class="op">=</span> <span class="va">conf.low</span>, </span>
+<span>         <span class="st">"95%CI high"</span> <span class="op">=</span> <span class="va">conf.high</span>,</span>
+<span>         <span class="st">"Percentage change"</span> <span class="op">=</span> <span class="va">estimate_perc</span>, </span>
+<span>         <span class="st">"95%CI low (perc)"</span> <span class="op">=</span> <span class="va">conf.low_perc</span>, </span>
+<span>         <span class="st">"95%CI high (perc)"</span> <span class="op">=</span> <span class="va">conf.high_perc</span>,</span>
+<span>         <span class="st">"p-value"</span> <span class="op">=</span> <span class="va">p.value</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##     IRR `95%CI low` `95%CI high` `Percentage change` `95%CI low (perc)` `95%CI high (perc)` `p-value`
+##   &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;               &lt;dbl&gt;              &lt;dbl&gt;               &lt;dbl&gt;     &lt;dbl&gt;
+## 1 0.936       0.874         1.00               -6.40              -12.6               0.306    0.0645</code></pre>
+<p>Daha önce olduğu gibi, regresyonun çıktılarını görselleştirebiliriz.</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## gözlemlenen vaka sayılarını bir çizgi olarak ekle</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## model tahmini için bir satır ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">estimate</span>, col <span class="op">=</span> <span class="st">"Estimate"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## tahmin aralıkları için bir bant ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower_pi</span>, </span>
+<span>                  ymax <span class="op">=</span> <span class="va">upper_pi</span><span class="op">)</span>, </span>
+<span>              alpha <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## tahminin nerede başladığını göstermek için dikey çizgi ve etiket ekleyin</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span></span>
+<span>           xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">intervention_week</span><span class="op">)</span>, </span>
+<span>           linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, </span>
+<span>           label <span class="op">=</span> <span class="st">"Intervention"</span>, </span>
+<span>           x <span class="op">=</span> <span class="va">intervention_week</span>, </span>
+<span>           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">observed</span><span class="op">$</span><span class="va">upper_pi</span><span class="op">)</span>, </span>
+<span>           angle <span class="op">=</span> <span class="fl">90</span>, </span>
+<span>           vjust <span class="op">=</span> <span class="fl">1</span></span>
+<span>           <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## renkleri tanımlayın</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Observed"</span> <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>                                 <span class="st">"Estimate"</span> <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="co">## geleneksel bir grafik oluşturun (siyah eksenli ve beyaz arka planlı)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: Removed 13 rows containing missing values (`geom_line()`).</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/plot_interrupted-1.png" width="672"></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 13 satır kaldırıldı (geom_path).</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="kaynaklar" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://otexts.com/fpp3/">Tahminleme: İlkeler ve uygulama ders kitabı</a><br><a href="https://github.com/EPIET/TimeSeriesAnalysis">EPIET zaman serisi analizi vaka çalışmaları</a><br><a href="https://online.stat.psu.edu/stat510/lesson/1">Penn State kursu</a>
+<a href="https://www.jstatsoft.org/article/view/v070i10">Surveillance paketi metni</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"></a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi"><span class="header-section-number">1</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="nav-link" href="#genel-bak%C4%B1%C5%9F"><span class="header-section-number">1.1</span> Genel bakış</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k"><span class="header-section-number">1.2</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketler">Paketler</a></li>
+<li><a class="nav-link" href="#veri-y%C3%BCkleme">Veri yükleme</a></li>
+<li><a class="nav-link" href="#temiz-veri">Temiz veri</a></li>
+<li><a class="nav-link" href="#iklim-verisinin-indirilmesi">İklim verisinin indirilmesi</a></li>
+<li><a class="nav-link" href="#iklim-verisinin-y%C3%BCklenmesi">İklim verisinin yüklenmesi</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#zaman-serisi-verisi"><span class="header-section-number">1.3</span> Zaman serisi verisi</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#duplikasyonlar">Duplikasyonlar</a></li>
+<li><a class="nav-link" href="#eksikler">Eksikler</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#tan%C4%B1mlay%C4%B1c%C4%B1-analizler"><span class="header-section-number">1.4</span> Tanımlayıcı analizler</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#timeseries_moving">Hareketli ortalamalar</a></li>
+<li><a class="nav-link" href="#periyodisite">Periyodisite</a></li>
+<li><a class="nav-link" href="#ayr%C4%B1%C5%9Ft%C4%B1rma">Ayrıştırma</a></li>
+<li><a class="nav-link" href="#otokorelasyon">Otokorelasyon</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#uyum-regresyonlar%C4%B1"><span class="header-section-number">1.5</span> Uyum regresyonları</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#fourier-terimleri">Fourier terimleri</a></li>
+<li><a class="nav-link" href="#negatif-binomial">Negatif binomial</a></li>
+<li><a class="nav-link" href="#art%C4%B1klar-residuals">Artıklar (Residuals)</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#iki-zaman-serisinin-ili%C5%9Fkisi"><span class="header-section-number">1.6</span> İki zaman serisinin ilişkisi</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#veritabanlar%C4%B1n%C4%B1n-birle%C5%9Ftirilmesi">Veritabanlarının birleştirilmesi</a></li>
+<li><a class="nav-link" href="#tan%C4%B1mlay%C4%B1c%C4%B1-analizler-1">Tanımlayıcı analizler</a></li>
+<li><a class="nav-link" href="#gecikmeler-ve-%C3%A7apraz-korelasyonlar">Gecikmeler ve çapraz korelasyonlar</a></li>
+<li><a class="nav-link" href="#iki-de%C4%9Fi%C5%9Fkenli-negatif-binomial">İki değişkenli negatif binomial</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#salg%C4%B1nlar%C4%B1n-tespit-edilmesi"><span class="header-section-number">1.7</span> Salgınların tespit edilmesi</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#trending-paketi">trending paketi</a></li>
+<li><a class="nav-link" href="#surveillance-paketi">surveillance paketi</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kesintili-zaman-serileri"><span class="header-section-number">1.8</span> Kesintili zaman serileri</a></li>
+<li><a class="nav-link" href="#kaynaklar"><span class="header-section-number">1.9</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

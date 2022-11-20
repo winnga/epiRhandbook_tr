@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>21 Standardize edilmiş hızlar | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bu sayfa, hastaneye yatış veya ölüm oranları gibi bir çıktıyı yaş ve cinsiyet gibi özelliklere göre standardize etmenin iki yolunu gösterecektir. dsr paketini kullanma PHEindicatormethods paketini...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="21 Standardize edilmiş hızlar | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bu sayfa, hastaneye yatış veya ölüm oranları gibi bir çıktıyı yaş ve cinsiyet gibi özelliklere göre standardize etmenin iki yolunu gösterecektir. dsr paketini kullanma PHEindicatormethods paketini...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="21 Standardize edilmiş hızlar | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bu sayfa, hastaneye yatış veya ölüm oranları gibi bir çıktıyı yaş ve cinsiyet gibi özelliklere göre standardize etmenin iki yolunu gösterecektir. dsr paketini kullanma PHEindicatormethods paketini...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="active" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="standardize-edilmiş-hızlar" class="section level1" number="21">
+<h1>
+<span class="header-section-number">21</span> Standardize edilmiş hızlar<a class="anchor" aria-label="anchor" href="#standardize-edilmi%C5%9F-h%C4%B1zlar"><i class="fas fa-link"></i></a>
+</h1>
+<p>Bu sayfa, hastaneye yatış veya ölüm oranları gibi bir çıktıyı yaş ve cinsiyet gibi özelliklere göre standardize etmenin iki yolunu gösterecektir.</p>
+<ul>
+<li>
+<strong>dsr</strong> paketini kullanma</li>
+<li>
+<strong>PHEindicatormethods</strong> paketini kullanma</li>
+</ul>
+<p>Birden fazla ülkeden nüfus verileri, standart nüfus verileri, ölümler vb. birleştirilmesi için yaygın kullanımı olduğu için, veri hazırlama/temizleme/birleştirme süreçlerini kapsamlı bir şekilde göstererek başlıyoruz.</p>
+<div id="genel-bakış-1" class="section level2" number="21.1">
+<h2>
+<span class="header-section-number">21.1</span> Genel bakış<a class="anchor" aria-label="anchor" href="#genel-bak%C4%B1%C5%9F-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Standardizasyonun iki ana yöntemi vardır: Direkt ve indirekt standardizasyon.
+A ve B ülkeleri için ölüm hızlarını yaşa ve cinsiyete göre standardize etmek ve bu ülkeler arasındaki standardize edilmiş oranları karşılaştırmak istediğimizi varsayalım.</p>
+<ul>
+<li>Direk standardizasyon için, A ülkesi ve B ülkesi için her yaş ve cinsiyet tabakası için risk altındaki popülasyon büyüklüğüve ölümlerin sayısını bilmeniz gerekecektir. Örneğimizdeki bir katman 15-44 yaş arası kadınlar olabilir.</li>
+<li>İndirekt standardizasyon için, her ülkenin toplam ölüm sayısı, yaş ve cinsiyet yapısını bilmeniz gerekir. Dolayısıyla bu seçenek, yaşa ve cinsiyete özgü ölüm hızları veya nüfus sayıları mevcut değilse uygulanabilir. Direkt standardizasyondaki tahminler örneklem varyasyonundan etkileneceğinden; tabaka başına küçük sayıların olması durumunda indirekt standardizasyon tercih edilir.</li>
+</ul>
+<!-- ======================================================= -->
+</div>
+<div id="hazırlık-12" class="section level2" number="21.2">
+<h2>
+<span class="header-section-number">21.2</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-12"><i class="fas fa-link"></i></a>
+</h2>
+<p>Standardizasyonun nasıl yapıldığını göstermek için, A ve B ülkelerinin yaşa (5 yıllık tabakalar halinde) ve cinsiyete (kadın, erkek) göre kurgusal nüfus büyüklükleri ve ölüm sayımlarını kullanacağız. Veri setlerini kullanıma hazır hale getirmek için aşağıdaki hazırlık adımlarını gerçekleştireceğiz:</p>
+<ol style="list-style-type: decimal">
+<li>Paketlerin yüklenmesi<br>
+</li>
+<li>Veri tabanlarının yüklenmesi</li>
+<li>İki ülkenin nüfus ve ölüm verilerini birleştirilmesi</li>
+<li>Yaş-cinsiyet katmanı başına bir satır olacak şekilde daha uzun şekilde pivotlama</li>
+<li>Referans popülasyonunu (dünya standart nüfusu) temizleme ve ülke verilerine ekleme</li>
+</ol>
+<p>Senaryonuzda, verileriniz farklı bir biçimde gelebilir. Belki verileriniz il, şehir veya başka bir hizmet alanına göre düzenlenmiştir. Her ölüm için bir satır ve bu ölümlerin her biri (veya önemli bir kısmı) için yaş ve cinsiyet bilgileri olabilir. Bu durumda, yaş-cinsiyet katmanlarına göre olay ve nüfus sayıları içeren bir veri tabanı oluşturmak için [Verileri gruplandırma], [Verileri pivotlama] ve <a href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html#tan%C4%B1mlay%C4%B1c%C4%B1-tablolar">Tanımlayıcı tablolar</a> sayfalarına bakın.</p>
+<p>Ayrıca bir referans popülasyona, standart popülasyona ihtiyacımız vardır. Bu alıştırma için <code>world_standard_population_by_sex</code>’i kullanacağız. Dünya standart nüfusu, 46 ülkenin nüfusuna dayanmaktadır ve 1960 yılında geliştirilmiştir. Birçok “standart” popülasyon vardır - bir örnek olarak, <a href="https://www.opendata.nhs.scot/dataset/standard-populations">NHS İskoçya’nın web sitesi</a> Avrupa Standart Nüfusu, Dünya Standart Nüfusu ve İskoçya Standardı hakkında detaylı bilgi içermektedir. (European Standard Population, World Standard Population and Scotland Standard Population).</p>
+<!-- ======================================================= -->
+<div id="paketlerin-yüklenmesi-3" class="section level3 unnumbered">
+<h3>Paketlerin yüklenmesi<a class="anchor" aria-label="anchor" href="#paketlerin-y%C3%BCklenmesi-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod kümesi, analizler için gereken paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen <strong>pacman</strong>’ın <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> fonksiyonunu vurguluyoruz. Ayrıca, R tabanından <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R’ın temelleri] sayfasına bakın.</p>
+<div class="sourceCode" id="cb1072"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>     <span class="va">rio</span>,                 <span class="co"># verileri içe/dışa aktar</span></span>
+<span>     <span class="va">here</span>,                <span class="co"># dosyaları bul</span></span>
+<span>     <span class="va">tidyverse</span>,           <span class="co"># veri yönetimi ve görselleştirme</span></span>
+<span>     <span class="va">stringr</span>,             <span class="co"># karakterleri ve dizeleri (string) temizleme</span></span>
+<span>     <span class="va">frailtypack</span>,         <span class="co"># frailty modelleri için dsr için gerekli</span></span>
+<span>     <span class="va">dsr</span>,                 <span class="co"># hızları standardize et</span></span>
+<span>     <span class="va">PHEindicatormethods</span><span class="op">)</span> <span class="co"># hızların  standardizasyonu için alternatif</span></span></code></pre></div>
+<p><span style="color: orange;">**DİKKAT:_** Daha yeni bir R sürümüne sahipseniz, <strong>dsr</strong> paketi doğrudan CRAN’den indirilemez. Ancak, yine de bu paket CRAN arşivinden temin edilebilir. Bu şekilde paketi yükleyebilir ve kullanabilirsiniz. </span></p>
+<p>Mac kullanıcısı olmayanlar için:</p>
+<div class="sourceCode" id="cb1073"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">packageurl</span> <span class="op">&lt;-</span> <span class="st">"https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">packageurl</span>, repos<span class="op">=</span><span class="cn">NULL</span>, type<span class="op">=</span><span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1074"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Diğer çözüm</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span><span class="op">(</span><span class="st">"dsr"</span>, version<span class="op">=</span><span class="st">"0.2.2"</span>, repos<span class="op">=</span><span class="st">"http:/cran.us.r.project.org"</span><span class="op">)</span></span></code></pre></div>
+<p>Mac kullanıcıları için:</p>
+<div class="sourceCode" id="cb1075"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_version.html">install_version</a></span><span class="op">(</span><span class="st">"dsr"</span>, version<span class="op">=</span><span class="st">"0.2.2"</span>, repos<span class="op">=</span><span class="st">"https://mac.R-project.org"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="popülasyon-verisinin-yüklenmesi" class="section level3 unnumbered">
+<h3>Popülasyon verisinin yüklenmesi<a class="anchor" aria-label="anchor" href="#pop%C3%BClasyon-verisinin-y%C3%BCklenmesi"><i class="fas fa-link"></i></a>
+</h3>
+<p>El kitabındaki tüm örnek verilerin nasıl indirileceğine ilişkin talimatlar için [Verilerin ve el kitabının indirilmesi] sayfasına bakın. Aşağıdaki <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> komutlarını çalıştırarak Standardizasyon sayfası verilerini Github depomuzdan doğrudan R’a aktarabilirsiniz:</p>
+<div class="sourceCode" id="cb1076"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># A ülkesi için demografik veriyi doğrudan Github'dan içe aktarın</span></span>
+<span><span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># A ülkesi için ölümleri doğrudan Github'dan içe aktarın</span></span>
+<span><span class="va">A_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># B ülkesi için demografik veriyi doğrudan Github'dan içe aktarın</span></span>
+<span><span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># B ülkesi için ölümleri doğrudan Github'dan içe aktarın</span></span>
+<span><span class="va">B_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># B ülkesi için demografik veriyi doğrudan Github'dan içe aktarın</span></span>
+<span><span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>İlk önce karşılaştıracağımız iki ülke olan “Ülke A” ve “Ülke B” için demografik verileri (5 yıllık yaş kategorisine göre kadın ve erkek sayıları) yüklüyoruz.</p>
+<div class="sourceCode" id="cb1077"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># A ülkesi</span></span>
+<span><span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"country_demographics.csv"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-b5f539a54a3f957a5985" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b5f539a54a3f957a5985">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[7828087,6705882,5601230,4576430,3734111,3111651,2571215,2121247,1735468,1418749,1145345,900239,685141,500248,347093,202240,94325,40402],[7674675,6592449,5522555,4533885,3726537,3118040,2592416,2150490,1771213,1459439,1193903,956070,745682,563894,416543,258538,130479,64656]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb1078"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># B ülkesi</span></span>
+<span><span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"country_demographics_2.csv"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-ea2ce5b29208653aa321" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ea2ce5b29208653aa321">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[513458,508728,673522,844532,965423,1243552,1400065,1428773,1546221,1562880,2355220,2324555,2988200,2527110,1552200,1466902,876251,1073611],[503262,559249,652455,145453,965237,1238640,1392676,1505040,1671213,1459439,2218733,3528103,3204770,2500130,1683925,1683828,987362,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>m<\/th>\n      <th>f<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="ölüm-sayılarının-yüklenmesi" class="section level3 unnumbered">
+<h3>Ölüm sayılarının yüklenmesi<a class="anchor" aria-label="anchor" href="#%C3%B6l%C3%BCm-say%C4%B1lar%C4%B1n%C4%B1n-y%C3%BCklenmesi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Elimizde uygun bir şekilde, ilgilenilen zaman dilimindeki yaş ve cinsiyete göre ölüm sayıları da bulunmaktadır. Her ülkenin ölüm sayıları aşağıda gösterilen ayrı bir dosyadadır.</p>
+<p>A Ülkesindeki Ölümler</p>
+<div id="htmlwidget-64f67282f30c9b3bc924" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64f67282f30c9b3bc924">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[224,257,251,245,334,245,154,189,334,342,565,432,543,432,245,543,234,354],[194,254,232,214,316,224,163,167,354,354,463,574,493,295,175,380,177,392]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>B Ülkesindeki Ölümler</p>
+<div id="htmlwidget-5562c38ce9a22ec1154a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5562c38ce9a22ec1154a">{"x":{"filter":"none","vertical":false,"data":[["B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85"],[34,37,51,145,434,120,100,143,307,354,463,639,706,232,275,543,234,274],[54,24,32,154,276,254,123,164,254,354,453,654,435,354,165,432,287,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>AgeCat<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="nüfus-ve-ölüm-verilerinin-temizliği" class="section level3 unnumbered">
+<h3>Nüfus ve ölüm verilerinin temizliği<a class="anchor" aria-label="anchor" href="#n%C3%BCfus-ve-%C3%B6l%C3%BCm-verilerinin-temizli%C4%9Fi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu verileri aşağıdaki şekillerde birleştirmemiz ve dönüştürmemiz gerekiyor:</p>
+<ul>
+<li>Ülke popülasyonlarını tek bir veri tabanında birleştirin ve her bir yaş-cinsiyet katmanının bir satır olması için “uzun” şekilde pivotlayın</li>
+<li>Ülke ölüm sayılarını tek bir veri tabanında birleştirin ve her bir yaş-cinsiyet katmanının bir satır olması için “uzun” şekilde pivotlayın</li>
+<li>Ölümleri nüfusla birleştirin</li>
+</ul>
+<p>İlk olarak, ülke popülasyonları veri tabanlarını birleştirip, daha sonra uzun biçimde pivotlar ve temizlik yaparız. Daha fazla ayrıntı için <a href="verilerin-pivotlanmas%C4%B1.html#verilerin-pivotlanmas%C4%B1">Verilerin pivotlanması</a> sayfasına bakın.</p>
+<div class="sourceCode" id="cb1079"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pop_countries</span> <span class="op">&lt;-</span> <span class="va">A_demo</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># A ülkesi veritabanı ile başla</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">B_demo</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># Satırları B veri tabanıyla bağla, çünkü sütunlar aynı şekilde adlandırılır</span></span>
+<span>     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>                       <span class="co"># uzun şekilde pivotlama</span></span>
+<span>          cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">f</span><span class="op">)</span>,                   <span class="co"># birleştirilecek sütunlar</span></span>
+<span>          names_to <span class="op">=</span> <span class="st">"Sex"</span>,                 <span class="co"># kategoriyi ("m" veya "f") içeren yeni sütunun adı </span></span>
+<span>          values_to <span class="op">=</span> <span class="st">"Population"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>     <span class="co"># özetlenen sayısal değerleri içeren yeni sütunun adı</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Sex <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">Sex</span>,            <span class="co"># anlaşılması için değerleri yeniden kodla</span></span>
+<span>          <span class="st">"m"</span> <span class="op">=</span> <span class="st">"Male"</span>,</span>
+<span>          <span class="st">"f"</span> <span class="op">=</span> <span class="st">"Female"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Birleşik nüfus verileri şimdi şöyle görünür (A ve B ülkelerini görmek için tıklayın):</p>
+<div id="htmlwidget-1237b2494b016cffe3fe" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1237b2494b016cffe3fe">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Şimdi de iki ölüm veri setinde benzer işlemler yapıyoruz.</p>
+<div class="sourceCode" id="cb1080"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">deaths_countries</span> <span class="op">&lt;-</span> <span class="va">A_deaths</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>    <span class="co"># A ülkesi ölüm veritabanı ile başlayın</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">B_deaths</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># Satırları B veri tabanıyla bağla, çünkü sütunlar aynı şekilde adlandırılır</span></span>
+<span>     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>                  <span class="co"># uzun şekilde pivotlama</span></span>
+<span>          cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Male</span>, <span class="va">Female</span><span class="op">)</span>,        <span class="co"># birleştirilecek sütunlar</span></span>
+<span>          names_to <span class="op">=</span> <span class="st">"Sex"</span>,              <span class="co"># kategoriyi ("m" veya "f") içeren yeni sütunun adı</span></span>
+<span>          values_to <span class="op">=</span> <span class="st">"Deaths"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>      <span class="co"># özetlenen sayısal değerleri içeren yeni sütunun adı</span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>age_cat5 <span class="op">=</span> <span class="va">AgeCat</span><span class="op">)</span>      <span class="co"># anlaşılması için değerleri yeniden kodla</span></span></code></pre></div>
+<p>Ölüm verileri şimdi böyle görünüyor ve her iki ülkeden de veriler içermekte:</p>
+<div id="htmlwidget-ffe6973ed54f49d44425" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ffe6973ed54f49d44425">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Şimdi <code>Country</code>, <code>age_cat5</code> ve <code>Sex</code> ortak sütunlarına dayalı ölüm ve nüfus verilerini birleştiriyoruz. Bu işlem, <code>Deaths</code> sütununu ekler.</p>
+<div class="sourceCode" id="cb1081"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="va">pop_countries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">deaths_countries</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Country"</span>, <span class="st">"age_cat5"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Artık <code>Sex</code>, <code>age_cat5</code> ve <code>Country</code>’yi faktör olarak sınıflandırabilir ve <a href="fakt%C3%B6rler.html#fakt%C3%B6rler">Faktörler</a> sayfasında açıklandığı gibi <strong>forcats</strong> paketinden <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code> fonksiyonunu kullanarak seviye sırasını ayarlayabiliriz. Unutulmamalıdır ki, faktör seviyelerinin sınıflandırılması verileri gözle görülür şekilde değiştirmez, ancak <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> komutu verileri ülkeye, yaş kategorisine ve cinsiyete göre sıralar.</p>
+<div class="sourceCode" id="cb1082"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">country_data</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    Country <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">Country</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>    Sex <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>    age_cat5 <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span></span>
+<span>      <span class="va">age_cat5</span>,</span>
+<span>      <span class="st">"0-4"</span>, <span class="st">"5-9"</span>, <span class="st">"10-14"</span>, <span class="st">"15-19"</span>,</span>
+<span>      <span class="st">"20-24"</span>, <span class="st">"25-29"</span>,  <span class="st">"30-34"</span>, <span class="st">"35-39"</span>,</span>
+<span>      <span class="st">"40-44"</span>, <span class="st">"45-49"</span>, <span class="st">"50-54"</span>, <span class="st">"55-59"</span>,</span>
+<span>      <span class="st">"60-64"</span>, <span class="st">"65-69"</span>, <span class="st">"70-74"</span>,</span>
+<span>      <span class="st">"75-79"</span>, <span class="st">"80-84"</span>, <span class="st">"85"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">Country</span>, <span class="va">age_cat5</span>, <span class="va">Sex</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-2adf0486ab15d2b415c4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2adf0486ab15d2b415c4">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><span style="color: orange;"><strong><em>DİKKAT:</em></strong> Her tabakada az sayıda ölüm varsa, yaşa göre 5 yıllık kategoriler yerine 10 veya 15 yıllık kategorileri kullanmayı düşünün.</span></p>
+</div>
+<div id="referans-popülasyonun-yüklenmesi" class="section level3 unnumbered">
+<h3>Referans popülasyonun yüklenmesi<a class="anchor" aria-label="anchor" href="#referans-pop%C3%BClasyonun-y%C3%BCklenmesi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Son olarak, direkt standardizasyon için referans popülasyonu (cinsiyete göre dünya “standart nüfusu”) içe aktarıyoruz.</p>
+<div class="sourceCode" id="cb1083"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Referans popülasyon</span></span>
+<span><span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"world_standard_population_by_sex.csv"</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-44ae461a191edcfeb697" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-44ae461a191edcfeb697">{"x":{"filter":"none","vertical":false,"data":[["0-4 years","0-4 years","5-9 years","5-9 years","10-14 years","10-14 years","15-19 years","15-19 years","20-24 years","20-24 years","25-29 years","25-29 years","30-34 years","30-34 years","35-39 years","35-39 years","40-44 years","40-44 years","45-49 years","45-49 years","50-54 years","50-54 years","55-59 years","55-59 years","60-64 years","60-64 years","65-69 years","65-69 years","70-74 years","70-74 years","75-79 years","75-79 years","80-84 years","80-84 years","85plus years","85plus years"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>WorldStandardPopulation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+<div id="referans-popülasyon-verisinin-temizliği" class="section level3 unnumbered">
+<h3>Referans popülasyon verisinin temizliği<a class="anchor" aria-label="anchor" href="#referans-pop%C3%BClasyon-verisinin-temizli%C4%9Fi"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>country_data</code> ve <code>standard_pop_data</code> veri çerçevelerindeki yaş kategorisi değerlerinin hizalanması gerekir.</p>
+<p>Şu anda, <code>standart_pop_data</code> veri çerçevesinden <code>age_cat5</code> sütununun değerleri “yıllar” ve “artı” kelimelerini içerirken <code>country_data</code> veri çerçevesindeki sütun bu kelimeleri içermemektedir. Yaş kategorisi değerlerini eşleştirmemiz gerekecek. Bu kalıpları boşluksuz olarak <code>""</code> biçiminde değiştirmek için <a href="karakterler-ve-dizeler.html#karakterler-ve-dizeler">Karakterler ve dizeler</a> sayfasında açıklandığı gibi <strong>stringr</strong> paketinden <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all()</a></code> komutunu kullanıyoruz.</p>
+<p>Ayrıca, <strong>dsr</strong> paketi standart popülasyonda sayıları içeren sütunun <code>"pop"</code> olarak adlandırılmasını bekler. Bu yüzden bu sütunu bu şekilde yeniden adlandırıyoruz.</p>
+<div class="sourceCode" id="cb1084"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Sütun değerlerinden belirli dizeyi kaldır</span></span>
+<span><span class="va">standard_pop_clean</span> <span class="op">&lt;-</span> <span class="va">standard_pop_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>          age_cat5 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">"years"</span>, <span class="st">""</span><span class="op">)</span>,   <span class="co"># "year"'ı kaldır</span></span>
+<span>          age_cat5 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">"plus"</span>, <span class="st">""</span><span class="op">)</span>,    <span class="co"># "plus"'ı kaldır</span></span>
+<span>          age_cat5 <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">age_cat5</span>, <span class="st">" "</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># " " boşluğu kaldır</span></span>
+<span>     </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>pop <span class="op">=</span> <span class="va">WorldStandardPopulation</span><span class="op">)</span>   <span class="co"># dsr paketi tarafından tanınması için sütun adını "pop" olarak değiştir</span></span></code></pre></div>
+<p><span style="color: orange;"><strong><em>DİKKAT:</em></strong> Bir artı <em>sembolünü</em> kaldırmak için <code><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all()</a></code> kullanmayı denerseniz, özel bir sembol olduğu için çalışmayacaktır. <code>str_replace_call(column, "\\+", "")</code> örneğinde olduğu gibi önüne iki ters eğik çizgi koyarak özel özelliklerden kaçınabilirsiniz.</span></p>
+</div>
+<div id="standard_all" class="section level3 unnumbered">
+<h3>Standart popülasyon ile veri tabanının oluşturulması<a class="anchor" aria-label="anchor" href="#standard_all"><i class="fas fa-link"></i></a>
+</h3>
+<p>Son olarak, <a href="standardize-edilmi%C5%9F-h%C4%B1zlar.html#standard_phe">aşağıda</a> ayrıntıları verilen <strong>PHEindicatormethods</strong> paketi, ülke için gerçekleşen olay (ölüm), nüfus sayıları ve standart popülasyon verilerini istemektedir. Bu amaçla bir <code>all_data</code> veri tabanı oluşturacağız.</p>
+<div class="sourceCode" id="cb1085"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">country_data</span>, <span class="va">standard_pop_clean</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age_cat5"</span>, <span class="st">"Sex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Tam veri tabanı bu şekilde görülmektedir:</p>
+<div id="htmlwidget-66422b36f332355e4895" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-66422b36f332355e4895">{"x":{"filter":"none","vertical":false,"data":[["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B","B"],["0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85","0-4","0-4","5-9","5-9","10-14","10-14","15-19","15-19","20-24","20-24","25-29","25-29","30-34","30-34","35-39","35-39","40-44","40-44","45-49","45-49","50-54","50-54","55-59","55-59","60-64","60-64","65-69","65-69","70-74","70-74","75-79","75-79","80-84","80-84","85","85"],["Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female","Male","Female"],[7828087,7674675,6705882,6592449,5601230,5522555,4576430,4533885,3734111,3726537,3111651,3118040,2571215,2592416,2121247,2150490,1735468,1771213,1418749,1459439,1145345,1193903,900239,956070,685141,745682,500248,563894,347093,416543,202240,258538,94325,130479,40402,64656,513458,503262,508728,559249,673522,652455,844532,145453,965423,965237,1243552,1238640,1400065,1392676,1428773,1505040,1546221,1671213,1562880,1459439,2355220,2218733,2324555,3528103,2988200,3204770,2527110,2500130,1552200,1683925,1466902,1683828,876251,987362,1073611,1147563],[224,194,257,254,251,232,245,214,334,316,245,224,154,163,189,167,334,354,342,354,565,463,432,574,543,493,432,295,245,175,543,380,234,177,354,392,34,54,37,24,51,32,145,154,434,276,120,254,100,123,143,164,307,254,354,354,463,453,639,654,706,435,232,354,275,165,543,432,234,287,274,395],[12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500,12000,12000,10000,10000,9000,9000,9000,9000,8000,8000,8000,8000,6000,6000,6000,6000,6000,6000,6000,6000,5000,5000,4000,4000,4000,4000,3000,3000,2000,2000,1000,1000,500,500,500,500]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Country<\/th>\n      <th>age_cat5<\/th>\n      <th>Sex<\/th>\n      <th>Population<\/th>\n      <th>Deaths<\/th>\n      <th>pop<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[3,4,5]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+</div>
+<div id="dsr-paketi" class="section level2" number="21.3">
+<h2>
+<span class="header-section-number">21.3</span> <strong>dsr</strong> paketi<a class="anchor" aria-label="anchor" href="#dsr-paketi"><i class="fas fa-link"></i></a>
+</h2>
+<p>Aşağıda, <strong>dsr</strong> paketini kullanarak direkt standardize edilmiş hızları hesaplamayı ve karşılaştırmayı gösteriyoruz. <strong>dsr</strong> paketi, direkt standardize edilmiş hızları hesaplamanıza ve karşılaştırmanıza olanak tanır (indirekt standardize edilmiş oranlar yok!).</p>
+<p>Veri Hazırlama bölümünde ülkeler ve standart nüfus için ayrı ayrı veri tabanları oluşturduk:</p>
+<ol style="list-style-type: decimal">
+<li>Ülke için tabaka başına nüfus ve ölüm sayısını içeren bir nüfus tablosu olan <code>country_data</code> nesnesi</li>
+<li>Referans popülasyonumuz olan World Standard Population için tabaka başına popülasyonu gösteren içeren <code>standard_pop_clean</code> nesnesi</li>
+</ol>
+<p>Bu ayrı veri tabanlarını <strong>dsr</strong> yaklaşımı için kullanacağız.</p>
+<!-- ======================================================= -->
+<div id="standardize-edilmiş-hızlar-1" class="section level3 unnumbered">
+<h3>Standardize edilmiş hızlar<a class="anchor" aria-label="anchor" href="#standardize-edilmi%C5%9F-h%C4%B1zlar-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıda, yaş ve cinsiyet için direkt standardize edilmiş oranları ülkeler için hesaplıyoruz. Bu işlem için <code>dsr()</code> fonksiyonunu kullanıyoruz.</p>
+<p>Not: <code>dsr()</code>, ülke popülasyonları ve olay sayıları (ölümler) için bir veri tabanı <em>ve</em> referans popülasyonu için <strong>ayrı bir</strong> veri tabanı bekler. Ayrıca bu referans popülasyon veri tabanında birim-zaman sütun adının “pop” olmasını bekler (bunu veri Hazırlama bölümünde sağladık)</p>
+<p>Aşağıdaki kodda görüldüğü gibi bu fonksiyon için birçok argüman vardır. Dikkat çekici bir şekilde, <code>event =</code> ölümler sütununa ve <code>fu =</code> (“follow up”- “takip”), <code>Population</code> sütununa ayarlanmıştır. Karşılaştırma alt gruplarını <code>Country</code> sütunu olarak belirledik ve <code>age_cat5</code> ve <code>Sex</code>’e göre standardize ettik. Bu son iki sütuna belirli bir argüman atanmaz. Ayrıntılar için <code>?dsr</code> komutuna bakınız.</p>
+<div class="sourceCode" id="cb1086"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Yaş ve cinsiyet için direkt standardize edilmiş hızları ülke başına hesapla</span></span>
+<span><span class="va">mortality_rate</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsr.html">dsr</a></span><span class="op">(</span></span>
+<span>     data <span class="op">=</span> <span class="va">country_data</span>,  <span class="co"># tabaka başına ölüm sayısını içeren nesneyi belirt</span></span>
+<span>     event <span class="op">=</span> <span class="va">Deaths</span>,       <span class="co"># tabaka başına ölüm sayısını içeren sütun</span></span>
+<span>     fu <span class="op">=</span> <span class="va">Population</span>,      <span class="co"># tabaka başına nüfus sayısını içeren sütun</span></span>
+<span>     subgroup <span class="op">=</span> <span class="va">Country</span>,   <span class="co"># karşılaştırmak istediğimiz birimler</span></span>
+<span>     <span class="va">age_cat5</span>,             <span class="co"># standardize etmek istediğimiz özellikler</span></span>
+<span>     <span class="va">Sex</span>,</span>
+<span>     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># pop olarak adlandırılan sütundaki sayılarla referans popülasyonu</span></span>
+<span>     method <span class="op">=</span> <span class="st">"gamma"</span>,      <span class="co"># 95% güven aralığını hesaplayan yöntem</span></span>
+<span>     sig <span class="op">=</span> <span class="fl">0.95</span>,            <span class="co"># anlamlılık düzeyi</span></span>
+<span>     mp <span class="op">=</span> <span class="fl">100000</span>,           <span class="co"># 100.000 kişilik nüfus başına hız istiyoruz</span></span>
+<span>     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>          <span class="co"># ondalık basamak sayısı</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Çıktıyı iyi görünen bir HTML tablosu olarak yazdır</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rate</span><span class="op">)</span> <span class="co"># direkt standardizasyondan önce ve sonra ölüm oranını göster</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+Subgroup
+</th>
+<th style="text-align:right;">
+Numerator
+</th>
+<th style="text-align:right;">
+Denominator
+</th>
+<th style="text-align:right;">
+Crude Rate (per 100000)
+</th>
+<th style="text-align:right;">
+95% LCL (Crude)
+</th>
+<th style="text-align:right;">
+95% UCL (Crude)
+</th>
+<th style="text-align:right;">
+Std Rate (per 100000)
+</th>
+<th style="text-align:right;">
+95% LCL (Std)
+</th>
+<th style="text-align:right;">
+95% UCL (Std)
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+11344
+</td>
+<td style="text-align:right;">
+86790567
+</td>
+<td style="text-align:right;">
+13.07
+</td>
+<td style="text-align:right;">
+12.83
+</td>
+<td style="text-align:right;">
+13.31
+</td>
+<td style="text-align:right;">
+23.57
+</td>
+<td style="text-align:right;">
+23.08
+</td>
+<td style="text-align:right;">
+24.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+9955
+</td>
+<td style="text-align:right;">
+52898281
+</td>
+<td style="text-align:right;">
+18.82
+</td>
+<td style="text-align:right;">
+18.45
+</td>
+<td style="text-align:right;">
+19.19
+</td>
+<td style="text-align:right;">
+19.33
+</td>
+<td style="text-align:right;">
+18.46
+</td>
+<td style="text-align:right;">
+20.22
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Yukarıda, A ülkesinin B ülkesinden daha düşük bir kaba ölüm hızına sahip olduğunu, ancak yaş ve cinsiyet için direkt standardizasyon sonrası, A ülkesinin daha yüksek bir standardize edilmiş hıza sahip olduğunu görüyoruz.</p>
+<!-- ======================================================= -->
+</div>
+<div id="standardize-hız-oranları" class="section level3 unnumbered">
+<h3>Standardize hız oranları<a class="anchor" aria-label="anchor" href="#standardize-h%C4%B1z-oranlar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb1087"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate RR</span></span>
+<span><span class="va">mortality_rr</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsrr.html">dsrr</a></span><span class="op">(</span></span>
+<span>     data <span class="op">=</span> <span class="va">country_data</span>, <span class="co"># tabaka başına ölüm sayısını içeren nesneyi belirt</span></span>
+<span>     event <span class="op">=</span> <span class="va">Deaths</span>,      <span class="co"># tabaka başına ölüm sayısını içeren sütun</span></span>
+<span>     fu <span class="op">=</span> <span class="va">Population</span>,     <span class="co"># tabaka başına nüfus sayısını içeren sütun</span></span>
+<span>     subgroup <span class="op">=</span> <span class="va">Country</span>,  <span class="co"># karşılaştırmak istediğimiz birimler</span></span>
+<span>     <span class="va">age_cat5</span>,</span>
+<span>     <span class="va">Sex</span>,                 <span class="co"># standardize istediğimiz özellikler</span></span>
+<span>     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># pop olarak adlandırılan sütundaki sayılarla referans popülasyonu</span></span>
+<span>     refgroup <span class="op">=</span> <span class="st">"B"</span>,      <span class="co"># karşılaştırma için referans</span></span>
+<span>     estimate <span class="op">=</span> <span class="st">"ratio"</span>,  <span class="co"># tahmin tipi</span></span>
+<span>     sig <span class="op">=</span> <span class="fl">0.95</span>,          <span class="co"># anlamlılık seviyesi</span></span>
+<span>     mp <span class="op">=</span> <span class="fl">100000</span>,         <span class="co"># 100.000 kişilik nüfus başına hız istiyoruz</span></span>
+<span>     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>        <span class="co"># ondalık basamak sayısı</span></span>
+<span></span>
+<span><span class="co"># Tabloyu yazdır</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rr</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+Comparator
+</th>
+<th style="text-align:left;">
+Reference
+</th>
+<th style="text-align:right;">
+Std Rate (per 100000)
+</th>
+<th style="text-align:right;">
+Rate Ratio (RR)
+</th>
+<th style="text-align:right;">
+95% LCL (RR)
+</th>
+<th style="text-align:right;">
+95% UCL (RR)
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+23.57
+</td>
+<td style="text-align:right;">
+1.22
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+1.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+19.33
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Standardize ölüm oranı, A ülkesinde B ülkesine kıyasla 1,22 kat daha yüksektir (%95 GA 1,17-1,27).</p>
+<!-- ======================================================= -->
+</div>
+<div id="standardize-hız-farkı" class="section level3 unnumbered">
+<h3>Standardize hız farkı<a class="anchor" aria-label="anchor" href="#standardize-h%C4%B1z-fark%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb1088"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate RD</span></span>
+<span><span class="va">mortality_rd</span> <span class="op">&lt;-</span> <span class="fu">dsr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsr/man/dsrr.html">dsrr</a></span><span class="op">(</span></span>
+<span>     data <span class="op">=</span> <span class="va">country_data</span>,       <span class="co"># tabaka başına ölüm sayısını içeren nesneyi belirt</span></span>
+<span>     event <span class="op">=</span> <span class="va">Deaths</span>,            <span class="co"># tabaka başına ölüm sayısını içeren sütun </span></span>
+<span>     fu <span class="op">=</span> <span class="va">Population</span>,           <span class="co"># tabaka başına nüfus sayısını içeren sütun</span></span>
+<span>     subgroup <span class="op">=</span> <span class="va">Country</span>,        <span class="co"># karşılaştırmak istediğimiz birimler</span></span>
+<span>     <span class="va">age_cat5</span>,                  <span class="co"># standardize istediğimiz özellikler</span></span>
+<span>     <span class="va">Sex</span>,                        </span>
+<span>     refdata <span class="op">=</span> <span class="va">standard_pop_clean</span>, <span class="co"># pop olarak adlandırılan sütundaki sayılarla referans popülasyonu</span></span>
+<span>     refgroup <span class="op">=</span> <span class="st">"B"</span>,            <span class="co"># karşılaştırma için referans</span></span>
+<span>     estimate <span class="op">=</span> <span class="st">"difference"</span>,   <span class="co"># tahmin tipi</span></span>
+<span>     sig <span class="op">=</span> <span class="fl">0.95</span>,                <span class="co"># anlamlılık seviyesi</span></span>
+<span>     mp <span class="op">=</span> <span class="fl">100000</span>,               <span class="co"># 100.000 kişilik nüfus başına hız istiyoruz</span></span>
+<span>     decimals <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>              <span class="co"># ondalık basamak sayısı</span></span>
+<span></span>
+<span><span class="co"># Tabloyu yazdır</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_rd</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+Comparator
+</th>
+<th style="text-align:left;">
+Reference
+</th>
+<th style="text-align:right;">
+Std Rate (per 100000)
+</th>
+<th style="text-align:right;">
+Rate Difference (RD)
+</th>
+<th style="text-align:right;">
+95% LCL (RD)
+</th>
+<th style="text-align:right;">
+95% UCL (RD)
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+23.57
+</td>
+<td style="text-align:right;">
+4.24
+</td>
+<td style="text-align:right;">
+3.24
+</td>
+<td style="text-align:right;">
+5.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+19.33
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-1.24
+</td>
+<td style="text-align:right;">
+1.24
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>A Ülkesi, B ülkesine kıyasla 100.000 nüfus başına 4.24 ek ölüme (%95 GA 3.24-5.24) sahiptir.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="standard_phe" class="section level2" number="21.4">
+<h2>
+<span class="header-section-number">21.4</span> <strong>PHEindicatormethods</strong> paketi<a class="anchor" aria-label="anchor" href="#standard_phe"><i class="fas fa-link"></i></a>
+</h2>
+<p>Standardize hızları hesaplamanın başka bir yolu da <strong>PHEindicatormethods</strong> paketidir. Bu paket, direkt ve indirekt olarak standardize edilmiş hızları hesaplamanıza olanak tanır. İkisini de göstereceğiz.</p>
+<p>Bu bölüm, Hazırlık bölümünün sonunda oluşturulan <code>all_data</code> veri tabanını kullanacaktır. Bu veri tabanı, ülke popülasyonlarını, ölüm olaylarını ve dünya için standart referans popülasyonu içerir. <a href="standardize-edilmi%C5%9F-h%C4%B1zlar.html#standard_all">Burada</a> görüntüleyebilirsiniz.</p>
+<!-- ======================================================= -->
+<div id="direkt-standardize-edilmiş-hızlar" class="section level3 unnumbered">
+<h3>Direkt standardize edilmiş hızlar<a class="anchor" aria-label="anchor" href="#direkt-standardize-edilmi%C5%9F-h%C4%B1zlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıda, önce verileri ülkeye göre gruplandırıyoruz ve ardından ülke başına direkt standardize edilmiş hızları elde etmek için <code>phe_dsr()</code> fonksiyonuna aktarıyoruz.</p>
+<p>Not: Referans (standart) popülasyon, <strong>ülkeye özgü veri tabanında bir sütun</strong> olarak veya <strong>ayrı bir vektör</strong> olarak verilebilir. Ülkeye özel veri tabanı oluşturulduysa, <code>stdpoptype= "field"</code> olarak ayarlanmalıdır. Vektör olarak sağlanmışsa, <code>stdpoptype = "vector"</code> olarak ayarlanmalıdır. İkinci durumda, kayıtlar pozisyona göre eşleştirileceğinden, satırların tabaklara göre sıralamasının hem ülkeye özgü veri tabanında hem de referans popülasyonda benzer olduğundan emin olmalısınız. Aşağıdaki örneğimizde, ülkeye özgü veri tabanında bir sütun olarak referans popülasyon verilmiştir.</p>
+<p>Daha fazla bilgi için <code>?phr_dsr</code> ile ilgili yardıma veya Referanslar bölümündeki bağlantılara bakabilirsiniz</p>
+<div class="sourceCode" id="cb1089"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># yaş ve cinsiyet için direkt standardize edilmiş hızları ülke başına hesapla</span></span>
+<span><span class="va">mortality_ds_rate_phe</span> <span class="op">&lt;-</span> <span class="va">all_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Country</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu">PHEindicatormethods</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PHEindicatormethods/man/phe_dsr.html">phe_dsr</a></span><span class="op">(</span></span>
+<span>          x <span class="op">=</span> <span class="va">Deaths</span>,                 <span class="co"># gözlemlenen olay sayısını içeren sütun</span></span>
+<span>          n <span class="op">=</span> <span class="va">Population</span>,             <span class="co"># her tabaka için standart olmayan nüfusu içeren sütunlar</span></span>
+<span>          stdpop <span class="op">=</span> <span class="va">pop</span>,               <span class="co"># her tabaka için standart popülasyonlar</span></span>
+<span>          stdpoptype <span class="op">=</span> <span class="st">"field"</span><span class="op">)</span>       <span class="co"># bağımsız bir vektör için "vector-vektör" veya verilerde standart popülasyonların olduğu durumlarda "field-alan"</span></span>
+<span></span>
+<span><span class="co"># Tabloyu yazdır</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_ds_rate_phe</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:left;">
+Country
+</th>
+<th style="text-align:right;">
+total_count
+</th>
+<th style="text-align:right;">
+total_pop
+</th>
+<th style="text-align:right;">
+value
+</th>
+<th style="text-align:right;">
+lowercl
+</th>
+<th style="text-align:right;">
+uppercl
+</th>
+<th style="text-align:left;">
+confidence
+</th>
+<th style="text-align:left;">
+statistic
+</th>
+<th style="text-align:left;">
+method
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+11344
+</td>
+<td style="text-align:right;">
+86790567
+</td>
+<td style="text-align:right;">
+23.56686
+</td>
+<td style="text-align:right;">
+23.08107
+</td>
+<td style="text-align:right;">
+24.05944
+</td>
+<td style="text-align:left;">
+95%
+</td>
+<td style="text-align:left;">
+dsr per 100000
+</td>
+<td style="text-align:left;">
+Dobson
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+9955
+</td>
+<td style="text-align:right;">
+52898281
+</td>
+<td style="text-align:right;">
+19.32549
+</td>
+<td style="text-align:right;">
+18.45516
+</td>
+<td style="text-align:right;">
+20.20882
+</td>
+<td style="text-align:left;">
+95%
+</td>
+<td style="text-align:left;">
+dsr per 100000
+</td>
+<td style="text-align:left;">
+Dobson
+</td>
+</tr>
+</tbody>
+</table></div>
+<!-- ======================================================= -->
+</div>
+<div id="standard_indirect" class="section level3 unnumbered">
+<h3>İndirekt standardize edilmiş hızlar<a class="anchor" aria-label="anchor" href="#standard_indirect"><i class="fas fa-link"></i></a>
+</h3>
+<p>İnidirekt standardizasyon için, tabaka başına ölüm sayısı, nüfus ve bir referans popülasyona ihtiyacınız vardır. Bu örnekte, <code>standart_pop_clean</code> referans popülasyonu tabaka başına ölüm sayısını içermediğinden, <em>B ülkesini referans popülasyon</em> olarak kullanarak A ülkesi için hızları hesaplayacağız.</p>
+<p>Aşağıda, önce B ülkesinden referans popülasyonu oluşturuyoruz. Ardından, A ülkesi için ölüm ve nüfus verilerini çıkarıyoruz, bu verileri referans popülasyonla birleştiriyoruz ve indirekt standardize edilmiş hızları elde etmek için <code>phe_isr()</code> fonksiyonuna aktarıyoruz. Tabii ki, bunun tersini de yapabilirsiniz.</p>
+<p>Not: Aşağıdaki örneğimizde, referans popülasyonu ayrı bir veri tabanı olarak verilmiştir. Bu durumda, kayıtlar pozisyona göre eşleştirileceğinden, <code>x =</code>, <code>n =</code>, <code>x_ref =</code> ve <code>n_ref =</code> vektörlerinin tümünün, ülkemize özgü veri tabanıyla aynı standardizasyon kategorisi (tabaka) değerlerine göre sıralandığından emin oluruz.</p>
+<p>Daha fazla bilgi için <code>?phr_isr</code> komutu ile ilgili yardıma veya Referanslar bölümündeki bağlantılara bakın.</p>
+<div class="sourceCode" id="cb1090"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Referans popülasyonu oluştur</span></span>
+<span><span class="va">refpopCountryB</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Country</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># A ülkesi için yaş ve cinsiyete göre indirekt standardize edilmiş hızları hesapla</span></span>
+<span><span class="va">mortality_is_rate_phe_A</span> <span class="op">&lt;-</span> <span class="va">country_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Country</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu">PHEindicatormethods</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PHEindicatormethods/man/phe_isr.html">phe_isr</a></span><span class="op">(</span></span>
+<span>          x <span class="op">=</span> <span class="va">Deaths</span>,                 <span class="co"># gözlemlenen olay sayısını içeren sütun</span></span>
+<span>          n <span class="op">=</span> <span class="va">Population</span>,             <span class="co"># her tabaka için standardize edilmemiş popülasyonu içeren sütunlar</span></span>
+<span>          x_ref <span class="op">=</span> <span class="va">refpopCountryB</span><span class="op">$</span><span class="va">Deaths</span>,  <span class="co"># her tabaka için referans ölüm sayısı</span></span>
+<span>          n_ref <span class="op">=</span> <span class="va">refpopCountryB</span><span class="op">$</span><span class="va">Population</span><span class="op">)</span>  <span class="co"># her tabaka için referans popülasyon</span></span>
+<span></span>
+<span><span class="co"># Tabloyu yazdır</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mortality_is_rate_phe_A</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr>
+<th style="text-align:right;">
+observed
+</th>
+<th style="text-align:right;">
+expected
+</th>
+<th style="text-align:right;">
+ref_rate
+</th>
+<th style="text-align:right;">
+value
+</th>
+<th style="text-align:right;">
+lowercl
+</th>
+<th style="text-align:right;">
+uppercl
+</th>
+<th style="text-align:left;">
+confidence
+</th>
+<th style="text-align:left;">
+statistic
+</th>
+<th style="text-align:left;">
+method
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:right;">
+11344
+</td>
+<td style="text-align:right;">
+15847.42
+</td>
+<td style="text-align:right;">
+18.81914
+</td>
+<td style="text-align:right;">
+13.47123
+</td>
+<td style="text-align:right;">
+13.22446
+</td>
+<td style="text-align:right;">
+13.72145
+</td>
+<td style="text-align:left;">
+95%
+</td>
+<td style="text-align:left;">
+indirectly standardised rate per 100000
+</td>
+<td style="text-align:left;">
+Byars
+</td>
+</tr></tbody>
+</table></div>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="kaynaklar-14" class="section level2" number="21.5">
+<h2>
+<span class="header-section-number">21.5</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-14"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>dsr</strong> paketini kullanarak başka bir tekrarlanabilir örnek görmek isterseniz, lütfen <a href="https://mran.microsoft.com/snapshot/2020-02-12/web/packages/dsr/vignettes/dsr.html">bu skece</a> bakın.</p>
+<p><strong>PHEindicatormethods</strong> paketini kullanan başka bir örnek için lütfen <a href="https://mran.microsoft.com/snapshot/2018-10-22/web/packages/PHEindicatormethods/vignettes/IntroductiontoPHEindicatormethods.html">bu web sitesine</a> gidin.</p>
+<p><strong>PHEindicatormethods</strong> referans <a href="https://cran.r-project.org/web/packages/PHEindicatormethods/PHEindicatormethods.pdf">pdf dosyasına</a> bakın.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></div>
+<div class="next"><a href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#standardize-edilmi%C5%9F-h%C4%B1zlar"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="nav-link" href="#genel-bak%C4%B1%C5%9F-1"><span class="header-section-number">21.1</span> Genel bakış</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-12"><span class="header-section-number">21.2</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketlerin-y%C3%BCklenmesi-3">Paketlerin yüklenmesi</a></li>
+<li><a class="nav-link" href="#pop%C3%BClasyon-verisinin-y%C3%BCklenmesi">Popülasyon verisinin yüklenmesi</a></li>
+<li><a class="nav-link" href="#%C3%B6l%C3%BCm-say%C4%B1lar%C4%B1n%C4%B1n-y%C3%BCklenmesi">Ölüm sayılarının yüklenmesi</a></li>
+<li><a class="nav-link" href="#n%C3%BCfus-ve-%C3%B6l%C3%BCm-verilerinin-temizli%C4%9Fi">Nüfus ve ölüm verilerinin temizliği</a></li>
+<li><a class="nav-link" href="#referans-pop%C3%BClasyonun-y%C3%BCklenmesi">Referans popülasyonun yüklenmesi</a></li>
+<li><a class="nav-link" href="#referans-pop%C3%BClasyon-verisinin-temizli%C4%9Fi">Referans popülasyon verisinin temizliği</a></li>
+<li><a class="nav-link" href="#standard_all">Standart popülasyon ile veri tabanının oluşturulması</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#dsr-paketi"><span class="header-section-number">21.3</span> dsr paketi</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#standardize-edilmi%C5%9F-h%C4%B1zlar-1">Standardize edilmiş hızlar</a></li>
+<li><a class="nav-link" href="#standardize-h%C4%B1z-oranlar%C4%B1">Standardize hız oranları</a></li>
+<li><a class="nav-link" href="#standardize-h%C4%B1z-fark%C4%B1">Standardize hız farkı</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#standard_phe"><span class="header-section-number">21.4</span> PHEindicatormethods paketi</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#direkt-standardize-edilmi%C5%9F-h%C4%B1zlar">Direkt standardize edilmiş hızlar</a></li>
+<li><a class="nav-link" href="#standard_indirect">İndirekt standardize edilmiş hızlar</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-14"><span class="header-section-number">21.5</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

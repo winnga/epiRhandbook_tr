@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>16 Yineleme, döngüler ve listeler | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Epidemiyologlar sıklıkla ülkeler, ilçeler veya yaş grupları gibi alt gruplar üzerinde tekrar eden analizlerle karşı karşıya kalırlar. Bunlar yinelemeyi içeren birçok durumdan sadece birkaçıdır....">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="16 Yineleme, döngüler ve listeler | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Epidemiyologlar sıklıkla ülkeler, ilçeler veya yaş grupları gibi alt gruplar üzerinde tekrar eden analizlerle karşı karşıya kalırlar. Bunlar yinelemeyi içeren birçok durumdan sadece birkaçıdır....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="16 Yineleme, döngüler ve listeler | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Epidemiyologlar sıklıkla ülkeler, ilçeler veya yaş grupları gibi alt gruplar üzerinde tekrar eden analizlerle karşı karşıya kalırlar. Bunlar yinelemeyi içeren birçok durumdan sadece birkaçıdır....">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="active" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="yineleme-döngüler-ve-listeler" class="section level1" number="16">
+<h1>
+<span class="header-section-number">16</span> Yineleme, döngüler ve listeler<a class="anchor" aria-label="anchor" href="#yineleme-d%C3%B6ng%C3%BCler-ve-listeler"><i class="fas fa-link"></i></a>
+</h1>
+<p>Epidemiyologlar sıklıkla ülkeler, ilçeler veya yaş grupları gibi alt gruplar üzerinde tekrar eden analizlerle karşı karşıya kalırlar. Bunlar <em>yinelemeyi</em> içeren birçok durumdan sadece birkaçıdır. Aşağıdaki yaklaşımları kullanarak yinelemeli işlemlerinizi kodlamak, bu tür tekrarlayan görevleri daha hızlı gerçekleştirmenize, hata olasılığını azaltmanıza ve kod uzunluğunu azaltmanıza yardımcı olacaktır.</p>
+<p>Bu sayfa, yinelemeli işlemlere iki yaklaşım sunacaktır - <em>for döngülerini</em> ve <em>purrr</em> paketini kullanmak.</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>for döngüleri</em>, bir dizi giriş boyunca kodu yineler, ancak R’da diğer programlama dillerinden daha az yaygındır. Yine de, onları burada bir öğrenme aracı ve referans olarak tanıtıyoruz.</li>
+<li>
+<strong>purrr</strong> paketi, yinelemeli işlemlere <strong>tidyverse</strong> yaklaşımdır - bir işlevi birçok girdi arasında “eşleyerek” çalışır (değerler, sütunlar, veri kümeleri vb.)</li>
+</ol>
+<p>Yol boyunca, aşağıdaki gibi örnekler göstereceğiz:</p>
+<ul>
+<li>Birden çok dosyayı içe ve dışa aktarma<br>
+</li>
+<li>Birden fazla yetki alanı için eğriler oluşturma<br>
+</li>
+<li>Bir veri çerçevesindeki birkaç sütun için T testleri çalıştırma</li>
+</ul>
+<p><strong>purrr</strong><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#iter_purrr">section</a> bölümünde, listeleri - <code>lists</code> oluşturma ve işlemeye ilişkin birkaç örnek de sunacağız.</p>
+<div id="hazırlık-7" class="section level2" number="16.1">
+<h2>
+<span class="header-section-number">16.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-7"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yükleme-3" class="section level3 unnumbered">
+<h3>Paketleri yükleme<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleme-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekli olursa paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’ın <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> fonksiyonunu vurguluyoruz. Ayrıca, R tabanından <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R temelleri] sayfasına bakın.</p>
+<div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>     <span class="va">rio</span>,         <span class="co"># içe/dışa aktarma</span></span>
+<span>     <span class="va">here</span>,        <span class="co"># dosya bulucu</span></span>
+<span>     <span class="va">purrr</span>,       <span class="co"># yineleme</span></span>
+<span>     <span class="va">tidyverse</span>    <span class="co"># veri yönetimi ve görselleştirme</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="verileri-içe-aktarma-2" class="section level3 unnumbered">
+<h3>Verileri içe aktarma<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktarma-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Simüle edilmiş bir Ebola salgınından vakaların veri setini içe aktarıyoruz. Devam etmek isterseniz, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">“temiz” satır listesini indirmek için tıklayın</a> (.rds dosyası olarak). Verileri <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonuyla içe aktarın (.xlsx, .csv, .rds gibi birçok dosya türünü işler - ayrıntılar için [İçe ve Dışa Aktarma] sayfasına bakın).</p>
+<div class="sourceCode" id="cb756"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># satır listesini içe aktar</span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+<p>Çizgi listesinin ilk 50 satırı aşağıda görüntülenir.</p>
+<div id="htmlwidget-49e14c790f2786299246" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-49e14c790f2786299246">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+</div>
+<div id="for-döngüleri" class="section level2" number="16.2">
+<h2>
+<span class="header-section-number">16.2</span> <em>for döngüleri</em><a class="anchor" aria-label="anchor" href="#for-d%C3%B6ng%C3%BCleri"><i class="fas fa-link"></i></a>
+</h2>
+<div id="iter_loops" class="section level3 unnumbered">
+<h3>R’daki for döngüleri*<a class="anchor" aria-label="anchor" href="#iter_loops"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>for döngüleri</em> R’de vurgulanmaz, ancak diğer programlama dillerinde yaygındır. Yeni başlayan olarak, “keşfetmek”te , “hata ayıklamak”ta daha kolay oldukları için öğrenmek ve pratik yapmak için yardımcı olabilirler ve aksi takdirde, özellikle kendi işlevlerinizi yazarken henüz rahat değilseniz, her yinelemenin tam olarak ne olduğunu anlamalısınız.</p>
+<p><strong>purrr</strong> ile eşlenmiş işlevlerle yinelemek için <em>for döngüleri</em> sayesinde hızla ilerleyebilirsiniz (<a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#iter_purrr">aşağıdaki bölüme bakın</a>).</p>
+</div>
+<div id="temel-bileşenler" class="section level3 unnumbered">
+<h3>Temel bileşenler<a class="anchor" aria-label="anchor" href="#temel-bile%C5%9Fenler"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir <em>for döngüsünün</em> üç temel parçası vardır:</p>
+<ol style="list-style-type: decimal">
+<li>Yinelenecek öğelerin <strong>sırası</strong><br>
+</li>
+<li>Sıradaki her öğe başına yapılacak <strong>işlemler</strong>
+</li>
+<li>Sonuçlar için <strong>kapsayıcı</strong> (isteğe bağlı)</li>
+</ol>
+<p>Temel sözdizimi şudur: <code>for (sıradaki öğe) {öğeyi kullanarak işlemler yapın}</code>. Parantezlere ve küme parantezlerine dikkat edin. Sonuçlar konsola yazdırılabilir veya bir kapsayıcı R nesnesinde saklanabilir.</p>
+<p>Basit bir <em>for döngüsü</em> örneği aşağıdadır.</p>
+<div class="sourceCode" id="cb757"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">num</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># SIRA tanımlanır (1'den 5'e kadar sayılar) ve "{" ile döngü açılır</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">num</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>             <span class="co"># İŞLEMLER (her sıra numarasına iki tane ekleyin ve yazdırın)</span></span>
+<span><span class="op">}</span>                            <span class="co"># Döngü "}" ile kapatılır                          </span></span></code></pre></div>
+<pre><code>## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7</code></pre>
+<div class="sourceCode" id="cb759"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>                             <span class="co"># Bu örnekte "kapsayıcı" yok</span></span></code></pre></div>
+</div>
+<div id="sıralama" class="section level3 unnumbered">
+<h3>Sıralama<a class="anchor" aria-label="anchor" href="#s%C4%B1ralama"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu, <em>for döngüsünün</em> “for” kısmıdır - işlemler dizideki her öğe için “for” çalışır. Sıra, bir dizi değer (ör. yetki alanlarının adları, hastalıklar, sütun adları, liste öğeleri, vb.) olabilir veya bir dizi ardışık sayı (ör. 1,2,3,4,5) olabilir. Her yaklaşımın aşağıda açıklanan kendi araçları vardır.</p>
+<p>Bir dizi ifadesinin temel yapısı <code>vektördeki öğedir</code>.</p>
+<ul>
+<li>“Öğe” yerine herhangi bir karakter veya kelime yazabilirsiniz (örn. “i”, “num”, “hosp”, “bölge” vb.). Bu “öğenin” değeri, vektördeki her değerden geçerek döngünün her yinelemesinde değişir.</li>
+<li>
+<em>Vektör</em>, karakter değerleri, sütun adları veya belki bir dizi sayı olabilir - bunlar her yinelemede değişecek olan değerlerdir. Bunları “item” terimini kullanarak <em>for döngüsü</em> işlemleri içinde kullanabilirsiniz.</li>
+</ul>
+<p><strong>Örnek: karakter değerleri dizisi</strong></p>
+<p>Bu örnekte, hastane adlarının önceden tanımlanmış bir karakter vektöründeki her bir değer için bir döngü gerçekleştirilir.</p>
+<div class="sourceCode" id="cb760"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># hastane isimlerinin vektörünü yap</span></span>
+<span><span class="va">hospital_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">hospital</span><span class="op">)</span></span>
+<span><span class="va">hospital_names</span> <span class="co"># yazdır</span></span></code></pre></div>
+<pre><code>## [1] "Other"                                "Missing"                             
+## [3] "St. Mark's Maternity Hospital (SMMH)" "Port Hospital"                       
+## [5] "Military Hospital"                    "Central Hospital"</code></pre>
+<p>Hastane_adı - <code>hospital_names</code> vektöründen değerleri temsil etmek için <code>hosp</code> terimini seçtik. Döngünün ilk yinelemesi için, hosp değeri hastane_adı - <code>hospital_names[[1]]</code> olacaktır. İkinci döngü için hastane_adı - <code>hospital_names[[2]]</code> olacaktır. Ve bunun gibi…</p>
+<div class="sourceCode" id="cb762"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># karakter sıralı bir 'for döngüsü'</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">hosp</span> <span class="kw">in</span> <span class="va">hospital_names</span><span class="op">)</span><span class="op">{</span>       <span class="co"># sıra</span></span>
+<span>  </span>
+<span>       <span class="co"># İŞLEMLER BURAYA YAZILIR</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+<p><strong>Örnek: sütun adları dizisi</strong></p>
+<p>Bu, mevcut bir R nesnesinin adlarının çıkarıldığı ve vektör haline geldiği, yukarıdaki karakter dizisinin bir varyasyonudur. Örneğin, bir veri çerçevesinin sütun adları. Uygun bir şekilde, <em>for döngüsünün</em> işlem kodunda, sütun adları orijinal veri çerçevelerini <em>indekslemek</em> (alt kümeler) için kullanılabilir.</p>
+<p>Aşağıda sıra, <code>satır listesi</code> veri çerçevesinin adları - <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> (sütun adları) şeklindedir. “Öğe” adımız, döngüler ilerledikçe her sütun adını temsil edecek olan <code>col</code>’dur.</p>
+<p>Örnek olarak, dizideki her değer için çalıştırılan <em>for döngüsünün</em> içine işlem kodunu ekledik. Bu kodda, sıra değerleri (sütun adları), her seferinde bir <code>satır listesini</code> <em>indekslemek</em> (alt küme) için kullanılır. R temelleri sayfasında öğretildiği gibi, alt küme için çift köşeli ayraçlar <code>[[ ]]</code> kullanılır. Elde edilen sütun <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> öğesine, ardından sütunda eksik olan değerlerin sayısını üretmek için <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> öğesine iletilir. Sonuç konsola yazdırılır - her sütun için bir sayı.</p>
+<p>Sütun adlarıyla indeksleme hakkında bir not - sütunun kendisine atıfta bulunurken <em>sadece “col” yazmayın!</em> col sadece karakter sütun adını temsil eder! Tüm sütuna başvurmak için, sütun adını <code>linelist[[col]]</code> aracılığıyla <code>satır listesinde</code> bir <em>dizin</em> olarak kullanmalısınız.</p>
+<div class="sourceCode" id="cb763"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">col</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>        <span class="co"># satır listesindeki her sütun için döngü çalışır; "col" ile temsil edilen sütun adı</span></span>
+<span>  </span>
+<span>  <span class="co"># Örnek işlem kodu - sütundaki eksik değerlerin sayısını yazdır</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  <span class="co"># sıra listesi, "col" öğesinin geçerli değeriyle indekslenir</span></span>
+<span>     </span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 0
+## [1] 0
+## [1] 2087
+## [1] 256
+## [1] 0
+## [1] 936
+## [1] 1323
+## [1] 278
+## [1] 86
+## [1] 0
+## [1] 86
+## [1] 86
+## [1] 86
+## [1] 0
+## [1] 0
+## [1] 0
+## [1] 2088
+## [1] 2088
+## [1] 0
+## [1] 0
+## [1] 0
+## [1] 249
+## [1] 249
+## [1] 249
+## [1] 249
+## [1] 249
+## [1] 149
+## [1] 765
+## [1] 0
+## [1] 256</code></pre>
+<p><strong>Sayıların dizisi</strong></p>
+<p>Bu yaklaşımda, dizi ardışık sayılar dizisidir. Bu nedenle, “öğe”nin değeri bir karakter değeri değil (ör. “Merkez Hastane” veya “tarih_başlangıç”) bir sayıdır. Bu, veri çerçevesini <em>satır numarası</em>na göre indekslemek için <em>for döngüsü</em> içindeki “öğe” numarasını kullanabileceğiniz için veri çerçeveleri arasında döngü yapmak için kullanışlıdır.</p>
+<p>Örneğin, veri çerçevenizdeki her satırda döngü yapmak ve belirli bilgileri çıkarmak istediğinizi varsayalım. “Öğeleriniz” sayısal satır numaraları olacaktır. Çoğu zaman, bu durumda “öğeler” <code>i</code> olarak yazılır.</p>
+<p><em>For döngüsü</em> işlemi, “veri çerçevemdeki 1’den toplam satır sayısına kadar bir sayı dizisindeki her öğe için X yap” şeklinde açıklanabilir. Döngünün ilk yinelemesi için “item” <code>i</code> değeri 1 olur. İkinci yineleme için <code>i</code> 2 olur, vb.</p>
+<p>Sıra kodda şöyle görünür: <code>for (i in 1:nrow(linelist)) {OPERATIONS CODE}</code> burada <code>i</code> “öğeyi” temsil eder ve <code>1:nrow(linelist)</code> 1’den <code>satır listesindeki</code> satır sayısına kadar ardışık sayılar dizisi üretir.</p>
+<div class="sourceCode" id="cb765"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>  <span class="co"># bir veri çerçevesinde kullan</span></span>
+<span>  <span class="co"># İŞLEMLER BURAYA YAZILIR</span></span>
+<span><span class="op">}</span>  </span></code></pre></div>
+<p>Dizinin sayı olmasını istiyorsanız, ancak bir vektörden başlıyorsanız (bir veri çerçevesi değil), vektördeki her bir öğeki bir sayı dizisini döndürmek için <code><a href="https://rdrr.io/r/base/seq.html">seq_along()</a></code> kısayolunu kullanın. Örneğin, <code>for (i in seq_along(hospital_names) {OPERATIONS CODE}</code>.</p>
+<p>Aşağıdaki kod aslında kendi döngülerinde <code>i</code>’nin değeri olacak olan sayıları döndürür.</p>
+<div class="sourceCode" id="cb766"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">hospital_names</span><span class="op">)</span>  <span class="co"># adlandırılmış bir vektör üzerinde kullan</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6</code></pre>
+<p>Dizide sayıları kullanmanın bir avantajı, döngü çıktılarını depolayan bir <em>kapsayıcıyı</em> indekslemek için <code>i</code> numarasını kullanmanın da kolay olmasıdır. Aşağıdaki İşlemler bölümünde bunun bir örneği var.</p>
+</div>
+<div id="operasyonlar" class="section level3 unnumbered">
+<h3>Operasyonlar<a class="anchor" aria-label="anchor" href="#operasyonlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu, <em>for döngüsünün</em> küme parantezleri <code><a href="https://rdrr.io/r/base/Paren.html">{ }</a></code> içindeki koddur. Bu kodun <em>sıradaki</em> her “öğe” için çalışmasını istiyorsunuz. Bu nedenle, kodunuzun “öğe” ile değişen her parçasının gerçekten değişeceği şekilde doğru kodlanmış olmasına dikkat edin! Örneğin, indeksleme için <code>[[ ]]</code> kullanmayı unutmayın.</p>
+<p>Aşağıdaki örnekte, <code>satır listesindeki</code> her bir satırı yineliyoruz. Her satırın cinsiyet - <code>gender</code> ve yaş - <code>age</code> değerleri birbirine yapıştırılır ve <code>cases_demographics</code> kapsayıcı karakter vektöründe saklanır. Döngü çıktısını “kapsayıcı” vektöründe doğru konuma kaydetmek için indekslemeyi <code>[[i]]</code> nasıl kullandığımıza dikkat edin.</p>
+<div class="sourceCode" id="cb768"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sonuçları depolamak için kapsayıcı oluştur - bir karakter vektörü</span></span>
+<span><span class="va">cases_demographics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"character"</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># for döngüsü</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># OPERASYONLAR</span></span>
+<span>  <span class="co"># indeksleme için parantez kullanarak satır i için satır listesinden değerleri ayıkla</span></span>
+<span>  <span class="va">row_gender</span>  <span class="op">&lt;-</span> <span class="va">linelist</span><span class="op">$</span><span class="va">gender</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">row_age</span>     <span class="op">&lt;-</span> <span class="va">linelist</span><span class="op">$</span><span class="va">age_years</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>    <span class="co"># indekslemeyi unutmayın!</span></span>
+<span>     </span>
+<span>  <span class="co"># cinsiyet-yaşı birleştirin ve indekslenmiş konumda kapsayıcı vektöründe sakla</span></span>
+<span>  <span class="va">cases_demographics</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">row_gender</span>, <span class="va">row_age</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="op">}</span>  <span class="co"># döngü sonu</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># kapsayıcının ilk 10 satırını göster</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cases_demographics</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] "m,2"  "f,3"  "m,56" "f,18" "m,3"  "f,16" "f,16" "f,0"  "m,61" "f,27"</code></pre>
+</div>
+<div id="kapsayıcı" class="section level3 unnumbered">
+<h3>Kapsayıcı<a class="anchor" aria-label="anchor" href="#kapsay%C4%B1c%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bazen <em>for döngüsünün</em> sonuçları konsola veya RStudio Plots bölmesine yazdırılır. Diğer zamanlarda, çıktıları daha sonra kullanmak üzere bir “kapsayıcı”da saklamak isteyeceksiniz. Böyle bir kapsayıcı, bir vektör, bir veri çerçevesi ve hatta bir liste olabilir.</p>
+<p><em>For döngüsüne</em> başlamadan <em>önce</em> bile sonuçlar için kapsayıcı oluşturmak en verimli yöntemdir. Pratikte bu, boş bir vektör, veri çerçevesi veya liste oluşturmak anlamına gelir. Bunlar, vektörler veya listeler için <code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code> işlevleriyle veya bir veri çerçevesi için <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> ve <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> işlevleriyle oluşturulabilir.</p>
+<p><strong>Boş vektör</strong></p>
+<p><code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code>’u kullanın ve ekleyeceğiniz nesnelerin beklenen sınıfına göre <code>mode =</code> belirtin - “çift” (sayıları tutmak için), “karakter” veya “mantıksal”. Ayrıca <code>length =</code> önceden ayarlamalısınız. Bu, <em>for döngüsü</em> dizinizin uzunluğu olmalıdır.</p>
+<p>Her hastane için medyan kabul gecikmesini saklamak istediğinizi varsayalım. “Çift” kullanır ve uzunluğu beklenen çıktıların sayısı (veri setindeki benzersiz hastanelerin sayısı) olarak ayarlarsınız.</p>
+<div class="sourceCode" id="cb770"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">delays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span></span>
+<span>  mode <span class="op">=</span> <span class="st">"double"</span>,                            <span class="co"># numaraları kaydetmeyi bekliyoruz</span></span>
+<span>  length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">hospital</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># veri setindeki benzersiz hastanelerin sayısı</span></span></code></pre></div>
+<p><strong>Boş veri çerçevesi</strong></p>
+<p>Bunun gibi satır ve sütun sayısını belirterek boş bir veri çerçevesi oluşturabilirsiniz:</p>
+<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">delays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Boş liste</strong></p>
+<p>Bir <em>for döngüsü</em> tarafından oluşturulan bazı grafikleri bir listede saklamak isteyebilirsiniz. Liste vektör gibidir, ancak içinde farklı sınıflardan olabilen diğer R nesnelerini içerir. Listedeki öğeler tek bir sayı, bir veri çerçevesi, bir vektör ve hatta başka bir liste olabilir.</p>
+<p>Aslında yukarıdakiyle aynı <code><a href="https://rdrr.io/r/base/vector.html">vector()</a></code> komutunu kullanarak, ancak <code>mode = "list"</code> ile boş bir liste başlatıyorsunuz. Uzunluğu istediğiniz gibi belirtin.</p>
+<div class="sourceCode" id="cb772"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"list"</span>, length <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="yazdırma" class="section level3 unnumbered">
+<h3>Yazdırma<a class="anchor" aria-label="anchor" href="#yazd%C4%B1rma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir <em>for döngüsü</em> içinden yazdırmak için büyük olasılıkla <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> işleviyle açıkça sarmanız gerekeceğini unutmayın.</p>
+<p>Aşağıdaki bu örnekte dizi, hastane tarafından satır listesinin alt kümesi için kullanılan açık bir karakter vektörüdür. Sonuçlar bir kapsayıcıda saklanmaz, bunun yerine <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> işleviyle konsola yazdırılır.</p>
+<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">hosp</span> <span class="kw">in</span> <span class="va">hospital_names</span><span class="op">)</span><span class="op">{</span> </span>
+<span>     <span class="va">hospital_cases</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hospital</span> <span class="op">==</span> <span class="va">hosp</span><span class="op">)</span></span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">hospital_cases</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] 885
+## [1] 1469
+## [1] 422
+## [1] 1762
+## [1] 896
+## [1] 454</code></pre>
+</div>
+<div id="for-döngüsünü-test-etme" class="section level3 unnumbered">
+<h3>For döngüsünü test etme<a class="anchor" aria-label="anchor" href="#for-d%C3%B6ng%C3%BCs%C3%BCn%C3%BC-test-etme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Döngünüzü test etmek için, <code>i &lt;- 10</code> veya <code>hosp &lt;- "Central Hospital"</code> gibi “öğe”nin geçici bir atamasını yapmak için bir komut çalıştırabilirsiniz. Bunu <em>döngünün dışında</em> yapın ve ardından beklenen sonuçların üretilip üretilmediğini görmek için yalnızca işlem kodunuzu (kıvrımlı parantez içindeki kod) çalıştırın.</p>
+</div>
+<div id="döngü-grafikleri" class="section level3 unnumbered">
+<h3>Döngü grafikleri<a class="anchor" aria-label="anchor" href="#d%C3%B6ng%C3%BC-grafikleri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Üç bileşeni (kapsayıcı, sıralama ve operasyonlar) bir araya getirmek için her hastane için bir epi eğrisi çizmeye çalışalım (<a href="salg%C4%B1n-e%C4%9Frileri.html#salg%C4%B1n-e%C4%9Frileri">Salgın eğrileri</a> sayfasına bakın).</p>
+<p>Aşağıdaki gibi <strong>incidence2</strong> paketini kullanarak <em>tüm</em> vakaların cinsiyete göre güzel bir epik eğrisini yapabiliriz:</p>
+<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 'insidans' nesnesi oluşturun</span></span>
+<span><span class="va">outbreak</span> <span class="op">&lt;-</span> <span class="fu">incidence2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span>   </span>
+<span>     x <span class="op">=</span> <span class="va">linelist</span>,                   <span class="co"># dataframe - tam satır listesi</span></span>
+<span>     date_index <span class="op">=</span> <span class="va">date_onset</span>,        <span class="co"># tarih sütunu</span></span>
+<span>     interval <span class="op">=</span> <span class="st">"week"</span>,              <span class="co"># haftalık toplu sayımlar</span></span>
+<span>     groups <span class="op">=</span> <span class="va">gender</span>,                <span class="co"># cinsiyete göre grup değerleri</span></span>
+<span>     na_as_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>             <span class="co"># eksik cinsiyet ayrı bir gruptur</span></span>
+<span></span>
+<span><span class="co"># plot epi eğrisi</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">outbreak</span>,                       <span class="co"># olay nesnesinin adı</span></span>
+<span>     fill <span class="op">=</span> <span class="st">"gender"</span>,                <span class="co"># cinsiyete göre renk çubukları</span></span>
+<span>     color <span class="op">=</span> <span class="st">"black"</span>,                <span class="co"># çubukların anahat rengi</span></span>
+<span>     title <span class="op">=</span> <span class="st">"Outbreak of ALL cases"</span> <span class="co"># başlık</span></span>
+<span>     <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-602-1.png" width="672"></div>
+<p>Her hastanenin vakası için ayrı bir grafik oluşturmak için bu epi eğri kodunu bir <em>for döngüsüne</em> koyabiliriz.</p>
+<p>İlk olarak, benzersiz hastane adlarının adlandırılmış bir vektörünü, <code>hospital_names</code> olarak kaydederiz. <em>for döngüsü</em> şu adların her biri için bir kez çalışacaktır: <code>for (hosp in hospital_names)</code>. <em>for döngüsünün</em> her yinelemesinde, vektörden gelen mevcut hastane adı, döngü içinde kullanım için <code>hosp</code> olarak temsil edilecektir.</p>
+<p>Döngü işlemleri içinde, normal olarak R kodunu yazabilirsiniz, ancak değerinin değişeceğini bilerek “öğe”yi (bu durumda <code>hosp</code>) kullanın. Bu döngü içinde:</p>
+<ul>
+<li>Satır listesine bir <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> uygulanır, öyle ki hastane - <code>hospital</code> sütunu, <code>hosp</code>’un mevcut değerine eşit olmalıdır.</li>
+<li>İnsidans nesnesi, filtrelenmiş satır listesinde oluşturulur.</li>
+<li>Mevcut hastane için grafik, <code>hosp</code> kullanan otomatik ayarlı bir başlıkla oluşturulur.</li>
+<li>Mevcut hastane için grafik geçici olarak kaydedilir ve ardından yazdırılır.</li>
+<li>Döngü, daha sonra, <code>hospital_names</code> içindeki bir sonraki hastane ile tekrar etmek için ilerler</li>
+</ul>
+<div class="sourceCode" id="cb776"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># hastane isimlerinin vektörünü yapın</span></span>
+<span><span class="va">hospital_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">hospital</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># hospital_names deki her ad ("hosp") için epi eğrisini oluşturun ve yazdırın</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">hosp</span> <span class="kw">in</span> <span class="va">hospital_names</span><span class="op">)</span> <span class="op">{</span></span>
+<span>     </span>
+<span>     <span class="co"># mevcut hastaneye özgü olay nesnesi oluşturun</span></span>
+<span>     <span class="va">outbreak_hosp</span> <span class="op">&lt;-</span> <span class="fu">incidence2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span></span>
+<span>          x <span class="op">=</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hospital</span> <span class="op">==</span> <span class="va">hosp</span><span class="op">)</span>,   <span class="co"># satır listesi mevcut hastaneye göre filtrelenir</span></span>
+<span>          date_index <span class="op">=</span> <span class="va">date_onset</span>,</span>
+<span>          interval <span class="op">=</span> <span class="st">"week"</span>, </span>
+<span>          groups <span class="op">=</span> <span class="va">gender</span>,</span>
+<span>          na_as_group <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>     <span class="op">)</span></span>
+<span>     </span>
+<span>     <span class="co"># Grafik oluşturun ve kaydedin. Başlık otomatik olarak mevcut hastaneye göre ayarlanır</span></span>
+<span>     <span class="va">plot_hosp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span></span>
+<span>       <span class="va">outbreak_hosp</span>,</span>
+<span>       fill <span class="op">=</span> <span class="st">"gender"</span>,</span>
+<span>       color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>       title <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"Epidemic of cases admitted to {hosp}"</span><span class="op">)</span></span>
+<span>     <span class="op">)</span></span>
+<span>     </span>
+<span>     <span class="co"># mevcut hastane için grafik yazdırın</span></span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">plot_hosp</span><span class="op">)</span></span>
+<span>     </span>
+<span><span class="op">}</span> <span class="co"># hospital_names içindeki her hastane için çalıştırıldığında for döngüsünü sonlandırın </span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-603-1.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-603-2.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-603-3.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-603-4.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-603-5.png" width="50%"><img src="_main_files/figure-html/unnamed-chunk-603-6.png" width="50%"></p>
+</div>
+<div id="bir-döngünün-ilerlemesini-izleme" class="section level3 unnumbered">
+<h3>Bir döngünün ilerlemesini izleme<a class="anchor" aria-label="anchor" href="#bir-d%C3%B6ng%C3%BCn%C3%BCn-ilerlemesini-izleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Birçok yinelemeli bir döngü, dakikalarca hatta saatlerce çalışabilir. Bu nedenle, ilerlemeyi R konsoluna yazdırmak yararlı olabilir. Aşağıdaki <code>if</code> ifadesi, her 100. sayıyı yazdırmak için döngü fonksiyonlarının <em>içine</em> yerleştirilebilir. Döngünüzdeki “öğe” <code>i</code> olacak şekilde ayarlayın.</p>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-1" aria-hidden="true" tabindex="-1"></a><span class="co"># her 100 yinelemede ilerlemeyi yazdırmak için kodlu döngü</span></span>
+<span id="cb777-2"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(linelist))){</span>
+<span id="cb777-3"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb777-4"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># yazdırma ilerlemesi</span></span>
+<span id="cb777-5"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">100</span><span class="sc">==</span><span class="dv">0</span>){    <span class="co"># %% operatörü kalandır</span></span>
+<span id="cb777-6"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(i)</span>
+<span id="cb777-7"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb777-8"><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#cb777-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="iter_purrr" class="section level2" number="16.3">
+<h2>
+<span class="header-section-number">16.3</span> <strong>purrr</strong> ve listeler<a class="anchor" aria-label="anchor" href="#iter_purrr"><i class="fas fa-link"></i></a>
+</h2>
+<p>Yinelemeli işlemlere başka bir yaklaşım da <strong>purrr</strong> paketidir - yineleme için <strong>tidyverse</strong> yaklaşımdır.</p>
+<p>Aynı görevi birkaç kez yapmakla karşı karşıya kalırsanız, muhtemelen birçok girdide kullanabileceğiniz genelleştirilmiş bir çözüm oluşturmaya değer. Örneğin, birden fazla yetki alanları için grafikler oluşturmak veya birçok dosyayı içe aktarmak ve birleştirmek.</p>
+<p>Ayrıca <strong>purrr</strong>’ın birkaç avantajı daha vardır - <code>%&gt;%</code> tünelleriyle kullanabilirsiniz, <em>for döngülerine</em> kıyasla normalden daha iyi hataları ele alır ve sözdizimi oldukça temiz ve basittir! Bir <em>for döngüsü</em> kullanıyorsanız, muhtemelen <strong>purrr</strong> ile daha net ve özlü bir şekilde yapabilirsiniz!</p>
+<p><strong>purrr</strong>’ın <em>fonksiyonel programlama</em> aracı olduğunu unutmayın. Yani, yinelemeli olarak uygulanacak işlemler <em>fonksiyonlara</em> sarılır. Kendi işlevlerinizi nasıl yazacağınızı öğrenmek için [Yazma işlevleri] sayfasına bakın.</p>
+<p><strong>purrr</strong> ayrıca neredeyse tamamen <em>listeler</em> ve <em>vektörler</em> üzerine kuruludur - bu yüzden bunu o listenin/vektörün her bir öğesine bir işlev uygulamak olarak düşünün!</p>
+<div id="paketleri-yükleme-4" class="section level3 unnumbered">
+<h3>Paketleri yükleme<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleme-4"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>purrr</strong> <strong>tidyverse</strong>’in bir parçasıdır, bu nedenle ayrı bir paket kurmaya/yüklemeye gerek yoktur.</p>
+<div class="sourceCode" id="cb778"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>     <span class="va">rio</span>,            <span class="co"># içe/dışa aktar</span></span>
+<span>     <span class="va">here</span>,           <span class="co"># ilgili dosya yolları</span></span>
+<span>     <span class="va">tidyverse</span>,      <span class="co"># mgt ve viz verisi</span></span>
+<span>     <span class="va">writexl</span>,        <span class="co"># Excel dosyasını birden çok sayfayla yaz</span></span>
+<span>     <span class="va">readxl</span>          <span class="co"># Excel'i birden çok sayfayla içe aktar</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="map" class="section level3 unnumbered">
+<h3>
+<code>map()</code><a class="anchor" aria-label="anchor" href="#map"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>purrr</strong>’un temel bir işlevi, sağladığınız bir listenin/vektörün her giriş öğesine bir işlevi “eşleyen” (uygulayan) <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> işlevidir.</p>
+<p>Temel sözdizimi <code>map(.x = SEQUENCE, .f = FUNCTION, OTHER ARGUMENTS)</code>. Biraz daha ayrıntılı olarak:</p>
+<ul>
+<li>
+<code>.x =</code>, <code>.f</code> işlevinin yinelemeli olarak uygulanacağı <em>girdilerdir</em> - ör. yetki alanları adları vektörü, veri çerçevesindeki sütunlar veya veri çerçeveleri listesi.</li>
+<li>
+<code>.f =</code>, <code>.x</code> girişinin her bir öğesine uygulanacak <em>fonksiyondur</em> - zaten var olan <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> gibi bir işlev veya tanımladığınız özel bir işlev olabilir. İşlev genellikle yaklaşık işaretinden sonra yazılır <code>~</code> (ayrıntılar aşağıdadır).</li>
+</ul>
+<p>Sözdizimi hakkında birkaç not daha:</p>
+<ul>
+<li>Fonksiyonun daha fazla argümana ihtiyacı yoksa, parantez ve yaklaşık işareti olmadan yazılabilir (ör. <code>.f = mean</code>). Her yineleme için aynı değerde olacak bağımsız değişkenler sağlamak için, bunları <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> içinde ancak <code>.f =</code> bağımsız değişkeninin dışında sağlayın, örneğin <code>na.rm = T</code> içine <code>map(.x = my_list, .f = mean, na.rm=T)</code>.</li>
+<li>Bu yinelemenin <code>.x</code> değeri için yer tutucu olarak <code>.f =</code> fonksiyonu <em>içinde</em> <code>.x</code> (veya basitçe <code>.</code>) kullanabilirsiniz.</li>
+<li>Fonksiyon üzerinde daha fazla kontrole sahip olmak için yaklaşık sözdizimini (<code>~</code>) kullanın - fonksiyonu parantez içinde normal olarak yazın, örneğin: <code>map(.x = my_list, .f = ~mean(., na.rm = T))</code>. Bu söz dizimini özellikle bir bağımsız değişkenin değeri her yinelemeyi değiştirecekse veya <code>.x</code> değerinin kendisiyse kullanın (aşağıdaki örneklere bakın)</li>
+</ul>
+<p><strong><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullanımının çıktısı bir listedir</strong> - liste, vektör gibi bir nesne sınıfıdır, ancak öğeleri farklı sınıflardan olabilir. Bu nedenle, <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> tarafından üretilen bir liste birçok veri çerçevesi veya birçok vektör, birçok tek değer ve hatta birçok liste içerebilir! Aşağıda açıklanan ve diğer çıktı türlerini üreten alternatif <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> sürümleri vardır (örneğin, bir veri çerçevesi oluşturmak için <code>.map_dfr()</code>, karakter vektörleri üretmek için <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> ve sayısal vektörler üretmek için <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code>).</p>
+<div id="iter_combined" class="section level4 unnumbered">
+<h4>Örnek - Excel sayfalarını içe aktarın ve birleştirin<a class="anchor" aria-label="anchor" href="#iter_combined"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>Yaygın bir epidemiyolog göreviyle gösterelim:</strong> - <em>aka verileri içeren bir Excel çalışma kitabını içe aktarmak istiyorsunuz, ancak veriler çalışma kitabındaki farklı adlandırılmış sayfalara bölünüyor. Sayfaları tek bir veri çerçevesinde nasıl verimli bir şekilde içe aktarır ve birleştirirsiniz?</em></p>
+<p>Diyelim ki aşağıdaki Excel çalışma kitabı bize gönderildi. Her sayfa belirli bir hastaneden vakaları içerir.</p>
+<div class="inline-figure"><img src="images/hospital_linelists_excel_sheets.png" width="615" style="display: block; margin: auto;"></div>
+<p>İşte <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullanan bir yaklaşım:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> işlevi, böylece her Excel sayfası için çalışır</li>
+<li>
+<code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> kullanarak içe aktarılan veri çerçevelerini bir araya getirin</li>
+<li>Yol boyunca, her satır için orijinal sayfa adını koruyarak bu bilgiyi son veri çerçevesinde yeni bir sütunda saklayın</li>
+</ol>
+<p>İlk olarak, sayfa adlarını çıkarmamız ve kaydetmemiz gerekiyor. Excel çalışma kitabının dosya yolunu, sayfa adlarını ayıklayan <strong>readxl</strong> paketinden <code>excel_sheets()</code> işlevine sağlıyoruz. Bunları <code>sheet_names</code> adlı bir karakter vektöründe saklarız.</p>
+<div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sheet_names</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/excel_sheets.html">excel_sheets</a></span><span class="op">(</span><span class="st">"hospital_linelists.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<p>İşte isimler:</p>
+<div class="sourceCode" id="cb780"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sheet_names</span></span></code></pre></div>
+<pre><code>## [1] "Central Hospital"              "Military Hospital"             "Missing"                      
+## [4] "Other"                         "Port Hospital"                 "St. Mark's Maternity Hospital"</code></pre>
+<p>Artık bu ad vektörüne sahip olduğumuza göre, <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> bunları import()işlevine birer birer sağlayabilir. Bu örnekte <code>sheet_names</code>, <code>.x</code> ve <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> <code>.f</code> işlevidir.</p>
+<p>İçe aktarma ve dışa aktarma sayfasından, Excel çalışma kitaplarında kullanıldığında <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> öğesinin içe aktarılacak sayfayı belirten <code>which =</code> bağımsız değişkeni kabul edebileceğini hatırlayın.<code>.f</code> fonksiyonu <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> içinde, sheet_names vektörü aracılığıyla değeri her yinelemede değişecek olan <code>which = .x</code>’i sağlarız - önce “Merkez Hastane”, ardından “Askeri Hastane” vb.</p>
+<p>Not - <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullandığımız için, her Excel sayfasındaki veriler bir liste içinde ayrı bir veri çerçevesi olarak kaydedilecektir. Bu liste öğelerinin (veri çerçevelerinin) her birinin bir <em>ada</em> sahip olmasını istiyoruz, bu nedenle <code>sheet_names</code> <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>’e aktarmadan önce onu <code><a href="https://rlang.r-lib.org/reference/set_names.html">set_names()</a></code> aracılığıyla <strong>purrr</strong>’dan geçiririz, bu da her liste öğesinin uygun adı almasını sağlar.</p>
+<p>Çıktı listesini <code>combined</code> olarak kaydediyoruz.</p>
+<div class="sourceCode" id="cb782"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="va">sheet_names</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"hospital_linelists.xlsx"</span>, which <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Çıktıyı incelediğimizde, her bir Excel sayfasındaki verilerin bir adla listeye kaydedildiğini görüyoruz. Bu iyi, ama tam olarak bitirmedik.</p>
+<div class="inline-figure"><img src="images/sheets_as_list.png" width="544" style="display: block; margin: auto;"></div>
+<p>Son olarak, benzer şekilde yapılandırılmış veri çerçevelerinin listesini kabul eden ve bunları tek bir veri çerçevesinde birleştiren <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> (<strong>dplyr</strong>’den) işlevini kullanıyoruz. Liste öğesi adlarından yeni bir sütun oluşturmak için, <code>.id =</code> bağımsız değişkenini kullanırız ve ona yeni sütun için istenen <em>adı</em> veririz.</p>
+<p>Tüm komut dizisi aşağıdadır:</p>
+<div class="sourceCode" id="cb783"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sheet_names</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/excel_sheets.html">excel_sheets</a></span><span class="op">(</span><span class="st">"hospital_linelists.xlsx"</span><span class="op">)</span>  <span class="co"># extract sheet names</span></span>
+<span> </span>
+<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="va">sheet_names</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                     <span class="co"># begin with sheet names</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                                        <span class="co"># set their names</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"hospital_linelists.xlsx"</span>, which <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># iterate, import, save in list</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"origin_sheet"</span><span class="op">)</span> <span class="co"># combine list of data frames, preserving origin in new column  </span></span></code></pre></div>
+<p>Ve şimdi, orijin sayfasını içeren bir sütuna sahip bir veri çerçevemiz var!</p>
+<div class="inline-figure"><img src="images/sheets_as_df.png" width="543" style="display: block; margin: auto;"></div>
+<p>Bilmeniz gereken <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> varyasyonları vardır. Örneğin, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr()</a></code> bir liste değil, bir veri çerçevesi döndürür. Böylece yukarıdaki görev için kullanabilirdik ve satırları bağlamak zorunda kalmazdık. Ama o zaman her vakanın hangi sayfadan (hastaneden) geldiğini yakalayamazdık.</p>
+<p>Diğer varyasyonlar arasında <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> bulunur. Bunlar iki nedenden dolayı çok faydalı işlevlerdir. İlk önce. yinelemeli bir işlevin çıktısını otomatik olarak bir vektöre (listeye değil) dönüştürürler. İkincisi, verilerin geri geldiği sınıfı açıkça kontrol edebilirler - verilerinizin <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> ile bir karakter vektörü veya <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> ile sayısal vektör olarak geri gelmesini sağlarsınız. Bölümde daha sonra bunlara dönelim!</p>
+<p><code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_at()</a></code> ve <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if()</a></code> işlevleri yineleme için de çok kullanışlıdır - bir listenin hangi öğelerini yinelemeniz gerektiğini belirlemenize izin verirler! Bunlar basitçe bir dizin/ad vektörü (<code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_at()</a></code> durumunda) veya mantıksal bir test (<code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if()</a></code> durumunda) uygulayarak çalışır.</p>
+<p>Hastane verilerinin ilk sayfasını okumak istemediğimiz bir örnek kullanalım. <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> yerine <code><a href="https://purrr.tidyverse.org/reference/map_if.html">map_at()</a></code> kullanırız ve <code>.at =</code> bağımsız değişkeni <code>c(-1)</code> olarak belirtiriz, bu da <code>.x</code>’in ilk öğesini <em>kullanılmaması</em> anlamına gelir. Alternatif olarak, hangi öğelerin kullanılacağını belirtmek için, <code>.at =</code> için, bir pozitif sayı veya ad vektörü sağlayabilirsiniz.</p>
+<div class="sourceCode" id="cb784"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sheet_names</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/excel_sheets.html">excel_sheets</a></span><span class="op">(</span><span class="st">"hospital_linelists.xlsx"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="va">sheet_names</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="co"># ilk sayfayı hariç tut</span></span>
+<span>     <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_if.html">map_at</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span> <span class="st">"hospital_linelists.xlsx"</span>, which <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>,</span>
+<span>            .at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>İlk sayfa adının yine de çıktı listesinin bir öğesi olarak görüneceğini unutmayın - ancak bu yalnızca tek bir karakter adıdır (veri çerçevesi değil). Satırları bağlamadan önce bu öğeyi kaldırmanız gerekir. Liste öğelerinin nasıl kaldırılacağını ve değiştirileceğini daha sonraki bir bölümde ele alacağız.</p>
+</div>
+</div>
+<div id="veri-kümesini-bölme-ve-dışa-aktarma" class="section level3 unnumbered">
+<h3>Veri kümesini bölme ve dışa aktarma<a class="anchor" aria-label="anchor" href="#veri-k%C3%BCmesini-b%C3%B6lme-ve-d%C4%B1%C5%9Fa-aktarma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıda, bir veri kümesinin parçalara nasıl bölüneceğine ve ardından her bir parçayı ayrı bir Excel sayfası veya ayrı bir CSV dosyası olarak dışa aktarmak için <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> yinelemesinin nasıl kullanılacağına ilişkin bir örnek veriyoruz.</p>
+<div id="bölünmüş-veri-seti" class="section level4 unnumbered">
+<h4>Bölünmüş veri seti<a class="anchor" aria-label="anchor" href="#b%C3%B6l%C3%BCnm%C3%BC%C5%9F-veri-seti"><i class="fas fa-link"></i></a>
+</h4>
+<p>Veri çerçevesi olarak tam vaka <code>satır listesine</code> sahip olduğumuzu ve şimdi her hastane için ayrı bir satır listesi oluşturmak ve her birini ayrı bir CSV dosyası olarak dışa aktarmak istediğimizi varsayalım. Aşağıda, izleyen adımları yapıyoruz:</p>
+<p><code>hospital</code> sütunundaki benzersiz değerlere göre <code>satır listesi</code> veri çerçevesini bölmek için <code><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split()</a></code> (<strong>dplyr</strong>’den) kullanın. Çıktı, her hastane alt kümesi başına bir veri çerçevesi içeren bir listedir.</p>
+<div class="sourceCode" id="cb785"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_split</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span></span></code></pre></div>
+<p><code>View(linelist_split)</code> çalıştırabilir ve bu listenin her birinin bir hastaneden vakaları temsil eden 6 veri çerçevesi (“tibbles”) içerdiğini görebiliriz.</p>
+<div class="inline-figure"><img src="images/purrr_linelist_split.png" width="574" style="display: block; margin: auto;"></div>
+<p>Ancak, listedeki veri çerçevelerinin varsayılan olarak adları olmadığını unutmayın! Her birinin bir adı olmasını ve ardından CSV dosyasını kaydederken bu adı kullanmasını istiyoruz.</p>
+<p>Adları çıkarmaya yönelik bir yaklaşım, listedeki her veri çerçevesinden hospital sütununu çıkarmak için <code><a href="https://dplyr.tidyverse.org/reference/pull.html">pull()</a></code> (<strong>dplyr</strong>’den) kullanmaktır. Ardından, güvende olmak için değerleri karaktere dönüştürürüz ve ardından o belirli veri çerçevesinin adını almak için <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> işlevini kullanırız. Bu adımların tümü, her veri çerçevesine <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> aracılığıyla uygulanır.</p>
+<div class="sourceCode" id="cb786"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">linelist_split</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">linelist_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># Assign to names of listed data frames </span></span>
+<span>     <span class="co"># Extract the names by doing the following to each data frame: </span></span>
+<span>     <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>        <span class="co"># Pull out hospital column</span></span>
+<span>     <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>          <span class="co"># Convert to character, just in case</span></span>
+<span>     <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>                    <span class="co"># Take the unique hospital name</span></span></code></pre></div>
+<p>Artık liste öğelerinin her birinin bir adı olduğunu görebiliriz. Bu isimlere <code>names(linelist_split)</code> üzerinden erişilebilir.</p>
+<div class="inline-figure"><img src="images/purrr_linelist_split_named.png" width="575" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">linelist_split</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Central Hospital"                     "Military Hospital"                   
+## [3] "Missing"                              "Other"                               
+## [5] "Port Hospital"                        "St. Mark's Maternity Hospital (SMMH)"</code></pre>
+<div id="birden-fazla-group_split-sütunu" class="section level5 unnumbered">
+<h5>Birden fazla <code>group_split()</code> sütunu<a class="anchor" aria-label="anchor" href="#birden-fazla-group_split-s%C3%BCtunu"><i class="fas fa-link"></i></a>
+</h5>
+<p>Hastane VE cinsiyetin kesişimine göre alt küme satır listesi üretmek gibi, satır listesini <em>birden fazla gruplama sütununa</em> bölmek istiyorsanız, liste öğelerini adlandırmak için farklı bir yaklaşıma ihtiyacınız olacaktır. Bu, <strong>dplyr</strong>’den <code><a href="https://dplyr.tidyverse.org/reference/group_data.html">group_keys()</a></code> kullanarak benzersiz “grup anahtarları”nın toplanmasını içerir - bunlar bir veri çerçevesine döndürülür. Ardından, aşağıda gösterildiği gibi <code><a href="https://tidyr.tidyverse.org/reference/unite.html">unite()</a></code> ile grup anahtarlarını değerler halinde birleştirebilir ve bu grup adlarını <code>linelist_split</code>’e atayabilirsiniz.</p>
+<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># benzersiz hastane-cinsiyet kombinasyonlarına göre bölünmüş satır listesi</span></span>
+<span><span class="va">linelist_split</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_split.html">group_split</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">gender</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># group_keys() öğesini bir veri çerçevesi olarak çıkar</span></span>
+<span><span class="va">groupings</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">gender</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>       </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_data.html">group_keys</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">groupings</span>      <span class="co"># benzersiz gruplamaları göster </span></span></code></pre></div>
+<pre><code>## # A tibble: 18 × 2
+##    hospital                             gender
+##    &lt;chr&gt;                                &lt;chr&gt; 
+##  1 Central Hospital                     f     
+##  2 Central Hospital                     m     
+##  3 Central Hospital                     &lt;NA&gt;  
+##  4 Military Hospital                    f     
+##  5 Military Hospital                    m     
+##  6 Military Hospital                    &lt;NA&gt;  
+##  7 Missing                              f     
+##  8 Missing                              m     
+##  9 Missing                              &lt;NA&gt;  
+## 10 Other                                f     
+## 11 Other                                m     
+## 12 Other                                &lt;NA&gt;  
+## 13 Port Hospital                        f     
+## 14 Port Hospital                        m     
+## 15 Port Hospital                        &lt;NA&gt;  
+## 16 St. Mark's Maternity Hospital (SMMH) f     
+## 17 St. Mark's Maternity Hospital (SMMH) m     
+## 18 St. Mark's Maternity Hospital (SMMH) &lt;NA&gt;</code></pre>
+<p>Şimdi, tire ile ayrılmış gruplamaları bir araya getiriyoruz ve bunları <code>linelist_split</code>’te liste elemanlarının adları olarak atadık. NA’yı “Eksik” ile değiştirdiğimiz için bu, bazı ekstra satırlar alır, sütun değerlerini birleştirmek için <strong>dplyr</strong>’den <code><a href="https://tidyr.tidyverse.org/reference/unite.html">unite()</a></code> kullanın (tire ile ayrılmış), ve sonra linelist_split adları olarak kullanılabilmesi için adsız bir vektöre dönüştürün.</p>
+<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Tek bir ad değerinde birleştir</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">linelist_split</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">groupings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">replace_na</span>, <span class="st">"Missing"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># tüm sütunlarda NA'yı "Eksik" ile değiştir</span></span>
+<span>     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="st">"combined"</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                         <span class="co"># Tüm sütun değerlerini tek bir sütunda birleştir</span></span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://purrr.tidyverse.org/reference/as_vector.html">as_vector</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="excel-sayfaları-olarak-dışa-aktar" class="section level4 unnumbered">
+<h4>Excel sayfaları olarak dışa aktar<a class="anchor" aria-label="anchor" href="#excel-sayfalar%C4%B1-olarak-d%C4%B1%C5%9Fa-aktar"><i class="fas fa-link"></i></a>
+</h4>
+<p>Hastane satır listelerini, <em>sayfa başına bir satır listesi ile bir Excel çalışma kitabı olacak şekilde</em> dışa aktarmak için, <code>writexl</code> paketinden <code>write_xlsx()</code> işlevine yalnızca <code>linelist_split</code> adlı listeyi sağlayabiliriz. Bu, birden çok sayfa içeren bir Excel çalışma kitabını kaydetme özelliğine sahiptir. Liste öğesi adları, sayfa adları olarak otomatik olarak uygulanır.</p>
+<div class="sourceCode" id="cb792"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu">writexl</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/writexl/reference/write_xlsx.html">write_xlsx</a></span><span class="op">(</span>path <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"hospital_linelists.xlsx"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Artık Excel dosyasını açıp her hastanenin kendi sayfası olduğunu görebilirsiniz.</p>
+<div class="inline-figure"><img src="images/purrr_export_sheets.png" width="652" style="display: block; margin: auto;"></div>
+</div>
+<div id="export-as-csv-files" class="section level4 unnumbered">
+<h4>Export as CSV files<a class="anchor" aria-label="anchor" href="#export-as-csv-files"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bu biraz daha karmaşık bir komuttur, ancak hastaneye özel her bir satır listesini hastaneye özel bir dosya adıyla ayrı bir CSV dosyası olarak da dışa aktarabilirsiniz.</p>
+<p>Yine <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullanıyoruz: liste öğesi adlarının (yukarıda gösterilen) vektörünü alıyoruz ve bunlar arasında yineleme yapmak için <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullanıyoruz, bu adı taşıyan <code>linelist_split</code> listesindeki veri çerçevesine <code><a href="https://rdrr.io/pkg/rio/man/export.html">export()</a></code> (<strong>rio</strong> paketinden, [İçe ve dışa aktarma] sayfasına bakın) uyguluyoruz. Adı benzersiz bir dosya adı oluşturmak için de kullanırız. İşte nasıl çalıştığı:</p>
+<ul>
+<li>
+<code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>’e <code>.x</code> olarak iletilen karakter adlarının vektörüyle başlıyoruz.</li>
+<li>
+<code>.f</code> fonksiyonu, bir veri çerçevesi ve yazmak için bir dosya yolu gerektiren <code><a href="https://rdrr.io/pkg/rio/man/export.html">export()</a></code> işlevidir.</li>
+<li>
+<code>.x</code> girişi (hastane adı), <code>linelist_split</code> listesinin o belirli öğesini çıkarmak/indekslemek için <code>.f</code> <em>içinde</em> kullanılır. Bu, <code><a href="https://rdrr.io/pkg/rio/man/export.html">export()</a></code> işlevine aynı anda yalnızca bir veri çerçevesinin sağlanmasıyla sonuçlanır.</li>
+<li>Örneğin, <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> “Askeri Hastane” için yinelendiğinde, <code>linelist_split[[.x]]</code> aslında <code>linelist_split[["Military Hospital"]]</code> olur, bu nedenle <code>linelist_split</code> öğesinin ikinci öğesini döndürür - ki bu, Askeri Hastanedeki tüm vakalardır.</li>
+<li>
+<code><a href="https://rdrr.io/pkg/rio/man/export.html">export()</a></code> için sağlanan dosya yolu, <code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code> kullanımı yoluyla dinamiktir (bkz. Karakterler ve dizeler sayfası):
+<ul>
+<li>
+<code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> dosya yolunun temelini almak ve “data” klasörünü belirtmek için kullanılır (<code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code> çift tırnak işaretini kesmemek için tek tırnak işaretlerini not edin)</li>
+</ul>
+</li>
+<li>Ardından bir eğik çizgi <code>/</code> ve ardından tekrar dosyanın tanımlanabilmesi için mevcut hastane adını yazdıran<code>.x</code>
+</li>
+<li>Son olarak, <code><a href="https://rdrr.io/pkg/rio/man/export.html">export()</a></code> öğesinin bir CSV dosyası oluşturmak için kullandığı “.csv” uzantısı</li>
+</ul>
+<div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">linelist_split</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/export.html">export</a></span><span class="op">(</span><span class="va">linelist_split</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span>, file <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{here('data')}/{.x}.csv"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Artık her dosyanın R Project “Epi_R_handbook” un “data” klasörüne kaydedildiğini görebilirsiniz!</p>
+<div class="inline-figure"><img src="images/purrr_export_csv.png" width="632" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="özel-işlevler" class="section level3 unnumbered">
+<h3>Özel işlevler<a class="anchor" aria-label="anchor" href="#%C3%B6zel-i%C5%9Flevler"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> sağlamak için kendi işlevinizi oluşturmak isteyebilirsiniz.</p>
+<p>Her hastanenin vakası için salgın eğrileri oluşturmak istediğimizi varsayalım. Bunu <strong>purrr</strong> kullanarak yapmak için, <code>.f</code> işlevimiz her zamanki gibi <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> ve + ile uzantılar olabilir. <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> çıktısı her zaman bir liste olduğundan, grafikler bir listede saklanır. Grafikler oldukları için, <strong>ggpubr</strong> paketinden <code>ggarrange()</code> fonksiyonuyla çıkarılabilir ve grafiklendirilebilir. (<a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">dokümantasyon</a>)</p>
+<div class="sourceCode" id="cb794"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># listeden öğeleri grafiklendirebilmek için paketi yükle</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"ggpubr"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 6 hastane "adlar"ının vektörü boyunca haritala (daha önce oluşturulmuş)</span></span>
+<span><span class="co"># belirtilen ggplot işlevini kullanın</span></span>
+<span><span class="co"># çıktı, 6 ggplot içeren bir listedir</span></span>
+<span><span class="va">hospital_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">hospital</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">my_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span></span>
+<span>  .x <span class="op">=</span> <span class="va">hospital_names</span>,</span>
+<span>  .f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hospital</span> <span class="op">==</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_onset</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">.x</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ggplot'ları yazdırın (bir listede saklanırlar)</span></span>
+<span><span class="fu">ggarrange</span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">my_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-629-1.png" width="672"></div>
+<p>Bu <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kodu çok dağınık görünüyorsa, ilgili <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> komutunuzu özel bir kullanıcı tanımlı fonksiyon olarak kaydederek aynı sonucu elde edebilirsiniz, örneğin ona <code>make_epicurve()</code> adını verebiliriz. Bu işlev daha sonra <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> içinde kullanılır. <code>.x</code> yinelemeli olarak hastane adıyla değiştirilecek ve <code>make_epicurve()</code> fonksiyonunda <code>hosp_name</code> olarak kullanılacaktır. Detaylar için <a href="yazma-fonksiyonlar%C4%B1.html#yazma-fonksiyonlar%C4%B1">Yazma fonksiyonları</a> sayfasına bakın.</p>
+<div class="sourceCode" id="cb795"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Fonksiyon oluştur</span></span>
+<span><span class="va">make_epicurve</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">hosp_name</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">hospital</span> <span class="op">==</span> <span class="va">hosp_name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_onset</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">hosp_name</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb796"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># haritalama</span></span>
+<span><span class="va">my_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">hospital_names</span>, <span class="op">~</span><span class="fu">make_epicurve</span><span class="op">(</span>hosp_name <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ggplot'ları yazdırın (bir listede saklanırlar)</span></span>
+<span><span class="fu">ggarrange</span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">my_plots</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="sütunlar-arasında-bir-fonksiyonu-eşleme" class="section level3 unnumbered">
+<h3>Sütunlar arasında bir fonksiyonu eşleme<a class="anchor" aria-label="anchor" href="#s%C3%BCtunlar-aras%C4%B1nda-bir-fonksiyonu-e%C5%9Fleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Diğer bir yaygın kullanım durumu, bir işlevi birçok sütun arasında eşlemektir. Aşağıda, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> fonksiyonunu, sayısal değerleri cinsiyete göre karşılaştırarak, veri çerçevesi <code>satır listesindeki</code> sayısal sütunlar arasında eşliyoruz / <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>.</p>
+<p><a href="basit-istatistiksel-testler.html#basit-istatistiksel-testler">Basit istatistiksel testler</a> sayfasından <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>’in <code>t.test(numeric column ~ binary column)</code> gibi bir formül biçiminde girdiler alabileceğini hatırlayın. Bu örnekte aşağıdakileri yapıyoruz:</p>
+<ul>
+<li>İlgilenilen sayısal sütunlar <code>satır listesinden</code> seçilir - bunlar <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> için <code>.x</code> girdileri olur</li>
+<li>
+<code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> metodu, her sayısal sütuna uygulanan <code>.f</code> fonksiyonu olarak sağlanır</li>
+<li>
+<code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> parantezleri içinde:
+<ul>
+<li>ilk <code>~</code> , <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>’in <code>.x</code> üzerinde yineleneceği <code>.f</code>’den önce gelir</li>
+<li>
+<code>.x</code>, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> işlevine sağlanan geçerli sütunu temsil eder</li>
+<li>ikinci <code>~</code> yukarıda açıklanan t testi denkleminin bir parçasıdır</li>
+<li>
+<code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> işlevi, denklemin sağ tarafında bir ikili sütun bekler. <code>linelist$gender</code> vektörünü bağımsız ve statik olarak sağlıyoruz (<code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>’e dahil edilmediğine dikkat edin).</li>
+</ul>
+</li>
+</ul>
+<p><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> bir liste döndürür, bu nedenle çıktı t-test sonuçlarının bir listesidir - analiz edilen her sayısal sütun için bir liste öğesi.</p>
+<div class="sourceCode" id="cb797"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Sonuçlar bir liste olarak kaydedilir</span></span>
+<span><span class="va">t.test_results</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">wt_kg</span>, <span class="va">ht_cm</span>, <span class="va">ct_blood</span>, <span class="va">temp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># eşlemek için yalnızca bazı sayısal sütunları saklayın</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">.x</span> <span class="op">~</span> <span class="va">linelist</span><span class="op">$</span><span class="va">gender</span><span class="op">)</span><span class="op">)</span>        <span class="co"># t.test fonksiyonu, SAYISAL ~ KATEGORİSEL denklemi ile</span></span></code></pre></div>
+<p>RStudio’da açıldığında (Görüntülendiğinde) <code>t.test_results</code> listesi şöyle görünür. Bu sayfadaki örnekler için önemli olan kısımları vurguladık.</p>
+<ul>
+<li>En üstte tüm listenin <code>t.test_results</code> olarak adlandırıldığını ve beş öğeye sahip olduğunu görebilirsiniz. Bu beş öğe, <code>linelist</code>’den cinsiyet - <code>gender</code> ile bir t-testinde kullanılan her değişkenden sonra <code>age</code>, <code>wt_km</code>, <code>ht_cm</code>, <code>ct_blood</code>, <code>temp</code> olarak adlandırılır.</li>
+<li>Bu beş öğenin her biri, içinde <code>p.value</code> ve <code>conf.int</code> gibi öğeler bulunan listelerdir. <code>p.value</code> gibi bu öğelerden bazıları tek sayılardır, oysa tahmin - <code>estimate</code> gibi bazıları iki veya daha fazla öğeden oluşur (<code>f grubunda ortalama</code> ve <code>m grubunda ortalama</code>).</li>
+</ul>
+<div class="inline-figure"><img src="images/purrr_ttest.png" width="286" height="150%"></div>
+<p>Not: Bir veri çerçevesindeki yalnızca belirli sütunlara bir işlev uygulamak istiyorsanız, [Verileri temizleme ve temel işlevler] sayfasında açıklandığı gibi <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> ve <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>’u da kullanabileceğinizi unutmayın. Aşağıda, yalnızca “yaş” sütunlarına <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> uygulamasının bir örneği verilmiştir. Parantez ve virgüllerin yerleşimine dikkat edin.</p>
+<div class="sourceCode" id="cb798"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># "yaş" içeren sütun adına sahip sütunları karakter sınıfına dönüştürün</span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, .fns <span class="op">=</span> <span class="va">as.character</span><span class="op">)</span><span class="op">)</span>  </span></code></pre></div>
+</div>
+<div id="listeden-çıkarma" class="section level3 unnumbered">
+<h3>Listeden çıkarma<a class="anchor" aria-label="anchor" href="#listeden-%C3%A7%C4%B1karma"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> List sınıfının bir çıktısını ürettiği için, eşlik eden <strong>purrr</strong> fonksiyonlarını kullanarak listelerden nasıl veri çıkarılacağını tartışmak için biraz zaman harcayacağız. Bunu göstermek için önceki bölümdeki <code>t.test_results</code> listesini kullanacağız. Bu 5 listeden oluşan bir listedir - 5 listenin her biri, <code>linelist</code> veri çerçevesinden bir sütun ile ikili sütun cinsiyeti - <code>gender</code> arasındaki bir t-testinin sonuçlarını içerir. Liste yapısının görseli için yukarıdaki bölümdeki resme bakın.</p>
+<div id="elementlerin-isimleri" class="section level4 unnumbered">
+<h4>Elementlerin isimleri<a class="anchor" aria-label="anchor" href="#elementlerin-isimleri"><i class="fas fa-link"></i></a>
+</h4>
+<p>Öğelerin adlarını çıkarmak için, yalnızca <strong>R tabanından</strong> <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> fonksiyonunu kullanın. Bu durumda, t-testleri gerçekleştirilen 5 değişkenin adları olan her bir alt listenin adını döndürmek için <code>t.test_results</code> üzerinde <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> kullanırız.</p>
+<div class="sourceCode" id="cb799"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">t.test_results</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "age"      "wt_kg"    "ht_cm"    "ct_blood" "temp"</code></pre>
+</div>
+<div id="ada-veya-konuma-göre-öğeler" class="section level4 unnumbered">
+<h4>Ada veya konuma göre öğeler<a class="anchor" aria-label="anchor" href="#ada-veya-konuma-g%C3%B6re-%C3%B6%C4%9Feler"><i class="fas fa-link"></i></a>
+</h4>
+<p>Liste öğelerini ada veya konuma göre çıkarmak için, R temelleri sayfasında açıklandığı gibi köşeli ayraçları <code>[[ ]]</code> kullanabilirsiniz. Aşağıda, <code>t.tests_results</code> listesini indekslemek için çift parantez kullanıyoruz ve t-testinin yaşa - <code>age</code> göre sonuçları olan ilk öğeyi gösteriyoruz.</p>
+<div class="sourceCode" id="cb801"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># pozisyona göre ilk eleman</span></span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  .x by linelist$gender
+## t = -21.3, df = 4902.9, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means between group f and group m is not equal to 0
+## 95 percent confidence interval:
+##  -7.544409 -6.272675
+## sample estimates:
+## mean in group f mean in group m 
+##        12.66085        19.56939</code></pre>
+<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="st">"p.value"</span><span class="op">]</span> <span class="co"># ilk öğeden "p.value" adlı öğeyi döndür </span></span></code></pre></div>
+<pre><code>## $p.value
+## [1] 2.350374e-96</code></pre>
+<p>Bununla birlikte, aşağıda aynı sonuçları elde etmek için basit ve esnek <strong>purrr</strong> fonksiyonları <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> ve <code><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck()</a></code> kullanımını göstereceğiz.</p>
+</div>
+<div id="pluck" class="section level4 unnumbered">
+<h4>
+<code>pluck()</code><a class="anchor" aria-label="anchor" href="#pluck"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck()</a></code>, elemanları ada veya konuma göre çeker. Örneğin - yaş için t testi sonuçlarını çıkarmak için <code><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck()</a></code> işlevini şu şekilde kullanabilirsiniz:</p>
+<div class="sourceCode" id="cb805"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>        <span class="co"># alternatif olarak, pluck(1) kullanın</span></span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  .x by linelist$gender
+## t = -21.3, df = 4902.9, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means between group f and group m is not equal to 0
+## 95 percent confidence interval:
+##  -7.544409 -6.272675
+## sample estimates:
+## mean in group f mean in group m 
+##        12.66085        19.56939</code></pre>
+<p>Diğer seviyeleri virgülle belirterek daha derin seviyeleri indeksleyin. Aşağıdaki, <code>t.test_results</code> listesindeki liste yaşından <code>age</code> “p.value” adlı öğeyi çıkarır. Karakter adları yerine sayıları da kullanabilirsiniz.</p>
+<div class="sourceCode" id="cb807"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"p.value"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 2.350374e-96</code></pre>
+<p><code><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck()</a></code> işlevini <em>her bir</em> birinci düzey öğede çalıştırmak için <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullanarak tüm birinci düzey öğelerden bu tür iç öğeleri ayıklayabilirsiniz. Örneğin, aşağıdaki kod, <code>t.test_results</code> içindeki tüm listelerden “p.value” öğelerini çıkarır. t testi sonuçlarının listesi, yinelenen <code>.x</code>’dir, <code><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck()</a></code> yinelenen <code>.f</code> fonksiyonudur ve fonksiyona “p-değeri” sağlar.</p>
+<div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">"p.value"</span><span class="op">)</span>   <span class="co"># her p değerini döndür</span></span></code></pre></div>
+<pre><code>## $age
+## [1] 2.350374e-96
+## 
+## $wt_kg
+## [1] 2.664367e-182
+## 
+## $ht_cm
+## [1] 3.515713e-144
+## 
+## $ct_blood
+## [1] 0.4473498
+## 
+## $temp
+## [1] 0.5735923</code></pre>
+<p>Başka bir alternatif olarak, <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, eleman adını tırnak içinde yazabileceğiniz bir kestirme yol sunar ve onu çıkarır. <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullanırsanız çıktı bir liste olur, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> kullanırsanız bu adlandırılmış bir karakter vektörü olur ve <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> kullanırsanız bu adlandırılmış bir sayısal vektör olur.</p>
+<div class="sourceCode" id="cb811"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="st">"p.value"</span><span class="op">)</span>   <span class="co"># p-değerlerini adlandırılmış bir sayısal vektör olarak döndür</span></span></code></pre></div>
+<pre><code>##           age         wt_kg         ht_cm      ct_blood          temp 
+##  2.350374e-96 2.664367e-182 3.515713e-144  4.473498e-01  5.735923e-01</code></pre>
+<p><strong>purrr</strong> <a href="https://purrr.tidyverse.org/reference/pluck.html">belgelerinde</a> <code><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck()</a></code> hakkında daha fazla bilgi edinebilirsiniz. Bir öğe yoksa NULL yerine bir hata döndüren <code><a href="https://purrr.tidyverse.org/reference/pluck.html">chuck()</a></code> kardeş işlevine sahiptir.</p>
+</div>
+</div>
+<div id="listeyi-veri-çerçevesine-dönüştür" class="section level3 unnumbered">
+<h3>Listeyi veri çerçevesine dönüştür<a class="anchor" aria-label="anchor" href="#listeyi-veri-%C3%A7er%C3%A7evesine-d%C3%B6n%C3%BC%C5%9Ft%C3%BCr"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu karmaşık bir konudur - daha eksiksiz öğreticiler için Kaynaklar bölümüne bakın. Yine de, t-testi sonuçlarının listesini bir veri çerçevesine dönüştürmeyi göstereceğiz. Değişken, p değeri ve iki gruptan (erkek ve kadın) ortalamalar için sütunlar içeren bir veri çerçevesi oluşturacağız.</p>
+<p>Kullanılacak bazı yeni yaklaşımlar ve işlevler şunlardır:</p>
+<ul>
+<li>
+<code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> fonksiyonu, bir tibble (veri çerçevesi gibi) oluşturmak için kullanılacaktır
+<ul>
+<li>Tüm <code>t.test_results</code>’un ilk tibble sütunu olarak depolanmasını önlemek için <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> fonksiyonunu küme parantezleri <code><a href="https://rdrr.io/r/base/Paren.html">{ }</a></code> ile çevreliyoruz</li>
+</ul>
+</li>
+<li>
+<code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> içinde her sütun, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> sözdizimine benzer şekilde açıkça oluşturulur:
+<ul>
+<li>
+<code>.</code>, <code>t.test_results</code>’u temsil eder</li>
+<li>t-test değişken adlarıyla (her liste öğesinin adı) bir sütun oluşturmak için yukarıda açıklandığı gibi <code><a href="https://rdrr.io/r/base/names.html">names()</a></code>i kullanırız</li>
+<li>p değerleriyle bir sütun oluşturmak için, <code>p.value</code> öğelerini çekmek ve bunları sayısal bir vektöre dönüştürmek için yukarıda açıklandığı gibi <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> kullanırız</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb813"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>,</span>
+<span>    p         <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"p.value"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##   variables         p
+##   &lt;chr&gt;         &lt;dbl&gt;
+## 1 age       2.35e- 96
+## 2 wt_kg     2.66e-182
+## 3 ht_cm     3.52e-144
+## 4 ct_blood  4.47e-  1
+## 5 temp      5.74e-  1</code></pre>
+<p>Ama şimdi her grup için (erkekler ve kadınlar) ortalamaları içeren sütunlar ekleyelim.</p>
+<p>Öğe tahminini/estimate çıkarmamız gerekir, ancak bu aslında içinde <em>iki</em> öğe içerir (<code>f grubunda ortalama</code> ve <code>m grubunda ortalama</code>). Bu nedenle, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> veya <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code> ile bir vektöre basitleştirilemez. Bunun yerine, <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> içinde kullanılan <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> fonksiyonunu kullanıyoruz, bu <em>tibble içinde bir sınıf listesi sütunu yaratacaktır</em>! Evet, bu mümkün!</p>
+<div class="sourceCode" id="cb815"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="op">{</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>,</span>
+<span>    p <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"p.value"</span><span class="op">)</span>,</span>
+<span>    means <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"estimate"</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+##   variables         p means       
+##   &lt;chr&gt;         &lt;dbl&gt; &lt;named list&gt;
+## 1 age       2.35e- 96 &lt;dbl [2]&gt;   
+## 2 wt_kg     2.66e-182 &lt;dbl [2]&gt;   
+## 3 ht_cm     3.52e-144 &lt;dbl [2]&gt;   
+## 4 ct_blood  4.47e-  1 &lt;dbl [2]&gt;   
+## 5 temp      5.74e-  1 &lt;dbl [2]&gt;</code></pre>
+<p>Bu liste sütununa sahip olduğunuzda, bu “iç içe liste” sütunlarını “dikdörtgenleştirmenize” veya “iç içeden çıkarmanıza” yardımcı olan birkaç <strong>tidyr</strong> fonksiyonu (<strong>tidyverse</strong>’nin bir parçası) vardır. Onlar hakkında daha fazla bilgiyi buradan veya <code><a href="https://tidyr.tidyverse.org/articles/rectangle.html">vignette("rectangle")</a></code> çalıştırarak okuyun. Kısaca:</p>
+<ul>
+<li>
+<code><a href="https://tidyr.tidyverse.org/reference/hoist.html">unnest_wider()</a></code> - bir liste sütununun her elemanına kendi sütununu verir</li>
+<li>
+<code><a href="https://tidyr.tidyverse.org/reference/hoist.html">unnest_longer()</a></code> - bir liste sütununun her elemanına kendi satırını verir</li>
+<li>
+<code><a href="https://tidyr.tidyverse.org/reference/hoist.html">hoist()</a></code> - <code><a href="https://tidyr.tidyverse.org/reference/hoist.html">unnest_wider()</a></code> gibi davranır, ancak hangi öğelerin yuvalanacağını siz belirlersiniz</li>
+</ul>
+<p>Aşağıda, tibble’ın ortalama - <code>means</code> sütununu (iç içe bir liste olan) belirterek tibble’ı <code><a href="https://tidyr.tidyverse.org/reference/hoist.html">unnest_wider()</a></code> öğesine iletiyoruz. Sonuç, <code>ortalamaların</code> her biri daha önce her bir <code>means</code> hücresinde bulunan iki öğeyi yansıtan iki yeni sütunla değiştirilmesidir.</p>
+<div class="sourceCode" id="cb817"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t.test_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="op">{</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>,</span>
+<span>    p <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"p.value"</span><span class="op">)</span>,</span>
+<span>    means <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">"estimate"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/hoist.html">unnest_wider</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## # A tibble: 5 × 4
+##   variables         p `mean in group f` `mean in group m`
+##   &lt;chr&gt;         &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+## 1 age       2.35e- 96              12.7              19.6
+## 2 wt_kg     2.66e-182              45.8              59.6
+## 3 ht_cm     3.52e-144             109.              142. 
+## 4 ct_blood  4.47e-  1              21.2              21.2
+## 5 temp      5.74e-  1              38.6              38.6</code></pre>
+</div>
+<div id="listeleri-atma-saklama-ve-sıkıştırma" class="section level3 unnumbered">
+<h3>Listeleri atma, saklama ve sıkıştırma<a class="anchor" aria-label="anchor" href="#listeleri-atma-saklama-ve-s%C4%B1k%C4%B1%C5%9Ft%C4%B1rma"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>purrr</strong> ile çalışmak genellikle listeler içerdiğinden, listeleri değiştirmek için bazı <strong>purrr</strong> fonksiyonlarını kısaca inceleyeceğiz. <strong>purrr</strong> fonksiyonlarıyla ilgili daha eksiksiz eğitimler için Kaynaklar bölümüne bakın.</p>
+<ul>
+<li>
+<code><a href="https://purrr.tidyverse.org/reference/list_modify.html">list_modify()</a></code> birçok kullanıma sahiptir, bunlardan biri bir liste öğesini kaldırmak olabilir</li>
+<li>
+<code><a href="https://purrr.tidyverse.org/reference/keep.html">keep()</a></code>, <code>.p =</code> için belirtilen öğeleri veya <code>.p =</code> için sağlanan bir işlevin DOĞRU olarak değerlendirildiği yerde tutar</li>
+<li>
+<code><a href="https://purrr.tidyverse.org/reference/keep.html">discard()</a></code>, <code>.p</code> için belirtilen öğeleri veya <code>.p =</code> için sağlanan bir işlevin DOĞRU olarak değerlendirildiği yerde kaldırır</li>
+<li>
+<code><a href="https://purrr.tidyverse.org/reference/keep.html">compact()</a></code> tüm boş öğeleri kaldırır</li>
+</ul>
+<p><a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#iter_combined">Birden çok dosyayı içe aktarmak ve birleştirmek</a> için <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> kullanımıyla ilgili yukarıdaki bölümde oluşturulan birleşik listeyi kullanan bazı örnekler (6 vaka sıra listesi veri çerçevesi içerir):</p>
+<p>Öğeler, <code><a href="https://purrr.tidyverse.org/reference/list_modify.html">list_modify()</a></code> ile adlarına göre ve adı <code>NULL</code>’a eşitlenerek kaldırılabilir.</p>
+<div class="sourceCode" id="cb819"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">combined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_modify.html">list_modify</a></span><span class="op">(</span><span class="st">"Central Hospital"</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>   <span class="co"># liste öğesini isme göre kaldır</span></span></code></pre></div>
+<p>Ayrıca, <code>.p =</code> (DOĞRU veya YANLIŞ olarak değerlendirilen bir denklem) için bir “yüklem” denklemi sağlayarak, ölçütlere göre öğeleri kaldırabilirsiniz. Fonksiyonun önüne bir tilde <code>~</code> yerleştirin ve liste öğesini temsil etmek için <code>.x</code> kullanın. <code><a href="https://purrr.tidyverse.org/reference/keep.html">keep()</a></code> kullanılarak DOĞRU olarak değerlendirilen liste öğeleri tutulacaktır. Tersine, eğer <code><a href="https://purrr.tidyverse.org/reference/keep.html">discard()</a></code> kullanılıyorsa, DOĞRU olarak değerlendirilen liste elemanları kaldırılacaktır.</p>
+<div class="sourceCode" id="cb820"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># yalnızca 500'den fazla satır içeren liste öğelerini tut</span></span>
+<span><span class="va">combined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span>.p <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">500</span><span class="op">)</span>  </span></code></pre></div>
+<p>Aşağıdaki örnekte, sınıfları veri çerçeveleri değilse liste öğeleri atılır.</p>
+<div class="sourceCode" id="cb821"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Veri çerçevesi olmayan liste öğelerini at</span></span>
+<span><span class="va">combined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">discard</a></span><span class="op">(</span>.p <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"data.frame"</span><span class="op">)</span></span></code></pre></div>
+<p>Yüklem işleviniz ayrıca her liste öğesindeki öğelere/sütunlara başvurabilir. Örneğin, aşağıda, <code>ct_blood</code> sütununun ortalamasının 25’in üzerinde olduğu liste öğeleri atılır.</p>
+<div class="sourceCode" id="cb822"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># yalnızca ct_blood sütun ortalamasının 25'in üzerinde olduğu liste öğelerini tut</span></span>
+<span><span class="va">combined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">discard</a></span><span class="op">(</span>.p <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">ct_blood</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span>  </span></code></pre></div>
+<p>Bu komut, tüm boş liste öğelerini kaldırır:</p>
+<div class="sourceCode" id="cb823"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Tüm boş liste öğelerini kaldırın</span></span>
+<span><span class="va">combined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">compact</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="pmap" class="section level3 unnumbered">
+<h3>
+<code>pmap()</code><a class="anchor" aria-label="anchor" href="#pmap"><i class="fas fa-link"></i></a>
+</h3>
+<p>BU BÖLÜM YAPIM AŞAMASINDADIR.</p>
+</div>
+</div>
+<div id="fonksiyonları-uygulama" class="section level2" number="16.4">
+<h2>
+<span class="header-section-number">16.4</span> Fonksiyonları uygulama<a class="anchor" aria-label="anchor" href="#fonksiyonlar%C4%B1-uygulama"><i class="fas fa-link"></i></a>
+</h2>
+<p>“Uygula” fonksiyon ailesi, yinelemeli işlemler için <strong>purrr</strong>’a R tabanı alternatifidir. Onlar hakkında daha fazlasını <a href="https://www.datacamp.com/community/tutorials/r-tutorial-apply-family">buradan</a> okuyabilirsiniz.</p>
+<!-- ======================================================= -->
+</div>
+<div id="kaynaklar-9" class="section level2" number="16.5">
+<h2>
+<span class="header-section-number">16.5</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-9"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://datacarpentry.org/semester-biology/materials/for-loops-R/">Data Carpentry ile for döngüleri</a></p>
+<p><a href="https://r4ds.had.co.nz/iteration.html#iteration">Yinelemede Veri Bilimi için R sayfası</a></p>
+<p><a href="https://martinctc.github.io/blog/vignette-write-and-read-multiple-excel-files-with-purrr/">Excel dosyaları yazma/okuma üzerine skeç</a></p>
+<p><a href="https://jennybc.github.io/purrr-tutorial/index.html">jennybc tarafından bir purrr dersi</a> by jennybc</p>
+<p><a href="http://www.rebeccabarter.com/blog/2019-08-19_purrr/">Rebecca Barter’dan bir başka purrr dersi</a> by Rebecca Barter</p>
+<p><a href="http://zevross.com/blog/2019/06/11/the-power-of-three-purrr-poseful-iteration-in-r-with-map-pmap-and-imap/">map, pmap ve imap hakkında bir purrr eğitimi</a> on map, pmap, and imap</p>
+<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/purrr-cheatsheet-thumbs.png">purrr hile sayfası</a></p>
+<p><a href="https://www.emilhvitfeldt.com/post/2018-01-08-purrr-tips-and-tricks/">purrr ipuçları ve püf noktaları</a></p>
+<p><a href="https://hookedondata.org/going-off-the-map/#keep-and-discard">sakla ve at</a></p>
+
+</div>
+</div>
+
+
+
+<div class="chapter-nav">
+<div class="prev"><a href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></div>
+<div class="next"><a href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#yineleme-d%C3%B6ng%C3%BCler-ve-listeler"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-7"><span class="header-section-number">16.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleme-3">Paketleri yükleme</a></li>
+<li><a class="nav-link" href="#verileri-i%C3%A7e-aktarma-2">Verileri içe aktarma</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#for-d%C3%B6ng%C3%BCleri"><span class="header-section-number">16.2</span> for döngüleri</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#iter_loops">R’daki for döngüleri*</a></li>
+<li><a class="nav-link" href="#temel-bile%C5%9Fenler">Temel bileşenler</a></li>
+<li><a class="nav-link" href="#s%C4%B1ralama">Sıralama</a></li>
+<li><a class="nav-link" href="#operasyonlar">Operasyonlar</a></li>
+<li><a class="nav-link" href="#kapsay%C4%B1c%C4%B1">Kapsayıcı</a></li>
+<li><a class="nav-link" href="#yazd%C4%B1rma">Yazdırma</a></li>
+<li><a class="nav-link" href="#for-d%C3%B6ng%C3%BCs%C3%BCn%C3%BC-test-etme">For döngüsünü test etme</a></li>
+<li><a class="nav-link" href="#d%C3%B6ng%C3%BC-grafikleri">Döngü grafikleri</a></li>
+<li><a class="nav-link" href="#bir-d%C3%B6ng%C3%BCn%C3%BCn-ilerlemesini-izleme">Bir döngünün ilerlemesini izleme</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#iter_purrr"><span class="header-section-number">16.3</span> purrr ve listeler</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleme-4">Paketleri yükleme</a></li>
+<li><a class="nav-link" href="#map">map()</a></li>
+<li><a class="nav-link" href="#veri-k%C3%BCmesini-b%C3%B6lme-ve-d%C4%B1%C5%9Fa-aktarma">Veri kümesini bölme ve dışa aktarma</a></li>
+<li><a class="nav-link" href="#%C3%B6zel-i%C5%9Flevler">Özel işlevler</a></li>
+<li><a class="nav-link" href="#s%C3%BCtunlar-aras%C4%B1nda-bir-fonksiyonu-e%C5%9Fleme">Sütunlar arasında bir fonksiyonu eşleme</a></li>
+<li><a class="nav-link" href="#listeden-%C3%A7%C4%B1karma">Listeden çıkarma</a></li>
+<li><a class="nav-link" href="#listeyi-veri-%C3%A7er%C3%A7evesine-d%C3%B6n%C3%BC%C5%9Ft%C3%BCr">Listeyi veri çerçevesine dönüştür</a></li>
+<li><a class="nav-link" href="#listeleri-atma-saklama-ve-s%C4%B1k%C4%B1%C5%9Ft%C4%B1rma">Listeleri atma, saklama ve sıkıştırma</a></li>
+<li><a class="nav-link" href="#pmap">pmap()</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#fonksiyonlar%C4%B1-uygulama"><span class="header-section-number">16.4</span> Fonksiyonları uygulama</a></li>
+<li><a class="nav-link" href="#kaynaklar-9"><span class="header-section-number">16.5</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+</div>
+  
+
+  
+
+</div>
+ <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

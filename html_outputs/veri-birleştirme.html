@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>14 Veri Birleştirme | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Yukarıda: sol birleştirmenin animasyonlu bir örneği (görüntünün kaynağı) Bu sayfa, “birleştirme(join)”, “eşleştirme(match)”, “ilişkilendirme(link)” “bağlantı kurma(bind)” ve veri çerçevelerini...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="14 Veri Birleştirme | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Yukarıda: sol birleştirmenin animasyonlu bir örneği (görüntünün kaynağı) Bu sayfa, “birleştirme(join)”, “eşleştirme(match)”, “ilişkilendirme(link)” “bağlantı kurma(bind)” ve veri çerçevelerini...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14 Veri Birleştirme | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Yukarıda: sol birleştirmenin animasyonlu bir örneği (görüntünün kaynağı) Bu sayfa, “birleştirme(join)”, “eşleştirme(match)”, “ilişkilendirme(link)” “bağlantı kurma(bind)” ve veri çerçevelerini...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="active" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="veri-birleştirme" class="section level1" number="14">
+<h1>
+<span class="header-section-number">14</span> Veri Birleştirme<a class="anchor" aria-label="anchor" href="#veri-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="images/left-join.gif" width="50%"></div>
+<p><em>Yukarıda: sol birleştirmenin animasyonlu bir örneği (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">görüntünün kaynağı</a>)</em></p>
+<p>Bu sayfa, “birleştirme(join)”, “eşleştirme(match)”, “ilişkilendirme(link)” “bağlantı kurma(bind)” ve veri çerçevelerini başka şekilde harmanlamanın yollarını açıklamaktadır.</p>
+<p>Epidemiyolojik analizinizin veya iş akışınızın birden çok veri kaynağını ve birden çok veri kümesinin bağlantısını içermemesi nadir görülen bir durumdur. Belki de laboratuvar verilerini hastanın klinik sonuçlarına veya Google mobilite verilerini bulaşıcı hastalık eğilimlerine, hatta analizin bir aşamasındaki bir veri kümesini kendisinin dönüştürülmüş bir versiyonuna bağlamanız gerekebilir.</p>
+<p>Bu sayfada aşağıdakilere yönelik kodu gösteriyoruz:</p>
+<ul>
+<li>Satırların tanımlayıcı sütunlarındaki ortak değerlere göre eşleştirileceği şekilde iki veri çerçevesinin <em>birleştirilmesi</em>
+</li>
+<li>Değerler arasındaki <em>olasılıklı</em> (likely) eşleşmelere dayalı iki veri çerçevesini birleştirme</li>
+<li>Başka bir veri çerçevesinden satırları veya sütunları doğrudan <em>bağlayarak</em> veya (“ekleyerek”) bir veri çerçevesini genişletme</li>
+</ul>
+<!-- ============================================ ========= --><div id="hazırlık-5" class="section level2" number="14.1">
+<h2>
+<span class="header-section-number">14.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-5"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yükleme-1" class="section level3 unnumbered">
+<h3>Paketleri yükleme<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleme-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu kod parçası, analizler için gerekli olan paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’dan ‘p_load()’ vurgusunu yapıyoruz. <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri de yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R basics] sayfasına bakın.</p>
+<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">rio</span>,            <span class="co"># içe aktar ve dışa aktar</span></span>
+<span>  <span class="va">here</span>,           <span class="co"># dosyaların yerini belirle</span></span>
+<span>  <span class="va">tidyverse</span>,      <span class="co"># veri yönetimi ve görselleştirme</span></span>
+<span>  <span class="va">RecordLinkage</span>,  <span class="co"># olasılıksal eşleşme</span></span>
+<span>  <span class="va">fastLink</span>        <span class="co"># olasılıksal eşleşme</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="verileri-içe-aktarma-1" class="section level3 unnumbered">
+<h3>Verileri içe aktarma<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktarma-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Başlamak için, simüle edilmiş bir Ebola salgınından temizlenmiş vaka listesini içe aktarıyoruz. Takip etmek isterseniz <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">click to download the “clean” linelist</a> (.rds dosyası olarak). <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonuyla verileri içe aktarın (.xlsx, .csv, .rds gibi birçok dosya türünü işler - ayrıntılar için [İçe aktarma ve dışa aktarma] sayfasına bakın).</p>
+<div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># vaka satır listesini içe aktarma </span></span>
+<span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"linelist_cleaned.rds"</span><span class="op">)</span></span></code></pre></div>
+<p>Satır listesinin ilk 50 satırı aşağıda gösterilmiştir.</p>
+<div id="htmlwidget-842914201f65f2809847" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-842914201f65f2809847">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1407024000000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+<div id="örnek-veri-kümeleri" class="section level3 unnumbered">
+<h3>Örnek veri kümeleri<a class="anchor" aria-label="anchor" href="#%C3%B6rnek-veri-k%C3%BCmeleri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıdaki birleştirme bölümünde, aşağıdaki veri kümelerini kullanacağız:</p>
+<ol style="list-style-type: decimal">
+<li>Yalnızca “case_id”, “date_onset” ve “hospital” sütunlarını ve yalnızca ilk 10 satırı içeren “vaka satır listesinin” “minyatür” versiyonu</li>
+<li>Her hastane hakkında daha fazla ayrıntı içeren “hosp_info” adlı ayrı bir veri çerçevesi</li>
+</ol>
+<p>Olasılıksal eşleştirme bölümünde iki farklı küçük veri seti kullanacağız. Bu veri kümelerini oluşturacak kod o bölümde verilmiştir.</p>
+<div id="joins_llmini" class="section level4 unnumbered">
+<h4>“Minyatür” vaka satır listesi<a class="anchor" aria-label="anchor" href="#joins_llmini"><i class="fas fa-link"></i></a>
+</h4>
+<p>Aşağıda, yalnızca 10 satır ve yalnızca “case_id”, “date_onset” ve “hospital” sütunlarını içeren minyatür vaka satır listesi bulunmaktadır.</p>
+<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_mini</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                 <span class="co"># orijinal satır listesiyle başla</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">case_id</span>, <span class="va">date_onset</span>, <span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># sütunları seç</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>                                    <span class="co"># sadece ilk 10 satırı al</span></span></code></pre></div>
+<div id="htmlwidget-abb7535845f41a61e208" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-abb7535845f41a61e208">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="joins_hosp_info" class="section level4 unnumbered">
+<h4>Hastane bilgi veri çerçevesi<a class="anchor" aria-label="anchor" href="#joins_hosp_info"><i class="fas fa-link"></i></a>
+</h4>
+<p>Aşağıda, yedi hastane hakkında ek bilgi içeren ayrı bir veri çerçevesi oluşturma kodu verilmiştir (çalışma alanı nüfusu ve mevcut bakım düzeyi). “Askeri Hastane” adının iki farklı hastaneye ait olduğunu unutmayın - biri 10000 kişiye hizmet veren birinci basamak ve diğeri 50280 kişiye hizmet veren ikinci basamak.</p>
+<div class="sourceCode" id="cb673"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Hastane bilgi veri çerçevesini yapın</span></span>
+<span><span class="va">hosp_info</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  hosp_name     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"central hospital"</span>, <span class="st">"military"</span>, <span class="st">"military"</span>, <span class="st">"port"</span>, <span class="st">"St. Mark's"</span>, <span class="st">"ignace"</span>, <span class="st">"sisters"</span><span class="op">)</span>,</span>
+<span>  catchment_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1950280</span>, <span class="fl">40500</span>, <span class="fl">10000</span>, <span class="fl">50280</span>, <span class="fl">12000</span>, <span class="fl">5000</span>, <span class="fl">4200</span><span class="op">)</span>,</span>
+<span>  level         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Tertiary"</span>, <span class="st">"Secondary"</span>, <span class="st">"Primary"</span>, <span class="st">"Secondary"</span>, <span class="st">"Secondary"</span>, <span class="st">"Primary"</span>, <span class="st">"Primary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>İşte bu veri çerçevesi:</p>
+<div id="htmlwidget-a2f3ef340ce9451a8d58" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a2f3ef340ce9451a8d58">{"x":{"filter":"none","vertical":false,"data":[["central hospital","military","military","port","St. Mark's","ignace","sisters"],[1950280,40500,10000,50280,12000,5000,4200],["Tertiary","Secondary","Primary","Secondary","Secondary","Primary","Primary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hosp_name<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":7,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[7,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+</div>
+<div id="ön-temizleme" class="section level3 unnumbered">
+<h3>Ön temizleme<a class="anchor" aria-label="anchor" href="#%C3%B6n-temizleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Geleneksel birleştirmeler (olasılıksız) büyük/küçük harfe duyarlıdır ve iki veri çerçevesindeki değerler arasında tam karakter eşleşmeleri gerektirir. Bir birleştirmeyi başlatmadan önce yapmanız gerekebilecek bazı temizleme adımlarını göstermek için, şimdi ‘linelist_mini’ ve ‘hosp_info’ veri kümelerini temizleyip hizalayacağız.</p>
+<p><strong>Farklılıkları tanımlayın</strong></p>
+<p>‘linelist_mini’ veri çerçevesindeki ‘hospital’ sütununun değerleriyle eşleşmesi için ‘hosp_info’ veri çerçevesindeki ‘hosp_name’ sütununun değerlerine ihtiyacımız var.</p>
+<p><strong>base</strong> R fonksiyonu ‘unique()’ ile yazdırılan ‘linelist_mini’ veri çerçevesindeki değerler şunlardır:</p>
+<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">linelist_mini</span><span class="op">$</span><span class="va">hospital</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Other"                                "Missing"                             
+## [3] "St. Mark's Maternity Hospital (SMMH)" "Port Hospital"                       
+## [5] "Military Hospital"</code></pre>
+<p>ve burada “hosp_info” veri çerçevesindeki değerler:</p>
+<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">hosp_info</span><span class="op">$</span><span class="va">hosp_name</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "central hospital" "military"         "port"             "St. Mark's"       "ignace"           "sisters"</code></pre>
+<p>Her iki veri çerçevesinde de bazı hastaneler varken, yazımda birçok farklılık olduğunu görebilirsiniz.</p>
+<p><strong>Değerleri hizala</strong></p>
+<p><code>hosp_info</code> veri çerçevesindeki değerleri temizleyerek başlıyoruz. [Temizleme verileri ve temel fonksiyonlar] sayfasında açıklandığı gibi, <strong>dplyr</strong>’in <code>case_while()</code> fonksiyonunu kullanarak değerleri mantıksal kriterlerle yeniden kodlayabiliriz. Her iki veri çerçevesinde de bulunan dört hastane için değerleri, ‘linelist_mini’ içindeki değerlerle uyumlu olacak şekilde değiştiriyoruz. Diğer hastanelerde değerleri olduğu gibi bırakıyoruz (<code>TRUE ~ hosp_name</code>).</p>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> Genellikle temizlik yapılırken yeni bir sütun oluşturulmalıdır (ör. <code>hosp_name_clean</code>),
+ancak gösterim kolaylığı için eski sütunun modifikasyonunu gösteriyoruz</span></p>
+<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hosp_info</span> <span class="op">&lt;-</span> <span class="va">hosp_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    hosp_name <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="co"># criteria                         # yeni değer</span></span>
+<span>      <span class="va">hosp_name</span> <span class="op">==</span> <span class="st">"military"</span>          <span class="op">~</span> <span class="st">"Military Hospital"</span>,</span>
+<span>      <span class="va">hosp_name</span> <span class="op">==</span> <span class="st">"port"</span>              <span class="op">~</span> <span class="st">"Port Hospital"</span>,</span>
+<span>      <span class="va">hosp_name</span> <span class="op">==</span> <span class="st">"St. Mark's"</span>        <span class="op">~</span> <span class="st">"St. Mark's Maternity Hospital (SMMH)"</span>,</span>
+<span>      <span class="va">hosp_name</span> <span class="op">==</span> <span class="st">"central hospital"</span>  <span class="op">~</span> <span class="st">"Central Hospital"</span>,</span>
+<span>      <span class="cn">TRUE</span>                             <span class="op">~</span> <span class="va">hosp_name</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+<p>Her iki veri çerçevesinde de görünen hastane adları hizalanmıştır. “Hosp_info”da “linelist_mini”de bulunmayan iki hastane vardır - bunları daha sonra, birleştirmede ele alacağız.</p>
+<div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">hosp_info</span><span class="op">$</span><span class="va">hosp_name</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "Central Hospital"                     "Military Hospital"                   
+## [3] "Port Hospital"                        "St. Mark's Maternity Hospital (SMMH)"
+## [5] "ignace"                               "sisters"</code></pre>
+<p>Birleştirmeden önce, bir sütunu tamamen küçük harfe veya tamamı büyük harfe dönüştürmek genellikle en kolayıdır. Bir sütundaki tüm değerleri BÜYÜK veya küçük harfe dönüştürmeniz gerekiyorsa, ‘mutate()’ kullanın ve sütunu<strong>stringr</strong>’ fonksiyonlarından biriyle sarın. <a href="karakterler-ve-dizeler.html#karakterler-ve-dizeler">Karakterler ve dizeler</a> sayfasında gösterildiği gibi</p>
+<p><code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper()</a></code><br><code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper()</a></code><br><code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title()</a></code></p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="dplyr-birleştirmeleri" class="section level2" number="14.2">
+<h2>
+<span class="header-section-number">14.2</span> <strong>dplyr</strong> birleştirmeleri<a class="anchor" aria-label="anchor" href="#dplyr-birle%C5%9Ftirmeleri"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>dplyr</strong> paketi birkaç farklı birleştirme fonksiyonu sunar. <strong>dplyr</strong>, <strong>tidyverse</strong> paketine dahildir. Bu birleştirme fonksiyonları, basit kullanım durumları ile aşağıda açıklanmıştır.</p>
+<p>Bilgilendirici gifler için <a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">https://github.com/gadenbuie</a>’e çok teşekkürler!</p>
+<!-- ============================================ ========= -->
+<div id="genel-sözdizimi" class="section level3 unnumbered">
+<h3>Genel sözdizimi<a class="anchor" aria-label="anchor" href="#genel-s%C3%B6zdizimi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Birleştirme komutları, iki veri çerçevesini yeni bir nesnede birleştirmek için bağımsız komutlar olarak çalıştırılabilir veya bir veri çerçevesini temizlenirken veya başka bir şekilde değiştirilirken bir veri çerçevesini diğerine birleştirmek için bir tünel zincirinde (“%&gt;%”) kullanılabilir. .</p>
+<p>Aşağıdaki örnekte, “left_join()” fonksiyonu, yeni bir “joined_data” veri çerçevesi oluşturmak için bağımsız bir komut olarak kullanılır. Girişler, veri çerçeveleri 1 ve 2’dir (<code>df1</code> ve <code>df2</code>). Listelenen ilk veri çerçevesi temel veri çerçevesidir ve listelenen ikincisi <em>buna</em> birleştirilir.</p>
+<p>Üçüncü argüman “by =”, iki veri çerçevesindeki satırları hizalamak için kullanılacak her veri çerçevesindeki sütunları belirttiğiniz yerdir. Bu sütunların adları farklıysa, bunları aşağıda gösterildiği gibi bir “c()” vektörü içinde sağlayın; burada satırlar “df1”deki “ID” sütunu ile “df2”deki “tanımlayıcı” sütunu arasındaki ortak değerler temelinde eşleştirilir.</p>
+<div class="sourceCode" id="cb681"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># "ID" sütunu (ilk veri çerçevesi) ve "tanımlayıcı" sütunu (ikinci veri çerçevesi) arasındaki ortak değerlere göre birleştirme</span></span>
+<span><span class="va">joined_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span> <span class="op">=</span> <span class="st">"identifier"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Her iki veri çerçevesindeki “by” sütunları tam olarak aynı ada sahipse, bu tek adı tırnak içinde verebilirsiniz.</p>
+<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Her iki veri çerçevesindeki "ID" sütunundaki ortak değerlere dayalı birleştirme</span></span>
+<span><span class="va">joined_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span>, by <span class="op">=</span> <span class="st">"ID"</span><span class="op">)</span></span></code></pre></div>
+<p>Birden çok alandaki ortak değerlere dayalı veri çerçevelerini birleştiriyorsanız, bu alanları “c()” vektörü içinde listeleyin. Bu örnek, her veri kümesindeki üç sütundaki değerler tam olarak aynı hizadaysa satırları birleştirir.</p>
+<div class="sourceCode" id="cb683"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># aynı isim-soyisim ve yaşa sahip olanları birleştirme</span></span>
+<span><span class="va">joined_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"name"</span> <span class="op">=</span> <span class="st">"firstname"</span>, <span class="st">"surname"</span> <span class="op">=</span> <span class="st">"lastname"</span>, <span class="st">"Age"</span> <span class="op">=</span> <span class="st">"age"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Birleştirme komutları bir tünel zinciri içinde de çalıştırılabilir. Bu, aktarılan veri çerçevesini değiştirecektir.</p>
+<p>Aşağıdaki örnekte ‘df1’ tünellerden geçirilmekte, ‘df2’ ile birleştirilmekte ve böylece ‘df’ değiştirilip yeniden tanımlanmaktadır.</p>
+<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date_onset</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-03-05"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># öok yönlü temizlik</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ID"</span> <span class="op">=</span> <span class="st">"identifier"</span><span class="op">)</span><span class="op">)</span>    <span class="co"># df2 yi df1 e birleştirmek</span></span></code></pre></div>
+<p><span style="color: orange;"><strong><em>UYARI:</em></strong> Birleştirmeler büyük/küçük harfe özeldir! Bu nedenle, birleştirmeden önce tüm değerleri küçük harfe veya büyük harfe dönüştürmek yararlıdır. Karakterler/dizeler ile ilgili sayfaya bakınız.</span></p>
+<!-- ======================================================= -->
+</div>
+<div id="sol-ve-sağ-birleşimler" class="section level3 unnumbered">
+<h3>Sol ve sağ birleşimler<a class="anchor" aria-label="anchor" href="#sol-ve-sa%C4%9F-birle%C5%9Fimler"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Bir veri çerçevesine bilgi eklemek için yaygın olarak sol veya sağ birleşim kullanılır</strong> - yeni bilgiler yalnızca temel veri çerçevesinde zaten var olan satırlara eklenir. Bunlar, bir veri kümesinden diğerine bilgi eklemek için kullanıldıkları için epidemiyolojik çalışmalarda yaygın olarak kullanılan birleştirmelerdir.</p>
+<p>Bu birleştirmeleri kullanırken, komuttaki veri çerçevelerinin yazılı sırası önemlidir*.</p>
+<ul>
+<li>Bir <em>sol birleştirmede</em>, yazılan <em>ilk</em> veri çerçevesi temel satırdır</li>
+<li>Bir <em>sağ birleştirmede</em>, yazılan <em>ikinci</em> veri çerçevesi temel satırdır</li>
+</ul>
+<p><strong>Temel veri çerçevesinin tüm satırları tutulur.</strong> Diğer (ikincil) veri çerçevesindeki bilgiler, temel veri çerçevesine <em>yalnızca tanımlayıcı sütun(lar)ı aracılığıyla bir eşleşme varsa</em> birleştirilir. Ek olarak:</p>
+<ul>
+<li>İkincil veri çerçevesindeki eşleşmeyen satırlar atlanır.</li>
+<li>İkincil veri çerçevesindeki bir satırla eşleşen çok sayıda temel satır varsa (çoktan bire), ikincil bilgiler <em>eşleşen her bir temel satıra</em> eklenir.</li>
+<li>Bir temel satır, ikincil veri çerçevesindeki birden çok satırla eşleşirse (bire çok), tüm kombinasyonlar verilir, yani <em>döndürülen veri çerçevenize yeni satırlar eklenebilir!</em>
+</li>
+</ul>
+<p>Sol ve sağ birleştirmelerin animasyonlu örnekleri (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">image source</a>)</p>
+<p><img src="images/left-join.gif" width="50%"><img src="images/right-join.gif" width="50%"></p>
+<p><strong>Örnek</strong></p>
+<p>Aşağıda, “hosp_info”nun (ikincil veri çerçevesi, <a href="veri-birle%C5%9Ftirme.html#joins_hosp_info">buradan görüntüleyebilirsiniz</a>) “linelist_mini”ye (temel veri çerçevesi, <a href="veri-birle%C5%9Ftirme.html#joins_llmini">buradan görüntüleyebilirsiniz</a>) bir “left_join()” çıktısı verilmiştir. Orijinal “linelist_mini”, “nrow(linelist_mini)” satırlarına sahiptir. Değiştirilen “linelist_mini” görüntülenir. Aşağıdakilere dikkat ediniz:</p>
+<ul>
+<li>“linelist_mini”nin sol tarafına iki yeni sütun, “catchment_pop” ve “level” eklendi</li>
+<li>‘linelist_mini’ temel veri çerçevesinin tüm orijinal satırları tutulur</li>
+<li>“Askeri Hastane” için herhangi bir orijinal “linelist_mini” satırı, ikincil veri çerçevesindeki <em>iki</em> satırla eşleştiği için çoğaltılır, bu nedenle her iki kombinasyon da döndürülür</li>
+<li>İkincil veri kümesinin (<code>hosp_name</code>) birleştirme tanımlayıcı sütunu, birincil veri kümesindeki (“hastane”) tanımlayıcı sütunuyla gereksiz olduğundan kayboldu</li>
+<li>Temel satır herhangi bir ikincil satırla eşleşmediğinde (örneğin, “hastane” “Diğer” veya “Eksik” olduğunda), “NA” (boşluk) ikincil veri çerçevesindeki sütunları doldurur</li>
+<li>İkincil veri çerçevesindeki temel veri çerçevesiyle eşleşmeyen satırlar (“kızkardeşler” ve “ignace” hastaneleri) çıkarıldı.</li>
+</ul>
+<div class="sourceCode" id="cb685"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_mini</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">hosp_info</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hospital"</span> <span class="op">=</span> <span class="st">"hosp_name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-dc8a82d89e3b6fd8b760" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dc8a82d89e3b6fd8b760">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","893f25","be99c8","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing"],[null,null,12000,50280,40500,10000,50280,null,null,null,null],[null,null,"Secondary","Secondary","Secondary","Primary","Secondary",null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script><div id="sağ-birleştirme-mi-yoksa-sol-birleştirme-mi-kullanmalıyım" class="section level4 unnumbered">
+<h4>“Sağ birleştirme mi yoksa sol birleştirme mi kullanmalıyım?”<a class="anchor" aria-label="anchor" href="#sa%C4%9F-birle%C5%9Ftirme-mi-yoksa-sol-birle%C5%9Ftirme-mi-kullanmal%C4%B1y%C4%B1m"><i class="fas fa-link"></i></a>
+</h4>
+<p>Yukarıdaki soruyu yanıtlamak için kendinize “hangi veri çerçevesinin tüm satırlarını tutması gerektiğini” sorun. - bunu temel satır olarak kullanın. <em>sol birleştirme</em> komutta yazılan ilk veri çerçevesindeki tüm satırları tutarken, <em>sağ birleştirme</em> tüm satırları ikinci veri çerçevesinde tutar.</p>
+<p>Aşağıdaki iki komut aynı çıktıyı elde eder - 10 satır “hosp_info” bir “linelist_mini” temel satırına katılmıştır, ancak farklı birleşimler kullanırlar. Sonuç olarak, sütun sırası, “hosp_info”nun sağdan mı (sol birleştirmede) yoksa soldan mı (sağ birleştirmede) geldiğine bağlı olarak farklılık gösterecektir. Sıraların sırası da buna göre değişebilir. Ancak bu sonuçların her ikisi de daha sonra, sütunları yeniden sıralamak için “select()” veya satırları sıralamak için “arrange()” kullanılarak ele alınabilir.</p>
+<div class="sourceCode" id="cb686"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Aşağıdaki iki komut aynı verileri elde eder, ancak farklı sıralı satırlar ve sütunlarla</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">linelist_mini</span>, <span class="va">hosp_info</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hospital"</span> <span class="op">=</span> <span class="st">"hosp_name"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span><span class="va">hosp_info</span>, <span class="va">linelist_mini</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hosp_name"</span> <span class="op">=</span> <span class="st">"hospital"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Sol birleşim yoluyla ‘hosp_info’nun ’linelist_mini’ içindeki sonucu (sağdan gelen yeni sütunlar)</p>
+<div id="htmlwidget-33982e71065b0edec04a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-33982e71065b0edec04a">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","893f25","be99c8","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing"],[null,null,12000,50280,40500,10000,50280,null,null,null,null],[null,null,"Secondary","Secondary","Secondary","Primary","Secondary",null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>İşte sağ birleştirme yoluyla ‘hosp_info’nun ’linelist_mini’ içindeki sonucu (soldan gelen yeni sütunlar)</p>
+<div id="htmlwidget-6a2a644c560dc264308f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6a2a644c560dc264308f">{"x":{"filter":"none","vertical":false,"data":[["Military Hospital","Military Hospital","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Other","Missing","Missing","Missing","Missing","Missing"],[40500,10000,50280,50280,12000,null,null,null,null,null,null],["Secondary","Primary","Secondary","Secondary","Secondary",null,null,null,null,null,null],["893f25","893f25","b8812a","be99c8","11f8ea","5fe599","8689b7","07e3e8","369449","f393b4","1389ca"],["2014-05-21","2014-05-21","2014-05-18","2014-05-22","2014-05-16","2014-05-13","2014-05-13","2014-05-27","2014-06-02","2014-06-05","2014-06-05"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hosp_name<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Ayrıca kullanım durumunuzun bir tünel zinciri (<code>%&gt;%</code>) içinde olup olmadığını da göz önünde bulundurun. Borulardaki veri kümesi temel satır ise, buna veri eklemek için büyük olasılıkla bir sol birleştirme kullanacaksınız.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="tam-birleşme" class="section level3 unnumbered">
+<h3>Tam birleşme<a class="anchor" aria-label="anchor" href="#tam-birle%C5%9Fme"><i class="fas fa-link"></i></a>
+</h3>
+<p>**Tam birleşim, birleşimlerin en *kapsayıcısıdır** - her iki veri çerçevesinden tüm satırları döndürür.</p>
+<p>Birinde mevcut olan ve diğerinde olmayan satırlar varsa (eşleşmenin bulunmadığı durumlarda), veri çerçevesi bunları içerecek ve daha uzun olacaktır. “NA” eksik değerleri, oluşturulan boşlukları doldurmak için kullanılır. Birleştirirken, büyük/küçük harf duyarlılığı ve tam karakter eşleşmeleriyle ilgili sorunları gidermek için sütun ve satır sayısını dikkatle izleyin.</p>
+<p>“Temel satır” veri çerçevesi, komutta ilk yazılan çerçevedir. Bunun ayarlanması, birleştirme tarafından hangi kayıtların döndürüleceğini etkilemez, ancak sonuçta elde edilen sütun sırasını, satır sırasını ve hangi tanımlayıcı sütunların tutulacağını etkileyebilir.</p>
+<div class="inline-figure"><img src="images/full-join.gif" width="50%"></div>
+<p>Tam birleştirmenin animasyonlu örneği (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">görüntü kaynağı</a>)</p>
+<p><strong>Örnek</strong></p>
+<p><code>linelist_mini</code>nin(başlangıçta<code>nrow(linelist_mini)</code>, <a href="veri-birle%C5%9Ftirme.html#joins_llmini">buradan görüntüleyebilirsiniz</a> <em>içine</em> <code>hosp_info</code>’nun <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join()</a></code>’i (başlangıçta nrow(hosp_info)`, <a href="veri-birle%C5%9Ftirme.html#joins_hosp_info">buradan görüntüleyebilirsiniz</a>) çıktısı aşağıda yer almaktadır. Aşağıdakilere dikkat ediniz:</p>
+<ul>
+<li>Tüm temel satırlar tutulur (<code>linelist_mini</code>)</li>
+<li>İkincil satırda temel satırla eşleşmeyen satırlar tutulur (“ignace” ve “sisters”), karşılık gelen “case_id” ve “onset” sütunlarındaki değerler eksik değerlerle doldurulur</li>
+<li>Benzer şekilde, temel veri çerçevesindeki ikincil ile eşleşmeyen satırlar (“Diğer” ve “Eksik”) tutulur, ikincil sütunlar “catchment_pop” ve “level” eksik değerlerle doldurulur</li>
+<li>Bire çoğa veya çoğa bire eşleşmelerde (ör. “Askeri Hastane” satırları), tüm olası kombinasyonlar döndürülür (son veri çerçevesini uzatarak)</li>
+<li>Yalnızca temel satırdan tanımlayıcı sütun tutulur (“hastane”)</li>
+</ul>
+<div class="sourceCode" id="cb687"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_mini</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">hosp_info</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hospital"</span> <span class="op">=</span> <span class="st">"hosp_name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-f76f6d3f0b4d22c85d45" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f76f6d3f0b4d22c85d45">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","893f25","be99c8","07e3e8","369449","f393b4","1389ca",null,null,null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05",null,null,null],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Central Hospital","ignace","sisters"],[null,null,12000,50280,40500,10000,50280,null,null,null,null,1950280,5000,4200],[null,null,"Secondary","Secondary","Secondary","Primary","Secondary",null,null,null,null,"Tertiary","Primary","Primary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+<div id="iç-birleştirme" class="section level3 unnumbered">
+<h3>İç birleştirme<a class="anchor" aria-label="anchor" href="#i%C3%A7-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h3>
+<p>**İç birleştirme, birleştirmelerin en *kısıtlayıcısıdır** - yalnızca her iki veri çerçevesinde eşleşen satırları döndürür.
+Bu, temel veri çerçevesindeki satır sayısının gerçekten <em>azalabileceği</em> anlamına gelir. Hangi veri çerçevesinin “temel satır” (işlevde ilk olarak yazılır) olduğunun ayarlanması, hangi satırların döndürüleceğini etkilemez, ancak sütun sırasını, satır sırasını ve hangi tanımlayıcı sütunların tutulacağını etkiler.</p>
+<div class="inline-figure"><img src="images/inner-join.gif" width="50%"></div>
+<p>İç birleştirmenin animasyonlu örneği (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">görüntü kaynağı</a>)</p>
+<p><strong>Örnek</strong></p>
+<p>Aşağıda, “hosp_info” (ikincil) ile “linelist_mini”nin (temel satır) bir “inner_join()” çıktısı bulunmaktadır. Aşağıdakilere dikkat ediniz:</p>
+<ul>
+<li>İkincil verilerle eşleşmeyen temel satırlar kaldırılır (“hastane”nin “Eksik” veya “Diğer” olduğu satırlar)</li>
+<li>Benzer şekilde, temel satırla eşleşmeyen ikincil veri çerçevesindeki satırlar kaldırılır (“hosp_name”nin “kız kardeşler” veya “ignace” olduğu satırlar)</li>
+<li>Yalnızca temel satırdan tanımlayıcı sütun tutulur (“hastane”)</li>
+</ul>
+<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_mini</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">hosp_info</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hospital"</span> <span class="op">=</span> <span class="st">"hosp_name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-c5d24f8ad09aadef94cf" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c5d24f8ad09aadef94cf">{"x":{"filter":"none","vertical":false,"data":[["11f8ea","b8812a","893f25","893f25","be99c8"],["2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22"],["St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital"],[12000,50280,40500,10000,50280],["Secondary","Secondary","Secondary","Primary","Secondary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script><!-- ======================================================= -->
+</div>
+<div id="yarım-birleştirme" class="section level3 unnumbered">
+<h3>Yarım birleştirme<a class="anchor" aria-label="anchor" href="#yar%C4%B1m-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Yarım birleştirme, başka bir veri kümesini <em>satır veya sütun eklemek için değil, filtreleme</em> gerçekleştirmek için kullanan bir “filtreleme birleştirme”dir.</p>
+<p>Bir <strong>yarım birleştirme, ikincil veri çerçevesinde bir eşleşmeye sahip olan temel veri çerçevesindeki tüm gözlemleri tutar</strong> (ancak yeni sütunlar eklemez veya birden çok eşleşme için herhangi bir satırı çoğaltmaz). Bu “filtreleme” birleşimleri hakkında daha fazla bilgiyi buradan okuyabilirsiniz <a href="https://towardsdatascience.com/level-up-with-semi-joins-in-r-a068426096e0">buradan</a>.</p>
+<div class="inline-figure"><img src="images/semi-join.gif" width="50%"></div>
+<p>Yarım birleştirmenin animasyonlu örneği (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">görüntü kaynağı</a>)</p>
+<p>Örnek olarak, aşağıdaki kod, hastane adına göre “linelist_mini” içinde eşleşmeleri olan “hosp_info” veri çerçevesinden satırları döndürür.</p>
+<div class="sourceCode" id="cb689"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hosp_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join</a></span><span class="op">(</span><span class="va">linelist_mini</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hosp_name"</span> <span class="op">=</span> <span class="st">"hospital"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##                              hosp_name catchment_pop     level
+## 1                    Military Hospital         40500 Secondary
+## 2                    Military Hospital         10000   Primary
+## 3                        Port Hospital         50280 Secondary
+## 4 St. Mark's Maternity Hospital (SMMH)         12000 Secondary</code></pre>
+<!-- ======================================================= -->
+</div>
+<div id="karşıt-birleştirme" class="section level3 unnumbered">
+<h3>Karşıt birleştirme<a class="anchor" aria-label="anchor" href="#kar%C5%9F%C4%B1t-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Karşıt birleştirme ‘anti_join()’, temel veri çerçevesindeki ikincil veri çerçevesinde eşleşmeyen* satırları döndüren başka bir “filtreleme birleştirme”dir.</strong></p>
+<p>Birleştirmeleri filtreleme hakkında daha fazla bilgiyi buradan okuyabilirsiniz <a href="https://towardsdatascience.com/level-up-with-semi-joins-in-r-a068426096e0">buradan</a>.</p>
+<p>Bir karşıt birleştirme için yaygın senaryolar arasında başka bir veri çerçevesinde mevcut olmayan kayıtların belirlenmesi, bir birleştirmedeki yazım hatalarının giderilmesi (eşleşmesi <em>gereken</em> kayıtların gözden geçirilmesi) ve başka bir birleştirmeden sonra hariç tutulan kayıtların incelenmesi yer alır.</p>
+<p><strong>‘right_join()’ ve ‘left_join()’ ile olduğu gibi, <em>temel</em> veri çerçevesi (ilk olarak listelenmiştir) önemlidir</strong>. Döndürülen satırlar yalnızca temel veri çerçevesindendir. Alttaki gifte, ikincil veri çerçevesindeki o satırın (mor satır 4), taban çizgisiyle eşleşmemesine rağmen döndürülmediğine dikkat edin.</p>
+<div class="inline-figure"><img src="images/anti-join.gif" width="50%"></div>
+<p>Karşıt birleştirmenin animasyonlu örneği (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">görüntü kaynağı</a>)</p>
+<div id="basit-anti_join-örneği" class="section level4 unnumbered">
+<h4>Basit <code>anti_join()</code> örneği<a class="anchor" aria-label="anchor" href="#basit-anti_join-%C3%B6rne%C4%9Fi"><i class="fas fa-link"></i></a>
+</h4>
+<p>Basit bir örnek için, ‘linelist_mini’ içinde herhangi bir vaka bulunmayan ‘hosp_info’ hastanelerini bulalım. Temel veri çerçevesi olarak önce ‘hosp_info’yu listeleriz. ’linelist_mini’ içinde bulunmayan hastaneler iade edilir.</p>
+<div class="sourceCode" id="cb691"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hosp_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">linelist_mini</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hosp_name"</span> <span class="op">=</span> <span class="st">"hospital"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-c4075baa933fc80049c9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c4075baa933fc80049c9">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","ignace","sisters"],[1950280,5000,4200],["Tertiary","Primary","Primary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hosp_name<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="karmaşık-anti_join-örneği" class="section level4 unnumbered">
+<h4>Karmaşık <code>anti_join()</code> örneği<a class="anchor" aria-label="anchor" href="#karma%C5%9F%C4%B1k-anti_join-%C3%B6rne%C4%9Fi"><i class="fas fa-link"></i></a>
+</h4>
+<p>Başka bir örnek için, “linelist_mini” ve “hosp_info” arasında bir “inner_join()” çalıştırdığımızı varsayalım. Bazıları “hosp_info” içinde bulunmadığından, bu, orijinal “linelist_mini” kayıtlarının yalnızca bir alt kümesini döndürür.</p>
+<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_mini</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">hosp_info</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hospital"</span> <span class="op">=</span> <span class="st">"hosp_name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-6e3ff1c55e5e6de2cfa4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6e3ff1c55e5e6de2cfa4">{"x":{"filter":"none","vertical":false,"data":[["11f8ea","b8812a","893f25","893f25","be99c8"],["2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22"],["St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital"],[12000,50280,40500,10000,50280],["Secondary","Secondary","Secondary","Primary","Secondary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>İç birleştirme sırasında hariç tutulan ‘linelist_mini’ kayıtlarını gözden geçirmek için aynı ayarlarla (temel satır olarak ‘linelist_mini’) bir ayrıştırma (anti-join) çalıştırabiliriz.</p>
+<div class="sourceCode" id="cb693"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist_mini</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">hosp_info</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hospital"</span> <span class="op">=</span> <span class="st">"hosp_name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-052172442f1e4996d7e0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-052172442f1e4996d7e0">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","Missing","Missing","Missing","Missing"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>İç birleşimde hariç tutulan ‘hosp_info’ kayıtlarını görmek için, temel veri çerçevesi olarak ‘hosp_info’ ile bir ayrıştırma çalıştırabiliriz.</p>
+<!-- ============================================ ========= -->
+</div>
+</div>
+</div>
+<div id="olasılıksal-eşleştirme" class="section level2" number="14.3">
+<h2>
+<span class="header-section-number">14.3</span> Olasılıksal eşleştirme<a class="anchor" aria-label="anchor" href="#olas%C4%B1l%C4%B1ksal-e%C5%9Fle%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h2>
+<p>Katılmak için veri kümeleri arasında ortak benzersiz bir tanımlayıcınız yoksa, olasılıklı bir eşleştirme algoritması kullanmayı düşünün. Bu, benzerliğe dayalı olarak kayıtlar arasındaki eşleşmeleri bulur (örneğin, Jaro–Winkler dizi mesafesi veya sayısal mesafe). Aşağıda <strong>fastLink</strong> paketini kullanan basit bir örnek verilmiştir.</p>
+<p><strong>Paketleri yükle</strong></p>
+<div class="sourceCode" id="cb694"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">tidyverse</span>,      <span class="co"># veri işleme ve görselleştirme</span></span>
+<span>  <span class="va">fastLink</span>        <span class="co"># kayıt eşleştirme</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>Olasılıksal eşleşmeyi göstermek için kullanacağımız iki küçük örnek veri kümesi (“durumlar” ve “test_sonuçları”):</p>
+<p>Veri kümelerini oluşturmak için kullanılan kod:</p>
+<div class="sourceCode" id="cb695"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># veri kümeleri yapmak</span></span>
+<span></span>
+<span><span class="va">cases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">gender</span>, <span class="op">~</span><span class="va">first</span>,      <span class="op">~</span><span class="va">middle</span>,     <span class="op">~</span><span class="va">last</span>,        <span class="op">~</span><span class="va">yr</span>,   <span class="op">~</span><span class="va">mon</span>, <span class="op">~</span><span class="va">day</span>, <span class="op">~</span><span class="va">district</span>,</span>
+<span>  <span class="st">"M"</span>,     <span class="st">"Amir"</span>,      <span class="cn">NA</span>,          <span class="st">"Khan"</span>,       <span class="fl">1989</span>,  <span class="fl">11</span>,   <span class="fl">22</span>,   <span class="st">"River"</span>,</span>
+<span>  <span class="st">"M"</span>,     <span class="st">"Anthony"</span>,   <span class="st">"B."</span>,        <span class="st">"Smith"</span>,      <span class="fl">1970</span>, <span class="fl">09</span>, <span class="fl">19</span>,      <span class="st">"River"</span>, </span>
+<span>  <span class="st">"F"</span>,     <span class="st">"Marialisa"</span>, <span class="st">"Contreras"</span>, <span class="st">"Rodrigues"</span>,  <span class="fl">1972</span>, <span class="fl">04</span>, <span class="fl">15</span>,      <span class="st">"River"</span>,</span>
+<span>  <span class="st">"F"</span>,     <span class="st">"Elizabeth"</span>, <span class="st">"Casteel"</span>,   <span class="st">"Chase"</span>,      <span class="fl">1954</span>, <span class="fl">03</span>, <span class="fl">03</span>,      <span class="st">"City"</span>,</span>
+<span>  <span class="st">"M"</span>,     <span class="st">"Jose"</span>,      <span class="st">"Sanchez"</span>,   <span class="st">"Lopez"</span>,      <span class="fl">1996</span>, <span class="fl">01</span>, <span class="fl">06</span>,      <span class="st">"City"</span>,</span>
+<span>  <span class="st">"F"</span>,     <span class="st">"Cassidy"</span>,   <span class="st">"Jones"</span>,      <span class="st">"Davis"</span>,     <span class="fl">1980</span>, <span class="fl">07</span>, <span class="fl">20</span>,      <span class="st">"City"</span>,</span>
+<span>  <span class="st">"M"</span>,     <span class="st">"Michael"</span>,   <span class="st">"Murphy"</span>,     <span class="st">"O'Calaghan"</span>,<span class="fl">1969</span>, <span class="fl">04</span>, <span class="fl">12</span>,      <span class="st">"Rural"</span>, </span>
+<span>  <span class="st">"M"</span>,     <span class="st">"Oliver"</span>,    <span class="st">"Laurent"</span>,    <span class="st">"De Bordow"</span> , <span class="fl">1971</span>, <span class="fl">02</span>, <span class="fl">04</span>,     <span class="st">"River"</span>,</span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Blessing"</span>,  <span class="cn">NA</span>,          <span class="st">"Adebayo"</span>,   <span class="fl">1955</span>,  <span class="fl">02</span>, <span class="fl">14</span>,     <span class="st">"Rural"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">gender</span>,  <span class="op">~</span><span class="va">first</span>,     <span class="op">~</span><span class="va">middle</span>,     <span class="op">~</span><span class="va">last</span>,          <span class="op">~</span><span class="va">yr</span>, <span class="op">~</span><span class="va">mon</span>, <span class="op">~</span><span class="va">day</span>, <span class="op">~</span><span class="va">district</span>, <span class="op">~</span><span class="va">result</span>,</span>
+<span>  <span class="st">"M"</span>,      <span class="st">"Amir"</span>,     <span class="cn">NA</span>,          <span class="st">"Khan"</span>,         <span class="fl">1989</span>, <span class="fl">11</span>,   <span class="fl">22</span>,  <span class="st">"River"</span>, <span class="st">"positive"</span>,</span>
+<span>  <span class="st">"M"</span>,      <span class="st">"Tony"</span>,   <span class="st">"B"</span>,         <span class="st">"Smith"</span>,          <span class="fl">1970</span>, <span class="fl">09</span>,   <span class="fl">19</span>,  <span class="st">"River"</span>, <span class="st">"positive"</span>,</span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Maria"</span>,    <span class="st">"Contreras"</span>, <span class="st">"Rodriguez"</span>,    <span class="fl">1972</span>, <span class="fl">04</span>,   <span class="fl">15</span>,  <span class="st">"Cty"</span>,   <span class="st">"negative"</span>,</span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Betty"</span>,    <span class="st">"Castel"</span>,   <span class="st">"Chase"</span>,        <span class="fl">1954</span>,  <span class="fl">03</span>,   <span class="fl">30</span>,  <span class="st">"City"</span>,  <span class="st">"positive"</span>,</span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Andrea"</span>,   <span class="cn">NA</span>,          <span class="st">"Kumaraswamy"</span>,  <span class="fl">2001</span>, <span class="fl">01</span>,   <span class="fl">05</span>,  <span class="st">"Rural"</span>, <span class="st">"positive"</span>,      </span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Caroline"</span>, <span class="cn">NA</span>,          <span class="st">"Wang"</span>,         <span class="fl">1988</span>, <span class="fl">12</span>,   <span class="fl">11</span>,  <span class="st">"Rural"</span>, <span class="st">"negative"</span>,</span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Trang"</span>,    <span class="cn">NA</span>,          <span class="st">"Nguyen"</span>,       <span class="fl">1981</span>, <span class="fl">06</span>,   <span class="fl">10</span>,  <span class="st">"Rural"</span>, <span class="st">"positive"</span>,</span>
+<span>  <span class="st">"M"</span>,      <span class="st">"Olivier"</span> , <span class="st">"Laurent"</span>,   <span class="st">"De Bordeaux"</span>,  <span class="cn">NA</span>,   <span class="cn">NA</span>,   <span class="cn">NA</span>,  <span class="st">"River"</span>, <span class="st">"positive"</span>,</span>
+<span>  <span class="st">"M"</span>,      <span class="st">"Mike"</span>,     <span class="st">"Murphy"</span>,    <span class="st">"O'Callaghan"</span>,  <span class="fl">1969</span>, <span class="fl">04</span>,   <span class="fl">12</span>,  <span class="st">"Rural"</span>, <span class="st">"negative"</span>,</span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Cassidy"</span>,  <span class="st">"Jones"</span>,     <span class="st">"Davis"</span>,        <span class="fl">1980</span>, <span class="fl">07</span>,   <span class="fl">02</span>,  <span class="st">"City"</span>,  <span class="st">"positive"</span>,</span>
+<span>  <span class="st">"M"</span>,      <span class="st">"Mohammad"</span>, <span class="cn">NA</span>,          <span class="st">"Ali"</span>,          <span class="fl">1942</span>, <span class="fl">01</span>,   <span class="fl">17</span>,  <span class="st">"City"</span>,  <span class="st">"negative"</span>,</span>
+<span>  <span class="cn">NA</span>,       <span class="st">"Jose"</span>,     <span class="st">"Sanchez"</span>,   <span class="st">"Lopez"</span>,        <span class="fl">1995</span>, <span class="fl">01</span>,   <span class="fl">06</span>,  <span class="st">"City"</span>,  <span class="st">"negative"</span>,</span>
+<span>  <span class="st">"M"</span>,      <span class="st">"Abubakar"</span>, <span class="cn">NA</span>,          <span class="st">"Abullahi"</span>,     <span class="fl">1960</span>, <span class="fl">01</span>,   <span class="fl">01</span>,  <span class="st">"River"</span>, <span class="st">"positive"</span>,</span>
+<span>  <span class="st">"F"</span>,      <span class="st">"Maria"</span>,    <span class="st">"Salinas"</span>,   <span class="st">"Contreras"</span>,    <span class="fl">1955</span>, <span class="fl">03</span>,   <span class="fl">03</span>,  <span class="st">"River"</span>, <span class="st">"positive"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><strong>“vakalar” veri kümesinde, test sonuçlarını bekleyen hastaların 9 kaydı</strong> vardır.</p>
+<div id="htmlwidget-a23b5a1e5b777687692d" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a23b5a1e5b777687692d">{"x":{"filter":"none","vertical":false,"data":[["M","M","F","F","M","F","M","M","F"],["Amir","Anthony","Marialisa","Elizabeth","Jose","Cassidy","Michael","Oliver","Blessing"],[null,"B.","Contreras","Casteel","Sanchez","Jones","Murphy","Laurent",null],["Khan","Smith","Rodrigues","Chase","Lopez","Davis","O'Calaghan","De Bordow","Adebayo"],[1989,1970,1972,1954,1996,1980,1969,1971,1955],[11,9,4,3,1,7,4,2,2],[22,19,15,3,6,20,12,4,14],["River","River","River","City","City","City","Rural","River","Rural"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>gender<\/th>\n      <th>first<\/th>\n      <th>middle<\/th>\n      <th>last<\/th>\n      <th>yr<\/th>\n      <th>mon<\/th>\n      <th>day<\/th>\n      <th>district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":9,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[9,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><strong><code>test_results</code> veri kümesi</strong> 14 kayıt içerir ve kayıtların olasılıksal eşleşmesine dayalı olarak <code>vakalar</code>daki kayıtlara eklemek istediğimiz <code>sonuç</code> sütununu içerir.</p>
+<div id="htmlwidget-bf9e49ea9c0ed6dd396f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf9e49ea9c0ed6dd396f">{"x":{"filter":"none","vertical":false,"data":[["M","M","F","F","F","F","F","M","M","F","M",null,"M","F"],["Amir","Tony","Maria","Betty","Andrea","Caroline","Trang","Olivier","Mike","Cassidy","Mohammad","Jose","Abubakar","Maria"],[null,"B","Contreras","Castel",null,null,null,"Laurent","Murphy","Jones",null,"Sanchez",null,"Salinas"],["Khan","Smith","Rodriguez","Chase","Kumaraswamy","Wang","Nguyen","De Bordeaux","O'Callaghan","Davis","Ali","Lopez","Abullahi","Contreras"],[1989,1970,1972,1954,2001,1988,1981,null,1969,1980,1942,1995,1960,1955],[11,9,4,3,1,12,6,null,4,7,1,1,1,3],[22,19,15,30,5,11,10,null,12,2,17,6,1,3],["River","River","Cty","City","Rural","Rural","Rural","River","Rural","City","City","City","River","River"],["positive","positive","negative","positive","positive","negative","positive","positive","negative","positive","negative","negative","positive","positive"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>gender<\/th>\n      <th>first<\/th>\n      <th>middle<\/th>\n      <th>last<\/th>\n      <th>yr<\/th>\n      <th>mon<\/th>\n      <th>day<\/th>\n      <th>district<\/th>\n      <th>result<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":14,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,14,25,50,100]}},"evals":[],"jsHooks":[]}</script><div id="olasılıksal-eşleşme" class="section level3 unnumbered">
+<h3>Olasılıksal eşleşme<a class="anchor" aria-label="anchor" href="#olas%C4%B1l%C4%B1ksal-e%C5%9Fle%C5%9Fme"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>fastLink</strong> paketindeki <code>fastLink()</code> fonksiyonu, bir eşleştirme algoritması uygulamak için kullanılabilir. İşte temel bilgiler. Konsolunuza <code>?fastLink</code> girerek daha fazla ayrıntı okuyabilirsiniz.</p>
+<ul>
+<li>
+<code>dfA =</code> ve <code>dfB =</code> değişkenleriyle karşılaştırmak için iki veri çerçevesini tanımlayın.</li>
+<li>
+<code>varnames =</code> içinde eşleştirme için kullanılacak tüm sütun adlarını verin. Hepsi hem “dfA” hem de “dfB” içinde bulunmalıdır.</li>
+<li>
+<code>stringdist.match =</code> içinde, “distance” dizesinde değerlendirilmek üzere <code>varnames</code> içindekilerden sütunlar verin.</li>
+<li>‘numeric.match =’ içinde, ‘varnames’ içindekilerden sayısal mesafeye göre değerlendirilecek sütunlar verin.</li>
+<li>Eksik değerler dikkate alınmaz</li>
+<li>Varsayılan olarak, herhangi bir veri çerçevesindeki her satır, diğer veri çerçevesindeki en fazla bir satırla eşleştirilir. Değerlendirilen tüm eşleşmeleri görmek istiyorsanız, “dedupe.matches = FALSE” olarak ayarlayın. Tekilleştirme, Winkler’in doğrusal atama çözümü kullanılarak yapılır.</li>
+</ul>
+<p><em>İpucu: <strong>lubridate</strong> paketinden ‘day()’, ‘ay()’ ve ‘year()’ kullanarak bir tarih sütununu üç ayrı sayısal sütuna ayırın</em></p>
+<p>Eşleşmeler için varsayılan eşik 0,94’tür (<code>threshold.match =</code>), ancak bunu daha yüksek veya daha düşük olarak ayarlayabilirsiniz. Eşiği tanımlarsanız, daha yüksek eşiklerin daha fazla yanlış-negatif (aslında eşleşmesi gereken eşleşmeyen satırlar) verebileceğini ve aynı şekilde daha düşük bir eşiğin daha fazla yanlış-pozitif eşleşmeler sağlayabileceğini düşünün.</p>
+<p>Aşağıda, veriler, ad ve bölge sütunları boyunca harf dizisi mesafesine ve yıl, ay ve doğum günü için sayısal mesafeye göre eşleştirilir. %95 olasılıkla bir eşleşme eşiği belirlenir.</p>
+<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fl_output</span> <span class="op">&lt;-</span> <span class="fu">fastLink</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fastLink/man/fastLink.html">fastLink</a></span><span class="op">(</span></span>
+<span>  dfA <span class="op">=</span> <span class="va">cases</span>,</span>
+<span>  dfB <span class="op">=</span> <span class="va">results</span>,</span>
+<span>  varnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"first"</span>, <span class="st">"middle"</span>, <span class="st">"last"</span>, <span class="st">"yr"</span>, <span class="st">"mon"</span>, <span class="st">"day"</span>, <span class="st">"district"</span><span class="op">)</span>,</span>
+<span>  stringdist.match <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"middle"</span>, <span class="st">"last"</span>, <span class="st">"district"</span><span class="op">)</span>,</span>
+<span>  numeric.match <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yr"</span>, <span class="st">"mon"</span>, <span class="st">"day"</span><span class="op">)</span>,</span>
+<span>  threshold.match <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## ==================== 
+## fastLink(): Fast Probabilistic Record Linkage
+## ==================== 
+## 
+## If you set return.all to FALSE, you will not be able to calculate a confusion table as a summary statistic.
+## Calculating matches for each variable.
+## Getting counts for parameter estimation.
+##     Parallelizing calculation using OpenMP. 1 threads out of 12 are used.
+## Running the EM algorithm.
+## Getting the indices of estimated matches.
+##     Parallelizing calculation using OpenMP. 1 threads out of 12 are used.
+## Deduping the estimated matches.
+## Getting the match patterns for each estimated match.</code></pre>
+<p><strong>Eşleşmelerin incelenmesi</strong></p>
+<p><code>fastLink()</code>den dönen nesneyi <code>fl_output</code> olarak tanımladık. ‘list’ sınıfında yer alır ve aslında içinde eşleşmenin sonuçlarını detaylandıran birkaç veri çerçevesi içerir. Bu veri çerçevelerinden biri, “durumlar” ve “sonuçlar” arasındaki en olası eşleşmeleri içeren “eşleşmeler”dir. Bu “eşleşmelere” veri çerçevesine <code>fl_output$matches</code> ile erişebilirsiniz. Aşağıda, daha sonra erişim kolaylığı için ‘my_matches’ olarak kaydedilmiştir.</p>
+<p>“my_matches” yazdırıldığında, iki sütun vektörü görürsünüz: “cases” (“inds.a”) ve “results” (“inds.b”) içindeki satır numaraları/indeks (“satır adları” olarak da adlandırılır) çiftleri en iyi eşleşmeleri temsil eder. Bir veri çerçevesinden bir satır numarası eksikse, belirtilen eşleşme eşiğinde diğer veri çerçevesinde hiçbir eşleşme bulunamaz.</p>
+<div class="sourceCode" id="cb698"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># eşleşmeleri yazdır</span></span>
+<span><span class="va">my_matches</span> <span class="op">&lt;-</span> <span class="va">fl_output</span><span class="op">$</span><span class="va">matches</span></span>
+<span><span class="va">my_matches</span></span></code></pre></div>
+<pre><code>##   inds.a inds.b
+## 1      1      1
+## 2      2      2
+## 3      3      3
+## 4      4      4
+## 5      8      8
+## 6      7      9
+## 7      6     10
+## 8      5     12</code></pre>
+<p>Dikkat edilmesi gerekenler:</p>
+<ul>
+<li>İsim yazımında ve doğum tarihlerinde küçük farklılıklar olmasına rağmen eşleşmeler gerçekleşti:
+<ul>
+<li>“Tony B. Smith”, “Anthony B Smith” ile eşleşti</li>
+<li>“Maria Rodriguez”, “Marialisa Rodrigues” ile eşleşti</li>
+<li>“Betty Chase”, “Elizabeth Chase” ile eşleşti</li>
+<li>“Olivier Laurent De Bordeaux”, “Oliver Laurent De Bordow” ile eşleştirildi (eksik doğum tarihi dikkate alınmadı)</li>
+</ul>
+</li>
+<li>“Cases” bir satır (“Blessing Adebayo” için, 9. satır) “results”da iyi bir eşleşmeye sahip değildi, bu nedenle “eşleşmelerim”de yer verilmedi.</li>
+</ul>
+<p><strong>Olasılıklı eşleşmelere göre birleştirme</strong></p>
+<p>Bu eşleşmeleri “results” “cases” birleştirmek için strateji şudur:</p>
+<ol style="list-style-type: decimal">
+<li>“my_matches”ı “cases” ile birleştirmek için “left_join()”i kullanın (“cases”deki satır adlarını “my_matches” içindeki “inds.a” ile eşleştirme)</li>
+<li>Ardından, “results”ı “cases” ile birleştirmek için başka bir “left_join()” kullanın (“vakalar”daki yeni edinilen “inds.b”yi “results”daki satır adlarıyla eşleştirin)</li>
+</ol>
+<p>Birleştirmelerden önce üç veri çerçevesini temizlemeliyiz:</p>
+<ul>
+<li>Hem “dfA” hem de “dfB” satır numaraları (“satır adı”) uygun bir sütuna dönüştürülmelidir.</li>
+<li>
+<code>my_matches</code> içindeki her iki sütun da sınıf karakterine dönüştürülür, böylece karakter satır adlarına birleştirilebilirler.</li>
+</ul>
+<div class="sourceCode" id="cb700"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Eşleştirmeden önce verileri temizleyin</span></span>
+<span><span class="co">#############################</span></span>
+<span></span>
+<span><span class="co"># vaka satır adlarını bir sütuna dönüştür </span></span>
+<span><span class="va">cases_clean</span> <span class="op">&lt;-</span> <span class="va">cases</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># test_results satır adlarını bir sütuna dönüştür</span></span>
+<span><span class="va">results_clean</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="op">)</span>  </span>
+<span></span>
+<span><span class="co"># eşleşen veri kümesindeki tüm sütunları karaktere dönüştürün, böylece satır adlarına birleştirilebilirler</span></span>
+<span><span class="va">matches_clean</span> <span class="op">&lt;-</span> <span class="va">my_matches</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">as.character</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Eşleşmeleri dfA ile birleştirin, ardından dfB ekleyin</span></span>
+<span><span class="co">##################################</span></span>
+<span><span class="co"># "inds.b" sütunu dfA'ya eklendi</span></span>
+<span><span class="va">complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">cases_clean</span>, <span class="va">matches_clean</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rowname"</span> <span class="op">=</span> <span class="st">"inds.a"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#dfB'den sütun(lar) eklendi</span></span>
+<span><span class="va">complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">complete</span>, <span class="va">results_clean</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"inds.b"</span> <span class="op">=</span> <span class="st">"rowname"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Yukarıdaki kod kullanılarak gerçekleştirildiği gibi, elde edilen “tamamlandı” veri çerçevesi hem “durumlardan” hem de “sonuçlardan” <em>tüm</em> sütunları içerecektir. Sütun adları aksi takdirde yineleneceğinden, birçoğuna “.x” ve “.y” son ekleri eklenecektir.</p>
+<div id="htmlwidget-62b3928bff715436f0d3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-62b3928bff715436f0d3">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9"],["M","M","F","F","M","F","M","M","F"],["Amir","Anthony","Marialisa","Elizabeth","Jose","Cassidy","Michael","Oliver","Blessing"],[null,"B.","Contreras","Casteel","Sanchez","Jones","Murphy","Laurent",null],["Khan","Smith","Rodrigues","Chase","Lopez","Davis","O'Calaghan","De Bordow","Adebayo"],[1989,1970,1972,1954,1996,1980,1969,1971,1955],[11,9,4,3,1,7,4,2,2],[22,19,15,3,6,20,12,4,14],["River","River","River","City","City","City","Rural","River","Rural"],["1","2","3","4","12","10","9","8",null],["M","M","F","F",null,"F","M","M",null],["Amir","Tony","Maria","Betty","Jose","Cassidy","Mike","Olivier",null],[null,"B","Contreras","Castel","Sanchez","Jones","Murphy","Laurent",null],["Khan","Smith","Rodriguez","Chase","Lopez","Davis","O'Callaghan","De Bordeaux",null],[1989,1970,1972,1954,1995,1980,1969,null,null],[11,9,4,3,1,7,4,null,null],[22,19,15,30,6,2,12,null,null],["River","River","Cty","City","City","City","Rural","River",null],["positive","positive","negative","positive","negative","positive","negative","positive",null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>rowname<\/th>\n      <th>gender.x<\/th>\n      <th>first.x<\/th>\n      <th>middle.x<\/th>\n      <th>last.x<\/th>\n      <th>yr.x<\/th>\n      <th>mon.x<\/th>\n      <th>day.x<\/th>\n      <th>district.x<\/th>\n      <th>inds.b<\/th>\n      <th>gender.y<\/th>\n      <th>first.y<\/th>\n      <th>middle.y<\/th>\n      <th>last.y<\/th>\n      <th>yr.y<\/th>\n      <th>mon.y<\/th>\n      <th>day.y<\/th>\n      <th>district.y<\/th>\n      <th>result<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":9,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[5,6,7,14,15,16]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[9,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Alternatif olarak, “results”dan yeni sütun(lar)la “cases” yalnızca “orijinal” 9 kaydı elde etmek için, birleştirmeden önce “results”da “select()”i kullanın, böylece yalnızca satır adlarını ve “cases” (örneğin “result” sütunu) eklemek istediğiniz sütunları içerir.</p>
+<div class="sourceCode" id="cb701"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cases_clean</span> <span class="op">&lt;-</span> <span class="va">cases</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">results_clean</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">rowname</span>, <span class="va">result</span><span class="op">)</span>    <span class="co"># sadece belirli sütunları seç</span></span>
+<span></span>
+<span><span class="va">matches_clean</span> <span class="op">&lt;-</span> <span class="va">my_matches</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">as.character</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># birleştirme</span></span>
+<span><span class="va">complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">cases_clean</span>, <span class="va">matches_clean</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rowname"</span> <span class="op">=</span> <span class="st">"inds.a"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">complete</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">complete</span>, <span class="va">results_clean</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"inds.b"</span> <span class="op">=</span> <span class="st">"rowname"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-80b3c664dce02601f0ea" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-80b3c664dce02601f0ea">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9"],["M","M","F","F","M","F","M","M","F"],["Amir","Anthony","Marialisa","Elizabeth","Jose","Cassidy","Michael","Oliver","Blessing"],[null,"B.","Contreras","Casteel","Sanchez","Jones","Murphy","Laurent",null],["Khan","Smith","Rodrigues","Chase","Lopez","Davis","O'Calaghan","De Bordow","Adebayo"],[1989,1970,1972,1954,1996,1980,1969,1971,1955],[11,9,4,3,1,7,4,2,2],[22,19,15,3,6,20,12,4,14],["River","River","River","City","City","City","Rural","River","Rural"],["1","2","3","4","12","10","9","8",null],["positive","positive","negative","positive","negative","positive","negative","positive",null]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>rowname<\/th>\n      <th>gender<\/th>\n      <th>first<\/th>\n      <th>middle<\/th>\n      <th>last<\/th>\n      <th>yr<\/th>\n      <th>mon<\/th>\n      <th>day<\/th>\n      <th>district<\/th>\n      <th>inds.b<\/th>\n      <th>result<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":9,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[5,6,7]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[9,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Her iki veri kümesini de yalnızca eşleşen satırlara alt kümelemek isterseniz aşağıdaki kodları kullanabilirsiniz:</p>
+<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cases_matched</span> <span class="op">&lt;-</span> <span class="va">cases</span><span class="op">[</span><span class="va">my_matches</span><span class="op">$</span><span class="va">inds.a</span>,<span class="op">]</span>  <span class="co"># Sonuçlarda bir satırla eşleşen vakalarda satırlar</span></span>
+<span><span class="va">results_matched</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[</span><span class="va">my_matches</span><span class="op">$</span><span class="va">inds.b</span>,<span class="op">]</span>  <span class="co"># Vakalardaki bir satırla eşleşen sonuçlardaki satırlar</span></span></code></pre></div>
+<p>Veya yalnızca <strong>eşleşmeyen</strong> satırları görmek için:</p>
+<div class="sourceCode" id="cb703"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cases_not_matched</span> <span class="op">&lt;-</span> <span class="va">cases</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">cases</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">my_matches</span><span class="op">$</span><span class="va">inds.a</span>,<span class="op">]</span>  <span class="co"># Sonuçlarda bir satırla eşleşmeyen vakalardaki satırlar</span></span>
+<span><span class="va">results_not_matched</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">my_matches</span><span class="op">$</span><span class="va">inds.b</span>,<span class="op">]</span>  <span class="co"># Bir satırla eşleşmeyen sonuçlardaki satırlars</span></span></code></pre></div>
+</div>
+<div id="olasılıksal-veri-tekilleştirme" class="section level3 unnumbered">
+<h3>Olasılıksal veri tekilleştirme<a class="anchor" aria-label="anchor" href="#olas%C4%B1l%C4%B1ksal-veri-tekille%C5%9Ftirme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Olasılıksal eşleştirme, bir veri kümesini tekilleştirmek için de kullanılabilir. Diğer veri tekilleştirme yöntemleri için veri tekilleştirme sayfasına bakabilirsiniz.</p>
+<p>Burada “cases” veri kümesiyle başladık, ancak önceki satırların kopyası olabilecek 2 ek satırı olduğundan şimdi buna “cases_dup” adını veriyoruz:
+“Anthony” ile “Tony” ve “Maria Rodriguez” ile “Marialisa Rodrigues” i inceleyiniz.</p>
+<div id="htmlwidget-1af53f50c495a57257bb" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1af53f50c495a57257bb">{"x":{"filter":"none","vertical":false,"data":[["M","M","F","F","M","F","M","M","F","M","F"],["Amir","Anthony","Marialisa","Elizabeth","Jose","Cassidy","Michael","Oliver","Blessing","Tony","Maria"],[null,"B.","Contreras","Casteel","Sanchez","Jones","Murphy","Laurent",null,"B.","Contreras"],["Khan","Smith","Rodrigues","Chase","Lopez","Davis","O'Calaghan","De Bordow","Adebayo","Smith","Rodriguez"],[1989,1970,1972,1954,1996,1980,1969,1971,1955,1970,1972],[11,9,4,3,1,7,4,2,2,9,4],[22,19,15,3,6,20,12,4,14,19,15],["River","River","River","City","City","City","Rural","River","Rural","River","River"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>gender<\/th>\n      <th>first<\/th>\n      <th>middle<\/th>\n      <th>last<\/th>\n      <th>yr<\/th>\n      <th>mon<\/th>\n      <th>day<\/th>\n      <th>district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":[4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Daha önce olduğu gibi “fastLink()”i çalıştırın, ancak “cases_dup” veri çerçevesini kendisiyle karşılaştırın. Sağlanan iki veri çerçevesi aynı olduğunda, fonksiyon, çoğaltmayı kaldırmak istediğinizi varsayar. Daha önce yaptığımız gibi <code>stringdist.match =</code> veya <code>numeric.match =</code> belirtmediğimizi unutmayın.</p>
+<div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Aynı veri kümesinde fastLink'i çalıştırın</span></span>
+<span><span class="va">dedupe_output</span> <span class="op">&lt;-</span> <span class="fu">fastLink</span><span class="op">(</span></span>
+<span>  dfA <span class="op">=</span> <span class="va">cases_dup</span>,</span>
+<span>  dfB <span class="op">=</span> <span class="va">cases_dup</span>,</span>
+<span>  varnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"first"</span>, <span class="st">"middle"</span>, <span class="st">"last"</span>, <span class="st">"yr"</span>, <span class="st">"mon"</span>, <span class="st">"day"</span>, <span class="st">"district"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## ==================== 
+## fastLink(): Fast Probabilistic Record Linkage
+## ==================== 
+## 
+## If you set return.all to FALSE, you will not be able to calculate a confusion table as a summary statistic.
+## dfA and dfB are identical, assuming deduplication of a single data set.
+## Setting return.all to FALSE.
+## 
+## Calculating matches for each variable.
+## Getting counts for parameter estimation.
+##     Parallelizing calculation using OpenMP. 1 threads out of 12 are used.
+## Running the EM algorithm.
+## Getting the indices of estimated matches.
+##     Parallelizing calculation using OpenMP. 1 threads out of 12 are used.
+## Calculating the posterior for each pair of matched observations.
+## Getting the match patterns for each estimated match.</code></pre>
+<p>Şimdi, <code>getMatches()</code> ile olası kopyaları inceleyebilirsiniz. Veri çerçevesini hem ‘dfA =’ hem de ‘dfB =’ olarak sağlayın ve ‘fastLink()’ fonksiyonunun çıktısını ‘fl.out =’ olarak sağlayın. “fl.out”, “fastLink.dedupe” sınıfında veya başka bir deyişle “fastLink()”in sonucu olmalıdır.</p>
+<div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## getMatches() çalıştır</span></span>
+<span><span class="va">cases_dedupe</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span></span>
+<span>  dfA <span class="op">=</span> <span class="va">cases_dup</span>,</span>
+<span>  dfB <span class="op">=</span> <span class="va">cases_dup</span>,</span>
+<span>  fl.out <span class="op">=</span> <span class="va">dedupe_output</span><span class="op">)</span></span></code></pre></div>
+<p>Yinelenen kimlikleri gösteren en sağdaki sütuna bakın - son iki satır, 2. ve 3. satırların olası kopyaları olarak tanımlanır.</p>
+<div id="htmlwidget-67dfaedc73046f5a7743" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-67dfaedc73046f5a7743">{"x":{"filter":"none","vertical":false,"data":[["M","M","F","F","M","F","M","M","F","M","F"],["Amir","Anthony","Marialisa","Elizabeth","Jose","Cassidy","Michael","Oliver","Blessing","Tony","Maria"],[null,"B.","Contreras","Casteel","Sanchez","Jones","Murphy","Laurent",null,"B.","Contreras"],["Khan","Smith","Rodrigues","Chase","Lopez","Davis","O'Calaghan","De Bordow","Adebayo","Smith","Rodriguez"],[1989,1970,1972,1954,1996,1980,1969,1971,1955,1970,1972],[11,9,4,3,1,7,4,2,2,9,4],[22,19,15,3,6,20,12,4,14,19,15],["River","River","River","City","City","City","Rural","River","Rural","River","River"],[1,2,3,4,5,6,7,8,9,2,3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>gender<\/th>\n      <th>first<\/th>\n      <th>middle<\/th>\n      <th>last<\/th>\n      <th>yr<\/th>\n      <th>mon<\/th>\n      <th>day<\/th>\n      <th>district<\/th>\n      <th>dedupe.ids<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":[4,5,6,8]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Büyük olasılıkla yinelenen satırların satır numaralarını döndürmek için, “dedupe.ids” sütunundaki benzersiz değer başına satır sayısını sayabilir ve ardından yalnızca birden fazla satıra sahip olanları tutmak için filtre uygulayabilirsiniz. Bu durumda 2. ve 3. satırları bırakır.</p>
+<div class="sourceCode" id="cb707"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cases_dedupe</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">dedupe.ids</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##   dedupe.ids n
+## 1          2 2
+## 2          3 2</code></pre>
+<p>Muhtemel kopyaların tüm satırlarını incelemek için satır numarasını bu komuta girin:</p>
+<div class="sourceCode" id="cb709"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 2. satırı ve tüm olası kopyalarını görüntüler</span></span>
+<span><span class="va">cases_dedupe</span><span class="op">[</span><span class="va">cases_dedupe</span><span class="op">$</span><span class="va">dedupe.ids</span> <span class="op">==</span> <span class="fl">2</span>,<span class="op">]</span>   </span></code></pre></div>
+<pre><code>##    gender   first middle  last   yr mon day district dedupe.ids
+## 2       M Anthony     B. Smith 1970   9  19    River          2
+## 10      M    Tony     B. Smith 1970   9  19    River          2</code></pre>
+</div>
+</div>
+<div id="bağlama-ve-hizalama" class="section level2" number="14.4">
+<h2>
+<span class="header-section-number">14.4</span> Bağlama ve hizalama<a class="anchor" aria-label="anchor" href="#ba%C4%9Flama-ve-hizalama"><i class="fas fa-link"></i></a>
+</h2>
+<p>İki veri çerçevesini birleştirmenin başka bir yöntemi, onları birbirine “bağlamaktır”. Bunu satır veya sütunları “eklemek” olarak da düşünebilirsiniz.</p>
+<p>Bu bölümde ayrıca bir veri çerçevesinin satır sırasının başka bir veri çerçevesindeki sıraya nasıl “hizalanacağı” tartışılacaktır. Bu konu aşağıda Sütunları bağlama bölümünde tartışılmaktadır.</p>
+<div id="satırları-bağlama" class="section level3 unnumbered">
+<h3>Satırları bağlama<a class="anchor" aria-label="anchor" href="#sat%C4%B1rlar%C4%B1-ba%C4%9Flama"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir veri çerçevesinin satırlarını başka bir veri çerçevesinin altına bağlamak için, <strong>dplyr</strong>’den <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> kullanın. Çok kapsayıcıdır, bu nedenle her iki veri çerçevesinde bulunan herhangi bir sütun çıktıya dahil edilecektir. Birkaç not:</p>
+<ul>
+<li>
+<strong>base</strong> R sürümü ‘row.bind()’den farklı olarak, <strong>dplyr</strong>’nin ’bind_rows()’ fonksiyonu, sütunların sırasının her iki veri çerçevesinde de aynı olmasını gerektirmez. Sütun adları aynı şekilde yazıldığı sürece, bunları doğru şekilde hizalayacaktır.</li>
+<li>İsteğe bağlı olarak <code>.id =</code> argümanını belirtebilirsiniz. Bir karakter sütun adı sağlayın. Bu, her satırın orijinal olarak hangi veri çerçevesinden geldiğini belirlemeye yarayan yeni bir sütun üretecektir.</li>
+<li>Benzer şekilde yapılandırılmış veri çerçevelerinin bir ‘listesinde’ onları tek bir veri çerçevesinde birleştirmek için ‘bind_rows()’ kullanabilirsiniz. <strong>purrr</strong> ile birden çok satır listesinin içe aktarılmasını içeren <a href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html#yineleme-d%C3%B6ng%C3%BCler-ve-listeler">Yineleme, döngüler ve listeler</a> sayfasındaki bir örneğe bakın.</li>
+</ul>
+<p>Satır bağlamanın yaygın bir örneği, “toplam” bir satırı <strong>dplyr</strong>’nin <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> fonksiyonuyla yapılmış açıklayıcı bir tabloya bağlamaktır. Aşağıda, toplam satır ile hastaneye göre vaka sayıları ve medyan CT değerleri tablosu oluşturulmuştur.</p>
+<p>“Summarise()” fonksiyonu, hastaneye göre bir özet veri çerçevesi döndürmek için hastaneye göre gruplandırılmış verilerde kullanılır. Ancak <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> fonksiyonu otomatik olarak bir “toplamlar” satırı oluşturmaz, bu nedenle verileri <em>tekrar</em> özetleyerek, ancak hastane tarafından gruplandırılmamış verilerle oluştururuz. Bu, yalnızca bir satırdan oluşan ikinci bir veri çerçevesi üretir. Daha sonra nihai tabloya ulaşmak için bu veri çerçevelerini birbirine bağlayabiliriz.</p>
+<p>[Açıklayıcı tablolar] ve <a href="sunum-i%C3%A7in-tablolar.html#sunum-i%C3%A7in-tablolar">Sunum için tablolar</a> sayfalarında bunun gibi diğer çalışılmış örnekleri inceleyibilirsiniz.</p>
+<div class="sourceCode" id="cb711"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Çekirdek tablo oluştur</span></span>
+<span><span class="co">###################</span></span>
+<span><span class="va">hosp_summary</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                        <span class="co"># Verileri hastaneye göre gruplandır</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>                                    <span class="co"># İlgilenilen göstergelerin yeni özet sütunları oluşturun</span></span>
+<span>    cases <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,                                  <span class="co"># Hastane-çıktı grubu başına satır sayısı     </span></span>
+<span>    ct_value_med <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">ct_blood</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span>     <span class="co"># grup başına medyan CT değeri</span></span></code></pre></div>
+<p>İşte “hosp_summary” veri çerçevesi:</p>
+<div id="htmlwidget-b167fde4e4986280cb86" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b167fde4e4986280cb86">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[22,21,21,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><p>“Toplam” istatistiklerle (<em>hastaneye göre gruplandırılmamış</em>) bir veri çerçevesi oluşturun. Bu sadece bir satır döndürür.</p>
+<div class="sourceCode" id="cb712"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Toplamları oluştur</span></span>
+<span><span class="co">###############</span></span>
+<span><span class="va">totals</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    cases <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,                               <span class="co"># Tüm veri kümesi için satır sayısı    </span></span>
+<span>    ct_value_med <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">ct_blood</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Tüm veri seti için medyan CT</span></span></code></pre></div>
+<p>Ve aşağıda bu “totals” veri çerçevesi var. Sadece iki sütunun nasıl olduğuna dikkat edin. Bu sütunlar da “hosp_summary” içindedir, ancak “hosp_summary”de “totals” (“hastane”) içinde olmayan bir sütun vardır.</p>
+<div id="htmlwidget-56472a4f6b9f3e049276" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-56472a4f6b9f3e049276">{"x":{"filter":"none","vertical":false,"data":[[5888],[22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><p>Artık satırları <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> ile birbirine bağlayabiliriz.</p>
+<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Veri çerçevelerini birbirine bağla</span></span>
+<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">hosp_summary</span>, <span class="va">totals</span><span class="op">)</span></span></code></pre></div>
+<p>Artık sonucu görebiliriz. Son satırda, “hosp_summary”de olmayan “hospital” sütunu için boş bir “NA” değerinin nasıl doldurulduğunu görün. <a href="sunum-i%C3%A7in-tablolar.html#sunum-i%C3%A7in-tablolar">Sunum için tablolar</a> sayfasında açıklandığı gibi, <code><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na()</a></code> kullanarak bu hücreyi “Total” ile “doldurabilirsiniz”.</p>
+<div id="htmlwidget-cb4bf627b63f8f2da916" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cb4bf627b63f8f2da916">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)",null],[454,896,1469,885,1762,422,5888],[22,21,21,22,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="sütunları-bağla" class="section level3 unnumbered">
+<h3>Sütunları bağla<a class="anchor" aria-label="anchor" href="#s%C3%BCtunlar%C4%B1-ba%C4%9Fla"><i class="fas fa-link"></i></a>
+</h3>
+<p>İki veri çerçevesini yanlara birleştirmek için kullanabileceğiniz benzer bir <strong>dplyr</strong> fonksiyonu <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols()</a></code> vardır. Satırların birbiriyle <em>konuma göre</em> eşleştirildiğini unutmayınız (yukarıdaki <em>birleştirme</em> gibi değil). Örneğin her veri çerçevesindeki 12. satır hizalanacaktır.</p>
+<p>Örneğin, birkaç özet tabloyu birbirine bağlarız. Bunu yapmak için, aynı zamanda, bir veri çerçevesindeki satırların sırasının, ‘match()’ ile başka bir veri çerçevesindeki sıra ile eşleşecek şekilde nasıl yeniden düzenleneceğini de gösteriyoruz.</p>
+<p>Burada ’vaka_bilgisi’ni, hastaneye göre, vaka sayısı ve ölüm sayısı ile birlikte sıralı vakaların özet veri çerçevesi olarak tanımlıyoruz.</p>
+<div class="sourceCode" id="cb714"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Vaka bilgisi</span></span>
+<span><span class="va">case_info</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    cases <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    deaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">outcome</span> <span class="op">==</span> <span class="st">"Death"</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-4522aaef73c61d6d5bd5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4522aaef73c61d6d5bd5">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[193,399,611,395,785,199]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><p>Ve diyelim ki burada yine hastane tarafından araştırılan ve “takip edilen” maruz kalan temasların yüzdesi hakkında bilgi içeren farklı bir “contact_fu” veri çerçevesi var.</p>
+<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contact_fu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  hospital <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"St. Mark's Maternity Hospital (SMMH)"</span>, <span class="st">"Military Hospital"</span>, <span class="st">"Missing"</span>, <span class="st">"Central Hospital"</span>, <span class="st">"Port Hospital"</span>, <span class="st">"Other"</span><span class="op">)</span>,</span>
+<span>  investigated <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"80%"</span>, <span class="st">"82%"</span>, <span class="cn">NA</span>, <span class="st">"78%"</span>, <span class="st">"64%"</span>, <span class="st">"55%"</span><span class="op">)</span>,</span>
+<span>  per_fu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"60%"</span>, <span class="st">"25%"</span>, <span class="cn">NA</span>, <span class="st">"20%"</span>, <span class="st">"75%"</span>, <span class="st">"80%"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-6d930b8f66cfcfd251fc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6d930b8f66cfcfd251fc">{"x":{"filter":"none","vertical":false,"data":[["St. Mark's Maternity Hospital (SMMH)","Military Hospital","Missing","Central Hospital","Port Hospital","Other"],["80%","82%",null,"78%","64%","55%"],["60%","25%",null,"20%","75%","80%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>investigated<\/th>\n      <th>per_fu<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><p>Hastanelerin aynı olduğunu, ancak her veri çerçevesinde farklı sıralarda olduğunu unutmayın. En kolay çözüm, ‘hastane’ sütununda bir ‘left_join()’ kullanmak olacaktır, ancak fazladan bir adımla ‘bind_cols()’ da kullanabilirsiniz.</p>
+<div id="sırasını-hizalamak-için-match-kullanımı" class="section level4 unnumbered">
+<h4>Sırasını hizalamak için <code>match()</code> kullanımı<a class="anchor" aria-label="anchor" href="#s%C4%B1ras%C4%B1n%C4%B1-hizalamak-i%C3%A7in-match-kullan%C4%B1m%C4%B1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Satır sıraları farklı olduğundan, basit bir “bind_cols()” komutu, verilerin yanlış eşleşmesine neden olur. Bunu düzeltmek için, bir veri çerçevesinin satırlarını diğeriyle aynı sırada hizalamak için <strong>base</strong> R’dan ‘match()’ kullanabiliriz. Bu yaklaşım için her iki veri çerçevesinde de yinelenen değer olmadığını varsayıyoruz.</p>
+<p>‘match()’ kullandığımızda, sözdizimi ‘match(HEDEF SIRA VEKTÖR, DEĞİŞTİRİLECEK VERİ ÇERÇEVESİ SÜTUNU)’ şeklindedir, burada ilk değişken istenen sıradır (ya bağımsız bir vektör, ya da bu durumda bir veri çerçevesi) ve ikinci değişken, yeniden sıralanacak veri çerçevesindeki veri çerçevesi sütunudur. “match()” çıktısı, doğru konum sıralamasını temsil eden bir sayı vektörüdür. Daha fazlasını <code><a href="https://rdrr.io/r/base/match.html">?match</a></code> ile okuyabilirsiniz.</p>
+<div class="sourceCode" id="cb716"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">case_info</span><span class="op">$</span><span class="va">hospital</span>, <span class="va">contact_fu</span><span class="op">$</span><span class="va">hospital</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 4 2 3 6 5 1</code></pre>
+<p>Veri çerçevesini yeniden sıralamak için bu sayısal vektörü kullanabilirsiniz - onu ‘[ ]’ alt küme parantezleri içine <em>virgülden önce</em> yerleştirin. [R temelleri] sayfasında <strong>temel</strong> R köşeli ayraç alt kümesi sözdizimi hakkında daha fazla bilgi edinin. Aşağıdaki komut, satırların yukarıdaki sayısal vektörde sıralandığı eskisi olarak tanımlanan yeni bir veri çerçevesi oluşturur.</p>
+<div class="sourceCode" id="cb718"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">contact_fu_aligned</span> <span class="op">&lt;-</span> <span class="va">contact_fu</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">case_info</span><span class="op">$</span><span class="va">hospital</span>, <span class="va">contact_fu</span><span class="op">$</span><span class="va">hospital</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
+<div id="htmlwidget-7c4a7e3aeccc435f81f6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7c4a7e3aeccc435f81f6">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],["78%","82%",null,"55%","64%","80%"],["20%","25%",null,"80%","75%","60%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>investigated<\/th>\n      <th>per_fu<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><p>Artık veri çerçevesi sütunlarını doğru satır sırası ile birbirine bağlayabiliriz. Bazı sütunların çoğaltıldığını ve ‘rename()’ ile temizlenmesi gerekeceğini unutmayın. <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code> hakkında daha fazla bilgi edinmek için tıklayınız. <a href="https://dplyr.tidyverse.org/reference/bind.html">buradan</a>.</p>
+<div class="sourceCode" id="cb719"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span><span class="va">case_info</span>, <span class="va">contact_fu</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## New names:
+## • `hospital` -&gt; `hospital...1`
+## • `hospital` -&gt; `hospital...4`</code></pre>
+<pre><code>## # A tibble: 6 × 6
+##   hospital...1                         cases deaths hospital...4                         investigated per_fu
+##   &lt;chr&gt;                                &lt;int&gt;  &lt;int&gt; &lt;chr&gt;                                &lt;chr&gt;        &lt;chr&gt; 
+## 1 Central Hospital                       454    193 St. Mark's Maternity Hospital (SMMH) 80%          60%   
+## 2 Military Hospital                      896    399 Military Hospital                    82%          25%   
+## 3 Missing                               1469    611 Missing                              &lt;NA&gt;         &lt;NA&gt;  
+## 4 Other                                  885    395 Central Hospital                     78%          20%   
+## 5 Port Hospital                         1762    785 Port Hospital                        64%          75%   
+## 6 St. Mark's Maternity Hospital (SMMH)   422    199 Other                                55%          80%</code></pre>
+<p>“bind_cols”e bir <strong>base</strong> R alternatifi, aynı işlemi gerçekleştiren “cbind()”dir.</p>
+<!-- ============================================ ========= -->
+</div>
+</div>
+</div>
+<div id="kaynaklar-7" class="section level2" number="14.5">
+<h2>
+<span class="header-section-number">14.5</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-7"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="https://dplyr.tidyverse.org/reference/join.html">Birleşimlerdeki tidyverse sayfası</a></p>
+<p><a href="https://r4ds.had.co.nz/relational-data.html">İlişkisel verilerle ilgili Veri Bilimi için R sayfası</a></p>
+<p><a href="https://dplyr.tidyverse.org/reference/bind.html">dplyr’deki tidyverse sayfası</a> ciltleme hakkında</p>
+<p>Paketin Github sayfasındaki betimlemesi <a href="https://github.com/kosukeimai/fastLink">fastLink</a></p>
+<p>Metodolojisini açıklayan yayın<a href="https://imai.fas.harvard.edu/research/files/linkage.pdf">fastLink</a></p>
+<p>[RecordLinkage paketini] açıklayan yayın
+(<a href="https://journal.r-project.org/archive/2010/RJ-2010-017/RJ-2010-017.pdf" class="uri">https://journal.r-project.org/archive/2010/RJ-2010-017/RJ-2010-017.pdf</a>)</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></div>
+<div class="next"><a href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#veri-birle%C5%9Ftirme"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-5"><span class="header-section-number">14.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleme-1">Paketleri yükleme</a></li>
+<li><a class="nav-link" href="#verileri-i%C3%A7e-aktarma-1">Verileri içe aktarma</a></li>
+<li><a class="nav-link" href="#%C3%B6rnek-veri-k%C3%BCmeleri">Örnek veri kümeleri</a></li>
+<li><a class="nav-link" href="#%C3%B6n-temizleme">Ön temizleme</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#dplyr-birle%C5%9Ftirmeleri"><span class="header-section-number">14.2</span> dplyr birleştirmeleri</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#genel-s%C3%B6zdizimi">Genel sözdizimi</a></li>
+<li><a class="nav-link" href="#sol-ve-sa%C4%9F-birle%C5%9Fimler">Sol ve sağ birleşimler</a></li>
+<li><a class="nav-link" href="#tam-birle%C5%9Fme">Tam birleşme</a></li>
+<li><a class="nav-link" href="#i%C3%A7-birle%C5%9Ftirme">İç birleştirme</a></li>
+<li><a class="nav-link" href="#yar%C4%B1m-birle%C5%9Ftirme">Yarım birleştirme</a></li>
+<li><a class="nav-link" href="#kar%C5%9F%C4%B1t-birle%C5%9Ftirme">Karşıt birleştirme</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#olas%C4%B1l%C4%B1ksal-e%C5%9Fle%C5%9Ftirme"><span class="header-section-number">14.3</span> Olasılıksal eşleştirme</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#olas%C4%B1l%C4%B1ksal-e%C5%9Fle%C5%9Fme">Olasılıksal eşleşme</a></li>
+<li><a class="nav-link" href="#olas%C4%B1l%C4%B1ksal-veri-tekille%C5%9Ftirme">Olasılıksal veri tekilleştirme</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ba%C4%9Flama-ve-hizalama"><span class="header-section-number">14.4</span> Bağlama ve hizalama</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#sat%C4%B1rlar%C4%B1-ba%C4%9Flama">Satırları bağlama</a></li>
+<li><a class="nav-link" href="#s%C3%BCtunlar%C4%B1-ba%C4%9Fla">Sütunları bağla</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-7"><span class="header-section-number">14.5</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

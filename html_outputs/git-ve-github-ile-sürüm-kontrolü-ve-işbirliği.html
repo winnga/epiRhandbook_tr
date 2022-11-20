@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>46 Git ve Github ile sürüm kontrolü ve işbirliği | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bu bölüm, Git’i başkalarıyla işbirliği yapmak için kullanmaya genel bir bakış sunar. Daha kapsamlı öğreticiler, Kaynaklar bölümünün alt kısmında bulunabilir.  46.1 Git nedir? Git, bir klasördeki...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="46 Git ve Github ile sürüm kontrolü ve işbirliği | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bu bölüm, Git’i başkalarıyla işbirliği yapmak için kullanmaya genel bir bakış sunar. Daha kapsamlı öğreticiler, Kaynaklar bölümünün alt kısmında bulunabilir.  46.1 Git nedir? Git, bir klasördeki...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="46 Git ve Github ile sürüm kontrolü ve işbirliği | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bu bölüm, Git’i başkalarıyla işbirliği yapmak için kullanmaya genel bir bakış sunar. Daha kapsamlı öğreticiler, Kaynaklar bölümünün alt kısmında bulunabilir.  46.1 Git nedir? Git, bir klasördeki...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="active" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="git-ve-github-ile-sürüm-kontrolü-ve-işbirliği" class="section level1" number="46">
+<h1>
+<span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği<a class="anchor" aria-label="anchor" href="#git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi"><i class="fas fa-link"></i></a>
+</h1>
+<p>Bu bölüm, Git’i başkalarıyla işbirliği yapmak için kullanmaya genel bir bakış sunar. Daha kapsamlı öğreticiler, Kaynaklar bölümünün alt kısmında bulunabilir.</p>
+<div id="git-nedir" class="section level2" number="46.1">
+<h2>
+<span class="header-section-number">46.1</span> Git nedir?<a class="anchor" aria-label="anchor" href="#git-nedir"><i class="fas fa-link"></i></a>
+</h2>
+<p>Git, bir klasördeki değişiklikleri izlemeye izin veren bir <strong>sürüm kontrol</strong> yazılımıdır. Word, LibreOffice veya Google belgelerindeki “değişikliği izle” seçeneği gibi kullanılabilir. Sürüm kontrolü için en güçlü ve en çok kullanılan seçeneklerden biridir.</p>
+<p><strong>Neden hiç duymadım? </strong>
+Geliştirici geçmişine sahip kişiler rutin olarak sürüm kontrol yazılımlarını (Git, Mercurial, Subversion veya diğerleri) kullanmayı öğrenirken, nicel disiplinlerden pek azımıza bu beceriler öğretilir. Sonuç olarak, çoğu epidemiyolog, çalışmaları sırasında bunu asla duymaz ve iş sırasında öğrenmek zorundadır.</p>
+<p><strong>Bekle, Github’ı duydum, aynı mı?</strong>
+Tam olarak değil, ancak bunları sıklıkla birlikte kullanıyorsunuz ve size nasıl yapılacağını göstereceğiz. Kısacası:
+<strong>Git</strong>, bir yazılım parçası olan sürüm kontrol sistemidir. Bilgisayarınızda yerel olarak veya bir klasörü ana bilgisayar <strong>web sitesi</strong> ile senkronize etmek için kullanabilirsiniz. Varsayılan olarak, komut satırında Git talimatlarını vermek için bir terminal kullanılır.</p>
+<p>Komut satırından kaçınmak ve aynı eylemleri gerçekleştirmek için bir <strong>Git istemcisi/arayüz</strong> kullanabilirsiniz (en azından basit, çok yaygın olanlar için).</p>
+<p>Klasörünüzü başkalarıyla işbirliği yapmak için bir <strong>ana web sitesinde</strong> depolamak istiyorsanız, Github, Gitlab, Bitbucket veya diğerlerinde bir hesap oluşturabilirsiniz.</p>
+<p>Böylece, dosyalarınızı hem yerel olarak bilgisayarınızda hem de bir <strong>Github</strong> sunucusunda uzaktan yönetmek için arka planda <strong>Git</strong> kullanan <strong>Github Desktop</strong> istemcisini/arayüzünü kullanabilirsiniz.</p>
+</div>
+<div id="neden-git-ve-github-kombinasyonunu-kullanmalısınız" class="section level2" number="46.2">
+<h2>
+<span class="header-section-number">46.2</span> Neden Git ve Github kombinasyonunu kullanmalısınız?<a class="anchor" aria-label="anchor" href="#neden-git-ve-github-kombinasyonunu-kullanmal%C4%B1s%C4%B1n%C4%B1z"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Git</strong> kullanımı şunları kolaylaştırır:</p>
+<ol style="list-style-type: decimal">
+<li>Herhangi bir önceki duruma kolayca geri dönebilmeniz için belgelenmiş sürümleri artımlı değişikliklerle arşivleme</li>
+<li>Paralel <em>dallara</em> sahip olmak, yani gözden geçirmeden sonra değişiklikleri entegre etmek için yapılandırılmış yollarla geliştirilen/“çalışan” sürümler</li>
+</ol>
+<p>Bu, başkalarıyla işbirliği yapmasanız bile bilgisayarınızda yerel olarak yapılabilir. Sen hiç:</p>
+<ul>
+<li><p>bir kod bölümünü sildiğiniz için pişmanlık duydunuz, ancak iki ay sonra gerçekten ihtiyacınız olduğunu fark ettiniz mi?</p></li>
+<li><p>duraklatılmış bir projeye geri dönün ve modellerden birinde bu zor değişikliği yapıp yapmadığınızı hatırlamaya çalıştınız mı?</p></li>
+<li><p>denemek için bir <em>model_1.R</em> dosyası ve başka bir <em>model_1_test.R</em> dosyası ve bir <em>model_1_not_working.R</em> dosyası mı vardı?</p></li>
+<li><p>bir <em>report.Rmd</em> dosyası, bir <em>report_full.Rmd</em> dosyası, bir <em>report_true_final.Rmd</em> dosyası, bir <em>report_final_20210304.Rmd</em> dosyası, bir <em>report_final_20210402.Rmd</em> dosyası vardı ve arşivleme becerilerinize lanet mi okudunuz?</p></li>
+</ul>
+<p>Git tüm bunlara yardımcı olacak ve sadece bunun için öğrenmeye değer.</p>
+<p>Ancak, <strong>işbirlikçi projeleri</strong> desteklemek için Github gibi bir çevrimiçi depo ile kullanıldığında daha da güçlü hale gelir. Bu şunları kolaylaştırır:</p>
+<ul>
+<li><p>İşbirliği: diğerleri değişiklikleri inceleyebilir, yorumlayabilir ve değişiklikleri kabul edebilir/reddetebilir</p></li>
+<li><p>Kodunuzu, verilerinizi ve çıktılarınızı paylaşmak ve halktan (veya ekibinizle özel olarak) geri bildirim davet etmek ve şunlardan kaçınmak:</p></li>
+<li><p>“Hata, son sürümü göndermeyi unuttum ve şimdi bu yeni dosya üzerinde iki günlük çalışmayı yeniden yapmanız gerekiyor”</p></li>
+<li><p>Mina, Henry ve Oumar aynı anda tek bir komut dosyası üzerinde çalıştı ve değişikliklerini manuel olarak birleştirmeleri gerekiyor</p></li>
+<li><p>Dropbox ve Sharepoint üzerinde iki kişi aynı dosyayı değiştirmeye çalışıyor ve bu bir senkronizasyon hatası yaratıyor.</p></li>
+</ul>
+<div id="kulağa-karmaşık-geliyor-ben-programcı-değilim" class="section level3 unnumbered">
+<h3>Kulağa karmaşık geliyor, ben programcı değilim<a class="anchor" aria-label="anchor" href="#kula%C4%9Fa-karma%C5%9F%C4%B1k-geliyor-ben-programc%C4%B1-de%C4%9Filim"><i class="fas fa-link"></i></a>
+</h3>
+<p>Olabilir. Gelişmiş kullanım örnekleri oldukça korkutucu olabilir. Ancak, R’ye ve hatta Excel’e çok benzer şekilde, aracın avantajlarından yararlanmak için uzman olmanıza gerek yoktur. <em>Az sayıda işlev ve kavram</em> öğrenmek, değişikliklerinizi izlemenize, dosyalarınızı çevrimiçi bir havuzda senkronize etmenize ve çok kısa bir süre içinde iş arkadaşlarınızla işbirliği yapmanıza olanak tanır.</p>
+<p>Öğrenme eğrisi nedeniyle, acil durum bağlamı bu araçları öğrenmek için en iyi zaman olmayabilir. Ancak öğrenme adım adım gerçekleştirilebilir. Birkaç kavram edindikten sonra, iş akışınız oldukça verimli ve hızlı olabilir.</p>
+<p>Git aracılığıyla insanlarla işbirliği yapmanın bir zorunluluk olduğu bir proje üzerinde çalışmıyorsanız, ortak çalışmaya dalmadan önce <strong>onu solo olarak kullanmaktan emin olmak için iyi bir zamandır</strong>.</p>
+</div>
+</div>
+<div id="kurmak" class="section level2" number="46.3">
+<h2>
+<span class="header-section-number">46.3</span> Kurmak<a class="anchor" aria-label="anchor" href="#kurmak"><i class="fas fa-link"></i></a>
+</h2>
+<div id="giti-yükleyin" class="section level3 unnumbered">
+<h3>Git’i yükleyin<a class="anchor" aria-label="anchor" href="#giti-y%C3%BCkleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Git</em>, bilgisayarınızda değişiklikleri, dalları (sürümleri), birleştirmeleri ve geri dönmeyi izleyen perde arkasındaki motordur. <strong>Önce yapmanız gerekir
+<a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a> adresinden <em>Git</em>’i yükleyin.</strong></p>
+</div>
+<div id="bir-arayüz-kurun-isteğe-bağlı-ancak-önerilir" class="section level3 unnumbered">
+<h3>Bir arayüz kurun (isteğe bağlı ancak önerilir)<a class="anchor" aria-label="anchor" href="#bir-aray%C3%BCz-kurun-iste%C4%9Fe-ba%C4%9Fl%C4%B1-ancak-%C3%B6nerilir"><i class="fas fa-link"></i></a>
+</h3>
+<p>Git’in komut satırı terminaline yazılabilen kendi komut dili vardır. Bununla birlikte, birçok istemci/arayüz vardır ve geliştirici olmayanlar olarak, günlük kullanımınızda Git ile doğrudan etkileşime nadiren _ihtiyacınız olur ve arayüz genellikle dosya değişiklikleri veya dalları için güzel görselleştirme araçları sağlar.</p>
+<p>Yeni başlayanlardan daha karmaşık olanlara kadar tüm işletim sistemlerinde birçok seçenek mevcuttur. Yeni başlayanlar için iyi seçenekler arasında RStudio Git bölmesi ve
+<a href="https://desktop.github.com/">Github Desktop</a>, ki bu bölümde durum nasıl olacak.</p>
+<p>Orta (daha güçlü, ancak daha karmaşık) seçenekler arasında Source Tree, Gitkracken, Smart Git ve diğerleri bulunur.</p>
+<p><a href="-%09https:/happygitwithr.com/git-client.html#git-client">Git istemcileri</a> hakkında hızlı açıklama.</p>
+<p><em>Not: Arabirimlerin tümü Git’i dahili olarak kullandığından, bunlardan birkaçını deneyebilir, belirli bir projede birinden diğerine geçebilir, konsolu arabiriminizin desteklemediği bir eylem için zamanında kullanabilir ve hatta üzerinde herhangi bir sayıda çevrimiçi eylem gerçekleştirebilirsiniz. Github.</em></p>
+<p>Aşağıda belirtildiği gibi, zaman zaman Git komutlarını RStudio terminal bölmesi (R Konsoluna bitişik bir sekme) veya Git Bash terminali gibi bir terminale yazmanız gerekebilir.</p>
+</div>
+<div id="github-hesabı" class="section level3 unnumbered">
+<h3>Github hesabı<a class="anchor" aria-label="anchor" href="#github-hesab%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="github.com">github.com</a> adresinde ücretsiz bir hesap için kaydolun.</p>
+<p>Bir uygulama ile iki faktörlü kimlik doğrulamayı ayarlamanız istenebilir.
+Telefonunuz. Github <a href="https://docs.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa">yardım belgelerinde</a> daha fazlasını okuyun.</p>
+<p>Github Desktop kullanıyorsanız, kurulumdan sonra bu <a href="https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/authenticating-to-github">adımları</a> izleyerek Gitub kimlik bilgilerinizi girebilirsiniz. .
+Bunu bilmiyorsanız, daha sonra yapmaya çalıştığınızda kimlik bilgileri sorulacaktır.
+Github’dan bir projeyi klonlayın.</p>
+</div>
+</div>
+<div id="kelime-bilgisi-kavramlar-ve-temel-işlevler" class="section level2" number="46.4">
+<h2>
+<span class="header-section-number">46.4</span> Kelime bilgisi, kavramlar ve temel işlevler<a class="anchor" aria-label="anchor" href="#kelime-bilgisi-kavramlar-ve-temel-i%C5%9Flevler"><i class="fas fa-link"></i></a>
+</h2>
+<p>R öğrenirken olduğu gibi Git’i anlamak için hatırlamanız gereken biraz kelime hazinesi vardır. İşte <a href="https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71/">başlamanıza yardımcı olacak temel bilgiler</a>/ <a href="learngitbranching.js.%20kurulu%C5%9F">etkileşimli öğretici</a>. Sonraki bölümlerde, arayüzlerin nasıl kullanılacağını göstereceğiz, ancak zihinsel modelinizi oluşturmak için kelime dağarcığı ve kavramları aklınızda bulundurmak iyidir ve arayüzleri kullanırken bunlara ihtiyacınız olacaktır.</p>
+<div id="depo" class="section level3 unnumbered">
+<h3>Depo<a class="anchor" aria-label="anchor" href="#depo"><i class="fas fa-link"></i></a>
+</h3>
+<p>Git <em>repo</em> (“<em>repo</em>”), projeniz için tüm alt klasörleri ve dosyaları (veriler, kodlar, resimler vb.) ve bunların revizyon geçmişlerini içeren bir klasördür. Depodaki değişiklikleri onunla izlemeye başladığınızda Git, tüm izleme bilgilerini içeren gizli bir klasör oluşturacaktır. Tipik bir Git deposu, <em>R Project</em> klasörünüzdür (<a href="r-projeleri.html#r-projeleri">R projeleri</a> hakkındaki el kitabı sayfasına bakın).</p>
+<p>Github, Github Desktop veya Rstudio’dan bir Git deposunun nasıl oluşturulacağını (<em>initialize</em>) sonraki bölümlerde göstereceğiz.</p>
+</div>
+<div id="taahhütler" class="section level3 unnumbered">
+<h3>Taahhütler<a class="anchor" aria-label="anchor" href="#taahh%C3%BCtler"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>taahhüt</em>, projenin belirli bir zamanda <strong>anlık görüntüsüdür</strong>. Projede bir değişiklik yaptığınızda, dosyalarınızda yapılan değişiklikleri (delta) izlemek için yeni bir taahhütte bulunacaksınız. Örneğin, bazı kod satırlarını düzenlemiş ve ilgili bir veri kümesini güncellemiş olabilirsiniz. Değişiklikleriniz kaydedildikten sonra, bu değişiklikleri tek bir “taahhüt” altında toplayabilirsiniz.
+Her işlemin benzersiz bir kimliği vardır (bir <em>karma</em>). Sürüm kontrolü amacıyla, taahhütlere dayalı olarak projenizi zamanında geri alabilirsiniz, bu nedenle onları nispeten küçük ve tutarlı tutmak en iyisidir. Ayrıca, “taahhüt mesajı” adı verilen değişikliklerin kısa bir açıklamasını da ekleyeceksiniz.</p>
+<p><em>Aşamalı değişiklikler</em>? Değişiklikleri aşamaya geçirmek, bir sonraki işleme hazırlanmak için bunları <em>hazırlama alanına</em> eklemektir. Buradaki fikir, belirli bir taahhütte hangi değişikliklerin dahil edileceğine ince bir şekilde karar verebilmenizdir. Örneğin, bir komut dosyasında model belirtimi üzerinde çalıştıysanız ve daha sonra başka bir komut dosyasındaki bir şekil üzerinde çalıştıysanız, iki farklı kesinliğe sahip olmak mantıklı olacaktır (şekildeki değişiklikleri geri almak isteyip modeli).</p>
+</div>
+<div id="şubeler" class="section level3 unnumbered">
+<h3>Şubeler<a class="anchor" aria-label="anchor" href="#%C5%9Fubeler"><i class="fas fa-link"></i></a>
+</h3>
+<p>Dal, deponuzdaki <em>bağımsız bir değişiklik satırını</em>, proje dosyalarınızın paralel, alternatif bir sürümünü temsil eder.</p>
+<p>Dallar, değişiklikleri genellikle projenizin birincil/son/“canlı” versiyonu olan <em>ana</em> dalına dahil edilmeden önce test etmek için kullanışlıdır. Bir dal üzerinde denemeyi bitirdiğinizde, değişiklikleri <em>birleştirerek</em> <em>ana</em> dalınıza getirebilir veya değişiklikler o kadar başarılı olmazsa silebilirsiniz.</p>
+<p><em>Not: Şubeleri kullanmak için başka kişilerle işbirliği yapmanız veya uzak bir çevrimiçi veri havuzuna sahip olmanız gerekmez.</em></p>
+</div>
+<div id="yerel-ve-uzak-depolar" class="section level3 unnumbered">
+<h3>Yerel ve uzak depolar<a class="anchor" aria-label="anchor" href="#yerel-ve-uzak-depolar"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Klonlamak</em>, Git deposunun bir kopyasını başka bir yerde oluşturmaktır.</p>
+<p>Örneğin, Github’dan bilgisayarınızda yerel olarak bir çevrimiçi depoyu <em>klonlayabilirsiniz</em> veya yerel bir depoyla başlayabilir ve onu çevrimiçi olarak Github’a kopyalayabilirsiniz.</p>
+<p>Bir havuzu klonladığınızda, proje dosyaları iki yerde bulunur:</p>
+<ul>
+<li><p>fiziksel bilgisayarınızdaki <em>YEREL</em> veri havuzu. Dosyalarda/kodda asıl değişiklikleri yaptığınız yer burasıdır.</p></li>
+<li><p><em>UZAK</em>, çevrimiçi depo: Github deposundaki (veya başka herhangi bir web barındırıcısındaki) proje dosyalarınızın sürümleri.</p></li>
+</ul>
+<p>Bu depoları senkronize etmek için daha fazla fonksiyon kullanacağız. Gerçekten de, Sharepoint, Dropbox veya diğer senkronizasyon yazılımlarından farklı olarak Git, yerel deponuzu veya çevrimiçi olanı temel alarak veya tam tersi şekilde otomatik olarak güncellemez. Ne zaman ve nasıl senkronize edeceğinizi siz seçersiniz.</p>
+<ul>
+<li><p><code>git fetch</code> uzak depodaki yeni değişiklikleri indirir ancak yerel deponuzu değiştirmez. Bunu uzak deponun durumunu kontrol etmek olarak düşünün.</p></li>
+<li><p><code>git pull</code> uzak depolardaki yeni değişiklikleri indirir ve yerel deponuzu günceller.</p></li>
+<li><p>Yerel olarak bir veya birkaç taahhütte bulunduğunuzda, taahhütleri uzak depoya <code>git push</code> edebilirsiniz. Bu, değişikliklerinizi Github’a gönderir, böylece diğer insanlar isterlerse onları görebilir ve çekebilir.</p></li>
+</ul>
+</div>
+</div>
+<div id="başlayın-yeni-bir-depo-oluşturun" class="section level2" number="46.5">
+<h2>
+<span class="header-section-number">46.5</span> Başlayın: yeni bir depo oluşturun<a class="anchor" aria-label="anchor" href="#ba%C5%9Flay%C4%B1n-yeni-bir-depo-olu%C5%9Fturun"><i class="fas fa-link"></i></a>
+</h2>
+<p>Yeni depolar oluşturmanın birçok yolu vardır. Bunu konsoldan, Github’dan bir arayüzden yapabilirsiniz.</p>
+<p>Kurulum için iki genel yaklaşım şunlardır:</p>
+<ul>
+<li>Mevcut veya yeni bir Github deposundan yeni bir R Projesi oluşturun (<em>yeni başlayanlar için tercih edilir</em>) veya</li>
+<li>Mevcut bir R projesi için bir Github deposu oluşturun</li>
+</ul>
+<div id="başlangıç-dosyaları" class="section level3 unnumbered">
+<h3>Başlangıç dosyaları<a class="anchor" aria-label="anchor" href="#ba%C5%9Flang%C4%B1%C3%A7-dosyalar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Yeni bir havuz oluşturduğunuzda, isteğe bağlı olarak aşağıdaki dosyaların tümünü oluşturabilir veya daha sonraki bir aşamada havuzunuza ekleyebilirsiniz. Genellikle havuzun “kök” klasöründe yaşarlar.</p>
+<ul>
+<li><p><em>README</em> dosyası, projenizin neden var olduğunu ve onu kullanmak için başka neleri bilmeleri gerektiğini anlamak için birinin okuyabileceği bir dosyadır. İlk başta boş olacak, ancak daha sonra tamamlamanız gerekir.</p></li>
+<li><p>Bir <em>.gitignore</em> dosyası, her satırın Git’in yok sayması gereken (değişiklikleri izlememesi) klasörleri veya dosyaları içerdiği bir metin dosyasıdır. Bununla ilgili daha fazla bilgi edinin ve örneklere bakın<a href="https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/">buradan</a>.</p></li>
+<li><p>Çalışmanız için bir <em>lisans</em> seçebilirsiniz, böylece diğer insanlar çalışmanızı hangi koşullar altında kullanabileceklerini veya çoğaltabileceklerini bilsinler. Daha fazla bilgi için bkz. [Creative Commons lisansları] <a href="https://creativecommons.org/licenses/" class="uri">https://creativecommons.org/licenses/</a>).</p></li>
+</ul>
+</div>
+<div id="githubda-yeni-bir-depo-oluşturun" class="section level3 unnumbered">
+<h3>Github’da yeni bir depo oluşturun<a class="anchor" aria-label="anchor" href="#githubda-yeni-bir-depo-olu%C5%9Fturun"><i class="fas fa-link"></i></a>
+</h3>
+<p>Yeni bir depo oluşturmak için Github’da oturum açın ve yeni bir depo oluşturmak için yeşil düğmeyi arayın. Artık boş olan bu depo bilgisayarınıza yerel olarak klonlanabilir (bir sonraki bölüme bakın).</p>
+<div class="inline-figure"><img src="images/github_new.png" width="276" style="display: block; margin: auto;"></div>
+<p>Deponuzun <strong>genel</strong> (internetteki herkes tarafından görülebilir) veya <strong>özel</strong> (yalnızca izne sahip olanlar tarafından görülebilir) olmasını seçmelisiniz. Verileriniz hassassa, bunun önemli etkileri vardır. Deponuz özelse, kodunuzu bulutta otomatik olarak çalıştırmak için Github <em>actions</em> kullanıyorsanız, örneğin gelişmiş özel durumlarda bazı kotalarla karşılaşırsınız.</p>
+</div>
+<div id="github-deposundan-klonlama" class="section level3 unnumbered">
+<h3>Github deposundan klonlama<a class="anchor" aria-label="anchor" href="#github-deposundan-klonlama"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bilgisayarınızda yeni bir yerel R projesi oluşturmak için mevcut bir Github deposunu <em>klonlayabilirsiniz</em>.</p>
+<p>Github deposu, zaten var olan ve içerik içeren bir depo olabilir veya az önce oluşturduğunuz boş bir depo olabilir. Bu ikinci durumda, esasen Github deposunu ve yerel R projesini aynı anda yaratıyorsunuz (yukarıdaki talimatlara bakın).</p>
+<p><em>Not</em>: Bir Github deposunda katkıda bulunma hakkınız yoksa, önce depoyu profilinize <em>fork</em> yapmak ve ardından diğer işlemlere geçmek mümkündür. Çatallanma bu bölümün sonunda açıklanmıştır, ancak önce diğer bölümleri okumanızı öneririz.</p>
+<p>Adım 1: Github’da depoya gidin, yeşil “<strong>Kod</strong>” düğmesine tıklayın ve <strong>HTTPS klon URL’sini</strong> kopyalayın (aşağıdaki resme bakın)</p>
+<div class="inline-figure"><img src="images/github_clone.png" width="100%" height="100%" style="display: block; margin: auto;"></div>
+<p>Bir sonraki adım herhangi bir arayüzde gerçekleştirilebilir. Rstudio ve Github masaüstü ile örneklendireceğiz.</p>
+<div id="rstudioda" class="section level4 unnumbered">
+<h4>Rstudio’da<a class="anchor" aria-label="anchor" href="#rstudioda"><i class="fas fa-link"></i></a>
+</h4>
+<p>RStudio’da <em>Dosya &gt; Yeni Proje &gt;Sürüm Kontrolü &gt; Git</em>’e tıklayarak yeni bir R projesi başlatın.</p>
+<ul>
+<li>“Depo URL’si” istendiğinde, HTTPS URL’sini Github'dan yapıştırın</li>
+<li>R projesine kısa, bilgilendirici bir ad verin<br>
+</li>
+<li>Yeni R Projesinin yerel olarak nereye kaydedileceğini seçin<br>
+</li>
+<li>“Yeni oturumda aç” seçeneğini işaretleyin ve “Proje oluştur” u tıklayın</li>
+</ul>
+<p>Artık Github deposunun bir klonu olan yeni, yerel bir RStudio projesindesiniz. Bu yerel proje ve Github deposu artık
+bağlantılı.</p>
+</div>
+<div id="github-desktopta" class="section level4 unnumbered">
+<h4>Github Desktop’ta<a class="anchor" aria-label="anchor" href="#github-desktopta"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li><p><em>Dosya &gt; Bir depoyu klonla</em> üzerine tıklayın</p></li>
+<li><p>URL sekmesini seçin</p></li>
+<li><p>Github’dan HTTPS URL’sini ilk kutuya yapıştırın</p></li>
+<li><p>Yerel deponuzun olmasını istediğiniz klasörü seçin</p></li>
+<li><p>“KLON” u tıklayın</p></li>
+</ul>
+<div class="inline-figure"><img src="images/github_clone_desktop.png" width="100%" height="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="mevcut-r-projesinden-yeni-github-deposu" class="section level3 unnumbered">
+<h3>Mevcut R projesinden yeni Github deposu<a class="anchor" aria-label="anchor" href="#mevcut-r-projesinden-yeni-github-deposu"><i class="fas fa-link"></i></a>
+</h3>
+<p>Alternatif bir kurulum senaryosu, içeriği olan mevcut bir R projeniz olması ve bunun için bir Github deposu oluşturmak istemenizdir.</p>
+<ol style="list-style-type: decimal">
+<li>Proje için yeni, boş bir Github deposu oluşturun (yukarıdaki talimatlara bakın)<br>
+</li>
+<li>Bu depoyu yerel olarak klonlayın (yukarıdaki HTTPS talimatlarına bakın)<br>
+</li>
+<li>Önceden var olan R projenizdeki tüm içeriği (kodlar, veriler, vb.) bu yeni boş, yerel depoya kopyalayın (örn. kopyala ve yapıştır kullanın).<br>
+</li>
+<li>Yeni projenizi RStudio’da açın ve Git bölmesine gidin. Yeni dosyalar, artık Git tarafından izlenen dosya değişiklikleri olarak kaydedilmelidir. Bu nedenle, bu değişiklikleri bir <em>taahhüt</em> olarak paketleyebilir ve Github’a <em>gönderebilirsiniz</em>. Bir kez <em>basıldığında</em>, Github’daki depo tüm dosyaları yansıtacaktır.</li>
+</ol>
+<p>Bu işlemle ilgili ayrıntılar için aşağıdaki Github iş akışı bölümüne bakın.</p>
+</div>
+<div id="şimdi-nasıl-görünüyor" class="section level3 unnumbered">
+<h3>Şimdi nasıl görünüyor?<a class="anchor" aria-label="anchor" href="#%C5%9Fimdi-nas%C4%B1l-g%C3%B6r%C3%BCn%C3%BCyor"><i class="fas fa-link"></i></a>
+</h3>
+<div id="rstudioda-1" class="section level4 unnumbered">
+<h4>RStudio’da<a class="anchor" aria-label="anchor" href="#rstudioda-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bir Github deposunu yeni bir R projesine klonladığınızda, artık RStudio’da bir “Git” sekmesi görürsünüz. Bu sekme, R Ortamınız ile aynı RStudio bölmesinde görünür:</p>
+<div class="inline-figure"><img src="images/Git_console.png" width="75%" height="75%" style="display: block; margin: auto;"></div>
+<p>Lütfen yukarıdaki resimde daire içine alınmış butonlara dikkat edin, çünkü bunlar
+daha sonra atıfta bulunuldu (soldan sağa):</p>
+<ul>
+<li>Kaydedilen dosya değişikliklerini yerel şubede <em>kabul etme</em> düğmesi (bu, yeni bir pencere açar)</li>
+<li>
+<em>Çekmek</em> için mavi ok (dalın uzak/Github sürümünde yapılan değişikliklerle şubenin yerel sürümünüzü güncelleyin)</li>
+<li>
+<em>Push</em> için yeşil ok (dalın yerel sürümünüz için tüm taahhütleri/değişiklikleri o dalın uzak/Github sürümüne gönderin)</li>
+<li>RStudio’daki Git sekmesi</li>
+<li>Sağda taban olarak gösterilen yerel şubeyi kullanarak YENİ bir şube oluşturma düğmesi. <em>Neredeyse her zaman ana daldan ayrılmak istersiniz (ana dalı güncellemek için ilk kez çektikten sonra)</em>
+</li>
+<li>Şu anda çalıştığınız şube</li>
+<li>Kodda veya diğer dosyalarda yaptığınız değişiklikler aşağıda görünecektir</li>
+</ul>
+</div>
+<div id="github-masaüstünde" class="section level4 unnumbered">
+<h4>Github Masaüstünde<a class="anchor" aria-label="anchor" href="#github-masa%C3%BCst%C3%BCnde"><i class="fas fa-link"></i></a>
+</h4>
+<p>Github Desktop, tüm depolarınızı yönetmenize izin veren bağımsız bir uygulamadır. Açtığınızda, arayüz üzerinde çalışmak istediğiniz depoyu seçmenize ve ardından oradan temel Git eylemlerini gerçekleştirmenize olanak tanır.</p>
+<div class="inline-figure"><img src="images/github_desktop_interface.png" width="75%" height="75%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+</div>
+<div id="git-github-iş-akışı" class="section level2" number="46.6">
+<h2>
+<span class="header-section-number">46.6</span> Git + Github iş akışı<a class="anchor" aria-label="anchor" href="#git-github-i%C5%9F-ak%C4%B1%C5%9F%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="sürece-genel-bakış" class="section level3 unnumbered">
+<h3>Sürece genel bakış<a class="anchor" aria-label="anchor" href="#s%C3%BCrece-genel-bak%C4%B1%C5%9F"><i class="fas fa-link"></i></a>
+</h3>
+<p>Kurulumu tamamladığınızda (yukarıda açıklanmıştır), yerel bir R projesine bağlı (<em>klonlanmış</em>) bir Github deposuna sahip olacaksınız. <em>main</em> dalı (varsayılan olarak oluşturulur), <em>tüm</em> dosyaların sözde “canlı” versiyonudur. Değişiklik yapmak istediğinizde, <em>ana</em> daldan <em>yeni bir dal</em> oluşturmak (“Kopya Oluştur” gibi) iyi bir uygulamadır. Dal oluşturmak kolay ve hızlı olduğu için bu Git’teki tipik bir iş akışıdır.</p>
+<p>Tipik bir iş akışı aşağıdaki gibidir:</p>
+<ol style="list-style-type: decimal">
+<li><p>Yerel deponuzun güncel olduğundan emin olun, değilse güncelleyin</p></li>
+<li><p>Daha önce çalıştığınız şubeye gidin veya bazı şeyleri denemek için yeni bir şube oluşturun.</p></li>
+<li><p>Bilgisayarınızda yerel olarak dosyalar üzerinde çalışın, bu şubeye bir veya birkaç taahhütte bulunun</p></li>
+<li><p>Şubenin uzak sürümünü değişikliklerinizle güncelleyin (push)</p></li>
+<li><p>Şubenizden memnun kaldığınızda, değişiklikleri aktarmak için çalışan şubenin çevrimiçi sürümünü çevrimiçi “ana” şubeye birleştirebilirsiniz.</p></li>
+</ol>
+<p>Diğer ekip üyeleri de aynı şeyi kendi şubeleriyle yapıyor olabilir veya belki de sizin çalışma şubenize taahhütlere katkıda bulunuyor olabilir.</p>
+<p>Yukarıdaki süreci aşağıda daha ayrıntılı olarak adım adım inceliyoruz. İşte geliştirdiğimiz bir şema - iki yönlü bir tablo biçiminde olduğundan epidemiyologların anlamasına yardımcı olmalıdır.</p>
+<div class="inline-figure"><img src="images/github_table.png" width="100%" height="150%" style="display: block; margin: auto;"></div>
+<p>İşte <a href="https://build5nines.com/introduction-to-git-version-control-workflow/">başka bir şema</a>.</p>
+<p><em>Not: Yakın zamana kadar “master” dal terimi kullanılıyordu, ancak şimdi “main” dal olarak anılıyor.</em></p>
+<div class="inline-figure"><img src="images/GitHub-Flow.png" width="100%" height="100%" style="display: block; margin: auto;"></div>
+<p>Görüntü <a href="https://build5nines.com/introduction-to-git-version-control-workflow/">source</a></p>
+</div>
+</div>
+<div id="yeni-bir-dal-oluştur" class="section level2" number="46.7">
+<h2>
+<span class="header-section-number">46.7</span> Yeni bir dal oluştur<a class="anchor" aria-label="anchor" href="#yeni-bir-dal-olu%C5%9Ftur"><i class="fas fa-link"></i></a>
+</h2>
+<p>Üzerinde çalışmak için bir dal seçtiğinizde <strong>Git, çalışma dizininizi bu dalda en son bulunduğunuz zamanki gibi sıfırlar</strong>.</p>
+<div id="rstudio-git-bölmesinde" class="section level3 unnumbered">
+<h3>Rstudio Git bölmesinde<a class="anchor" aria-label="anchor" href="#rstudio-git-b%C3%B6lmesinde"><i class="fas fa-link"></i></a>
+</h3>
+<p>“Ana” dalda olduğunuzdan emin olun ve ardından yeni bir dal oluşturmak için mor simgeye tıklayın (yukarıdaki resme bakın).</p>
+<ul>
+<li>Şubenize tek kelimelik açıklayıcı bir ad vermeniz istenecektir (gerekirse alt çizgi kullanabilirsiniz).</li>
+<li>Yerel olarak hala aynı R projesinde olduğunuzu ancak artık “ana” dal üzerinde çalışmadığınızı göreceksiniz.</li>
+<li>Yeni şube oluşturulduktan sonra Github web sitesinde şube olarak da görünecektir.</li>
+</ul>
+<p>“Geçmiş” e tıkladıktan sonra Rstudio’daki Git Bölmesi’ndeki dalları görselleştirebilirsiniz.</p>
+<div class="inline-figure"><img src="images/github_rstudio_branchs.png" width="100%" height="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="masaüstünde-github" class="section level3 unnumbered">
+<h3>Masaüstünde Github<a class="anchor" aria-label="anchor" href="#masa%C3%BCst%C3%BCnde-github"><i class="fas fa-link"></i></a>
+</h3>
+<p>İşlem çok benzer, dalınıza bir isim vermeniz isteniyor. Ardından, yeni şubenin uzak depoda da görünmesini sağlamak için “Dalınızı Github’da yayınla” denilmelidir.</p>
+<div class="inline-figure"><img src="images/github_desktop_new_branch.png" width="100%" height="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="konsol-kullanırken" class="section level3 unnumbered">
+<h3>Konsol Kullanırken<a class="anchor" aria-label="anchor" href="#konsol-kullan%C4%B1rken"><i class="fas fa-link"></i></a>
+</h3>
+<p>Perde arkasında gerçekte olan şey, “git dalı” ile yeni bir şube oluşturmanız ve ardından “git checkout” ile dala gitmenizdir (<em>Örneğin</em> Git’e sonraki taahhütlerinizin orada gerçekleşeceğini söyleyin).
+Git deponuzdan:</p>
+<div class="sourceCode" id="cb1945"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1945-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch my-new-branch  <span class="co"># Yeni bir dal oluşturun</span></span>
+<span id="cb1945-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout my-new-branch <span class="co"># Oluşturulan dala gidin</span></span>
+<span id="cb1945-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> my-new-branch <span class="co"># İkisi aynı anda (Kısayol)</span></span></code></pre></div>
+<p>Konsolu kullanma hakkında daha fazla bilgi için sondaki Git komutlarına bakınız.</p>
+</div>
+</div>
+<div id="değişiklikleri-uygula-commit-changes" class="section level2" number="46.8">
+<h2>
+<span class="header-section-number">46.8</span> Değişiklikleri Uygula (Commit Changes)<a class="anchor" aria-label="anchor" href="#de%C4%9Fi%C5%9Fiklikleri-uygula-commit-changes"><i class="fas fa-link"></i></a>
+</h2>
+<p>Artık kodu düzenleyebilir, yeni dosyalar ekleyebilir, veri kümelerini güncelleyebilirsiniz.</p>
+<p>Değişikliklerinizin her biri <em>ilgili dosya kaydedildikten sonra</em> izlenir. Değiştirilen dosyalar RStudio Git sekmesinde, Github Desktop’ta veya terminalde ‘git status’ komutu kullanılarak görünecektir (aşağıya bakın).</p>
+<p>Önemli değişiklikler yaptığınızda (örneğin, bir kod bölümü ekleme veya güncelleme), bu değişiklikleri duraklatın ve <em>kabul edin</em>. Bir taahhüdü, ortak bir amaçla ilgili değişikliklerin bir “topluluğu” olarak düşünün. Üzerinde değişiklik yaptıktan sonra bir dosyayı her zaman revize etmeye devam edebilirsiniz.</p>
+<p><em>Uygulamayla ilgili tavsiye</em>: genel olarak, bir sorun ortaya çıktığında kolayca geri alınabilecek küçük uygulamalar yapmak, ortak bir amaç ile ilgili değişiklikleri birlikte yapmak daha iyidir. Bunu başarmak için <em>sık sık uygulamalarda bulunmanız gerektiğini</em> göreceksiniz. Başlangıçta, muhtemelen sık sık uygulamada bulunmayı unutacaksınız, ancak daha sonra alışkanlık halini almaktadır.</p>
+<div id="rstudioda-2" class="section level3 unnumbered">
+<h3>Rstudio’da<a class="anchor" aria-label="anchor" href="#rstudioda-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıdaki örnek, son işlemden bu yana, “collaboration.Rmd” R Markdown komut dosyasının değiştiğini ve birkaç PNG görüntüsünün eklendiğini göstermektedir.</p>
+<div class="inline-figure"><img src="images/github_tracking2.png" width="232" style="display: block; margin: auto;"></div>
+<p>Dosya adlarının yanındaki sarı, mavi, yeşil ve kırmızı karelerin neyi temsil ettiğini merak ediyor olabilirsiniz. İşte <a href="https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf">RStudio kolay kullanım sayfasından</a> anlamlarını açıklayan bir anlık görüntü. Değişikliklerin sarı “?” ile işaretlendiğine, halen görüntülenebilir, işlenebilir ve gönderilebilir(push) olduğuna dikkat edin.</p>
+<div class="inline-figure">
+<img src="images/github_tracking.png" width="90" style="display: block; margin: auto;">
+- Git sekmesindeki “Commit” düğmesine basın, yeni bir
+pencere açılacaktır(aşağıda gösterilmiştir)</div>
+<ul>
+<li><p>Sol üstteki kutuda bir dosya adına tıklayın</p></li>
+<li><p>Bu dosyada yaptığınız değişiklikleri gözden geçirin (aşağıda yeşil veya kırmızı renkle vurgulanmıştır)</p></li>
+<li><p>Gönderirken bu değişiklikleri içerecek olan dosyayı “stage” yapın. Bunu dosya adının yanındaki kutuyu işaretleyerek yapabilirsiniz. Alternatif olarak, birden fazla dosya adını vurgulayabilir ve ardından “Stage(Aşama)” yı tıklayabilir.</p></li>
+<li><p>Kısa ama açıklayıcı bir Commit mesajı yazın (gereklidir)</p></li>
+<li><p>“Commit” düğmesine basın. Başarıyı gösteren bir açılır kutu veya bir hata mesajı görünecektir.</p></li>
+</ul>
+<p>Artık istediğiniz kadar değişiklikte bulunabilir ve commit edebilirsiniz.</p>
+<div class="inline-figure"><img src="images/github_commit.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+</div>
+<div id="masaüstünde-github-1" class="section level3 unnumbered">
+<h3>Masaüstünde Github<a class="anchor" aria-label="anchor" href="#masa%C3%BCst%C3%BCnde-github-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Solda değiştirilen dosyaların listesini görebilirsiniz. Eğer
+bir metin dosyası seçerseniz, yapılan değişikliklerin bir özetini görürsünüz.
+sağ bölmede (görünüm .docs veya .xlsx gibi daha karmaşık dosyalarda çalışmaz).</p>
+<p>Değişiklikleri düzenlemek için dosya adlarının yanındaki küçük kutuyu işaretlemeniz yeterlidir. Ne zaman bu uygulamaları eklemek istediğiniz dosyaları seçerseniz commit edebilirsiniz. Bir isim verip, isteğe bağlı olarak bir açıklama yazmanın ardından commit edilebilir.</p>
+<div class="inline-figure"><img src="images/github_desktop_commit.png" width="988" style="display: block; margin: auto;"></div>
+</div>
+<div id="konsolda" class="section level3 unnumbered">
+<h3>Konsolda<a class="anchor" aria-label="anchor" href="#konsolda"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sahne arkasında kullanılan iki fonksiyon, seçme/sahneleme için “git add” fonksiyonudur.
+dosyalar ve ‘git commit’ commit etmek içindir.</p>
+<div class="sourceCode" id="cb1946"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1946-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="co"># değişiklikleri izle </span></span>
+<span id="cb1946-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1946-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add new_pages/collaboration.Rmd  <span class="co"># commit edilecek dosyaları seçin (= değişiklikleri yapın)</span></span>
+<span id="cb1946-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1946-5"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Describe commit from Github Desktop"</span> <span class="co"># değişiklikleri bir mesajla commit et</span></span>
+<span id="cb1946-6"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1946-7"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log  <span class="co"># geçmiş commitlerle ilgili bilgileri görüntüle</span></span></code></pre></div>
+</div>
+<div id="önceki-bir-commiti-değiştirin" class="section level3 unnumbered">
+<h3>Önceki bir commit’i değiştirin<a class="anchor" aria-label="anchor" href="#%C3%B6nceki-bir-commiti-de%C4%9Fi%C5%9Ftirin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bazı değişiklikler yaparsanız, çalışmaya devam ederseniz ve geçmiş commit’e “ait” olması gereken değişiklikler yaptığınızı fark ederseniz ne olur (sizce). Korkmayın! Bu değişiklikleri önceki gönderinize ekleyebilirsiniz.</p>
+<p>Rstudio’da, COMMIT düğmesiyle aynı satırda bir “Önceki commit’i değiştir” kutusu olduğu için oldukça açıktır.</p>
+<p>Belirsiz bir nedenle, işlevsellik Github Desktop’ta olduğu gibi uygulanmamıştır, ancak (kavramsal olarak garip ama kolay) bir yol vardır. Henüz değişikliklerinizi commit etmiş <strong>ancak push etmediyseniz</strong>, COMMIT düğmesinin hemen altında bir “GERİ AL” düğmesi görünür. Üzerine tıklayın geri alacaktır (ancak aşamalı dosyalarınızı ve commit mesajınızı saklayın). Değişikliklerinizi kaydedin, gerekirse commit’e yeni dosyalar ekleyin ve tekrar commit edin.</p>
+<p>Konsolda:</p>
+<div class="sourceCode" id="cb1947"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1947-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add [YOUR FILES] <span class="co"># Yeni değişikliklerinizi aşamalandırın</span></span>
+<span id="cb1947-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1947-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span>  <span class="co"># Önceki commit'i değiştir</span></span>
+<span id="cb1947-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1947-5"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span> <span class="at">-m</span> <span class="st">"An updated commit message"</span>  <span class="co"># Önceki commitlerini değiştirin VE mesajını güncelleyin</span></span></code></pre></div>
+<p><em>Not: Zaten herkese açık olan ve ortak çalışanlarınızla paylaşılan commitleri değiştirmeden önce düşünün</em>.</p>
+</div>
+</div>
+<div id="değişiklikleri-githuba-kadar-çekin-ve-iletin" class="section level2" number="46.9">
+<h2>
+<span class="header-section-number">46.9</span> Değişiklikleri Github’a kadar çekin ve iletin<a class="anchor" aria-label="anchor" href="#de%C4%9Fi%C5%9Fiklikleri-githuba-kadar-%C3%A7ekin-ve-iletin"><i class="fas fa-link"></i></a>
+</h2>
+<p>“Önce PULL (çekin), sonra PUSH(iletin)”</p>
+<p>Projeniz üzerinde çalışmaya başlamadan önce <em>fetch(getirmek)</em> ve <em>pull(çekmek)</em>, yerel bilgisayarınızdaki dalın sürümünü uzak/Github sürümünde yapılan değişikliklerle güncellemek iyi bir uygulamadır.</p>
+<p>sık sık ÇEKİN. tereddüt etmeyin. <em>İtmeden önce daima çekin</em>. Değişiklikleriniz yapıldığında ve commit edildiğinde ve projenizin durumundan memnun olduğunuzda, gönderilerinizi dalınızın uzak/Github sürümüne <em>iletebilirsiniz</em>.</p>
+<p>Depo üzerinde çalışırken tekrarlayın.</p>
+<p><strong>Not:</strong> Commit edilen ancak gönderilmeyen (yani hala yerel olan) değişiklikleri geri almak, uzak depoya gönderilen (ve belki de zaten başka biri tarafından çekilmiş) değişiklikleri geri almaktan çok daha kolaydır, bu nedenle üzerinde çalıştığınız görevde değişiklik yapmayı bitirdiğinizde commit etmek daha iyidir.</p>
+<div id="rstudioda-3" class="section level4 unnumbered">
+<h4>Rstudio’da<a class="anchor" aria-label="anchor" href="#rstudioda-3"><i class="fas fa-link"></i></a>
+</h4>
+<p><em>PULL</em> - İlk olarak, “Çek” simgesine (aşağı ok) tıklayın.</p>
+<p><em>PUSH</em> - Yeşil “Çek” simgesine (yukarı ok) tıklayın. Github kullanıcı adınızı ve şifrenizi girmeniz istenebilir. İlk sorulduğunda, <em>Terminal</em>’e Git komut satırını girmeniz gerekebilir:</p>
+<ul>
+<li>
+<strong>git config –global user.email “[siz@example.com (<a href="mailto:siz@example.com" class="uri">mailto:siz@example.com</a>){.email}”</strong> (Github e-posta adresiniz) ve<br>
+</li>
+<li><strong>git config –global user.name “Github kullanıcı adınız”</strong></li>
+</ul>
+<p>Bu komutların nasıl girileceği hakkında daha fazla bilgi edinmek için aşağıdaki Git komutları bölümüne bakın.</p>
+<p><strong><em>İPUCU:</em></strong> Parolanızı çok sık mı istedi? Havuza bağlanmak için bu [eğiticinin (<a href="https://happygitwithr.com/credential-caching.html#credential-caching" class="uri">https://happygitwithr.com/credential-caching.html#credential-caching</a>) 10. ve 11. bölümlerine bakın.</p>
+</div>
+<div id="github-desktopta-1" class="section level4 unnumbered">
+<h4>Github Desktop’ta<a class="anchor" aria-label="anchor" href="#github-desktopta-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Uzak depoda yeni commitler olup olmadığını kontrol etmek için “Fetch Origin” düğmesine tıklayın.</p>
+<div class="inline-figure"><img src="images/github_desktop_fetch_button.png" width="817" style="display: block; margin: auto;"></div>
+<p>Git, uzak depoda yeni taahhütler bulursa, düğme bir “Çek” düğmesine dönüşür. İtme ve çekme için aynı düğme kullanıldığından, daha önce çekmediyseniz değişikliklerinizi itemezsiniz.</p>
+<div class="inline-figure"><img src="images/github_desktop_pull_button.png" width="496" style="display: block; margin: auto;"></div>
+<p>Tüm commitleri (sizin ve diğerleri) görmek için “Geçmiş” sekmesine (“Değişiklikler” sekmesinin yanında) gidebilirsiniz. Bu, işbirlikçilerinizin yaptıkları hakkında bilgi edinmenin güzel bir yoludur. Commit mesajını, varsa açıklamasını okuyabilir ve <em>diff</em> bölmesini kullanarak iki dosyanın kodunu karşılaştırabilirsiniz.</p>
+<div class="inline-figure"><img src="images/github_desktop_history.png" width="993" style="display: block; margin: auto;"></div>
+<p>Tüm uzaktan değişiklikler çekildikten ve en az bir yerel değişiklik yapıldıktan sonra, aynı düğmeye tıklayarak basabilirsiniz.</p>
+<div class="inline-figure"><img src="images/github_desktop_push_button.png" width="816" style="display: block; margin: auto;"></div>
+</div>
+<div id="konsol" class="section level4 unnumbered">
+<h4>Konsol<a class="anchor" aria-label="anchor" href="#konsol"><i class="fas fa-link"></i></a>
+</h4>
+<p>Şaşırtıcı olmayan bir şekilde, komutlar <em>getir(fetch)</em>, <em>çek(pull)</em> ve <em>ittir(push)</em> şeklindedir.</p>
+<div class="sourceCode" id="cb1948"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1948-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1948-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch  <span class="co"># uzak dizinde yeni commitler var mı?</span></span>
+<span id="cb1948-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1948-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull   <span class="co"># Uzak commitleri yerel dalınıza getirin</span></span>
+<span id="cb1948-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1948-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push   <span class="co"># Bu dalın yerel commitlerini uzak dala aktarın</span></span></code></pre></div>
+</div>
+<div id="çekmek-istiyorum-ama-yerel-işim-var" class="section level3 unnumbered">
+<h3>Çekmek istiyorum ama yerel işim var<a class="anchor" aria-label="anchor" href="#%C3%A7ekmek-istiyorum-ama-yerel-i%C5%9Fim-var"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu bazen olabilir: yerel deponuzda bazı değişiklikler yaptınız, ancak uzak depo sizin çekmediğinizi commit etti.</p>
+<p>Git, değişikliklerinizin üzerine yazabileceği için çekmeyi reddedecek. Değişikliklerinizi korumak için [Happy Git with R (<a href="https://happygitwithr.com/pull-tricky.html" class="uri">https://happygitwithr.com/pull-tricky.html</a>) bölümünde iyi açıklanan birkaç strateji vardır.
+- değişikliklerinizi gerçekleştirin, uzaktan değişiklikleri alın, bunları çekin, gerekirse çakışmaları çözün (aşağıdaki bölüme bakın) ve her şeyi çevrimiçine gönderin
+- Değişikliklerinizi ‘saklayın’, bu tür onları bir kenara depolar, çeker, geri yükler ve ardından commit eder, herhangi bir çakışmayı çözer ve iter.</p>
+<p>Uzak değişikliklerle ilgili dosyalar ve yerel değişikliklerinizle ilgili dosyalar çakışmıyorsa Git, çakışmaları otomatik olarak çözebilir.</p>
+<p>Github Desktop’ta bu, düğmelerle yapılabilir. Saklamak için <em>Branch&gt;Tüm değişiklikleri sakla</em> seçeneğine gidin.</p>
+<div class="inline-figure"><img src="images/github_desktop_stash.png" width="922" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="dalını-ana-gövde-ile-birleştir" class="section level2" number="46.10">
+<h2>
+<span class="header-section-number">46.10</span> Dalını Ana Gövde ile birleştir<a class="anchor" aria-label="anchor" href="#dal%C4%B1n%C4%B1-ana-g%C3%B6vde-ile-birle%C5%9Ftir"><i class="fas fa-link"></i></a>
+</h2>
+<p>Değişiklik yapmayı bitirdiyseniz, bu değişiklikleri ana dalda birleştirme işlemine başlayabilirsiniz. Durumunuza bağlı olarak bu hızlı olabilir veya ekip arkadaşlarınızı içeren kasıtlı inceleme ve onay adımlarını atmış olabilirsiniz.</p>
+<div id="yerel-olarak-github-desktopta" class="section level3 unnumbered">
+<h3>Yerel olarak Github Desktop’ta<a class="anchor" aria-label="anchor" href="#yerel-olarak-github-desktopta"><i class="fas fa-link"></i></a>
+</h3>
+<p>Github Desktop kullanarak dalları yerel olarak birleştirebilirsiniz. İlk olarak, commitlerin alıcısı olacak dallara, yani güncellemek istediğiniz dala gidin. Ardından <em>Dal&gt; Geçerli gövdeye birleştir</em> menüsüne gidin ve tıklayın. Bir kutu, içe aktarmak istediğiniz dalı seçmenize olanak tanır.</p>
+<div class="inline-figure"><img src="images/github_desktop_merge.png" width="623" style="display: block; margin: auto;"></div>
+</div>
+<div id="konsolda-1" class="section level3 unnumbered">
+<h3>Konsolda<a class="anchor" aria-label="anchor" href="#konsolda-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>İlk önce değişikliklerin alıcısı olacak dala geri dönün.
+Bu genellikle <em>master</em> şeklindedir, ancak başka bir dal da olabilir. Sonra master içine çalışma dalınızı birleştirin.</p>
+<div class="sourceCode" id="cb1949"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1949-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1949-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master  <span class="co"># Master'a (veya taşımak istediğiniz dala) geri dönün</span></span>
+<span id="cb1949-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1949-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge this_fancy_new_branch</span></code></pre></div>
+<p><a href="https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging">Bu sayfa</a> daha gelişmiş bir dallanma örneği gösterir ve perde arkasında neler olduğunu biraz açıklar .</p>
+</div>
+<div id="githubda-çekme-istekleri-gönderme" class="section level3 unnumbered">
+<h3>Github’da: çekme istekleri gönderme<a class="anchor" aria-label="anchor" href="#githubda-%C3%A7ekme-istekleri-g%C3%B6nderme"><i class="fas fa-link"></i></a>
+</h3>
+<p>İki dalı yerel olarak veya kimseye haber vermeden birleştirmek tamamen mümkün olmakla birlikte, bir birleşme ana gövdeye entegre edilmeden önce birkaç kişi tarafından tartışılabilir veya araştırılabilir. Sürece yardımcı olmak için Github, birleştirme ile ilgili bazı tartışma özellikleri sunar: <strong>çekme isteği</strong>.</p>
+<p>Bir çekme isteği (bir “PR”), bir dalı diğeriyle birleştirme isteğidir (başka bir deyişle, <em>çalışan dalınızın “ana” dala çekilmesine yönelik bir istek</em>).</p>
+<p>Bir çekme isteği, genellikle birden çok commit içerir. Bir çekme isteği, genellikle kabul edilmeden ve dal birleştirilmeden önce bir konuşma ve inceleme sürecini başlatır. Örneğin, [dplyr’s github] (<a href="https://github.com/tidyverse/dplyr/pulls" class="uri">https://github.com/tidyverse/dplyr/pulls</a>) üzerinden çekme isteği tartışmalarını okuyabilirsiniz.</p>
+<p>Doğrudan web sitesinden (aşağıda gösterildiği gibi) veya Github Desktop’tan bir çekme isteği (PR) gönderebilirsiniz.</p>
+<ul>
+<li>Github deposuna gidin (çevrimiçi)</li>
+<li>“Çekme İstekleri” sekmesini görüntüleyin ve “Yeni çekme isteği” düğmesini tıklayın</li>
+<li>Dalınızı ana gövde ile birleştirmek için açılır menüden seçin</li>
+<li>Ayrıntılı bir Çekme Talebi yorumu yazın ve “Çekme Talebi Oluştur” u tıklayın.</li>
+</ul>
+<p>Aşağıdaki resimde, “ormanlar” dalı “ana” ile birleştirilmek üzere seçilmiştir:</p>
+<div class="inline-figure"><img src="images/github_pull_request2.png" width="100%" height="150%" style="display: block; margin: auto;"></div>
+<p>Şimdi çekme isteğini görebilmelisiniz (aşağıdaki örnek resim):</p>
+<ul>
+<li>Dal birleştirilirse “ana” dalın nasıl değişeceğini görmek için “Dosyalar değişti” sekmesini inceleyin.<br>
+</li>
+<li>Sağ tarafta, Github ID’lerini etiketleyerek ekibinizin üyelerinden inceleme talep edebilirsiniz. İsterseniz, ana ile birleştirmek için havuz ayarlarını bir onay incelemesi gerektirecek şekilde ayarlayabilirsiniz.<br>
+</li>
+<li>Çekme talebi onaylandıktan sonra,
+“Birleştirme çekme isteği” aktif hale gelecektir. Buna tıklayın.<br>
+</li>
+<li>Tamamlandıktan sonra dalınızı aşağıda açıklandığı gibi silin.</li>
+</ul>
+<div class="inline-figure"><img src="images/github_pull_request.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+</div>
+<div id="çakışmaları-çözme" class="section level3 unnumbered">
+<h3>Çakışmaları çözme<a class="anchor" aria-label="anchor" href="#%C3%A7ak%C4%B1%C5%9Fmalar%C4%B1-%C3%A7%C3%B6zme"><i class="fas fa-link"></i></a>
+</h3>
+<p>İki kişi aynı satırları aynı anda değiştirdiğinde, birleştirme çatışması ortaya çıkar. Aslında Git, hangi sürümün tutulacağına karar vermeyi reddeder, ancak çatışmanın nerede olduğunu bulmanıza yardımcı olur. <strong>PANİK YAPMA</strong>. Çoğu zaman, çözmek oldukça basittir.</p>
+<p>Örneğin, Github’da:</p>
+<div class="inline-figure"><img src="images/github_conflict2.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+<p>Birleştirme bir çakışma yarattıktan sonra, dosyayı favori düzenleyicinizde açın.
+Çatışma bir dizi karakterle belirtilecektir:</p>
+<div class="inline-figure"><img src="images/github_conflict3.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+<p><em>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</em> ve <em>=======</em> arasındaki metin yerel deponuzdan gelir ve <em>=======</em> ile arasındaki metin <em>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</em> diğer daldan (orijin, master veya seçtiğiniz herhangi bir dal olabilir).</p>
+<p>Kodun hangi sürümünü tercih ettiğinize karar vermeniz (veya uygunsa her iki taraftaki değişiklikler de dahil olmak üzere üçüncü bir tane yazmanız), gerisini silmeniz ve Git’in eklediği tüm işaretleri kaldırmanız gerekir <em>(&lt;&lt;&lt;&lt;&lt; &lt;&lt; HEAD, =======,&gt;&gt;&gt;&gt;&gt;&gt;&gt; Origin/master/your_branch_name</em>).</p>
+<p>Ardından, dosyayı kaydedin, düzenleyin ve commit edin: bu, birleştirilmiş sürümü “resmi” yapan committir. Daha sonra itmeyi unutmayın.</p>
+<p>Siz ve işbirlikçileriniz ne kadar sık ​​​​çekip iterseniz, çatışmalar o kadar küçük olur.</p>
+<p><em>Not: Konsolla kendinizi rahat hissediyorsanız, daha fazla <a href="https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging">gelişmiş
+birleştirme seçenekleri</a> (ör. boşlukları yok sayma, ortak çalışana öncelik verme vb.).</em></p>
+</div>
+<div id="dalınızı-silin" class="section level3 unnumbered">
+<h3>Dalınızı silin<a class="anchor" aria-label="anchor" href="#dal%C4%B1n%C4%B1z%C4%B1-silin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir dal ana dalla birleştirildiğinde ve artık gerekli olmadığında, onu silebilirsiniz.</p>
+<div id="github-rstudio" class="section level4" number="46.10.0.1">
+<h4>
+<span class="header-section-number">46.10.0.1</span> Github + Rstudio<a class="anchor" aria-label="anchor" href="#github-rstudio"><i class="fas fa-link"></i></a>
+</h4>
+<p>Github’daki depoya gidin ve tüm dalları görüntülemek için düğmeye tıklayın (dalları seçmek için açılır menünün yanında). Şimdi dalınızı bulun ve yanındaki çöp kutusu simgesine tıklayın. Dal silmeyle ilgili daha fazla ayrıntıyı <a href="https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-and-deleting">buradan</a> okuyun -deponuzdaki-dallar#dal silme).</p>
+<p>Dalı bilgisayarınızdan yerel olarak da sildiğinizden emin olun. Bu otomatik olarak olmayacak.</p>
+<ul>
+<li>RStudio’dan Ana gövdede olduğunuzdan emin olun.</li>
+<li>RStudio “Terminal”de (R konsolunun bitişiğindeki sekme) Git komutlarını yazmaya geçin ve şunu yazın: <strong>git branch -d branch_name</strong>, burada “branch_name” silinecek dalınızın adıdır</li>
+<li>Git sekmenizi yenileyin, dal gitmiş olmalı</li>
+</ul>
+</div>
+<div id="github-masaüstünde-1" class="section level4" number="46.10.0.2">
+<h4>
+<span class="header-section-number">46.10.0.2</span> Github Masaüstünde<a class="anchor" aria-label="anchor" href="#github-masa%C3%BCst%C3%BCnde-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Silmek istediğiniz dalı kontrol edin ve menüye gidin
+<em>Dal&gt; Sil</em>.</p>
+</div>
+</div>
+<div id="çatallama" class="section level3 unnumbered">
+<h3>Çatallama<a class="anchor" aria-label="anchor" href="#%C3%A7atallama"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir projeye katkıda bulunmak istiyorsanız, ancak bunu yapma hakkına sahip değilseniz veya sadece kişisel kullanımınız için değiştirmek istiyorsanız, bir projeyi çatallayabilirsiniz. Çatallamanın kısa bir açıklaması <a href="https://guides.github.com/activities/forking/">burada</a> bulunabilir.</p>
+<p>Github’da “Çatal” düğmesine tıklayın:</p>
+<div class="inline-figure"><img src="images/github_fork_1.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+<p>Bu, orijinal depoyu klonlayacaktır, ancak kendi profilinizde. Şimdi, Github’da deponun iki sürümü var: değiştiremeyeceğiniz orijinal sürüm ve profilinizdeki klonlanmış sürüm.</p>
+<p>Ardından, önceki bölümlerde açıklanan yöntemlerden herhangi birini kullanarak çevrimiçi depo sürümünüzü yerel olarak bilgisayarınızda klonlamaya devam edebilirsiniz. Ardından, yeni bir dal oluşturabilir, değişiklik yapabilir, commit edebilir ve bunları <em>uzak deponuza</em> gönderebilirsiniz.</p>
+<p>Sonuçtan memnun kaldığınızda, orijinal deponun sahipleri/koruyucuları ile konuşmaya başlamak için Github veya Github Desktop’tan bir Çekme Talebi oluşturabilirsiniz.</p>
+<p><strong>Ya resmi depodan bazı yeni commitlere ihtiyacınız olursa?</strong></p>
+<p>Birinin, klonlanmış sürümünüze dahil etmek istediğiniz resmi depoda kritik bir değişiklik yaptığını hayal edin. Fork’unuzu resmi depo ile senkronize etmek mümkündür. Terminalin kullanılmasını içerir, ancak çok karmaşık değildir. Çoğunlukla şunu hatırlamanız gerekir:
+- <em>upstream</em> = değiştiremeyeceğiniz resmi depo
+- <em>origin</em> = Github profilinizdeki depo sürümünüz</p>
+<p>[Bu öğreticiyi (<a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork" class="uri">https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork</a>) okuyabilir veya aşağıdakileri takip edebilirsiniz:</p>
+<p>İlk önce Git terminalinizi yazın (deponuzun içine):</p>
+<div class="sourceCode" id="cb1950"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1950-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1950-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span></code></pre></div>
+<p>Yukarı akış deposunu henüz yapılandırmadıysanız, <em>Origin</em> ile başlayan iki satır görmelisiniz. “fetch” ve “push”un işaret ettiği uzak depoyu gösterirler. Unutmayın, <em>Origin</em>, Github’daki deponun kendi sürümünüz için geleneksel takma addır. Örneğin:</p>
+<div class="inline-figure"><img src="images/github_fork_2.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+<p>Şimdi yeni bir uzak depo ekleyin:</p>
+<div class="sourceCode" id="cb1951"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1951-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/appliedepi/epirhandbook_eng.git</span></code></pre></div>
+<p>Burada adres, bir depoyu klonladığınızda Github’un ürettiği adrestir (klonlama ile ilgili bölüme bakın). Şimdi dört uzak işaretçiniz olacak:</p>
+<div class="inline-figure"><img src="images/github_fork_3.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+<p>Artık kurulum tamamlandığında, değişiklikleri orijinal (<em>upstream</em>) deposundan almak istediğinizde, güncellemek istediğiniz dala(<em>checkout</em>) gitmeniz ve şunu yazmanız yeterlidir:</p>
+<div class="sourceCode" id="cb1952"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1952-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch upstream <span class="co"># Uzak depodan yeni commitleri alın</span></span>
+<span id="cb1952-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout the_branch_you_want_to_update</span>
+<span id="cb1952-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge upstream/the_branch_you_want_to_update  <span class="co"># Yukarı akış dalını kendi dalınızla birleştirin.</span></span>
+<span id="cb1952-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="co"># Uzak deponun kendi sürümünüzü güncelleyin</span></span></code></pre></div>
+<p>Çakışmalar varsa, bunları Çakışmaları çözme bölümünde açıklandığı gibi çözmeniz gerekecektir.</p>
+<p><strong>Özet</strong>: çatallama klonlanıyor, ancak Github sunucu tarafında.
+Eylemlerin geri kalanı, tipik işbirliği iş akışı eylemleridir.
+(klonlama, itme, çekme, commit etme, birleştirme, çekme isteklerini gönderme…).</p>
+<p><em>Not: forking bir Git komutu değildir bir kavram olsa da, [Bitbucket] <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow" class="uri">https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow</a> gibi diğer Web ana bilgisayarlarında da bulunur).</em></p>
+<div class="inline-figure"><img src="images/github_fork_4.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="öğrendiklerimiz" class="section level2" number="46.11">
+<h2>
+<span class="header-section-number">46.11</span> Öğrendiklerimiz<a class="anchor" aria-label="anchor" href="#%C3%B6%C4%9Frendiklerimiz"><i class="fas fa-link"></i></a>
+</h2>
+<p>Şunları nasıl yapacağınızı öğrendiniz:</p>
+<ul>
+<li>Git’i klasörlerinizdeki değişiklikleri takip edecek şekilde ayarlayın,</li>
+<li>yerel deponuzu uzak bir çevrimiçi depoya bağlayın,</li>
+<li>değişiklikleri commit edin,</li>
+<li>yerel ve uzak depolarınızı senkronize edin.</li>
+</ul>
+<p>Bütün bunlar sizi harekete geçirmeli ve epidemiyologlar olarak ihtiyaçlarınızın çoğu için yeterli olmalıdır. Genellikle geliştiriciler kadar gelişmiş kullanıma sahip değiliz.</p>
+<p>Ancak, daha ileri gitmek isterseniz (veya buna ihtiyaç duyarsanız) Git’in commit geçmişlerini basitleştirmek, bir veya birkaç işlemi geri almak, kesin bir işlem yapmak vb. için daha fazla güç sunduğunu bilin. Bazıları tam bir sihirbazlık gibi gelebilir, ancak şimdi temellere sahipseniz, üzerine inşa etmek daha kolaydır.</p>
+<p>Rstudio ve Github Desktop’taki Git bölmesi, çalışma alanımızda yeni başlayanlar / günlük kullanım için iyi olsa da, bazı orta / gelişmiş Git işlevleri için bir arayüz sunmadıklarını unutmayın. Bazı daha eksiksiz arayüzler, işaretle ve tıkla (genellikle daha karmaşık bir düzen pahasına) ile daha fazlasını yapmanıza olanak tanır.</p>
+<p>Deponuzu izlemek için herhangi bir noktada herhangi bir aracı kullanabildiğiniz için, bazen denemek veya ara sıra daha az yaygın karmaşık görevleri gerçekleştirmek için bir arabirimi çok kolay bir şekilde kurabileceğinizi ve geri kalan zaman için basitleştirilmiş bir arabirimi tercih edebileceğinizi unutmayın ( örneğin çoğu zaman Github Desktop’ı kullanmak ve bazı özel görevler için SourceTree veya Gitbash’a geçmek).</p>
+</div>
+<div id="git" class="section level2" number="46.12">
+<h2>
+<span class="header-section-number">46.12</span> Git komutları<a class="anchor" aria-label="anchor" href="#git"><i class="fas fa-link"></i></a>
+</h2>
+<div id="önerilen-öğrenim" class="section level3 unnumbered">
+<h3>Önerilen öğrenim<a class="anchor" aria-label="anchor" href="#%C3%B6nerilen-%C3%B6%C4%9Frenim"><i class="fas fa-link"></i></a>
+</h3>
+<p>Etkileşimli bir eğiticide Git komutlarını öğrenmek için <a href="https://learngitbranching.js.org/">bu web sitesine</a> bakabilirsiniz.</p>
+</div>
+<div id="komutların-girileceği-yer" class="section level3 unnumbered">
+<h3>Komutların girileceği yer<a class="anchor" aria-label="anchor" href="#komutlar%C4%B1n-girilece%C4%9Fi-yer"><i class="fas fa-link"></i></a>
+</h3>
+<p>Git kabuğuna komutlar girersiniz.</p>
+<p><em>Seçenek 1</em> RStudio’da yeni bir Terminal açabilirsiniz. Bu sekmenin yanında R Konsolu. İçine herhangi bir metin yazamıyorsanız, “Terminal”in altındaki açılır menüye tıklayın ve “Yeni terminal”i seçin. Komutları, dolar işareti “$” önündeki yanıp sönen boşluğa yazın.</p>
+<div class="inline-figure"><img src="images/github_terminal.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
+<p><em>Seçenek 2</em> Git sekmesinde (RStudio Ortamı yakınında) mavi “dişliler” simgesine tıklayarak bir <em>kabuk</em> (komut girmek için bir terminal) de açabilirsiniz. Açılır menüden “Kabuk” öğesini seçin. “$” dolar işaretinden sonra komutları yazabileceğiniz yeni bir pencere açılacaktır.</p>
+<p><em>Seçenek 3</em> Aynı tür terminali açacak olan “Git Bash burada”yı açmak için sağ tıklayın veya uygulama listenizden <em>Git Bash</em>’i açın [Git Bash hakkında daha fazla başlangıç seviyesi bilgisi (<a href="https://happygitwithr.com/shell.html" class="uri">https://happygitwithr.com/shell.html</a>), nasıl bulunur ve ihtiyacınız olacak bazı bash komutları.</p>
+</div>
+<div id="örnek-komutlar" class="section level3 unnumbered">
+<h3>Örnek komutlar<a class="anchor" aria-label="anchor" href="#%C3%B6rnek-komutlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıda birkaç yaygın git komutu sunuyoruz. Bunları kullandığınızda, eylemi değiştireceğinden, hangi dalın aktif olduğunu (check-out) aklınızda bulundurun!</p>
+<p>Aşağıdaki komutlarda, <name> bir dal adını temsil eder <commit_hash>, belirli bir commitin karma kimliğini temsil eder. <num> bir sayıyı temsil eder. &lt; veya &gt; sembollerini yazmayın.</num></commit_hash></name></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="26%">
+<col width="74%">
+</colgroup>
+<thead><tr class="header">
+<th>Git komutları</th>
+<th>Eylem</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>git branch &lt;name&gt;</code></td>
+<td><name> adıyla yeni bir dal oluşturun</name></td>
+</tr>
+<tr class="even">
+<td><code>git checkout &lt;name&gt;</code></td>
+<td>Geçerli dalı <name> olarak değiştir</name>
+</td>
+</tr>
+<tr class="odd">
+<td><code>git checkout -b &lt;name&gt;</code></td>
+<td>Yeni dal oluşturmak için kısayol * ve * ona geçiş yapın</td>
+</tr>
+<tr class="even">
+<td><code>git status</code></td>
+<td>İzlenmeyen değişiklikleri görün</td>
+</tr>
+<tr class="odd">
+<td><code>git add &lt;file&gt;</code></td>
+<td>Dosyayı aşamalandırma</td>
+</tr>
+<tr class="even">
+<td><code>git commit -m &lt;message&gt;</code></td>
+<td>Şu anda aşamalı değişiklikleri mevcut dalda mesajla commit et</td>
+</tr>
+<tr class="odd">
+<td><code>git fetch</code></td>
+<td>Uzak depodan değişiklikleri getir</td>
+</tr>
+<tr class="even">
+<td><code>git pull</code></td>
+<td>Geçerli daldaki uzak depodan değişiklikleri çekin</td>
+</tr>
+<tr class="odd">
+<td><code>git push</code></td>
+<td>Yerel değişiklikleri uzak dizine itin</td>
+</tr>
+<tr class="even">
+<td><code>git switch</code></td>
+<td>Git’te aşamalı olarak kullanılan “git checkout”a bir alternatif</td>
+</tr>
+<tr class="odd">
+<td><code>git merge &lt;name&gt;</code></td>
+<td><name> dalını geçerli dal ile birleştir</name></td>
+</tr>
+<tr class="even">
+<td><code>git rebase &lt;name&gt;</code></td>
+<td>Geçerli daldan değişiklikleri <name> şubesine ekle</name>
+</td>
+</tr>
+</tbody>
+</table></div>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="kaynaklar-37" class="section level2" number="46.13">
+<h2>
+<span class="header-section-number">46.13</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-37"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bu sayfanın çoğu, Jenny Bryan’ın <a href="https://happygitwithr.com/">bu “Happy Git with R” web sitesi</a> çalışmasından faydalanılarak hazırlanmıştır. Bu web sitesinin yaygın Git sorunlarını gidermenize yardımcı olan bölümü ve R ile ilgili hatalara çok yardımcı çözümleri mevcuttur.</p>
+<p><a href="https://docs.github.com/en/github">Github.com belgeleri ve başlangıç ​​kılavuzu</a>.</p>
+<p>RStudio ile Git hakkında ipuçları içeren RStudio <a href="https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf">“IDE” yardım sayfası</a>.</p>
+<p><a href="https://ohi-science.org/news/github-coming-back-in-time" class="uri">https://ohi-science.org/news/github-coming-back-in-time</a></p>
+<p><strong>Yeni başlayanlar için Git komutları</strong></p>
+<p>Öğrenmek için bir <a href="learngitbranching.js.org">etkileşimli öğretici</a></p>
+<p><a href="https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71/" class="uri">https://www.freecodecamp.org/news/an-introduction-to-git-for-absolute-beginners-86fa1d32ff71/</a>: Kendi bilgisayarınızdaki bir klasördeki değişiklikleri izlemek için mutlak temel bilgileri öğrenmek için iyi.</p>
+<p>Dalları anlamak için güzel şemalar: <a href="https://speakerdeck.com/alicebartlett/git-for-humans" class="uri">https://speakerdeck.com/alicebartlett/git-for-humans</a>&gt;</p>
+<p><strong>Hem temel hem de ileri düzey konuları kapsayan eğitimler</strong></p>
+<p><a href="https://tutorialzine.com/2016/06/learn-git-in-30-dakika" class="uri">https://tutorialzine.com/2016/06/learn-git-in-30-dakika</a></p>
+<p><a href="https://dzone.com/articles/git-tutorial-commands-and-operations-in-git" class="uri">https://dzone.com/articles/git-tutorial-commands-and-operations-in-git</a> <a href="https://swcarpentry.github.io/git-novice/" class="uri">https://swcarpentry.github.io/git-novice/</a> (kısa kurs &lt;<a href="https://rsjakob" class="uri">https://rsjakob</a> .gitbooks.io/git/content/chapter1.html&gt;</p>
+<p><a href="https://git-scm.com/book/en/v2">Pro Git kitabı</a> resmi bir referans olarak kabul edilir. Bazı bölümler iyi olsa da, genellikle biraz <em>teknik</em>. Git’i biraz kullandıktan ve ne olduğunu ve nasıl daha ileri gidileceğini biraz daha kesin olarak öğrenmek istediğinizde muhtemelen iyi bir kaynaktır.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></div>
+<div class="next"><a href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="nav-link" href="#git-nedir"><span class="header-section-number">46.1</span> Git nedir?</a></li>
+<li>
+<a class="nav-link" href="#neden-git-ve-github-kombinasyonunu-kullanmal%C4%B1s%C4%B1n%C4%B1z"><span class="header-section-number">46.2</span> Neden Git ve Github kombinasyonunu kullanmalısınız?</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#kula%C4%9Fa-karma%C5%9F%C4%B1k-geliyor-ben-programc%C4%B1-de%C4%9Filim">Kulağa karmaşık geliyor, ben programcı değilim</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#kurmak"><span class="header-section-number">46.3</span> Kurmak</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#giti-y%C3%BCkleyin">Git’i yükleyin</a></li>
+<li><a class="nav-link" href="#bir-aray%C3%BCz-kurun-iste%C4%9Fe-ba%C4%9Fl%C4%B1-ancak-%C3%B6nerilir">Bir arayüz kurun (isteğe bağlı ancak önerilir)</a></li>
+<li><a class="nav-link" href="#github-hesab%C4%B1">Github hesabı</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#kelime-bilgisi-kavramlar-ve-temel-i%C5%9Flevler"><span class="header-section-number">46.4</span> Kelime bilgisi, kavramlar ve temel işlevler</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#depo">Depo</a></li>
+<li><a class="nav-link" href="#taahh%C3%BCtler">Taahhütler</a></li>
+<li><a class="nav-link" href="#%C5%9Fubeler">Şubeler</a></li>
+<li><a class="nav-link" href="#yerel-ve-uzak-depolar">Yerel ve uzak depolar</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#ba%C5%9Flay%C4%B1n-yeni-bir-depo-olu%C5%9Fturun"><span class="header-section-number">46.5</span> Başlayın: yeni bir depo oluşturun</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ba%C5%9Flang%C4%B1%C3%A7-dosyalar%C4%B1">Başlangıç dosyaları</a></li>
+<li><a class="nav-link" href="#githubda-yeni-bir-depo-olu%C5%9Fturun">Github’da yeni bir depo oluşturun</a></li>
+<li><a class="nav-link" href="#github-deposundan-klonlama">Github deposundan klonlama</a></li>
+<li><a class="nav-link" href="#mevcut-r-projesinden-yeni-github-deposu">Mevcut R projesinden yeni Github deposu</a></li>
+<li><a class="nav-link" href="#%C5%9Fimdi-nas%C4%B1l-g%C3%B6r%C3%BCn%C3%BCyor">Şimdi nasıl görünüyor?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#git-github-i%C5%9F-ak%C4%B1%C5%9F%C4%B1"><span class="header-section-number">46.6</span> Git + Github iş akışı</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#s%C3%BCrece-genel-bak%C4%B1%C5%9F">Sürece genel bakış</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#yeni-bir-dal-olu%C5%9Ftur"><span class="header-section-number">46.7</span> Yeni bir dal oluştur</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rstudio-git-b%C3%B6lmesinde">Rstudio Git bölmesinde</a></li>
+<li><a class="nav-link" href="#masa%C3%BCst%C3%BCnde-github">Masaüstünde Github</a></li>
+<li><a class="nav-link" href="#konsol-kullan%C4%B1rken">Konsol Kullanırken</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#de%C4%9Fi%C5%9Fiklikleri-uygula-commit-changes"><span class="header-section-number">46.8</span> Değişiklikleri Uygula (Commit Changes)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rstudioda-2">Rstudio’da</a></li>
+<li><a class="nav-link" href="#masa%C3%BCst%C3%BCnde-github-1">Masaüstünde Github</a></li>
+<li><a class="nav-link" href="#konsolda">Konsolda</a></li>
+<li><a class="nav-link" href="#%C3%B6nceki-bir-commiti-de%C4%9Fi%C5%9Ftirin">Önceki bir commit’i değiştirin</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#de%C4%9Fi%C5%9Fiklikleri-githuba-kadar-%C3%A7ekin-ve-iletin"><span class="header-section-number">46.9</span> Değişiklikleri Github’a kadar çekin ve iletin</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#%C3%A7ekmek-istiyorum-ama-yerel-i%C5%9Fim-var">Çekmek istiyorum ama yerel işim var</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#dal%C4%B1n%C4%B1-ana-g%C3%B6vde-ile-birle%C5%9Ftir"><span class="header-section-number">46.10</span> Dalını Ana Gövde ile birleştir</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#yerel-olarak-github-desktopta">Yerel olarak Github Desktop’ta</a></li>
+<li><a class="nav-link" href="#konsolda-1">Konsolda</a></li>
+<li><a class="nav-link" href="#githubda-%C3%A7ekme-istekleri-g%C3%B6nderme">Github’da: çekme istekleri gönderme</a></li>
+<li><a class="nav-link" href="#%C3%A7ak%C4%B1%C5%9Fmalar%C4%B1-%C3%A7%C3%B6zme">Çakışmaları çözme</a></li>
+<li><a class="nav-link" href="#dal%C4%B1n%C4%B1z%C4%B1-silin">Dalınızı silin</a></li>
+<li><a class="nav-link" href="#%C3%A7atallama">Çatallama</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#%C3%B6%C4%9Frendiklerimiz"><span class="header-section-number">46.11</span> Öğrendiklerimiz</a></li>
+<li>
+<a class="nav-link" href="#git"><span class="header-section-number">46.12</span> Git komutları</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%C3%B6nerilen-%C3%B6%C4%9Frenim">Önerilen öğrenim</a></li>
+<li><a class="nav-link" href="#komutlar%C4%B1n-girilece%C4%9Fi-yer">Komutların girileceği yer</a></li>
+<li><a class="nav-link" href="#%C3%B6rnek-komutlar">Örnek komutlar</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-37"><span class="header-section-number">46.13</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

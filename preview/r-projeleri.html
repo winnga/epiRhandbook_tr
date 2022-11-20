@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 R projeleri | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bir R projesi, çalışmanızın taşınabilir, bağımsız bir klasörde paketlenmesini sağlar. Proje klasörü içinde, ilgili tüm komutlar, veri dosyaları, şekiller/çıktılar ve geçmiş kayıtları alt...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="4 R projeleri | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bir R projesi, çalışmanızın taşınabilir, bağımsız bir klasörde paketlenmesini sağlar. Proje klasörü içinde, ilgili tüm komutlar, veri dosyaları, şekiller/çıktılar ve geçmiş kayıtları alt...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 R projeleri | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bir R projesi, çalışmanızın taşınabilir, bağımsız bir klasörde paketlenmesini sağlar. Proje klasörü içinde, ilgili tüm komutlar, veri dosyaları, şekiller/çıktılar ve geçmiş kayıtları alt...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">1</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">2</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">3</span> Önerilen paketler</a></li>
+<li><a class="active" href="r-projeleri.html"><span class="header-section-number">4</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">5</span> İçe ve dışa aktar</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-projeleri" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> R projeleri<a class="anchor" aria-label="anchor" href="#r-projeleri"><i class="fas fa-link"></i></a>
+</h1>
+<p>Bir R projesi, çalışmanızın taşınabilir, bağımsız bir klasörde paketlenmesini sağlar. Proje klasörü içinde, ilgili tüm komutlar, veri dosyaları, şekiller/çıktılar ve geçmiş kayıtları alt klasörlerde saklanır. <em>Çalışma dizini</em> projenin ana klasörüdür.</p>
+<div id="önerilen-kullanım" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Önerilen kullanım<a class="anchor" aria-label="anchor" href="#%C3%B6nerilen-kullan%C4%B1m"><i class="fas fa-link"></i></a>
+</h2>
+<p>R’ı kullanmanın yaygın, verimli ve sorunsuz bir yolu bu 3 unsuru birleştirmektir. Herbir proje, bir R klasörü içinde barındırılmaktadır. İlgili başlıklar aşağıdaki bölümlerde açıklanmıştır.</p>
+<ol style="list-style-type: decimal">
+<li>Bir <strong>R projesi</strong>
+<ul>
+<li>Veriler, komut dosyaları, çıktılar vb. için ilgili klasörlerden oluşan bağımsız bir çalışma ortamı.</li>
+</ul>
+</li>
+<li>Alternatif dosya yolakları için <strong>here</strong> paketi
+<ul>
+<li>Dosya yolakları, R projesinin ana klasörüne göre yazılır - daha fazla bilgi için <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> bölümüne bakınız.<br>
+</li>
+</ul>
+</li>
+<li>İçe/dışa aktarma için <strong>rio</strong> paketi
+<ul>
+<li>
+<code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> ve <code><a href="https://rdrr.io/pkg/rio/man/export.html">export()</a></code>, herhangi bir dosya türünü uzantısına göre işler (ör. .csv, .xlsx, .png)</li>
+</ul>
+</li>
+</ol>
+<!-- ======================================================= -->
+</div>
+<div id="bir-r-projesi-yaratma" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Bir R projesi yaratma<a class="anchor" aria-label="anchor" href="#bir-r-projesi-yaratma"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir R projesi oluşturmak için Dosya menüsünden “Yeni Proje” seçeneğini seçiniz.</p>
+<ul>
+<li>Proje için yeni bir klasör oluşturmak istiyorsanız, “Yeni dizin”i seçin ve projenizin nerede oluşturulmasını istediğinizi belirtiniz.<br>
+</li>
+<li>Projeyi mevcut bir klasör içinde oluşturmak istiyorsanız, “Mevcut dizin” seçeneğine tıklayıp ve klasörü belirtiniz.<br>
+</li>
+<li>Bir Github deposunu klonlamak istiyorsanız, üçüncü seçenek olan “Versiyon Kontrolü”nü seçip ve ardından “Git”i seçiniz. Daha fazla ayrıntı için [Versiyon kontrolü, Git ve Github ile işbirliği] hakkındaki sayfaya bakınız.</li>
+</ul>
+<div class="inline-figure"><img src="images/create_project.png" width="75%" style="display: block; margin: auto;"></div>
+<p>R projesi, <em>.Rproj</em> dosyası içeren bir klasör şeklinde oluşturulacaktır. Bu dosya bir kısayoldur ve projenizi açmanın birincil yoludur. Dosya menüsünden “Projeyi Aç”ı seçerek de bir projeyi açabilirsiniz. Alternatif olarak, RStudio’nun en sağ üst tarafında bir R projesi simgesi ve mevcut R projelerinin açılır menüsünü göreceksiniz.</p>
+<p>Bir R projesinden çıkmak için ya yeni bir proje açın ya da açık olan projeyi kapatınız (Dosya - Projeyi Kapat).</p>
+<div id="projeler-arasında-geçiş-yapma" class="section level3 unnumbered">
+<h3>Projeler arasında geçiş yapma<a class="anchor" aria-label="anchor" href="#projeler-aras%C4%B1nda-ge%C3%A7i%C5%9F-yapma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Projeler arasında geçiş yapmak için, RStudio’nun sağ üst köşesindeki R projesi simgesini ve açılır menüyü tıklayınız. “Projeyi Kapat”, “Projeyi Aç” seçeneklerini ve son projelerin bir listesini göreceksiniz.</p>
+<div class="inline-figure"><img src="images/Rproject_dropdown.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="ayarlar" class="section level3 unnumbered">
+<h3>Ayarlar<a class="anchor" aria-label="anchor" href="#ayarlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Genellikle RStudio’yu her seferinde “temiz bir sayfa” ile başlatmanız önerilmektedir - yani, çalışma alanınız önceki oturumunuzdan <strong>korunmamış</strong> olarak. Bu, nesnelerinizin ve çıktılarınızın oturumdan oturuma devam etmeyeceği anlamına gelir (komut dosyalarınızı çalıştırarak bunları yeniden oluşturmanız gerekmektedir). Bu iyi bir durumdur, çünkü sizi daha iyi komutlar yazmaya ve uzun vadede hatalardan kaçınmaya zorlayacaktır.</p>
+<p>RStudio’yu her açılışta “temiz bir sayfaya” sahip olacak şekilde ayarlamak için:</p>
+<ul>
+<li>Araçlar menüsünden “Proje Seçenekleri”ni seçiniz.</li>
+<li>“Genel” sekmesinde, RStudio’yu başlangıçta .RData’yı çalışma alanına <strong>geri yüklemeyecek</strong> ve çıkışta çalışma alanını .RData’ya <strong>kaydetmeyecek</strong> şekilde ayarlayınız.</li>
+</ul>
+</div>
+<div id="organizasyon" class="section level3 unnumbered">
+<h3>Organizasyon<a class="anchor" aria-label="anchor" href="#organizasyon"><i class="fas fa-link"></i></a>
+</h3>
+<p>Projenizde alt klasörlerin olması yaygın bir durumdur. “Veri”, “komut dosyaları”, “şekiller”, “sunular” gibi klasörleri oluşturabilirsiniz. Bilgisayarınız için yeni bir klasör eklediğiniz gibi proje alt klasörlerini ekleyebilirsiniz. Alternatif olarak, R komutlarıyla yeni klasörlerin nasıl oluşturulacağını öğrenmek için [Dizin etkileşimleri] hakkındaki sayfaya bakınız.</p>
+</div>
+<div id="versiyon-kontrolü" class="section level3 unnumbered">
+<h3>Versiyon kontrolü<a class="anchor" aria-label="anchor" href="#versiyon-kontrol%C3%BC"><i class="fas fa-link"></i></a>
+</h3>
+<p>Projelerinizde her zaman bir versiyon kontrol sistemi düşünmelisiniz. Komut dosyalarının adlarında (örneğin, “transmission_analysis_2020-10-03.R”) ve bir “arşiv” klasöründe tarihlerin eklenmesi gibi basit bir yöntemi kullanabilirsiniz. Ayrıca açıklama, etiketler, yazarlar ve değişiklik günlüğü ile her komut dosyasının üst kısmında yorumlar da ekleyebilirsiniz.</p>
+<p>Daha karmaşık bir yöntem, sürüm kontrolü için Github veya benzer bir platform kullanmayı içermektedir. [Versiyon kontrolü, Git ve Github ile işbirliği] hakkındaki sayfaya bakınız.</p>
+<p>Bir ipucu olarak, “Dosyalarda Bul” aracını (Düzenle menüsü) kullanarak tüm projede veya klasörde arama yapabilmenizdir. Birden çok dosyada istediğiniz kelime/dizeleri arayabilir ve hatta değiştirebilirsiniz.</p>
+</div>
+</div>
+<div id="örnekler" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Örnekler<a class="anchor" aria-label="anchor" href="#%C3%B6rnekler"><i class="fas fa-link"></i></a>
+</h2>
+<p>Aşağıda, bir R projesi içinden <code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> fonksiyonunu kullanarak bazı içe/dışa aktarma/kaydetme örnekleri verilmiştir. <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> sayfasında <strong>here</strong> paketinin kullanımı hakkında daha fazla bilgi edinebilirsiniz.</p>
+<p><em>R projenizdeki “data” klasöründen <code>linelist_raw.xlsx</code> dosyasını içe aktarın</em></p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"linelist_raw.xlsx"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><em>R projenizdeki “data” klasörü içindeki “clean” klasörüne, R nesnesi ’linelist’i, “my_linelist.rds” olarak dışa aktarın.</em></p>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/export.html">export</a></span><span class="op">(</span><span class="va">linelist</span>, <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>,<span class="st">"clean"</span>, <span class="st">"my_linelist.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><em>En son yazdırılan grafiği, R projenizdeki “outputs” klasöründeki “epicurves” klasörüne “epicurve_2021-02-15.png” olarak kaydedin.</em></p>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"outputs"</span>, <span class="st">"epicurves"</span>, <span class="st">"epicurve_2021-02-15.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="kaynaklar" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar"><i class="fas fa-link"></i></a>
+</h2>
+<p>RStudio web sayfası - <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">R projelerini kullanma</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">3</span> Önerilen paketler</a></div>
+<div class="next"><a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">5</span> İçe ve dışa aktar</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-projeleri"><span class="header-section-number">4</span> R projeleri</a></li>
+<li><a class="nav-link" href="#%C3%B6nerilen-kullan%C4%B1m"><span class="header-section-number">4.1</span> Önerilen kullanım</a></li>
+<li>
+<a class="nav-link" href="#bir-r-projesi-yaratma"><span class="header-section-number">4.2</span> Bir R projesi yaratma</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#projeler-aras%C4%B1nda-ge%C3%A7i%C5%9F-yapma">Projeler arasında geçiş yapma</a></li>
+<li><a class="nav-link" href="#ayarlar">Ayarlar</a></li>
+<li><a class="nav-link" href="#organizasyon">Organizasyon</a></li>
+<li><a class="nav-link" href="#versiyon-kontrol%C3%BC">Versiyon kontrolü</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#%C3%B6rnekler"><span class="header-section-number">4.3</span> Örnekler</a></li>
+<li><a class="nav-link" href="#kaynaklar"><span class="header-section-number">4.4</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

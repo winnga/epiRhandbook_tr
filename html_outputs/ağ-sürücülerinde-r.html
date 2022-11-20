@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>49 Ağ sürücülerinde R | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="49.1 Genel Bakış R’ı ağda veya “şirket” ortak sürücülerinde kullanmak ek zorluklar ortaya çıkarabilir. Bu sayfa, bu sorunlar üzerinde çalışırken edindiğimiz deneyimlerden sorunları gidermeye...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="49 Ağ sürücülerinde R | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="49.1 Genel Bakış R’ı ağda veya “şirket” ortak sürücülerinde kullanmak ek zorluklar ortaya çıkarabilir. Bu sayfa, bu sorunlar üzerinde çalışırken edindiğimiz deneyimlerden sorunları gidermeye...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="49 Ağ sürücülerinde R | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="49.1 Genel Bakış R’ı ağda veya “şirket” ortak sürücülerinde kullanmak ek zorluklar ortaya çıkarabilir. Bu sayfa, bu sorunlar üzerinde çalışırken edindiğimiz deneyimlerden sorunları gidermeye...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="active" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ağ-sürücülerinde-r" class="section level1" number="49">
+<h1>
+<span class="header-section-number">49</span> Ağ sürücülerinde R<a class="anchor" aria-label="anchor" href="#a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r"><i class="fas fa-link"></i></a>
+</h1>
+<div id="genel-bakış-9" class="section level2" number="49.1">
+<h2>
+<span class="header-section-number">49.1</span> Genel Bakış<a class="anchor" aria-label="anchor" href="#genel-bak%C4%B1%C5%9F-9"><i class="fas fa-link"></i></a>
+</h2>
+<p>R’ı ağda veya “şirket” ortak sürücülerinde kullanmak ek zorluklar ortaya çıkarabilir. Bu sayfa, bu sorunlar üzerinde çalışırken edindiğimiz deneyimlerden sorunları gidermeye yönelik yaklaşımları, yaygın hataları ve önerileri içerir. Bölüm ayrıca R Markdown’ı da içeren özellikle hassas durumlar için ipuçları içerir.</p>
+<p><strong>Ağ Sürücülerinde R Kullanımı: Kapsamlı ilkeler</strong></p>
+<ol style="list-style-type: decimal">
+<li>Bilgisayarınız için yönetici erişimi almalısınız. RStudio’yu özellikle yönetici olarak çalışacak şekilde kurun.</li>
+<li>Mümkün olduğunda paketleri harfli bir sürücüdeki (örneğin “C:”) bir kitaplığa kaydedin. Mümkün olduğunca az yolu “\" ile başlayan bir paket kitaplığı kullanın.</li>
+<li>
+<strong>rmarkdown</strong> paketi bir “\" paket kitaplığında <strong>olmamalıdır</strong>, çünkü bu durumda TinyTex veya Pandoc’a bağlanamaz.</li>
+</ol>
+</div>
+<div id="yönetici-olarak-rstudio" class="section level2" number="49.2">
+<h2>
+<span class="header-section-number">49.2</span> Yönetici olarak RStudio<a class="anchor" aria-label="anchor" href="#y%C3%B6netici-olarak-rstudio"><i class="fas fa-link"></i></a>
+</h2>
+<p>RStudio’yu açmak için RStudio simgesine tıkladığınızda, bunu sağ tıklatarak yapın. Makinenize bağlı olarak, “Yönetici Olarak Çalıştır” seçeneğini görebilirsiniz. Aksi takdirde, Özellikler’i seçmek için bir seçenek görebilirsiniz (daha sonra “Uyumluluk” seçeneğinin olduğu bir pencere görünmelidir ve “Yönetici Olarak Çalıştır” onay kutusunu seçebilirsiniz).</p>
+</div>
+<div id="faydalı-komutlar" class="section level2" number="49.3">
+<h2>
+<span class="header-section-number">49.3</span> Faydalı komutlar<a class="anchor" aria-label="anchor" href="#faydal%C4%B1-komutlar"><i class="fas fa-link"></i></a>
+</h2>
+<p>Aşağıda, ağ sürücülerinde R kullanarak sorunları gidermeye yarayan bazı yararlı komutlar verilmiştir.</p>
+<p>Yolları R’ın kullandığı paket kitaplıklarına döndürebilirsiniz. Bunlar, R’ın paketleri kurmak/yüklemek/aramak için kullandığı sırayla listelenecektir. Bu nedenle, R’ın farklı bir varsayılan kitaplık kullanmasını istiyorsanız, bu yolların sırasını değiştirebilirsiniz (aşağıya bakın).</p>
+<div class="sourceCode" id="cb1967"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># kitaplığı bul</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span>                   <span class="co"># R'ın yüklediği/aradığı sırayla listelenmiş kitaplık yollarınız.</span></span>
+<span>                              <span class="co"># Not: tüm kitaplıklar listelenecektir, ancak bazılarına (örneğin C :) yüklemek için</span></span>
+<span>                              <span class="co"># RStudio'yu yönetici olarak çalıştırmanız gerekebilir </span></span>
+<span>                              <span class="co"># (paket kitaplığı açılır menüsü yükleyin)</span></span></code></pre></div>
+<p>R tarafından kullanılan paket kitaplıklarının sırasını değiştirmek isteyebilirsiniz. Örneğin, R “\" ile başlayan ve büyük bir harfle başlayan bir kitaplık konumu alıyorsa, örn.”D:“. <code><a href="https://rdrr.io/r/base/libPaths.html">.libPaths()</a></code> sırasını aşağıdaki kod ile ayarlayabilirsiniz.</p>
+<div class="sourceCode" id="cb1968"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Kitaplıkların sırasını değiştir</span></span>
+<span><span class="co"># bu, R'ın bir paket bulma önceliğini etkileyebilir. Örneğin. C: kitaplığınızın önce listelenmesini isteyebilirsiniz</span></span>
+<span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># yolakları al</span></span>
+<span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">myPaths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># değiştir</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">)</span> <span class="co"># yeniden ata</span></span></code></pre></div>
+<p>Pandoc’a bağlanan R Markdown ile ilgili sorunlar yaşıyorsanız, RStudio’nun Pandoc kurulumunuzun nerede olduğunu düşündüğünü öğrenmek için bu kodla başlayın.</p>
+<div class="sourceCode" id="cb1969"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Pandoc'u bul</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"RSTUDIO_PANDOC"</span><span class="op">)</span>  <span class="co"># RStudio'nun Pandoc kurulumunuzun nerede olduğunu düşündüğünü bulun</span></span></code></pre></div>
+<p>Bir paketin hangi kütüphaneden yüklendiğini görmek istiyorsanız aşağıdaki kodu deneyin:</p>
+<div class="sourceCode" id="cb1970"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># bir paket bulun</span></span>
+<span><span class="co"># paketin ilk konumunu verir (kütüphanelerinizin sırasını not edin)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html">find.package</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"verbose"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="sık-karşılaşılan-hataları-giderme" class="section level2" number="49.4">
+<h2>
+<span class="header-section-number">49.4</span> Sık karşılaşılan hataları giderme<a class="anchor" aria-label="anchor" href="#s%C4%B1k-kar%C5%9F%C4%B1la%C5%9F%C4%B1lan-hatalar%C4%B1-giderme"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>“rmarkdown’da…tex derlenemedi”</strong></p>
+<ul>
+<li>TinyTex kurulumunu kontrol edin veya TinyTex’i C: konumuna kurun. TinyTex’in nasıl kurulacağını öğrenmek için [R temelleri] sayfasına bakabilirsiniz.</li>
+</ul>
+<div class="sourceCode" id="cb1971"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># tinytex'i kontrol edin/yükleyin, C: konumuna</span></span>
+<span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">tinytex</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/is_tinytex.html">is_tinytex</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#  DOĞRU döndürmelidir (üç kolonu da not alın)</span></span></code></pre></div>
+<p><strong>İnternet rutinleri yüklenemiyor</strong></p>
+<p>Örneğin, <code>Error in tools::startDynamicHelp() : internet rutinleri yüklenemiyor</code></p>
+<ul>
+<li>Araçlar/Global Seçenekler aracılığıyla RStudio’dan 32 bit sürümü seçmeyi deneyin.
+<ul>
+<li>not: Menüde 32 bit sürüm görünmüyorsa, RStudio v1.2’yi kullanmadığınızdan emin olun.</li>
+</ul>
+</li>
+<li>Alternatif olarak, R’ı kaldırıp farklı bir bit sürümüyle yeniden yüklemeyi deneyin (64 yerine 32)</li>
+</ul>
+<p><strong>C: kitaplık paketleri manuel olarak yüklemeye çalıştığımda bir seçenek olarak görünmüyor</strong></p>
+<ul>
+<li>RStudio’yu yönetici olarak çalıştırın, bu seçenek görünecektir.</li>
+<li>RStudio’yu her zaman yönetici olarak çalışacak şekilde ayarlamak için Rstudio simgesine sağ tıklayın</li>
+</ul>
+<p>Aşağıdaki resim, bir paketin kurulacağı kitaplığı manuel olarak nasıl seçebileceğinizi gösterir. Bu pencere, Paketler RStudio bölmesini açtığınızda ve “Yükle” yi tıkladığınızda görünür.</p>
+<div class="inline-figure"><img src="images/network_install.png" width="148"></div>
+<p><strong>Pandoc 1 hatası</strong></p>
+<p>Ağ sürücülerinde R Markdowns komut dosyalarını örerken “pandoc hatası 1” alıyorsanız:</p>
+<ul>
+<li>Birden fazla kitaplık konumundan önce harfli sürücüye sahip olanı listeleyin (yukarıdaki kodlara bakın)</li>
+<li>Yukarıdaki çözüm, yerel sürücüde örerken ancak ağ bağlantılı bir internet bağlantısındayken işe yaradı.</li>
+<li>Burada daha fazla ipucu bulabilirsiniz: <a href="https://ciser.cornell.edu/rmarkdown-knit-to-html-word-pdf/" class="uri">https://ciser.cornell.edu/rmarkdown-knit-to-html-word-pdf/</a>
+</li>
+</ul>
+<p><strong>Pandoc Hatası 83</strong></p>
+<p>Hata şuna benzer: <code>can't find file...rmarkdown...lua...</code>. Bu, bu dosyayı bulamadığı anlamına gelir.</p>
+<p><a href="https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-while-knitting-to-word" class="uri">https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-while-knitting-to-word</a> ’e bakın</p>
+<p>Olasılıklar:</p>
+<ol style="list-style-type: decimal">
+<li>Rmarkdown paketi kurulu değil</li>
+<li>Rmarkdown paketi bulunamadı</li>
+<li>Bir yönetici hakları sorunu.</li>
+</ol>
+<p>R’ın <strong>rmarkdown</strong> paket dosyasını bulamaması mümkündür, bu nedenle <strong>rmarkdown</strong> paketinin hangi kütüphanede olduğunu kontrol edin (yukarıdaki koda bakın). Paket, erişilemeyen (örneğin, “\" ile başlayan) bir kitaplığa kuruluysa, onu manuel olarak C:’ye veya başka bir adlandırılmış sürücü kitaplığına taşımayı düşünün. <strong>rmarkdown</strong> paketinin TinyTex kurulumuna bağlanabilmesi gerektiğini, bu nedenle bir ağ sürücüsündeki bir kitaplıkta yaşayamayacağını unutmayın.</p>
+<p><strong>Pandoc Hatası 61</strong></p>
+<p>Örneğin: <code>Error: pandoc document conversion failed with error 61</code> or <code>Could not fetch...</code></p>
+<ul>
+<li>RStudio’yu yönetici olarak çalıştırmayı deneyin (simgeye sağ tıklayın, yönetici olarak çalıştır’ı seçin, yukarıdaki talimatlara bakın)</li>
+<li>Ayrıca ulaşılamayan belirli paketin C: kitaplığına taşınıp taşınamayacağına da bakın.</li>
+</ul>
+<p><strong>LaTex hatası (aşağıya bakın)</strong></p>
+<p>Şuna benzer bir hata: <code>! Package pdftex.def Error: File 'cict_qm2_2020-06-29_files/figure-latex/unnamed-chunk-5-1.png' not found: using draft setting.</code> or <code>Error: LaTeX failed to compile file_name.tex.</code></p>
+<ul>
+<li>Hata ayıklama ipuçları için <a href="https://yihui.org/tinytex/r/#debugging" class="uri">https://yihui.org/tinytex/r/#debugging</a> adresine bakın.</li>
+<li>Daha fazla bilgi için file_name.log’a bakın.</li>
+</ul>
+<p><strong>Pandoc Hatası 127</strong></p>
+<p>Bu bir RAM (boşluk) sorunu olabilir. R oturumunuzu yeniden başlatın ve tekrar deneyin.</p>
+<p><strong>Ağ sürücülerini eşleme</strong></p>
+<p>Bir ağ sürücüsünü eşlemek riskli olabilir. Bunu denemeden önce bilgi işlem departmanınıza danışın.</p>
+<p>Bu [forum tartışmasından] ödünç alınmış bir yorumdur: (<a href="https://stackoverflow.com/questions/48161177/r-markdown-openbinaryfile-does-not-exist-no-such-file-or-directory/55616529?noredirect=1#comment97966859_55616529" class="uri">https://stackoverflow.com/questions/48161177/r-markdown-openbinaryfile-does-not-exist-no-such-file-or-directory/55616529?noredirect=1#comment97966859_55616529</a>):</p>
+<p>“Eşlenmiş bir ağ sürücüsü aracılığıyla” bir dosya nasıl açılır?</p>
+<ul>
+<li>Öncelikle, erişmeye çalıştığınız ağ konumunu bilmeniz gerekir.</li>
+<li>Ardından, Windows dosya yöneticisinde, sağdaki bölmede “Bu PC”ye sağ tıklamanız ve “Bir ağ sürücüsünü eşle”yi seçmeniz gerekecektir.</li>
+<li>Ağ konumunu daha önce harfli bir sürücü olarak tanımlamak için diyalogu gözden geçirin.</li>
+<li>Artık açtığınız dosyaya ulaşmanın iki yolu var. Sürücü harfi yolunu kullanmak işe yaramalıdır.</li>
+</ul>
+<p><strong>install.packages() dosyasında hata</strong></p>
+<p>Bir “kilit” dizininden bahseden bir hata alırsanız, örneğin: <code>Error in install.packages : ERROR: failed to lock directory...</code>
+Paket kitaplığınıza baktığınızda adı “00LOCK” ile başlayan bir klasör göreceksiniz. Aşağıdakileri deneyin:</p>
+<ul>
+<li>“00LOCK” klasör dizinini paket kitaplığınızdan manuel olarak silin. Paketi yeniden yüklemeyi deneyin.</li>
+<li>Ayrıca <code><a href="https://rdrr.io/pkg/pacman/man/p_unlock.html">pacman::p_unlock()</a></code> komutunu da deneyebilirsiniz (bu komutu proje her açıldığında çalışması için Rprofile’e de koyabilirsiniz.). Ardından paketi yeniden yüklemeyi deneyin. Birkaç deneme gerektirebilir.</li>
+<li>RStudio’yu Yönetici modunda çalıştırmayı deneyin ve paketleri tek tek yüklemeyi deneyin.</li>
+<li>Diğerleri başarısız olursa, paketi başka bir kitaplığa veya klasöre (örn. Temp) kurun ve ardından paketin klasörünü istenen kitaplığa manuel olarak kopyalayın.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></div>
+<div class="next"><a href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="nav-link" href="#genel-bak%C4%B1%C5%9F-9"><span class="header-section-number">49.1</span> Genel Bakış</a></li>
+<li><a class="nav-link" href="#y%C3%B6netici-olarak-rstudio"><span class="header-section-number">49.2</span> Yönetici olarak RStudio</a></li>
+<li><a class="nav-link" href="#faydal%C4%B1-komutlar"><span class="header-section-number">49.3</span> Faydalı komutlar</a></li>
+<li><a class="nav-link" href="#s%C4%B1k-kar%C5%9F%C4%B1la%C5%9F%C4%B1lan-hatalar%C4%B1-giderme"><span class="header-section-number">49.4</span> Sık karşılaşılan hataları giderme</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

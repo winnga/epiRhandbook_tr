@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>48 Yardım alma | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Bu sayfa, bir Github sorunu göndererek veya çevrimiçi bir foruma tekrarlanabilir bir örnek (“reprex”) göndererek nasıl yardım alınacağını anlatmaktadır.  48.1 Github sorunları Birçok R paketi ve...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="48 Yardım alma | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Bu sayfa, bir Github sorunu göndererek veya çevrimiçi bir foruma tekrarlanabilir bir örnek (“reprex”) göndererek nasıl yardım alınacağını anlatmaktadır.  48.1 Github sorunları Birçok R paketi ve...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="48 Yardım alma | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Bu sayfa, bir Github sorunu göndererek veya çevrimiçi bir foruma tekrarlanabilir bir örnek (“reprex”) göndererek nasıl yardım alınacağını anlatmaktadır.  48.1 Github sorunları Birçok R paketi ve...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="active" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="yardım-alma" class="section level1" number="48">
+<h1>
+<span class="header-section-number">48</span> Yardım alma<a class="anchor" aria-label="anchor" href="#yard%C4%B1m-alma"><i class="fas fa-link"></i></a>
+</h1>
+<p>Bu sayfa, bir Github sorunu göndererek veya çevrimiçi bir foruma tekrarlanabilir bir örnek (“reprex”) göndererek nasıl yardım alınacağını anlatmaktadır.</p>
+<div id="github-sorunları" class="section level2" number="48.1">
+<h2>
+<span class="header-section-number">48.1</span> Github sorunları<a class="anchor" aria-label="anchor" href="#github-sorunlar%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Birçok R paketi ve projesinin kodu Github.com web sitesinde barındırılmaktadır. Bir “Sorun” göndererek bu web sitesi aracılığıyla yazarlarla doğrudan iletişim kurabilirsiniz.</p>
+<p>Çalışmanızı Github’da nasıl saklayacağınızla ilgili daha fazla bilgiyi [İşbirliği ve Github] sayfasından okuyabilirsiniz.</p>
+<p>Github’da her proje bir <em>depo</em> içinde bulunur. Her depoda kod, veri, çıktılar, yardım belgeleri vb. bulunur. Ayrıca “Sorunlar” adı verilen yazarlarla iletişim kurmak için bir araç da vardır.</p>
+<p><strong>incidence2</strong> paketi (salgın eğrileri oluşturmak için kullanılır) için Github sayfasının altına bakın. Sarı renkle vurgulanmış “Sorunlar” sekmesini görebilirsiniz. 5 tane açık konu olduğunu görebilirsiniz.</p>
+<div class="inline-figure"><img src="images/errors_Github_issues.png" width="948"></div>
+<p>Sorunlar sekmesinde, açık sorunları görebilirsiniz. Sorununuzun henüz ele alınmadığından emin olmak için bunları gözden geçirin. Sağdaki yeşil butona tıklayarak yeni bir konu açabilirsiniz. Bunu yapmak için bir Github hesabına ihtiyacınız olacak.</p>
+<div class="inline-figure"><img src="images/errors_Github_issues2.png" width="910"></div>
+<p>Sorununuzla ilgili olarak, minimal, tekrarlanabilir bir örnek sağlamak için aşağıdaki talimatları izleyin. Ve lütfen nazik olun! R paketleri ve projeleri geliştiren çoğu kişi boş zamanlarında bunu yapıyor (bu el kitabı gibi!).</p>
+<p>Kendi Github deponuzdaki sorunları ele almayla ilgili daha gelişmiş materyalleri okumak için Github <a href="https://guides.github.com/features/issues/">Sorunlarla ilgili belgelere</a> bakabilirsiniz.</p>
+</div>
+<div id="tekrarlanabilir-örnek" class="section level2" number="48.2">
+<h2>
+<span class="header-section-number">48.2</span> Tekrarlanabilir örnek<a class="anchor" aria-label="anchor" href="#tekrarlanabilir-%C3%B6rnek"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tekrarlanabilir bir örnek (“reprex”) sağlamak, bir forumda veya Github sayısında gönderi yayınlarken yardım almanın anahtarıdır. İnsanlar sana yardım etmek istiyor ama onlara kendi bilgisayarlarında çalışabilecekleri bir örnek vermelisin. Bu örnekte:</p>
+<ul>
+<li>Karşılaştığınız sorunu gösterin</li>
+<li>
+<em>Minimal</em> olun, yalnızca sorununuzu yeniden oluşturmak için gereken verileri ve kodu gönderin</li>
+<li>Tüm nesneler (ör. veri), paket çağrıları (ör. ‘library()’ veya ‘p_load()’) dahil edilecek şekilde <em>tekrarlanabilir</em> olsun</li>
+</ul>
+<p><em>Ayrıca, reprex ile herhangi bir hassas veri göndermediğinizden emin olun!</em> Örnek veri çerçeveleri oluşturabilir veya R’da yerleşik veri çerçevelerinden birini kullanabilirsiniz (bu veri kümelerinin bir listesini açmak için <code><a href="https://rdrr.io/r/utils/data.html">data()</a></code> komutunu girin).</p>
+<div id="reprex-paketi" class="section level3 unnumbered">
+<h3>
+<strong>reprex</strong> paketi<a class="anchor" aria-label="anchor" href="#reprex-paketi"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>reprex</strong> paketi, tekrarlanabilir bir örnek oluşturmanıza yardımcı olur:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>reprex</strong>, <strong>tidyverse</strong> ile kurulur, bu nedenle her iki paketi de yüklemelisiniz</li>
+</ol>
+<div class="sourceCode" id="cb1964"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># tidyverse kurun/yükleyin (reprex içerir)</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Paketleri ve verileri yüklemekten başlayarak adım adım sorununuzu oluşturan bir R betiği başlatın.</li>
+</ol>
+<div class="sourceCode" id="cb1965"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># paketleri yükleyin</span></span>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>     <span class="va">tidyverse</span>,  <span class="co"># veri yönetimi ve görselleştirme</span></span>
+<span>     <span class="va">outbreaks</span><span class="op">)</span>  <span class="co"># salgın veri kümelerinin örneği</span></span>
+<span></span>
+<span><span class="co"># grip salgını vaka satır listesi</span></span>
+<span><span class="va">outbreak_raw</span> <span class="op">&lt;-</span> <span class="fu">outbreaks</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/outbreaks/man/fluH7N9_china_2013.html">fluH7N9_china_2013</a></span>  <span class="co"># salgın paketinden veri kümesini al</span></span>
+<span></span>
+<span><span class="co"># veri kümesini temizle</span></span>
+<span><span class="va">outbreak</span> <span class="op">&lt;-</span> <span class="va">outbreak_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains</a></span><span class="op">(</span><span class="st">"date"</span><span class="op">)</span>, <span class="va">as.Date</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># salgın grafiğini çiz</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">outbreak</span><span class="op">)</span><span class="op">+</span></span>
+<span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span></span>
+<span>          mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_of_onset</span><span class="op">)</span>,</span>
+<span>          binwidth <span class="op">=</span> <span class="fl">7</span></span>
+<span>     <span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span></span>
+<span>    date_format <span class="op">=</span> <span class="st">"%d %m"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>Tüm kodu panonuza <em>kopyalayın</em> ve aşağıdaki komutu çalıştırın:</p>
+<div class="sourceCode" id="cb1966"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">reprex</span><span class="fu">::</span><span class="fu"><a href="https://reprex.tidyverse.org/reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>RStudio Görüntüleyici bölmesinde bir HTML çıktısının göründüğünü göreceksiniz. Tüm kodunuzu ve tüm uyarıları, hataları veya çizim çıktılarını içerecektir. Bu çıktı aynı zamanda panonuza da kopyalanır, böylece doğrudan bir Github sorununa veya bir forum gönderisine gönderebilirsiniz.</p>
+<div class="inline-figure"><img src="images/errors_reprex_RStudio1.png" width="100%"></div>
+<ul>
+<li>‘session_info = TRUE’ olarak ayarlarsanız, R paket sürümlerinize ‘sessioninfo::session_info()’ çıktısı dahil edilecektir.</li>
+<li>
+<code>wd =</code> için bir çalışma dizini sağlayabilirsiniz.</li>
+<li>Değişkenler ve olası varyasyonlar hakkında daha fazla bilgiyi <a href="">documentation</a> adresinden veya <code>?reprex</code> girerek okuyabilirsiniz.</li>
+</ul>
+<p>Yukarıdaki örnekte, ‘ggplot()’ komutu, ‘date_format =’ değişkeni doğru olmadığı için çalışmadı - ‘date_labels =’ olmalı idi.</p>
+</div>
+<div id="minimum-veri" class="section level3 unnumbered">
+<h3>Minimum veri<a class="anchor" aria-label="anchor" href="#minimum-veri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Yardımcıların verilerinizi kullanabilmesi gerekir - ideal olarak verileri <em>kodla</em> oluşturabilmeleri gerekir.</p>
+<p>Minimum bir veri kümesi oluşturmak için, anonimleştirmeyi ve gözlemlerin yalnızca bir alt kümesini kullanmayı düşünün.</p>
+<p>YAPIM AŞAMASINDA… - minimal veri kümesi oluşturmak için ‘dput()’ fonksiyonunu da kullanabilirsiniz.</p>
+</div>
+</div>
+<div id="bir-foruma-gönderme" class="section level2" number="48.3">
+<h2>
+<span class="header-section-number">48.3</span> Bir foruma gönderme<a class="anchor" aria-label="anchor" href="#bir-foruma-g%C3%B6nderme"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bol bol forum yazıları okuyun. Hangi gönderilerin iyi yazıldığını ve hangilerinin yazılmadığını anlayın.</p>
+<ol style="list-style-type: decimal">
+<li><p>İlk olarak, soruyu sorup sormamaya karar verin. Sorunuzun daha önce sorulup sorulmadığını görmek için çeşitli arama terimlerini deneyerek forum web sitesini <em>iyice</em> incelediniz mi?</p></li>
+<li><p>Sorunuza bilgilendirici bir başlık verin (“Yardım! Bu çalışmıyor” değil).</p></li>
+<li><p>Sorunuzu yazın:</p></li>
+</ol>
+<ul>
+<li>Durumunuzu ve probleminizi tanıtın</li>
+<li>Benzer sorunların gönderilerine bağlantı verin ve sorunuzu nasıl yanıtlamadıklarını açıklayın</li>
+<li>Çalışmanızın bağlamını bilmeyen birine yardımcı olmak için ilgili bilgileri ekleyin</li>
+<li>R oturum bilgilerinizle minimum tekrarlanabilir bir örnek verin</li>
+<li>Doğru yazım, dil bilgisi, noktalama işaretleri kullanın ve sorunuzu daha kolay okunabilmesi için paragraflara ayırın</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Herhangi bir açıklama talebine yanıt vermek için sorunuzu yayınladıktan sonra izleyin. Nazik ve kibar olun - yanıtlayan kişiler genellikle size yardım etmek için zamanlarını gönüllü olarak harcarlar. Takip eden bir sorunuz varsa, bunun ayrı bir soru olması gerekip gerekmediğini düşünün.</p></li>
+<li><p><em>eğer</em> isteği karşılayan bir yanıt alırsanız, soruyu yanıtlandı olarak işaretlemeyi unutmayın. Bu durum, başkalarının çözümü daha sonra hızlı bulmasına yardımcı olur.</p></li>
+</ol>
+<p><a href="https://stackoverflow.com/help/how-to-ask">İyi bir soru nasıl sorulur</a> hakkında <a href="https://stackoverflow.com/conduct">Stackoverflow davranış kuralları</a> hakkındaki bu yayınları okuyun.</p>
+<!-- ============================================= ========= -->
+</div>
+<div id="kaynaklar-39" class="section level2" number="48.4">
+<h2>
+<span class="header-section-number">48.4</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-39"><i class="fas fa-link"></i></a>
+</h2>
+<p>Nasıl [yardım alacağınız] hakkında Tidyverse sayfası!(<a href="https://www.tidyverse.org/help/#" class="uri">https://www.tidyverse.org/help/#</a>:~:text=When%20you%20want%20to%20make,to%20load%20the%20reprex%20package.&amp;text=Enter%20reprex()%20in%20the,preview%20of%20your%20rendered%20reprex.)</p>
+<p><a href="https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html#production-a-minimal-dataset">Minimum bir veri kümesi üretmeye</a> ilişkin ipuçları</p>
+<p><a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dput">dput fonksiyonu</a> için belgeler</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></div>
+<div class="next"><a href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#yard%C4%B1m-alma"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="nav-link" href="#github-sorunlar%C4%B1"><span class="header-section-number">48.1</span> Github sorunları</a></li>
+<li>
+<a class="nav-link" href="#tekrarlanabilir-%C3%B6rnek"><span class="header-section-number">48.2</span> Tekrarlanabilir örnek</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reprex-paketi">reprex paketi</a></li>
+<li><a class="nav-link" href="#minimum-veri">Minimum veri</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#bir-foruma-g%C3%B6nderme"><span class="header-section-number">48.3</span> Bir foruma gönderme</a></li>
+<li><a class="nav-link" href="#kaynaklar-39"><span class="header-section-number">48.4</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

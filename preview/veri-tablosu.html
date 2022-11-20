@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>11 Veri tablosu | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="El kitabı, verileri temizleme ve gruplama yöntemi olarak dplyr “verb” fonksiyonlarına ve magrittr tünel operatörü %&gt;% üzerine odaklanır, ancak data.table paketi kullanabileceğiniz bir alternatif...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="11 Veri tablosu | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="El kitabı, verileri temizleme ve gruplama yöntemi olarak dplyr “verb” fonksiyonlarına ve magrittr tünel operatörü %&gt;% üzerine odaklanır, ancak data.table paketi kullanabileceğiniz bir alternatif...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11 Veri tablosu | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="El kitabı, verileri temizleme ve gruplama yöntemi olarak dplyr “verb” fonksiyonlarına ve magrittr tünel operatörü %&gt;% üzerine odaklanır, ancak data.table paketi kullanabileceğiniz bir alternatif...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">1</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">2</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">3</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">4</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">5</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">6</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">7</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">8</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">9</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">10</span> Ağ sürücülerinde R</a></li>
+<li><a class="active" href="veri-tablosu.html"><span class="header-section-number">11</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="veri-tablosu" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Veri tablosu<a class="anchor" aria-label="anchor" href="#veri-tablosu"><i class="fas fa-link"></i></a>
+</h1>
+<p>El kitabı, verileri temizleme ve gruplama yöntemi olarak <strong>dplyr</strong> “verb” fonksiyonlarına ve <strong>magrittr</strong> tünel operatörü <code>%&gt;%</code> üzerine odaklanır, ancak <strong>data.table</strong> paketi kullanabileceğiniz bir alternatif mevcuttur.</p>
+<div id="veri-tablolarına-giriş" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Veri tablolarına giriş<a class="anchor" aria-label="anchor" href="#veri-tablolar%C4%B1na-giri%C5%9F"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir veri tablosu, karmaşık gruplama işlemlerinin gerçekleştirilmesine izin veren bir veri çerçevesi gibi 2 boyutlu bir veri yapısıdır. data.table sözdizimi, satırlar, sütunlar ve gruplar üzerinde işlemler gerçekleştirilebilecek şekilde yapılandırılmıştır.</p>
+<p>Yapı <strong>DT[i, j, by]</strong> şeklindedir ve 3 parça ile ayrılmıştır; <strong>i, j</strong> ve <strong>by</strong> değişkenleri. <strong>i</strong> değişkeni gerekli satırların alt kümelenmesine, <strong>j</strong> değişkeni sütunlar üzerinde işlem yapmanıza ve <strong>by</strong> değişkeni sütunlar üzerinde gruplara göre işlem yapmanıza olanak tanır.</p>
+<p>Bu sayfa aşağıdaki konuları ele alacaktır:</p>
+<ul>
+<li>Verileri içe aktarma ve <code>fread()</code> ve <code>fwrite()</code> kullanımı</li>
+<li>
+<strong>i</strong> değişkenini kullanarak satırları seçme ve filtreleme</li>
+<li>
+<code>%like%</code>, <code>%chin%</code>, <code>%between%</code> yardımcı fonksiyonlarını kullanma</li>
+<li>
+<strong>j</strong> değişkenini kullanarak sütunları seçme ve hesaplama</li>
+<li>
+<strong>by</strong> değişkenini kullanan gruplara göre hesaplama</li>
+<li>
+<code>:=</code> kullanarak veri tablolarına veri ekleme ve güncelleme</li>
+</ul>
+<!-- ======================================================= -->
+</div>
+<div id="paketleri-yükleyin-ve-verileri-içe-aktarın" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Paketleri yükleyin ve verileri içe aktarın<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleyin-ve-verileri-i%C3%A7e-aktar%C4%B1n"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paketleri-yükleyin" class="section level3 unnumbered">
+<h3>Paketleri yükleyin<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleyin"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>pacman</strong>’den <code>p_load()</code> fonksiyonunu kullanarak, bu analiz için gerekli paketleri yükleriz (ve gerekirse kurarız).</p>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
+<span>  <span class="va">rio</span>,        <span class="co"># verileri içe aktarmak için</span></span>
+<span>  <span class="va">data.table</span>, <span class="co"># verileri gruplamak ve temizlemek için</span></span>
+<span>  <span class="va">tidyverse</span>,  <span class="co"># bu bölümde tünelleme (%&gt;%) fonksiyonunun kullanılmasına izin verir</span></span>
+<span>  <span class="va">here</span> </span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+</div>
+<div id="verileri-içe-aktar-1" class="section level3 unnumbered">
+<h3>Verileri içe aktar<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktar-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu sayfa, el kitabında atıfta bulunulan vaka satır listesini kullanarak <strong>data.table</strong>’ın bazı temel fonksiyonlarını keşfedecektir.</p>
+<p>Simüle edilmiş bir Ebola salgınından vakaların veri setini içe aktarıyoruz. Adım adım izlenecek verileri indirmek istiyorsanız, [Kitap ve verileri indir] sayfasındaki talimatlara bakın. Veri kümesi, <strong>rio</strong> paketinden <code>import()</code> fonksiyonu kullanılarak içe aktarılır. Verileri içe aktarmanın çeşitli yolları için [İçe ve dışa aktar] hakkındaki sayfaya bakın. Buradan veri çerçevesini bir veri tablosuna dönüştürmek için <code>data.table()</code> kullanıyoruz.</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu">here</span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"linelist_cleaned.xlsx"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>‘fread()’ fonksiyonu, .csv dosyaları gibi normal sınırlandırılmış dosyaları doğrudan bir veri tablosu biçimine içe aktarmak için kullanılır. Data.tables’ı düzenli sınırlandırılmış dosyalar olarak yazmak için kullanılan bu işlev ve muadili ‘fwrite()’, büyük veritabanları için çok hızlı ve hesaplama açısından verimli seçeneklerdir.</p>
+<p>“linelist”in ilk 20 satırı:</p>
+<p>Veri çerçeveleri için kullanılan ‘dim()’ gibi R Tabanı komutları, veri tabloları için de kullanılabilir.</p>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span> <span class="co">#veri tablosundaki satır ve sütun sayısını verir</span></span></code></pre></div>
+<pre><code>## [1] 5888   30</code></pre>
+</div>
+</div>
+<div id="i-değişkeni-satırları-seçme-ve-filtreleme" class="section level2" number="11.3">
+<h2>
+<span class="header-section-number">11.3</span> i değişkeni: satırları seçme ve filtreleme<a class="anchor" aria-label="anchor" href="#i-de%C4%9Fi%C5%9Fkeni-sat%C4%B1rlar%C4%B1-se%C3%A7me-ve-filtreleme"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>DT[i, j, by]</strong> yapısını hatırlayarak, satır numaralarını veya mantıksal ifadeleri kullanarak satırları filtreleyebiliriz. i değişkeni ilk; bu nedenle, <strong>DT[i]</strong> veya <strong>DT[i,]</strong> sözdizimi kullanılabilir.</p>
+<p>İlk örnek veri tablosunun ilk 5 satırını alır, ikinci örnek alt küme vakaları 18 yaş ve üzeridir ve üçüncü örnek alt kümeler 18 yaş veya üzeri ancak Merkez Hastanede teşhis edilmemiş vakaları içerir:</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="co">#1.ila 5. satır arasını getirir</span></span>
+<span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">]</span> <span class="co">#alt küme vakaları 18 yaşa eşit veya daha büyük</span></span>
+<span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span> <span class="op">&amp;</span> <span class="va">hospital</span> <span class="op">!=</span> <span class="st">"Central Hospital"</span><span class="op">]</span> <span class="co">#18 yaşına eşit veya daha büyük ancak Merkez Hastanede teşhis edilmemiş alt kümeler</span></span></code></pre></div>
+<p>i bağımsız değişkeninde .N kullanılması, veri tablosundaki toplam satır sayısını temsil eder. Bu, satır numaralarını alt kümelemek için kullanılabilir:</p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">.N</span><span class="op">]</span> <span class="co">#son satırı getirir</span></span>
+<span><span class="va">linelist</span><span class="op">[</span><span class="fl">15</span><span class="op">:</span><span class="va">.N</span><span class="op">]</span> <span class="co">#15. satırdan son satıra kadar getirir</span></span></code></pre></div>
+<div id="filtreleme-için-yardımcı-fonksiyonları-kullanma" class="section level3 unnumbered">
+<h3>Filtreleme için yardımcı fonksiyonları kullanma<a class="anchor" aria-label="anchor" href="#filtreleme-i%C3%A7in-yard%C4%B1mc%C4%B1-fonksiyonlar%C4%B1-kullanma"><i class="fas fa-link"></i></a>
+</h3>
+<p>Veri tablosu, alt küme satırlarını kolaylaştıran yardımcı fonksiyonları kullanır. ‘%like%’ bir sütundaki kalıbı eşleştirmek için kullanılır, ‘%chin%’ belirli bir karakteri eşleştirmek için kullanılır ve ‘%between%’ önceden belirlenmiş bir aralıktaki sayısal sütunları eşleştirmek için kullanılır.</p>
+<p>Aşağıdaki örneklerde:
+* hastane değişkeninin “Hastane” içerdiği satırları filtreleyin
+* sonucun “İyileşme” veya “Ölüm” olduğu satırları filtreleyin
+* 40-60 yaş aralığındaki satırları filtreleyin</p>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">%like%</span> <span class="st">"Hospital"</span><span class="op">]</span> <span class="co">#hastane değişkeninin "Hastane" içerdiği satırları filtreleyin</span></span>
+<span><span class="va">linelist</span><span class="op">[</span><span class="va">outcome</span> <span class="op">%chin%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Recover"</span>, <span class="st">"Death"</span><span class="op">)</span><span class="op">]</span> <span class="co">#sonucun "İyileşme" veya "Ölüm" olduğu satırları filtreleyin</span></span>
+<span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">%between%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">60</span><span class="op">)</span><span class="op">]</span> <span class="co">#40-60 yaş aralığındaki satırları filtreleyin</span></span>
+<span></span>
+<span><span class="co">#%between% 2 uzunlukta bir vektör almalıdır, oysa %chin% &gt;= 1 uzunlukta vektörler alabilir</span></span></code></pre></div>
+</div>
+</div>
+<div id="j-değişkeni-sütunları-seçme-ve-hesaplama" class="section level2" number="11.4">
+<h2>
+<span class="header-section-number">11.4</span> j değişkeni: sütunları seçme ve hesaplama<a class="anchor" aria-label="anchor" href="#j-de%C4%9Fi%C5%9Fkeni-s%C3%BCtunlar%C4%B1-se%C3%A7me-ve-hesaplama"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>DT[i, j, by]</strong> yapısını kullanarak sayıları veya isimleri kullanarak sütunları seçebiliriz. <strong>j</strong> değişkeni ikinci sıradadır; bu nedenle <strong>DT[, j]</strong> sözdizimi kullanılır. <strong>j</strong> değişkenindeki hesaplamaları kolaylaştırmak için, ‘list()’ ya da ‘.()’ kullanılarak sütun sarılır.</p>
+<div id="sütunları-seçme" class="section level3 unnumbered">
+<h3>Sütunları seçme<a class="anchor" aria-label="anchor" href="#s%C3%BCtunlar%C4%B1-se%C3%A7me"><i class="fas fa-link"></i></a>
+</h3>
+<p>İlk örnek, veri tablosunun birinci, üçüncü ve beşinci sütunlarını alır; ikinci örnek, boy, ağırlık ve cinsiyet sütunları dışındaki tüm sütunları seçer. Üçüncü örnek, <strong>case_id</strong> ve <strong>outcome</strong> sütunlarını seçmek için <code>.()</code> sarmasını kullanır.</p>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">linelist</span><span class="op">[</span> , <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"age"</span>, <span class="st">"wt_kg"</span>, <span class="st">"ht_cm"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">linelist</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">case_id</span>, <span class="va">outcome</span><span class="op">)</span><span class="op">]</span> <span class="co">#linelist[ , .(case_id, outcome)] aynı şekilde çalışır</span></span></code></pre></div>
+</div>
+<div id="sütunlarda-hesaplama" class="section level3 unnumbered">
+<h3>Sütunlarda hesaplama<a class="anchor" aria-label="anchor" href="#s%C3%BCtunlarda-hesaplama"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>i</strong> ve <strong>j</strong> değikenlerini birleştirerek, satırları filtrelemek ve sütunlarda hesaplama yapmak mümkündür. <strong>j</strong> değişkeninde <strong>.N</strong> kullanılması ayrıca veri tablosundaki toplam satır sayısını temsil eder ve satır filtrelemeden sonra satır sayısını döndürmek için yararlı olabilir.</p>
+<p>Aşağıdaki örneklerde:
+* Hastanede 7 günden fazla kalan vaka sayısını sayın
+* Askeri hastanede ölen vakaların yaş ortalamasını hesaplayın
+* Merkez hastanede iyileşen vakaların standart sapma, ortanca, yaş ortalamasını hesaplayın</p>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">days_onset_hosp</span> <span class="op">&gt;</span> <span class="fl">7</span> , <span class="va">.N</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## [1] 189</code></pre>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">%like%</span> <span class="st">"Military"</span> <span class="op">&amp;</span> <span class="va">outcome</span> <span class="op">%chin%</span> <span class="st">"Death"</span>, <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#na.rm = T siler N/A değerleri</span></span></code></pre></div>
+<pre><code>##         V1
+## 1: 15.9084</code></pre>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">==</span> <span class="st">"Central Hospital"</span> <span class="op">&amp;</span> <span class="va">outcome</span> <span class="op">==</span> <span class="st">"Recover"</span>, </span>
+<span>                 <span class="fu">.</span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>                   median_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>                   sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#bu sözdizimi yardımcı fonksiyonları kullanmaz ancak aynı şekilde çalışır</span></span></code></pre></div>
+<pre><code>##    mean_age median_age   sd_age
+## 1: 16.85185         14 12.93857</code></pre>
+<p>j değişkeninde .() sarma kullanmanın hesaplamayı kolaylaştırdığını, bir veri tablosu döndürdüğünü ve sütun adlandırmasına izin verdiğini unutmayın.</p>
+</div>
+</div>
+<div id="değişkene-göre-gruplara-göre-hesaplama" class="section level2" number="11.5">
+<h2>
+<span class="header-section-number">11.5</span> Değişkene göre: gruplara göre hesaplama<a class="anchor" aria-label="anchor" href="#de%C4%9Fi%C5%9Fkene-g%C3%B6re-gruplara-g%C3%B6re-hesaplama"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>by</strong> değişkeni, <strong>DT[i, j, by]</strong> yapısındaki üçüncü değişkendir. <strong>by</strong> değişkeni hem bir karakter vektörünü hem de ‘list()’ veya ‘.()’ sözdizimini kabul eder. <strong>by</strong> değişkeninde <code>.()</code> sözdizimini kullanmak, anında sütun yeniden adlandırılmasına izin verir.</p>
+<p>Aşağıdaki örneklerde:
+* vaka sayısını hastaneye göre gruplandırın
+* 18 yaş ve üzeri vakalarda cinsiyete göre vakaların ortalama boy ve kilolarını, iyileşip ölmediklerini hesaplayın
+* 7 günü aşan başvurularda, vaka sayısını yattığı aya ve yattığı hastaneye göre sayısını hesaplayın</p>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span><span class="op">]</span> <span class="co">#hastaneye göre vaka sayıları</span></span></code></pre></div>
+<pre><code>##                                hospital    N
+## 1:                                Other  885
+## 2:                              Missing 1469
+## 3: St. Mark's Maternity Hospital (SMMH)  422
+## 4:                        Port Hospital 1762
+## 5:                    Military Hospital  896
+## 6:                     Central Hospital  454</code></pre>
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;</span> <span class="fl">18</span>, <span class="fu">.</span><span class="op">(</span>mean_wt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">wt_kg</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>                             mean_ht <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ht_cm</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span><span class="va">gender</span>, <span class="va">outcome</span><span class="op">)</span><span class="op">]</span> <span class="co">#NAs, verilerin eksik olduğu kategorileri temsil eder</span></span></code></pre></div>
+<pre><code>##    gender outcome  mean_wt  mean_ht
+## 1:      m Recover 71.90227 178.1977
+## 2:      f   Death 63.27273 159.9448
+## 3:      m   Death 71.61770 175.4726
+## 4:      f    &lt;NA&gt; 64.49375 162.7875
+## 5:      m    &lt;NA&gt; 72.65505 176.9686
+## 6:      f Recover 62.86498 159.2996
+## 7:   &lt;NA&gt; Recover 67.21429 175.2143
+## 8:   &lt;NA&gt;   Death 69.16667 170.7917
+## 9:   &lt;NA&gt;    &lt;NA&gt; 70.25000 175.5000</code></pre>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">days_onset_hosp</span> <span class="op">&gt;</span> <span class="fl">7</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span>month <span class="op">=</span> <span class="fu">month</span><span class="op">(</span><span class="va">date_hospitalisation</span><span class="op">)</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code>##     month                             hospital  N
+##  1:     5                    Military Hospital  3
+##  2:     6                        Port Hospital  4
+##  3:     7                        Port Hospital  8
+##  4:     8 St. Mark's Maternity Hospital (SMMH)  5
+##  5:     8                    Military Hospital  9
+##  6:     8                                Other 10
+##  7:     8                        Port Hospital 10
+##  8:     9                        Port Hospital 28
+##  9:     9                              Missing 27
+## 10:     9                     Central Hospital 10
+## 11:     9 St. Mark's Maternity Hospital (SMMH)  6
+## 12:    10                              Missing  2
+## 13:    10                    Military Hospital  3
+## 14:     3                        Port Hospital  1
+## 15:     4                    Military Hospital  1
+## 16:     5                                Other  2
+## 17:     5                     Central Hospital  1
+## 18:     5                              Missing  1
+## 19:     6                              Missing  7
+## 20:     6 St. Mark's Maternity Hospital (SMMH)  2
+## 21:     6                    Military Hospital  1
+## 22:     7                    Military Hospital  3
+## 23:     7                                Other  1
+## 24:     7                              Missing  2
+## 25:     7 St. Mark's Maternity Hospital (SMMH)  1
+## 26:     8                     Central Hospital  2
+## 27:     8                              Missing  6
+## 28:     9                                Other  9
+## 29:     9                    Military Hospital 11
+## 30:    10                        Port Hospital  3
+## 31:    10                                Other  4
+## 32:    10 St. Mark's Maternity Hospital (SMMH)  1
+## 33:    10                     Central Hospital  1
+## 34:    11                              Missing  2
+## 35:    11                        Port Hospital  1
+## 36:    12                        Port Hospital  1
+##     month                             hospital  N</code></pre>
+<p>Data.table ayrıca zincirleme ifadelere aşağıdaki gibi izin verir:</p>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">N</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#1. tüm vakaları hastaneye göre seçer, 2. vakaları azalan sırayla sıralar, 3. en büyük vaka yüküne sahip 3 hastaneyi alt kümeler</span></span></code></pre></div>
+<pre><code>##             hospital    N
+## 1:     Port Hospital 1762
+## 2:           Missing 1469
+## 3: Military Hospital  896</code></pre>
+<p>Bu örneklerde, veri tablosundaki bir satırın yeni bir duruma eşit olduğu varsayımını izliyoruz ve bu nedenle veri tablosundaki satır sayısını temsil etmek için <strong>.N</strong>’yi kullanabiliriz. Benzersiz durumların sayısını temsil eden başka bir yararlı fonksiyon, belirli bir girdideki benzersiz değerlerin sayısını döndüren “uniqueN()” dir. Aşağıda gösterilmektedir:</p>
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu">uniqueN</span><span class="op">(</span><span class="va">gender</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#hatırlayın .() j değişkeninde bir veri tablosu döndürür</span></span></code></pre></div>
+<pre><code>##    V1
+## 1:  3</code></pre>
+<p>Cinsiyet sütunundaki benzersiz değerler m, f ve N/A olduğundan cevap 3’tür. Belirli bir girdideki tüm benzersiz değerleri döndüren temel R fonksiyonu “unique()” ile karşılaştırın:</p>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code>##      V1
+## 1:    m
+## 2:    f
+## 3: &lt;NA&gt;</code></pre>
+<p>Belirli bir aydaki benzersiz vakaların sayısını bulmak için aşağıdakileri yazarız:</p>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu">uniqueN</span><span class="op">(</span><span class="va">case_id</span><span class="op">)</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span>month <span class="op">=</span> <span class="fu">month</span><span class="op">(</span><span class="va">date_hospitalisation</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code>##     month   V1
+##  1:     5   62
+##  2:     6  100
+##  3:     7  198
+##  4:     8  509
+##  5:     9 1170
+##  6:    10 1228
+##  7:    11  813
+##  8:    12  576
+##  9:     1  434
+## 10:     2  310
+## 11:     3  290
+## 12:     4  198</code></pre>
+</div>
+<div id="veri-tablolarına-ekleme-ve-güncelleme" class="section level2" number="11.6">
+<h2>
+<span class="header-section-number">11.6</span> Veri tablolarına ekleme ve güncelleme<a class="anchor" aria-label="anchor" href="#veri-tablolar%C4%B1na-ekleme-ve-g%C3%BCncelleme"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>:=</code> operatörü, bir veri tablosuna veri eklemek veya bu tabloya veri güncellemek için kullanılır. Veri tablonuza sütun eklemek aşağıdaki şekillerde yapılabilir:</p>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">adult</span> <span class="op">:=</span> <span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">]</span> <span class="co">#bir sütun ekler</span></span>
+<span><span class="va">linelist</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"child"</span>, <span class="st">"wt_lbs"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">.</span><span class="op">(</span><span class="va">age</span> <span class="op">&lt;</span> <span class="fl">18</span>, <span class="va">wt_kg</span><span class="op">*</span><span class="fl">2.204</span><span class="op">)</span><span class="op">]</span> <span class="co">#birden çok sütun eklemek için c("") ve list() veya .() sözdizimi gerekir</span></span>
+<span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">`:=`</span> <span class="op">(</span>bmi_in_range <span class="op">=</span> <span class="op">(</span><span class="va">bmi</span> <span class="op">&gt;</span> <span class="fl">16</span> <span class="op">&amp;</span> <span class="va">bmi</span> <span class="op">&lt;</span> <span class="fl">40</span><span class="op">)</span>,</span>
+<span>                         no_infector_source_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">infector</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">source</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#bu yöntem :='yi fonksiyonel operatör olarak `:=` kullanır</span></span>
+<span><span class="va">linelist</span><span class="op">[</span>, <span class="va">adult</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span> <span class="co">#sütunu siler</span></span></code></pre></div>
+<p>Daha karmaşık toplamalar bu giriş bölümünün kapsamı dışındadır, ancak buradaki fikir, verileri gruplama ve temizleme için <strong>dplyr</strong>’e popüler ve uygulanabilir bir alternatif sağlamaktır. <strong>data.table</strong> paketi, düzgün ve okunabilir koda izin veren harika bir pakettir.</p>
+</div>
+<div id="kaynaklar-8" class="section level2" number="11.7">
+<h2>
+<span class="header-section-number">11.7</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-8"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html" class="uri">https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html</a></li>
+<li><a href="https://github.com/Rdatatable/data.table" class="uri">https://github.com/Rdatatable/data.table</a></li>
+<li><a href="https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf" class="uri">https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf</a></li>
+<li><a href="https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/" class="uri">https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/</a></li>
+<li><a href="https://www.datacamp.com/community/tutorials/data-table-r-tutorial" class="uri">https://www.datacamp.com/community/tutorials/data-table-r-tutorial</a></li>
+</ul>
+<p>Gruplandırılmış veriler üzerinde herhangi bir özet fonksiyonu gerçekleştirebilirsiniz; Daha fazla bilgi için buradaki pratik belgeye bakın:
+<a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/datatable_Cheat_Sheet_R.pdf" class="uri">https://s3.amazonaws.com/assets.datacamp.com/blog_assets/datatable_Cheat_Sheet_R.pdf</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">10</span> Ağ sürücülerinde R</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#veri-tablosu"><span class="header-section-number">11</span> Veri tablosu</a></li>
+<li><a class="nav-link" href="#veri-tablolar%C4%B1na-giri%C5%9F"><span class="header-section-number">11.1</span> Veri tablolarına giriş</a></li>
+<li>
+<a class="nav-link" href="#paketleri-y%C3%BCkleyin-ve-verileri-i%C3%A7e-aktar%C4%B1n"><span class="header-section-number">11.2</span> Paketleri yükleyin ve verileri içe aktarın</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleyin">Paketleri yükleyin</a></li>
+<li><a class="nav-link" href="#verileri-i%C3%A7e-aktar-1">Verileri içe aktar</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#i-de%C4%9Fi%C5%9Fkeni-sat%C4%B1rlar%C4%B1-se%C3%A7me-ve-filtreleme"><span class="header-section-number">11.3</span> i değişkeni: satırları seçme ve filtreleme</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#filtreleme-i%C3%A7in-yard%C4%B1mc%C4%B1-fonksiyonlar%C4%B1-kullanma">Filtreleme için yardımcı fonksiyonları kullanma</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#j-de%C4%9Fi%C5%9Fkeni-s%C3%BCtunlar%C4%B1-se%C3%A7me-ve-hesaplama"><span class="header-section-number">11.4</span> j değişkeni: sütunları seçme ve hesaplama</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#s%C3%BCtunlar%C4%B1-se%C3%A7me">Sütunları seçme</a></li>
+<li><a class="nav-link" href="#s%C3%BCtunlarda-hesaplama">Sütunlarda hesaplama</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#de%C4%9Fi%C5%9Fkene-g%C3%B6re-gruplara-g%C3%B6re-hesaplama"><span class="header-section-number">11.5</span> Değişkene göre: gruplara göre hesaplama</a></li>
+<li><a class="nav-link" href="#veri-tablolar%C4%B1na-ekleme-ve-g%C3%BCncelleme"><span class="header-section-number">11.6</span> Veri tablolarına ekleme ve güncelleme</a></li>
+<li><a class="nav-link" href="#kaynaklar-8"><span class="header-section-number">11.7</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

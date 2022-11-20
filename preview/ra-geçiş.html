@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 R’a geçiş | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="Aşağıda, R’a geçiş yapmanız adına bazı tavsiyeler ve kaynaklar sunuyoruz. R, 1990’ların sonlarında ortaya çıktı ve o zamandan beri ciddi bir ölçüde büyüdü. O kadar gelişmiş ve geniş bir kapasiteye...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="2 R’a geçiş | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Aşağıda, R’a geçiş yapmanız adına bazı tavsiyeler ve kaynaklar sunuyoruz. R, 1990’ların sonlarında ortaya çıktı ve o zamandan beri ciddi bir ölçüde büyüdü. O kadar gelişmiş ve geniş bir kapasiteye...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 R’a geçiş | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="Aşağıda, R’a geçiş yapmanız adına bazı tavsiyeler ve kaynaklar sunuyoruz. R, 1990’ların sonlarında ortaya çıktı ve o zamandan beri ciddi bir ölçüde büyüdü. O kadar gelişmiş ve geniş bir kapasiteye...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">1</span> R’ın Temelleri</a></li>
+<li><a class="active" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">2</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">3</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">4</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">5</span> İçe ve dışa aktar</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ra-geçiş" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> R’a geçiş<a class="anchor" aria-label="anchor" href="#ra-ge%C3%A7i%C5%9F"><i class="fas fa-link"></i></a>
+</h1>
+<p>Aşağıda, R’a geçiş yapmanız adına bazı tavsiyeler ve kaynaklar sunuyoruz.</p>
+<p>R, 1990’ların sonlarında ortaya çıktı ve o zamandan beri ciddi bir ölçüde büyüdü. O kadar gelişmiş ve geniş bir kapasiteye ulaştı ki ticari alternatifleri rekabeti koruyabilmek için R’ın gelişmelerine ayak uydurmaya çalıştılar! (<a href="https://www.inwt-statistics.com/read-blog/comparison-of-r-python-sas-spss-and-stata.%20html">R, SPSS, SAS, STATA ve Python’u karşılaştıran bu makaleyi okuyabilirsiniz</a>).</p>
+<p>Tüm bunlarla birlikte R’ı öğrenmek 10 yıl öncesine göre artık çok daha kolay. Daha önceleri, R, yeni başlayanlar için zor olarak kabul edilirdi. RStudio gibi kullanıcı dostu arayüzler, <strong>tidyverse</strong> gibi sezgisel kodlar ve birçok eğitim kaynakları ile R kullanımı kolaylaştırıldı.</p>
+<p><span style="color: darkgreen;"><strong>Korkmayın - gelin R dünyasını keşfedin!</strong></span></p>
+<div class="inline-figure"><img src="images/transition_door.png" width="75%" height="75%" style="display: block; margin: auto;"></div>
+<div id="excelden-geçiş" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Excel’den geçiş<a class="anchor" aria-label="anchor" href="#excelden-ge%C3%A7i%C5%9F"><i class="fas fa-link"></i></a>
+</h2>
+<p>Excel’den doğrudan R’a geçiş yapmak artık çok daha ulaşılabilir bir hedeftir. Göz korkutucu görünebilir, ancak yapabilirsiniz!</p>
+<p>Güçlü Excel becerilerine sahip birinin tek başına Excel’de çok gelişmiş analizler yapabileceği doğrudur. Hatta VBA gibi komut araçlarını kullanarak yapılabilecek faaliyetler daha da artabilecektir. Excel tüm dünyada kullanılmaktadır ve bir epidemiyolog için önemli bir araçtır. Bununla birlikte, onu R ile tamamlamak, iş akışlarınızı önemli ölçüde iyileştirip genişletebilir.</p>
+<div id="faydaları" class="section level3 unnumbered">
+<h3>Faydaları<a class="anchor" aria-label="anchor" href="#faydalar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>R’ın zamandan tasarruf, daha tutarlı ve doğru analiz, tekrarlanabilirlik, paylaşılabilirlik ve daha hızlı hata düzeltme açısından muazzam faydalar sunduğunu göreceksiniz. Her yeni yazılım gibi, ona aşina olmak için emek vermeniz gereken bir öğrenme “eğrisi” vardır. Birbirinden farklı kütüphaneleriyle R size yeni olasılıkların muazzam kapısını açacaktır.</p>
+<p>Excel, “seç ve tıkla” özelliği ile basit analizler ve görselleştirmeler oluşturmak için yeni başlayanlar tarafından kolayca kullanılabilen ve iyi bilinen bir yazılımdır. R’a baktığınızda, fonksiyonlarına ve arayüzüne aşina olabilmeniz birkaç hafta sürebilir. Bununla birlikte, R, son yıllarda yeni başlayanlar için çok daha kolay hale gelmek adına önemli adımlar atmıştır.</p>
+<p>Birçok Excel iş akışı hafıza ve tekrarlamaya dayanır. Bu nedenle hata olasılığı çoktur. Ayrıca, genellikle veri temizleme, analiz metodolojisi ve kullanılan denklemler görünümden gizlenir. Yeni bir iş arkadaşının bir Excel çalışma kitabının ne yaptığını ve olası hataların nasıl giderileceğini öğrenmesi için önemli ölçüde bir zamana ihtiyaç duyabilir. R ile tüm adımlar komut dosyasına açıkça yazılır ve kolayca görüntülenebilir, düzenlenebilir, düzeltilebilir ve diğer veri kümelerine uygulanabilir.</p>
+<p><strong>Excel’den R’a geçişinize başlamak için zihniyetinizi birkaç önemli yaklaşımla düzenlemeniz gerekir:</strong></p>
+</div>
+<div id="düzenli-veri" class="section level3 unnumbered">
+<h3>Düzenli veri<a class="anchor" aria-label="anchor" href="#d%C3%BCzenli-veri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Dağınık “insan tarafından okunabilen” veriler yerine makine tarafından okunabilen “düzenli” verileri kullanın. <a href="https://r4ds.had.co.nz/tidy-data.html">R’deki “düzenli” veriler</a> konusunda açıklandığı gibi, “düzenli” veriler için üç ana şart vardır:</p>
+<ul>
+<li>Her değişkenin kendi sütunu olmalıdır</li>
+<li>Her gözlemin kendi satırı olmalıdır</li>
+<li>Her değerin kendi hücresi olmalıdır</li>
+</ul>
+<p>Excel kullanıcıları bu şartları <a href="https://exceljet.net/excel-tables">Excel “tablolarının”</a> verileri standartlaştırma ve daha tahmin edilebilir bir formata uyarlamada oynadığı rol gibi değerlendirebilir.</p>
+<p>“Düzenli” verilere bir örnek, bu el kitabında kullanılan durum satır listesi olabilir. Her değişken bir sütunda yer alır, her gözlemin (bir vaka) kendine ait satırı vardır ve her değer yalnızca bir hücrededir. Aşağıda, linelistin ilk 50 satırını görüntüleyebilirsiniz:</p>
+<div id="htmlwidget-6635f29d21af50907e86" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6635f29d21af50907e86">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1407024000000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><em>Düzenli olmayan verilerle karşılaşmamızın ana nedeni, birçok Excel tablosunun makineler/yazılımlar tarafından değil, insanlar tarafından kolay okumaya öncelik verecek şekilde tasarlanmış olmasıdır.</em></p>
+<p>Farkı görmenize yardımcı olmak için, aşağıda <em>insan</em>-okunabilirliğe öncelik veren <strong>düzensiz verilere</strong> ilişkin bazı kurgusal örnekler verilmiştir.:</p>
+<div class="inline-figure"><img src="images/Excel_nonTidy_1.png" width="100%" height="75%" style="display: block; margin: auto;"></div>
+<p><em>Sorunlar:</em> Yukarıdaki tabloda, R tarafından kolayca anlaşılamayacak olan <em>birleştirilmiş hücreler</em> mevcuttur. Hangi satırın “başlık” olarak kabul edilmesi gerektiği açık değildir. Renk tabanlı bir sözlük sağ taraftadır ve hücre değerleri renklerle temsil edilir - bu da R tarafından kolayca yorumlanamaz (ayrıca renk körlüğü olan insanlar tarafından da!). Ayrıca, farklı bilgi parçaları tek bir hücrede birleştirmiştir (bir alanda çalışan birden fazla ortak kuruluş gibi).</p>
+<div class="inline-figure"><img src="images/Excel_nonTidy_2.png" width="100%" height="100%" style="display: block; margin: auto;"></div>
+<p><em>Sorunlar:</em> Yukarıdaki tabloda, veri kümesi içinde çok sayıda fazladan boş satır ve sütun vardır - bu, R’de temizlik sorunlarına neden olur. Ayrıca, belirli bir tedavi merkezi için GPS koordinatları iki satıra yayılmaktadır. Bir yan not olarak - GPS koordinatları iki farklı biçimdedir!</p>
+<p>“Düzenli” veri kümeleri insan gözüyle rahatça okunabilir olmayabilir, fakat veri temizleme ve analiz süreçlerini çok daha kolay hale getirirler! Düzenli veriler çeşitli biçimlerde saklanabilir, örneğin “uzun” veya “geniş”“(bkz.[Pivot verileri]). Ancak yukarıdaki ilkeler hala gözetilmektedir.</p>
+</div>
+<div id="fonksiyonlar" class="section level3 unnumbered">
+<h3>Fonksiyonlar<a class="anchor" aria-label="anchor" href="#fonksiyonlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>R terimi olan “fonksiyon” size yeni gelebilir, fakat bu kavram Excel’de <em>formüller</em> olarak mevcuttur. Excel’deki formüller ayrıca kesin sözdizimi gerektirir (örneğin, noktalı virgül ve parantez yerleştirilmesi). Tek yapmanız gereken birkaç yeni fonksiyonu ve bunların R’da nasıl birlikte çalıştıklarını öğrenmek.</p>
+</div>
+<div id="kodlar" class="section level3 unnumbered">
+<h3>Kodlar<a class="anchor" aria-label="anchor" href="#kodlar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Düğmelere tıklayıp hücreleri sürüklemek yerine <em>her</em> adımı ve prosedürü bir “komut dosyasına” yazacaksınız.
+Excel kullanıcıları, aynı zamanda bir komut dosyası oluşturma yaklaşımı kullanan “VBA makrolarına” aşina olabilir.</p>
+<p><em>R komut dosyası adım adım talimatlardan oluşur.</em> Bu, herhangi bir iş arkadaşınızın komut dosyasını okumasını ve attığınız adımları kolayca görmesini sağlar. Bu aynı zamanda hataların veya hatalı hesaplamaların giderilmesine de yardımcı olur. Örnekler için komut dosyalarıyla ilgili [R temelleri] bölümüne bakabilirsiniz.</p>
+<p>İşte bir R kodu örneği:</p>
+<div class="inline-figure"><img src="images/example_script.png" width="75%" height="75%" style="display: block; margin: auto;"></div>
+</div>
+<div id="excelden-ra-geçiş-kaynakları" class="section level3 unnumbered">
+<h3>Excel’den R’a geçiş kaynakları<a class="anchor" aria-label="anchor" href="#excelden-ra-ge%C3%A7i%C5%9F-kaynaklar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Excel’den R’ye geçiş yapmanıza yardımcı olacak rehberlere yönelik bazı bağlantılar:</p>
+<ul>
+<li>
+<a href="https://www.northeastern.edu/graduate/blog/r-vs-excel/">R vs. Excel</a><br>
+</li>
+<li><a href="https://rstudio-conf-2020.github.io/r-for-excel/">Excel kullanıcıları için R’de RStudio kursu</a></li>
+</ul>
+</div>
+<div id="r-excel-etkileşimi" class="section level3 unnumbered">
+<h3>R-Excel etkileşimi<a class="anchor" aria-label="anchor" href="#r-excel-etkile%C5%9Fimi"><i class="fas fa-link"></i></a>
+</h3>
+<p>R, Excel çalışma kitaplarını içe aktarmak, verilerle çalışmak, Excel dosyalarını dışa aktarmak/kaydetmek ve Excel sayfalarının nüanslarıyla çalışmak adına güçlü fonksiyonlara sahiptir.</p>
+<p>Estetik bazı Excel biçimlendirmelerinin çeviri sırasında kaybolabileceği doğrudur (örneğin, italik, yan metin, vb.). İş akışınız, orijinal Excel biçimlendirmesini korurken belgeleri R ve Excel arasında ileri geri aktarmayı gerektiriyorsa, <strong>openxlsx</strong> gibi paketleri deneyebilirsiniz.</p>
+</div>
+</div>
+<div id="statadan-geçiş" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Stata’dan geçiş<a class="anchor" aria-label="anchor" href="#statadan-ge%C3%A7i%C5%9F"><i class="fas fa-link"></i></a>
+</h2>
+<!-- ======================================================= -->
+<p><strong>Stata’dan R’a gelmek</strong></p>
+<p>İlk olarak Stata’yı kullanmayı öğrenen birçok epidemiyolog için R’a geçmek göz korkutucu görünebilir. Ancak, iyi bir Stata kullanıcısıysanız, R’a geçiş kesinlikle düşündüğünüzden daha kolay süreç olacaktır. Stata ve R arasında verilerin nasıl oluşturulabileceği, değiştirilebileceği ve ayrıca analizlerin nasıl yapılacağı konusunda bazı temel farklılıklar olsa bile bu temel farklılıkları öğrendikten sonra Stata becerilerinizi burada da kullabilirsiniz.</p>
+<p>Aşağıda, bu kılavuzu incelerken kullanışlı olabilecek, Stata ve R arasındaki bazı önemli akışları bulabilirsiniz.</p>
+<p><strong>Genel notlar</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="38%">
+<col width="61%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>STATA</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Bir seferde yalnızca bir veri kümesi görüntülenip değiştirebilir.</td>
+<td>Aynı anda birden fazla veri kümesi görüntülenip değiştirebilir, bu nedenle sık sık kod içinde veri kümesinin belirtilmesi gerekmektedir.</td>
+</tr>
+<tr class="even">
+<td>Çevrimiçi topluluklara <a href="https://www.statalist.org/">https://www.statalist.org/</a> sitesinden ulaşabilir.</td>
+<td>Çevrimiçi topluluklara <a href="https://community.rstudio.com/">RStudio</a>, <a href="https://stackoverflow.com/questions/tagged/r">StackOverFlow</a>, ve <a href="https://www.r-bloggers.com/">R-bloggers</a> sitelerinden ulaşabilir.</td>
+</tr>
+<tr class="odd">
+<td>Seçenek olarak seç ve tıkla işlevi mevcut.</td>
+<td>Minimal düzeyde seç ve tıkla işlevi mevcut.</td>
+</tr>
+<tr class="even">
+<td>
+<code>help [command]</code> koduyla komutlar hakkında yardımcı bilgilere ulaşabilir.</td>
+<td>
+<code>[function]?</code> kodu veya Yardım sekmesi ile komutlar hakkında yardımcı bilgilere ulaşabilir.</td>
+</tr>
+<tr class="odd">
+<td>
+<code>*</code> veya <code>///</code> veya <code>/* METİN */</code> seçeneklerini kullanarak kod yoruma çevirebilir.</td>
+<td>
+<code>#</code> kullanarak kod yoruma çevirebilir.</td>
+</tr>
+<tr class="even">
+<td>Hemen hemen tüm komutlar Stata’da yerleşiktir. Yeni/kullanıcı tarafından yazılan işlevler, <strong>ssc install</strong> [paket] kullanılarak <strong>ado</strong> dosyaları olarak kurulabilir.</td>
+<td>R, <strong>base</strong> fonksiyonlarla kurulur, ancak tipik kullanım, CRAN’dan diğer paketlerin kurulmasını içerir ([R temelleri]’ndeki sayfasına bakınız.)</td>
+</tr>
+<tr class="odd">
+<td>Analizler genellikle bir <strong>do</strong> dosyasına yazılır</td>
+<td>Analizler RStudio’daki kaynak bölmesine R dili ile yazılır. R markdown dili de alternatif olarak kullanılmaktadır.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Çalışma dizini</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>STATA</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Çalışma dizinleri mutlak dosya yollarını içerir (örneğin, “C:/username/documents/projects/data/”).</td>
+<td>Çalışma dizinleri, <strong>here</strong> paketi kullanılarak proje ana klasörüne veya başka alanlara aktarılabilir (bkz. [İçe aktarma ve dışa aktarma]).</td>
+</tr>
+<tr class="even">
+<td>
+<strong>pwd</strong> ile mevcut çalışma dizini görülebilir.</td>
+<td>Boş parantezlerle “getwd()” veya “here()” (<strong>here</strong> paketi kullanılıyorsa) kullanılır.</td>
+</tr>
+<tr class="odd">
+<td>Çalışma dizinini <strong>cd</strong> “klasör konumu” ile ayarlanabilir.</td>
+<td>
+<code>setwd(“klasör konumu”)</code> veya <code>set_here("klasör konumu)</code> (<strong>here</strong> paketi kullanılıyorsa) kullanabilir.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Verinin içe aktarılması ve görüntülenmesi</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>STATA</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Dosya türüne göre belirli komutlar mevcuttur.</td>
+<td>Hemen hemen tüm dosya türleri için <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonu kullanabilir. Alternatif olarak belirli fonksiyonlar da mevcuttur (bkz. [İçe aktarma ve dışa aktarma]).</td>
+</tr>
+<tr class="even">
+<td>csv dosyalarını okuma, <strong>import delimitied</strong> “dosyaadı.csv” komutuyla sağlanır.</td>
+<td>
+<code>import("filename.csv")</code> kullanılır.</td>
+</tr>
+<tr class="odd">
+<td>xlsx dosyalarını okuma, <strong>import excel</strong> “dosyaadı.xlsx” komutuyla sağlanır.</td>
+<td>
+<code>import("filename.xlsx")</code> kullanılır.</td>
+</tr>
+<tr class="even">
+<td>
+<strong>browse</strong> komutunu kullanarak veriler yeni bir pencerede incelenebilir.</td>
+<td>
+<code>View(dataset)</code> kullanarak RStudio kaynak bölmesinde veri seti görüntülenebilir. <em>Aynı anda birden fazla veri seti tutulabileceğinden, R’daki fonksiyona veri seti adının belirtilmesi gerekir. Bu fonksiyondaki büyük “V” harfine dikkat edilmeli.</em>
+</td>
+</tr>
+<tr class="odd">
+<td>Değişken adlarını ve temel bilgileri veren <strong>summarize</strong> kullanılarak veri kümesine ilişkin genel bir bakış elde edilebilir.</td>
+<td>
+<code>summary(dataset)</code> fonksiyonu kullanılarak veri kümesine ilişkin genel bir bakış elde edilebilir.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Basit veri manipülasyonu</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>STATA</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Veri kümesi sütunlarına genellikle “değişkenler” denir.</td>
+<td>Daha sıklıkla “sütunlar” veya bazen “vektörler” veya “değişkenler” olarak anılır.</td>
+</tr>
+<tr class="even">
+<td>Veri kümesini özellikle belirtmenize gerek yoktur.</td>
+<td>Aşağıdaki komutların her birinde veri kümesinin belirtilmesi gerekir. Örnekler için [Verileri temizleme ve temel fonksiyonlar] sayfasına bakınız.</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>generate</strong> <em>varname</em> = komutu kullanılarak yeni değişkenler oluşturulabilir.</td>
+<td>
+<code>mutate(varname = )</code> fonksiyonu kullanılarak yeni değişkenler oluşturabilir. Bütün <strong>dplyr</strong> fonksiyonlarıyla ilgili ayrıntılar için [Verileri temizleme ve temel fonksiyonlar] sayfasına bakınız.</td>
+</tr>
+<tr class="even">
+<td>Değişkenler <strong>rename</strong> <em>eski_adı yeni_adı</em> komutuyla yeniden adlandırılabilir.</td>
+<td>Sütunlar, <code>rename(new_name = old_name)</code> fonksiyonu kullanılarak yeniden adlandırılabilir.</td>
+</tr>
+<tr class="odd">
+<td>Değişkenler <strong>drop</strong> <em>varname</em> kullanılarak kaldırılabilir.</td>
+<td>Sütunlar, bir eksi işaretinin ardından parantez içinde sütun adı ile <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> işlevi kullanılarak kaldırılabilir.</td>
+</tr>
+<tr class="even">
+<td>Faktör değişkenleri, <strong>label define</strong> gibi bir dizi komut kullanılarak etiketlenebilir.</td>
+<td>Değerleri etiketleme, sütunu Faktör sınıfına dönüştürerek ve seviyeler belirleyerek yapılabilir.([Faktörler] ile ilgili sayfaya bakınız.) Sütun adları genellikle Stata’da olduğu gibi etiketlenmez.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Tanımlayıcı analiz</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>STATA</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>tab</strong> <em>varname</em> kullanarak bir değişkenin sayılarını tablo haline getirilebilir.</td>
+<td>
+<code><a href="https://rdrr.io/r/base/table.html">table()</a></code> fonksiyonu için <code>table(dataset$colname)</code> koduyla veri kümesi ve sütunun adının sağlanması gerekmektedir. Alternatif olarak, [Verileri gruplama] bölümünde açıklandığı gibi <strong>dplyr</strong> paketindeki <code>count(varname)</code> fonksiyonu kullanabilir.</td>
+</tr>
+<tr class="even">
+<td>2x2’lik bir tabloda iki değişkenin çapraz tablosu <strong>tab</strong> <em>varname1 varname2</em> kodlarıyla oluşturulur.</td>
+<td>
+<code>table(dataset$varname1, dataset$varname2)</code> veya <code>count(varname1, varname2)</code> fonksiyonları kullanabilir.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bu liste, Stata komutlarını R’a çevirmenin temelleri hakkında bir genel bakış sunmakla birlikte ayrıntılı değildir. R’a geçiş yapan Stata kullanıcıları için ilgi çekici olabilecek başka birçok harika kaynak mevcuttur:</p>
+<ul>
+<li>
+<a href="https://dss.princeton.edu/training/RStata.pdf" class="uri">https://dss.princeton.edu/training/RStata.pdf</a><br>
+</li>
+<li>
+<a href="https://clanfear.github.io/Stata_R_Equivalency/docs/r_stata_commands.html" class="uri">https://clanfear.github.io/Stata_R_Equivalency/docs/r_stata_commands.html</a><br>
+</li>
+<li><a href="http://r4stats.com/books/r4stata/" class="uri">http://r4stats.com/books/r4stata/</a></li>
+</ul>
+</div>
+<div id="sasdan-geçiş" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> SAS’dan geçiş<a class="anchor" aria-label="anchor" href="#sasdan-ge%C3%A7i%C5%9F"><i class="fas fa-link"></i></a>
+</h2>
+<!-- ======================================================= -->
+<p><strong>SAS’dan R’a gelmek</strong></p>
+<p>SAS, halk sağlığı kurumlarında ve akademik araştırma alanlarında yaygın olarak kullanılmaktadır. Yeni bir dile geçiş nadiren basit bir süreç olsa da, SAS ve R arasındaki temel farkları anlamak, ana dilinizde edindiğiniz tecrübeleri yeni dile aktarmakta yardımcı olabilir.</p>
+<p>Aşağıda, SAS ve R arasındaki veri yönetimi ve tanımlayıcı analizdeki temel farklılıklar özetlenmektedir.</p>
+<p><strong>Genel notlar</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>SAS</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Çevrimiçi topluluklara <a href="https://support.sas.com/en/support-home.html">SAS Müşteri Hizmetleri</a>sitesinden ulaşabilir.</td>
+<td>RStudio, StackOverFlow ve R-blogları aracılığıyla çevrimiçi topluluklara ulaşabilir.</td>
+</tr>
+<tr class="even">
+<td>
+<code>help [command]</code> koduyla komutlar hakkında yardımcı bilgilere ulaşabilir.</td>
+<td>
+<code>[function]?</code> kodu veya Yardım sekmesi ile komutlar hakkında yardımcı bilgilere ulaşabilir.</td>
+</tr>
+<tr class="odd">
+<td>
+<code>* METİN</code>; <code>/*</code> veya <code>/* METİN */</code> seçeneklerini kullanarak kodu yoruma çevirebilir.</td>
+<td>
+<code>#</code> kullanarak kodu yoruma çevirebilir.</td>
+</tr>
+<tr class="even">
+<td>Hemen hemen tüm komutlar yerleşiktir. Yeni/kullanıcı tarafından yazılan işlevler, SAS macro, SAS/IML, SAS Component Language (SCL); <code>Proc Fcmp</code> ve <code>Proc Proto</code> prosedürleri kullanılarak kurulabilir.</td>
+<td>R, <strong>base</strong> fonksiyonlarla kurulur, ancak tipik kullanım, CRAN’dan diğer paketlerin kurulmasını içerir ([R temelleri]’ndeki sayfasına bakınız.).</td>
+</tr>
+<tr class="odd">
+<td>Analiz genellikle Editör penceresinde bir SAS programı yazılarak yapılır.</td>
+<td>Analizler RStudio’daki kaynak bölmesine R dili ile yazılır. R markdown dili de alternatif olarak kullanılmaktadır.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Çalışma dizini</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>SAS</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Çalışma dizinleri mutlak dosya yollarını içerir. Bunun dışında <code>%let rootdir=/root path; %include “&amp;rootdir/subfoldername/filename”</code> kodu kullanarak başka alanlara kaydedilebilir.</td>
+<td>Çalışma dizinleri, <strong>here</strong> paketi kullanılarak proje ana klasörüne veya başka alanlara aktarılabilir (bkz. [İçe aktarma ve dışa aktarma]).</td>
+</tr>
+<tr class="even">
+<td>
+<code>%put %sysfunc(getoption(work));</code> ile mevcut çalışma dizinini görebilir.</td>
+<td>Boş parantezlerle “getwd()” veya “here()” (<strong>here</strong> paketi kullanılıyorsa) kullanılır.</td>
+</tr>
+<tr class="odd">
+<td>Çalışma dizinini <code>libname “folder location”</code> “klasör konumu” ile ayarlanabilir.</td>
+<td>
+<code>setwd(“klasör konumu”)</code> veya <code>set_here("klasör konumu)</code> (<strong>here</strong> paketi kullanılıyorsa) kullanabilir.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Verinin içe aktarılması ve görüntülenmesi</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>SAS</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<code>Proc Import</code> prosedürünü veya <code>Data Step Infile</code> ifadesini kullanılır.</td>
+<td>Hemen hemen tüm dosya türleri için <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonu kullanabilir. Alternatif olarak belirli fonksiyonlar da mevcuttur (bkz. [İçe aktarma ve dışa aktarma]).</td>
+</tr>
+<tr class="even">
+<td>csv dosyalarını okuma, <code>Proc Import datafile=”filename.csv” out=work.filename dbms=CSV kullanılarak yapılır; run;</code> VEYA <a href="http://support.sas.com/techsup/technote/ts673.pdf">Data Step Infile Açıklaması</a> kullanılabilir.</td>
+<td>
+<code>import("filename.csv")</code> kullanılır.</td>
+</tr>
+<tr class="odd">
+<td>xlsx dosyalarını okuma, <code>Proc Import datafile=”filename.xlsx” out=work.filename dbms=xlsx kullanılarak yapılır; run;</code> VEYA <a href="http://support.sas.com/techsup/technote/ts673.pdf">Data Step Infile Açıklaması</a> kullanılabilir.</td>
+<td>
+<code>import("filename.xlsx")</code> kullanılır.</td>
+</tr>
+<tr class="even">
+<td>Gezgin penceresi açılarak veriler yeni bir pencerede incelenebilir; istenilen kitaplık ve veri kümesi seçilebilir.</td>
+<td>
+<code>View(dataset)</code> kullanarak RStudio kaynak bölmesinde veri seti görüntülenebilir. <em>Aynı anda birden fazla veri seti tutulabileceğinden, R’daki fonksiyona veri seti adının belirtilmesi gerekir. Bu fonksiyondaki büyük “V” harfine dikkat edilmeli.</em>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Basit veri manipülasyonu</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>SAS</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Veri kümesi sütunlarına genellikle “değişkenler” denir.</td>
+<td>Daha sıklıkla “sütunlar” veya bazen “vektörler” veya “değişkenler” olarak anılır.</td>
+</tr>
+<tr class="even">
+<td>Veri kümesini özellikle belirtmenize gerek yoktur. Yeni değişkenler, yalnızca yeni değişken adı, ardından eşittir işareti ve ardından değer için bir ifade yazılarak oluşturulur.</td>
+<td>
+<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> fonksiyonu kullanılarak yeni değişkenler oluşturabilir. Bütün <strong>dplyr</strong> fonksiyonlarıyla ilgili ayrıntılar için [Verileri temizleme ve temel fonksiyonlar] sayfasına bakınız.</td>
+</tr>
+<tr class="odd">
+<td>Değişkenler <code>rename *old_name=new_name*</code> komutuyla yeniden adlandırılabilir.</td>
+<td>Sütunlar, <code>rename(new_name = old_name)</code> fonksiyonu kullanılarak yeniden adlandırılabilir.</td>
+</tr>
+<tr class="even">
+<td>Değişkenler <code>**keep**=varname</code> kullanılarak kullanılabilir.</td>
+<td>Sütunlar, parantez içinde sütun adı ile <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> işlevi kullanılarak seçilebilir.</td>
+</tr>
+<tr class="odd">
+<td>Değişkenler <code>**drop**=varname</code> kullanılarak kaldırılabilir.</td>
+<td>Sütunlar, bir eksi işaretinin ardından parantez içinde sütun adı ile <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> işlevi kullanılarak kaldırılabilir.</td>
+</tr>
+<tr class="even">
+<td>Faktör değişkenleri, <code>Label</code> ifadesi kullanılarak Veri Adımında etiketlenebilir.</td>
+<td>Değerleri etiketleme, sütunu Faktör sınıfına dönüştürerek ve seviyeler belirleyerek yapılabilir.([Faktörler] ile ilgili sayfaya bakınız.) Sütun adları genellikle etiketlenmez.</td>
+</tr>
+<tr class="odd">
+<td>Kayıtlar, Veri Adımında <code>Where</code> veya <code>If</code> ifadesi kullanılarak seçilir. Çoklu seçim koşulları “and” komutu kullanılarak ayrılır.</td>
+<td>Kayıtlar, VE operatörü (&amp;) veya virgülle ayrılmış çoklu seçim koşullarıyla <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> fonksiyonu kullanılarak seçilir.</td>
+</tr>
+<tr class="even">
+<td>Veri kümeleri, Veri Adımında <code>Merge</code> ifadesi kullanılarak birleştirilir. Birleştirilecek veri kümelerinin önce <code>Proc Sort</code> prosedürü kullanılarak sıralanması gerekmektedir.</td>
+<td>
+<strong>dplyr</strong> paketi, veri kümelerini birleştirmek için birkaç işlev sunar. Ayrıntılar için [Verileri birleştirme] sayfasına bakınız.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Tanımlayıcı analiz</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="41%">
+<col width="58%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>SAS</strong></th>
+<th><strong>R</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Değişken adları ve açıklayıcı istatistikler sağlayan “Proc Summary” prosedürü kullanılarak veri kümesi hakkında üst düzey bir genel bakış elde edilebilir.</td>
+<td>
+<strong>skimr</strong> paketinden “summary(dataset)” veya “skim(dataset)” kullanılarak veri kümesine ilişkin üst düzey bir genel bakış elde edilebilir.</td>
+</tr>
+<tr class="even">
+<td>
+<code>proc freq data=Dataset; Tables varname; Run;</code> komutu kullanılarak değişken sayıları tablo halinde özetlenebilir.</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>[Tanımlayıcı tablolar] ile ilgili sayfaya bakınız. Seçenekler arasında <strong>base</strong> R’den ‘table()’ ve <strong>janitor</strong> paketinden ‘tabyl()’ bulunmaktadır. R birden fazla veri kümesi içerdiği için veri kümesi ve sütun adının belirtilmesi gerekmektedir.
+2x2’lik bir tabloda iki değişkenin çapraz tablosu <code>proc freq data=Dataset; Tables rowvar*colvar; Run;</code> komutuyla oluşturulabilir. | <code><a href="https://rdrr.io/r/base/table.html">table()</a></code>, <code>tabyl()</code> veya [Tanımlayıcı tablolar] sayfasında açıklandığı gibi diğer seçenekler kullanabilir.</p>
+<p><strong>Birkaç değerli kaynak:</strong></p>
+<p><a href="https://www.amazon.com/SAS-SPSS-Users-Statistics-Computing/dp/1461406846/ref=sr_1_1?dchild=1&amp;gclid=EAIaIQobChMIoqLOvf6u7wIVAhLnCh1c9w_DEAMYASAAEgJLIfD_BwE&amp;hvadid=241675955927&amp;hvdev=c&amp;hvlocphy=9032185&amp;hvnetw=g&amp;hvqmt=e&amp;hvrand=16854847287059617468&amp;hvtargid=kwd-44746119007&amp;hydadcr=16374_10302157&amp;keywords=r+for+sas+users&amp;qid=1615698213&amp;sr=8-1">R for SAS and SPSS Users (2011)</a></p>
+<p><a href="https://www.amazon.com/SAS-Management-Statistical-Analysis-Graphics-dp-1466584491/dp/1466584491/ref=dp_ob_title_bk">SAS and R, Second Edition (2014)</a></p>
+</div>
+<div id="veri-formatları" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Veri formatları<a class="anchor" aria-label="anchor" href="#veri-formatlar%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<!-- ======================================================= -->
+<p>R <strong>rio</strong> paketinin, STATA .dta dosyaları, SAS .xpt ve.sas7bdat dosyaları, SPSS .por ve.sav dosyaları gibi dosyaları gibi pek çok dosyanın nasıl içe ve dışa aktarabileceğiyle ilgili ayrıntılar için <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> sayfasına bakınız.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r%C4%B1n-temelleri.html"><span class="header-section-number">1</span> R’ın Temelleri</a></div>
+<div class="next"><a href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">3</span> Önerilen paketler</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ra-ge%C3%A7i%C5%9F"><span class="header-section-number">2</span> R’a geçiş</a></li>
+<li>
+<a class="nav-link" href="#excelden-ge%C3%A7i%C5%9F"><span class="header-section-number">2.1</span> Excel’den geçiş</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#faydalar%C4%B1">Faydaları</a></li>
+<li><a class="nav-link" href="#d%C3%BCzenli-veri">Düzenli veri</a></li>
+<li><a class="nav-link" href="#fonksiyonlar">Fonksiyonlar</a></li>
+<li><a class="nav-link" href="#kodlar">Kodlar</a></li>
+<li><a class="nav-link" href="#excelden-ra-ge%C3%A7i%C5%9F-kaynaklar%C4%B1">Excel’den R’a geçiş kaynakları</a></li>
+<li><a class="nav-link" href="#r-excel-etkile%C5%9Fimi">R-Excel etkileşimi</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#statadan-ge%C3%A7i%C5%9F"><span class="header-section-number">2.2</span> Stata’dan geçiş</a></li>
+<li><a class="nav-link" href="#sasdan-ge%C3%A7i%C5%9F"><span class="header-section-number">2.3</span> SAS’dan geçiş</a></li>
+<li><a class="nav-link" href="#veri-formatlar%C4%B1"><span class="header-section-number">2.4</span> Veri formatları</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>40 R Markdown ile Raporlar | The Epidemiologist R Handbook</title>
+<meta name="author" content="the handbook team">
+<meta name="description" content="R Markdown, raporlar gibi otomatik, tekrarlanabilir ve paylaşılabilir çıktılar oluşturmak için yaygın olarak kullanılan bir araçtır. Word, pdf, html, powerpoint ve diğer formatlarda statik veya...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="40 R Markdown ile Raporlar | The Epidemiologist R Handbook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="R Markdown, raporlar gibi otomatik, tekrarlanabilir ve paylaşılabilir çıktılar oluşturmak için yaygın olarak kullanılan bir araçtır. Word, pdf, html, powerpoint ve diğer formatlarda statik veya...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="40 R Markdown ile Raporlar | The Epidemiologist R Handbook">
+<meta name="twitter:description" content="R Markdown, raporlar gibi otomatik, tekrarlanabilir ve paylaşılabilir çıktılar oluşturmak için yaygın olarak kullanılan bir araçtır. Word, pdf, html, powerpoint ve diğer formatlarda statik veya...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.24/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/tabwid.css" rel="stylesheet">
+<link href="libs/tabwid-1.1.0/scrool.css" rel="stylesheet">
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script><script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script><script src="libs/viz-1.8.2/viz.js"></script><link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="libs/grViz-binding-1.0.9/grViz.js"></script><script src="libs/d3-4.5.0/d3.min.js"></script><script src="libs/sankey-1/sankey.js"></script><script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><link href="libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="libs/plotly-basic-2.5.1/plotly-basic-2.5.1.min.js"></script><script src="libs/plotly-cartesian-2.5.1/plotly-cartesian-2.5.1.min.js"></script><script src="libs/proj4js-2.3.15/proj4.js"></script><link href="libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="libs/highcharts-9.3.1/highcharts.js"></script><script src="libs/highcharts-9.3.1/highcharts-3d.js"></script><script src="libs/highcharts-9.3.1/highcharts-more.js"></script><script src="libs/highcharts-9.3.1/modules/stock.js"></script><script src="libs/highcharts-9.3.1/modules/map.js"></script><script src="libs/highcharts-9.3.1/modules/data.js"></script><script src="libs/highcharts-9.3.1/modules/exporting.js"></script><script src="libs/highcharts-9.3.1/modules/offline-exporting.js"></script><script src="libs/highcharts-9.3.1/modules/drilldown.js"></script><script src="libs/highcharts-9.3.1/modules/item-series.js"></script><script src="libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script><script src="libs/highcharts-9.3.1/modules/annotations.js"></script><script src="libs/highcharts-9.3.1/modules/export-data.js"></script><script src="libs/highcharts-9.3.1/modules/funnel.js"></script><script src="libs/highcharts-9.3.1/modules/heatmap.js"></script><script src="libs/highcharts-9.3.1/modules/treemap.js"></script><script src="libs/highcharts-9.3.1/modules/sankey.js"></script><script src="libs/highcharts-9.3.1/modules/dependency-wheel.js"></script><script src="libs/highcharts-9.3.1/modules/organization.js"></script><script src="libs/highcharts-9.3.1/modules/solid-gauge.js"></script><script src="libs/highcharts-9.3.1/modules/streamgraph.js"></script><script src="libs/highcharts-9.3.1/modules/sunburst.js"></script><script src="libs/highcharts-9.3.1/modules/vector.js"></script><script src="libs/highcharts-9.3.1/modules/wordcloud.js"></script><script src="libs/highcharts-9.3.1/modules/xrange.js"></script><script src="libs/highcharts-9.3.1/modules/tilemap.js"></script><script src="libs/highcharts-9.3.1/modules/venn.js"></script><script src="libs/highcharts-9.3.1/modules/gantt.js"></script><script src="libs/highcharts-9.3.1/modules/timeline.js"></script><script src="libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script><script src="libs/highcharts-9.3.1/modules/bullet.js"></script><script src="libs/highcharts-9.3.1/modules/coloraxis.js"></script><script src="libs/highcharts-9.3.1/modules/dumbbell.js"></script><script src="libs/highcharts-9.3.1/modules/lollipop.js"></script><script src="libs/highcharts-9.3.1/modules/series-label.js"></script><script src="libs/highcharts-9.3.1/plugins/motion.js"></script><script src="libs/highcharts-9.3.1/custom/reset.js"></script><script src="libs/highcharts-9.3.1/modules/boost.js"></script><script src="libs/highchart-binding-0.9.4/highchart.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style_bs4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">The Epidemiologist R Handbook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li class="book-part">About this book</li>
+<li><a class="" href="%C3%B6nyaz%C4%B1-ve-teknik-notlar.html"><span class="header-section-number">1</span> Önyazı ve teknik notlar</a></li>
+<li><a class="" href="el-kitab%C4%B1-ve-verileri-indirme.html"><span class="header-section-number">2</span> El Kitabı ve verileri indirme</a></li>
+<li><a class="" href="b%C3%B6l%C3%BCm-temel-bilgiler.html">(BÖLÜM) Temel Bilgiler</a></li>
+<li><a class="" href="r%C4%B1n-temelleri.html"><span class="header-section-number">3</span> R’ın Temelleri</a></li>
+<li><a class="" href="ra-ge%C3%A7i%C5%9F.html"><span class="header-section-number">4</span> R’a geçiş</a></li>
+<li><a class="" href="%C3%B6nerilen-paketler-1.html"><span class="header-section-number">5</span> Önerilen paketler</a></li>
+<li><a class="" href="r-projeleri.html"><span class="header-section-number">6</span> R projeleri</a></li>
+<li><a class="" href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html"><span class="header-section-number">7</span> İçe ve dışa aktar</a></li>
+<li class="book-part">Data Management</li>
+<li><a class="" href="veri-temizli%C4%9Fi-ve-temel-fonksiyonlar.html"><span class="header-section-number">8</span> Veri temizliği ve temel fonksiyonlar</a></li>
+<li><a class="" href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html"><span class="header-section-number">9</span> Tarihlerle çalışma</a></li>
+<li><a class="" href="karakterler-ve-dizeler.html"><span class="header-section-number">10</span> Karakterler ve dizeler</a></li>
+<li><a class="" href="fakt%C3%B6rler.html"><span class="header-section-number">11</span> Faktörler</a></li>
+<li><a class="" href="verilerin-pivotlanmas%C4%B1.html"><span class="header-section-number">12</span> Verilerin pivotlanması</a></li>
+<li><a class="" href="verileri-gruplama.html"><span class="header-section-number">13</span> Verileri Gruplama</a></li>
+<li><a class="" href="veri-birle%C5%9Ftirme.html"><span class="header-section-number">14</span> Veri Birleştirme</a></li>
+<li><a class="" href="tekille%C5%9Ftirme-1.html"><span class="header-section-number">15</span> Tekilleştirme</a></li>
+<li><a class="" href="yineleme-d%C3%B6ng%C3%BCler-ve-listeler.html"><span class="header-section-number">16</span> Yineleme, döngüler ve listeler</a></li>
+<li class="book-part">Analysis</li>
+<li><a class="" href="tan%C4%B1mlay%C4%B1c%C4%B1-tablolar.html"><span class="header-section-number">17</span> Tanımlayıcı tablolar</a></li>
+<li><a class="" href="basit-istatistiksel-testler.html"><span class="header-section-number">18</span> Basit istatistiksel testler</a></li>
+<li><a class="" href="tek-de%C4%9Fi%C5%9Fkenli-ve-%C3%A7ok-de%C4%9Fi%C5%9Fkenli-regresyon.html"><span class="header-section-number">19</span> Tek değişkenli ve çok değişkenli regresyon</a></li>
+<li><a class="" href="eksik-veri.html"><span class="header-section-number">20</span> Eksik Veri</a></li>
+<li><a class="" href="standardize-edilmi%C5%9F-h%C4%B1zlar.html"><span class="header-section-number">21</span> Standardize edilmiş hızlar</a></li>
+<li><a class="" href="hareketli-ortalamalar.html"><span class="header-section-number">22</span> Hareketli ortalamalar</a></li>
+<li><a class="" href="zaman-serileri-ve-salg%C4%B1nlar%C4%B1n-tespit-edilmesi.html"><span class="header-section-number">23</span> Zaman serileri ve salgınların tespit edilmesi</a></li>
+<li><a class="" href="salg%C4%B1n-modelleme.html"><span class="header-section-number">24</span> Salgın Modelleme</a></li>
+<li><a class="" href="temasl%C4%B1-izlemi.html"><span class="header-section-number">25</span> Temaslı izlemi</a></li>
+<li><a class="" href="anket-analizi.html"><span class="header-section-number">26</span> Anket analizi</a></li>
+<li><a class="" href="sa%C4%9Fkal%C4%B1m-analizi.html"><span class="header-section-number">27</span> Sağkalım Analizi</a></li>
+<li><a class="" href="co%C4%9Frafi-bilgi-sistemleri-cbs-temelleri.html"><span class="header-section-number">28</span> Coğrafi Bilgi Sistemleri (CBS) Temelleri</a></li>
+<li class="book-part">Data Visualization</li>
+<li><a class="" href="sunum-i%C3%A7in-tablolar.html"><span class="header-section-number">29</span> Sunum için tablolar</a></li>
+<li><a class="" href="ggplot-temelleri.html"><span class="header-section-number">30</span> ggplot temelleri</a></li>
+<li><a class="" href="ggplot-ipu%C3%A7lar%C4%B1.html"><span class="header-section-number">31</span> ggplot ipuçları</a></li>
+<li><a class="" href="salg%C4%B1n-e%C4%9Frileri.html"><span class="header-section-number">32</span> Salgın eğrileri</a></li>
+<li><a class="" href="demografik-piramidler-ve-likert-%C3%B6l%C3%A7ekler.html"><span class="header-section-number">33</span> Demografik piramidler ve likert ölçekler</a></li>
+<li><a class="" href="is%C4%B1-grafikleri.html"><span class="header-section-number">34</span> Isı grafikleri</a></li>
+<li><a class="" href="diyagramlar-ve-%C3%A7izelgeler.html"><span class="header-section-number">35</span> Diyagramlar ve çizelgeler</a></li>
+<li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
+<li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
+<li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
+<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li class="book-part">Reports and dashboards</li>
+<li><a class="active" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
+<li><a class="" href="r-markdown-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">42</span> R Markdown ile gösterge panelleri</a></li>
+<li><a class="" href="shiny-ile-g%C3%B6sterge-panelleri.html"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
+<li class="book-part">Miscellaneous</li>
+<li><a class="" href="yazma-fonksiyonlar%C4%B1.html"><span class="header-section-number">44</span> Yazma fonksiyonları</a></li>
+<li><a class="" href="dizin-etkile%C5%9Fimleri.html"><span class="header-section-number">45</span> Dizin etkileşimleri</a></li>
+<li><a class="" href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html"><span class="header-section-number">46</span> Git ve Github ile sürüm kontrolü ve işbirliği</a></li>
+<li><a class="" href="yayg%C4%B1n-hatalar.html"><span class="header-section-number">47</span> Yaygın hatalar</a></li>
+<li><a class="" href="yard%C4%B1m-alma.html"><span class="header-section-number">48</span> Yardım alma</a></li>
+<li><a class="" href="a%C4%9F-s%C3%BCr%C3%BCc%C3%BClerinde-r.html"><span class="header-section-number">49</span> Ağ sürücülerinde R</a></li>
+<li><a class="" href="veri-tablosu.html"><span class="header-section-number">50</span> Veri tablosu</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-markdown-ile-raporlar" class="section level1" number="40">
+<h1>
+<span class="header-section-number">40</span> R Markdown ile Raporlar<a class="anchor" aria-label="anchor" href="#r-markdown-ile-raporlar"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="images/markdown/rmarkdown_overview.png" width="100%" style="display: block; margin: auto;"></div>
+<p>R Markdown, raporlar gibi otomatik, tekrarlanabilir ve paylaşılabilir çıktılar oluşturmak için yaygın olarak kullanılan bir araçtır. Word, pdf, html, powerpoint ve diğer formatlarda statik veya etkileşimli çıktılar üretebilir.</p>
+<p>Bir R Markdown betiği, R kodunu metnin arasına serpiştirir, böylece betik aslında çıktı belgeniz olur. Anlatım metni (verilerinize göre dinamik olarak değişebilir), tablolar, şekiller, madde işaretleri/sayılar, bibliyografyalar vb. dahil olmak üzere biçimlendirilmiş bir belgenin tamamını oluşturabilirsiniz.
+Bu tür belgeler, rutin güncelleme (örneğin, günlük gözetim raporları) ve/veya veri alt kümeleri (örneğin, yargı raporları) üzerinde çalışmak amacıyla üretilebilir.</p>
+<p>Bu el kitabındaki diğer sayfalarda bu konu detaylı olarak anlatılmaktadır:
+• Rutin raporları organize etme sayfası, otomatik oluşturulan zaman damgalı klasörlerle rapor üretiminizin nasıl otomatik hale getirileceğini gösterir.
+• R Markdown içeren Panolar sayfası, bir R Markdown raporunun pano olarak nasıl biçimlendirileceğini açıklar.</p>
+<p>Not : R4Epis projesi, MSF proje lokasyonlarında karşılaşılan yaygın salgın ve çalışma senaryoları için şablon olan R Markdown komut dosyaları geliştirmiştir.</p>
+<!-- ======================================================= -->
+<div id="hazırlık-32" class="section level2" number="40.1">
+<h2>
+<span class="header-section-number">40.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-32"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>R Markdown arkaplanı</strong></p>
+<p>İlgili bazı kavram ve paketleri açıklamak için:
+• <strong>Markdown</strong>, html ve diğer formatlara dönüştürülebilen, düz metin kullanarak bir belge yazmanıza izin veren bir “dildir”. R’ye özgü değildir. Markdown’da yazılan dosyalar ‘.md’ uzantısına sahiptir.
+• <strong>R Markdown</strong>, R’ye özgü bir markdown varyasyonudur - metin üretmek, R kodunu gömmek ve çıktılarını görüntülemek için markdown kullanarak belge yazmanızı sağlar. R Markdown dosyaları “.Rmd” uzantısına sahiptir.
+• <strong>rmarkdown - paketi</strong>: Bu, R tarafından .Rmd dosyasını istenen çıktıya dönüştürmek için kullanılır. Odak noktası, dosyayı markdown (metin) sözdizimini dönüştürmektir.
+• <strong>knitr</strong>: Bu R paketi kod parçalarını okur, yürütür ve belgeye geri “örer”. Tablolar ve grafikler bu şekilde metnin yanına eklenir.
+• <strong>Pandoc</strong>: Son olarak, pandoc çıktıyı word/pdf/powerpoint vb.’ye dönüştürür. R’den ayrı bir yazılımdır ancak RStudio ile otomatik olarak yüklenir.
+• Özetle, arka planda gerçekleşen süreç (tüm bu adımları bilmenize gerek yoktur!), .Rmd dosyasının knitr’yi beslemesini içerir. Bu paket R kodu parçalarını yürütür ve yeni bir .md (markdown) dosyası oluşturur. R kodu ve işlenmiş çıktısı. .md dosyası daha sonra bitmiş ürünü oluşturmak için pandoc tarafından işlenir: bir Microsoft Word belgesi, HTML dosyası, powerpoint belgesi, pdf, vb. oluşturulur</p>
+<div class="inline-figure"><img src="images/markdown/0_rmd.png" width="100%" style="display: block; margin: auto;"></div>
+<p>(kaynak: <a href="https://rmarkdown.rstudio.com/authoring_quick_tour.html" class="uri">https://rmarkdown.rstudio.com/authoring_quick_tour.html</a>):</p>
+<p><strong>Yükleme</strong></p>
+<p>Bir R Markdown çıktısı oluşturmak için aşağıdakilerin kurulu olması gerekir:</p>
+<p>• rmarkdown paketi (knitr ayrıca otomatik olarak kurulacaktır)
+• RStudio ile birlikte gelmesi gereken Pandoc. RStudio kullanmıyorsanız, Pandoc’u buradan indirebilirsiniz: <a href="http://pandoc.org" class="uri">http://pandoc.org</a>.
+• PDF çıktısı oluşturmak istiyorsanız (biraz daha zor), LaTeX’i kurmanız gerekecek. Daha önce LaTeX yüklememiş olan R Markdown kullanıcıları için TinyTeX’i (<a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>) yüklemenizi öneririz. Aşağıdaki komutları kullanabilirsiniz:</p>
+<div class="sourceCode" id="cb1795"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">tinytex</span><span class="op">)</span>     <span class="co"># tinytex paketini yükleyin </span></span>
+<span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># TinyTeX yazılımını yüklemek için R komutu </span></span></code></pre></div>
+<!-- ======================================================= -->
+</div>
+<div id="başlangıç" class="section level2" number="40.2">
+<h2>
+<span class="header-section-number">40.2</span> Başlangıç<a class="anchor" aria-label="anchor" href="#ba%C5%9Flang%C4%B1%C3%A7"><i class="fas fa-link"></i></a>
+</h2>
+<div id="rmarkdown-r-paketini-yükleme" class="section level3 unnumbered">
+<h3>rmarkdown R paketini yükleme<a class="anchor" aria-label="anchor" href="#rmarkdown-r-paketini-y%C3%BCkleme"><i class="fas fa-link"></i></a>
+</h3>
+<p>rmarkdown R paketini kurun. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() işlevini vurguluyoruz. Ayrıca, temel R’dan library() ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R temelleri ile ilgili sayfaya bakın.</p>
+<div class="sourceCode" id="cb1796"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rmarkdown</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="yeni-bir-rmd-dosyası-başlatmak" class="section level3 unnumbered">
+<h3>Yeni bir Rmd dosyası başlatmak<a class="anchor" aria-label="anchor" href="#yeni-bir-rmd-dosyas%C4%B1-ba%C5%9Flatmak"><i class="fas fa-link"></i></a>
+</h3>
+<p>RStudio’da, ‘Dosya’, ardından ‘Yeni dosya’ ve ardından ‘R markdown…’ ile başlayan yeni bir R markdown dosyası açın.</p>
+<div class="inline-figure"><img src="images/markdown/1_gettingstarted.png" width="50%" style="display: block; margin: auto;"></div>
+<p>R Studio size bazı çıktı seçenekleri sunacaktır. Aşağıdaki örnekte bir html belgesi oluşturmak istediğimiz için “HTML”yi seçiyoruz. Başlık ve yazar isimleri önemli değildir. İstediğiniz çıktı belgesi türü bunlardan biri değilse endişelenmeyin - herhangi birini seçip daha sonra komut dosyasında değiştirebilirsiniz.</p>
+<div class="inline-figure"><img src="images/markdown/1_gettingstartedB.png" width="50%" style="display: block; margin: auto;"></div>
+<p>Bu, yeni bir .Rmd betiği açacaktır.</p>
+</div>
+<div id="bilinmesi-önemli-noktalar" class="section level3 unnumbered">
+<h3>Bilinmesi önemli noktalar<a class="anchor" aria-label="anchor" href="#bilinmesi-%C3%B6nemli-noktalar"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Çalışma dizini</strong></p>
+<p>Bir markdown dosyasının çalışma dizini, Rmd dosyasının kendisinin kaydedildiği yerdir. Örneğin, R projesi ‘~/Documents/projectX’ içindeyse ve Rmd dosyasının kendisi ‘~/Documents/projectX/markdownfiles/markdown.Rmd’ alt klasöründeyse, markdown içindeki read.csv(“data.csv”) kodu projelerdeki komut dosyalarının normalde otomatik olarak bakacağı kök proje klasöründe değil, ‘markdownfiles’ klasöründe bir csv dosyası arayacaktır.</p>
+<p>Başka bir yerde dosyalara başvurmak için ya tam dosya dizinini kullanmanız ya da buradaki paketi kullanmanız gerekecektir. Buradaki paket, çalışma dizinini R projesinin kök klasörü olarak ayarlar. Bu işlem el kitabının R projeleri ve içe ve dışa aktarma sayfalarında ayrıntılı olarak açıklanmıştır. Örneğin, projeX klasöründen “data.csv” adlı bir dosyayı içe aktarmak için kod import(here(“data.csv”) olacaktır).</p>
+<p>R Markdown komut dosyalarında ‘setwd()’ fonksiyonunun kullanımının önerilmediğini unutmayın - yalnızca yazıldığı kod parçası için geçerlidir.</p>
+<p><strong>Bilgisayarınızda bir sürücü üzerinde çalışmak</strong></p>
+<p>R Markdown, paylaşılan bir ağ sürücüsünde çalışırken pandoc sorunlarıyla karşılaşabileceğinden, klasörünüzün yerel makinenizde olması önerilir, örn. ‘Belgelerim’ içindeki bir projede. Git kullanıyorsanız (çok tavsiye edilir!), size tanıdık gelecektir. Daha fazla ayrıntı için, ağ sürücülerinde R’deki el kitabı sayfalarına ve [Hatalar ve yardım]’a bakın.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="r-markdown-bileşenleri" class="section level2" number="40.3">
+<h2>
+<span class="header-section-number">40.3</span> R Markdown bileşenleri<a class="anchor" aria-label="anchor" href="#r-markdown-bile%C5%9Fenleri"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir R Markdown belgesi, standart bir R betiği gibi RStudio’da düzenlenebilir. Yeni bir R Markdown komut dosyası başlattığınızda, RStudio, R Markdown komut dosyasının farklı bölümlerini açıklayan bir şablon göstererek destek sağlar.</p>
+<p>Aşağıdaki, bir html çıktısı oluşturmayı amaçlayan yeni bir Rmd betiğinin başlatıldığında izlenen bileşenler görülmektedir. (önceki bölüme göre).</p>
+<div class="inline-figure"><img src="images/markdown/2_defaultRMD.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Gördüğünüz gibi, bir Rmd dosyasının üç temel bileşeni vardır: YAML, Markdown metni ve R kodu parçaları.</p>
+<p>Bunlar, belge çıktınızı oluşturacaktır. Aşağıdaki şemaya bakın:</p>
+<div class="inline-figure"><img src="images/markdown/rmarkdown_translation.png" width="100%" height="150%" style="display: block; margin: auto;"></div>
+<div id="yaml-metadatası" class="section level3 unnumbered">
+<h3>YAML metadatası<a class="anchor" aria-label="anchor" href="#yaml-metadatas%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>“YAML meta verileri” veya yalnızca “YAML” olarak anılan bu bileşen, R Markdown belgesinin en üstündedir. Komut dosyasının bu bölümü, Rmd dosyanız için ne tür bir çıktı üretileceğini, biçimlendirme tercihlerini ve belge başlığı, yazar ve tarih gibi diğer meta verileri gösterecektir. Burada belirtilmeyen başka kullanımlar da vardır (Çıktı oluşturma’ bölümünde anlatılmaktadır). Girintilerin önemli olduğunu unutmayın; sekmeler kabul edilmez ancak boşluklar kabul edilir.</p>
+<p>Bu bölüm yalnızca üç tire (—) içeren bir satırla başlamalı ve yalnızca üç tire içeren bir satırla kapatılmalıdır. YAML parametreleri anahtar:değer (key:value) çiftleri halinde kodlanır. YAML’de iki nokta üst üste işareti (:) yerleşimi önemlidir - anahtar:değer çiftleri iki nokta üst üste işareti ile ayrılır (eşittir işaretleriyle değil!).</p>
+<p>YAML, belge için meta verilerle başlamalıdır. Bu birincil YAML parametrelerinin (girintisiz) sırası önemli değildir. Örneğin:</p>
+<div class="sourceCode" id="cb1797"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1797-1"><a href="r-markdown-ile-raporlar.html#cb1797-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document"</span></span>
+<span id="cb1797-2"><a href="r-markdown-ile-raporlar.html#cb1797-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Me"</span></span>
+<span id="cb1797-3"><a href="r-markdown-ile-raporlar.html#cb1797-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2022-11-20"</span></span></code></pre></div>
+<p>R kodunu YAML değerleri içinde satır içi kod olarak (ters tikler içinde, r önce gelir) veya tırnak işaretleri içinde yazarak kullanabilirsiniz (tarih için yukarıdaki örneğe bakın:).</p>
+<p>Yukarıdaki resimde, varsayılan çıktımızın bir html dosyası olacağını seçtiğimiz için, YAML’nin çıktı: html_document olarak kodlandığını görebiliriz. Ancak bunu powerpoint_presentation veya word_document veya hatta pdf_document olarak değiştirebiliriz.</p>
+</div>
+<div id="metin" class="section level3 unnumbered">
+<h3>Metin<a class="anchor" aria-label="anchor" href="#metin"><i class="fas fa-link"></i></a>
+</h3>
+<p>Metin, başlıklar da dahil olmak üzere belgenizin anlatımıdır. Birçok farklı yazılımda kullanılan “markdown” dilinde yazılmıştır.</p>
+<p>Aşağıda bu metni yazmanın temel yolları bulunmaktadır. RStudio web sitesindeki R Markdown “cheatsheet”te bulunan daha kapsamlı belgelere bakın.
+<a href="https://rstudio.com/resources/cheatsheets/">RStudio website</a>.</p>
+<div id="yeni-satırlar" class="section level4 unnumbered">
+<h4>Yeni Satırlar<a class="anchor" aria-label="anchor" href="#yeni-sat%C4%B1rlar"><i class="fas fa-link"></i></a>
+</h4>
+<p>Benzersiz bir şekilde R Markdown’da yeni bir satır başlatmak için önceki satırın sonuna *iki boşluk** girin ve ardından Enter/Return uygulayın</p>
+</div>
+<div id="metin-karakteri" class="section level4 unnumbered">
+<h4>Metin Karakteri<a class="anchor" aria-label="anchor" href="#metin-karakteri"><i class="fas fa-link"></i></a>
+</h4>
+<p>Çıktıda nasıl görüneceğini değiştirmek için normal metninizi bu karakterlerle çevreleyin.</p>
+<p>• İtalik yapmak için alt çizgi (<em>metin</em>) veya tek bir yıldız (<em>metin</em>)
+• Kalın metin için çift yıldız (<strong>metin</strong>)
+• Metni kod olarak görüntülemek için ters tik (metin)</p>
+<p>Yazı tipinin gerçek görünümü, belirli şablonlar kullanılarak ayarlanabilir (YAML meta verilerinde belirtilir; örnek sekmelere bakın).</p>
+</div>
+<div id="renk" class="section level4 unnumbered">
+<h4>Renk<a class="anchor" aria-label="anchor" href="#renk"><i class="fas fa-link"></i></a>
+</h4>
+<p>R Markdown’da metnin rengini değiştirmek için basit bir mekanizma yoktur. Çıktınız bir HTML dosyasıysa, geçici bir çözüm, işaretleme metnine bir HTML satırı eklemektir. Aşağıdaki HTML kodu, kalın kırmızı renkte bir metin satırı yazdıracaktır.</p>
+<div class="sourceCode" id="cb1798"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1798-1"><a href="r-markdown-ile-raporlar.html#cb1798-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;span</span> <span class="er">style</span><span class="ot">=</span><span class="st">"color: red;"</span><span class="kw">&gt;</span>**_DANGER:_** This is a warning.<span class="kw">&lt;/span&gt;</span>  </span></code></pre></div>
+<p><span style="color: red;">**__TEHLİKE:_** Bu bir uyarıdır.</span></p>
+</div>
+<div id="başlıklar" class="section level4 unnumbered">
+<h4>Başlıklar<a class="anchor" aria-label="anchor" href="#ba%C5%9Fl%C4%B1klar"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bir R Markdown betiğinin metin bölümündeki hash (#) sembolü, bir başlık oluşturur. Bu, normal bir R betiğinde olduğu gibi, bir hash sembolünün yorum yapma/açıklama ekleme/devre dışı bırakma mekanizması olduğu komut dosyasındaki bir R kodundan farklıdır.</p>
+<p>Yeni bir satırın başlangıcında farklı sayıda hash sembolü ile farklı başlık seviyeleri oluşturulur. Bir hash sembolü, bir başlık veya birincil başlıktır. İki hash sembol, ikinci düzey bir başlıktır. Üçüncü ve dördüncü seviye başlıklar, art arda daha fazla hash sembolü ile yapılabilir.</p>
+<div class="sourceCode" id="cb1799"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1799-1"><a href="r-markdown-ile-raporlar.html#cb1799-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Birinci düzey başlık / Genel başlık</span></span>
+<span id="cb1799-2"><a href="r-markdown-ile-raporlar.html#cb1799-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1799-3"><a href="r-markdown-ile-raporlar.html#cb1799-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## İkinci seviye başlık</span></span>
+<span id="cb1799-4"><a href="r-markdown-ile-raporlar.html#cb1799-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1799-5"><a href="r-markdown-ile-raporlar.html#cb1799-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Üçüncü seviye başlık </span></span></code></pre></div>
+</div>
+<div id="madde-işaretleri-ve-numaralandırma" class="section level4 unnumbered">
+<h4>Madde İşaretleri ve Numaralandırma<a class="anchor" aria-label="anchor" href="#madde-i%C5%9Faretleri-ve-numaraland%C4%B1rma"><i class="fas fa-link"></i></a>
+</h4>
+<p>Bir madde işareti listesi oluşturmak için yıldız işaretlerini (*) kullanın. Önceki cümleyi bitirin, iki boşluk bırakın, iki kez Enter/Return yapın ve ardından madde işaretlerinizi başlatın. Yıldız işareti ile madde işareti ile metniniz arasına bir boşluk ekleyin. Her madde işaretinden sonra iki boşluk girin ve ardından Enter/Return yapın. Alt madde işaretleri aynı şekilde çalışır ancak girintilidir. Sayılar aynı şekilde çalışır, ancak yıldız işareti yerine 1), 2) vb. yazın. Aşağıda R Markdown komut dosyası metninizin nasıl görünebileceği açıklanmıştır.</p>
+<div class="sourceCode" id="cb1800"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1800-1"><a href="r-markdown-ile-raporlar.html#cb1800-1" aria-hidden="true" tabindex="-1"></a>Madde işaretlerim (bu kolondan sonra iki boşluk var):</span>
+<span id="cb1800-2"><a href="r-markdown-ile-raporlar.html#cb1800-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1800-3"><a href="r-markdown-ile-raporlar.html#cb1800-3" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Madde 1 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1800-4"><a href="r-markdown-ile-raporlar.html#cb1800-4" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Madde 2 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1800-5"><a href="r-markdown-ile-raporlar.html#cb1800-5" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>Alt madde işareti 1 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1800-6"><a href="r-markdown-ile-raporlar.html#cb1800-6" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>Alt madde 2 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1800-7"><a href="r-markdown-ile-raporlar.html#cb1800-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1800-8"><a href="r-markdown-ile-raporlar.html#cb1800-8" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
+</div>
+<div id="metne-yorum-yapılması" class="section level4 unnumbered">
+<h4>Metne yorum yapılması<a class="anchor" aria-label="anchor" href="#metne-yorum-yap%C4%B1lmas%C4%B1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Tıpkı bir R parçasındaki bir R kodu satırını yorumlamak için “#” kullanabildiğiniz gibi, R İşaretleme metnini “yorumlayabilirsiniz”. Metni seçip ve Ctrl+Shift+c (Mac için Cmd+Shift+c) tuşlarına basın. Metin oklarla çevrelenecek ve yeşil renk alacaktır. Çıktınızda görünmeyecektir.</p>
+<div class="inline-figure"><img src="images/markdown/rmarkdown_hide_text.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="kod-parçaları" class="section level3 unnumbered">
+<h3>Kod parçaları<a class="anchor" aria-label="anchor" href="#kod-par%C3%A7alar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Komut dosyasının R kodunu çalıştırmaya ayrılmış bölümlerine “parçalar” denir. Bu parçalar, paketleri yükleyebileceğiniz, verileri içe aktarabileceğiniz ve veri yönetimi ve görselleştirmesini gerçekleştirebileceğiniz yerlerdir. Çok sayıda kod parçası olabilir ve bu parçalar R kodunuzu metne serpiştirerek parçalar halinde organize etmenize yardımcı olabilir. Not: Bu “parçalar”, belgenin anlatım kısmından farklı bir arka plan rengine sahiptir.
+Her parça, üç ters tik ile başlayan bir satır ve parça için parametreleri içeren küme parantezleri ({ }) ile açılır. Parça üç tane daha geri tik ile sona erer.</p>
+<p>“Ctrl + Alt + i” (veya Mac’te Cmd + Shift + r) klavye kısa yollarını kullanarak veya komut dosyası düzenleyicinizin en üstünde ‘yeni bir kod parçası ekle’ simgesini tıklayarak yeni bir parça oluşturabilirsiniz.
+{ } küme parantezlerinin içeriği hakkında bazı notlar:</p>
+<p>• Parça içindeki kodlama dilinin R olduğunu belirtmek için ‘r’ ile başlarlar.
+• r’den sonra isteğe bağlı olarak bir kod parçası “adı” yazabilirsiniz – bu ad gerekli değildir ancak işinizi organize etmenize yardımcı olabilir. Parçalarınızı adlandırırsanız, HER ZAMAN benzersiz adlar kullanmanız gerektiğini unutmayın, aksi takdirde R, oluşturmayı denediğinizde hata verir.</p>
+<p>• Kıvrımlı parantezler, etiket=değer olarak yazılan diğer seçenekleri de içerebilir, örneğin:
+• eval = FALSE R kodunu çalıştırmamak için
+• echo = FALSE parçayı R kaynak kodunu çıktı belgesine yazdırmamak için
+• warning =FALSE R kodu tarafından üretilen uyarıları yazdırmamak için
+• message = FALSE R kodu tarafından üretilen hiçbir mesajı yazdırmamak için
+• include = TRU/FALSE, parça çıktılarının (ör. grafikler) belgeye dahil edilip edilmeyeceği
+• out.width = ve out.height = … tarzında oluşturma için out.width = “%75”
+• fig.align = “center” şeklin sayfa boyunca nasıl hizalanacağını ayarlar
+• fig.show=‘hold’ parçanız birden fazla şekil yazdırıyorsa ve bunların yan yana yazdırılmasını istiyorsanız (out.width = c(“%33”, “%67”) ile eşleştirin. Fig.show =‘asis’, kendilerini oluşturan kodun altında şekilleri göstermek için, ‘hide’ gizlemek için veya ‘animate’.bir animasyonda birden çok şekli birleştirmek için
+• Bir satırda bir parça başlığı yazılmalıdır
+• Noktalardan, alt çizgilerden ve boşluklardan kaçınmaya çalışın. Ayırıcıya ihtiyacınız varsa bunun yerine kısa çizgi (hyphens) ( - ) kullanın.
+Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
+<p>Yukarıdaki seçeneklerden bazıları, parçanın sağ üst köşesindeki ayar düğmeleri yapılandırılabilir. Burada, işlenen belgenin kodu, çıktıları ve uyarıları içermesini istediğiniz parçalarını belirtebilirsiniz. Bu, küme parantezleri içinde yazılı tercihler olarak görünecektir, örn. echo=FALSE ‘Yalnızca çıktıyı göster’ istediğinizi belirtir.</p>
+<div class="inline-figure"><img src="images/markdown/3_chunk.png" width="80%" style="display: block; margin: auto;"></div>
+<p>Ayrıca her parçanın sağ üst tarafında, kodu bir parça içinde veya tüm kodu önceki parçalarda çalıştırmak için yararlı olan iki ok vardır. Ne yaptıklarını görmek için üzerinde gezinin.</p>
+<p>Komut dosyasındaki tüm parçalara uygulanacak genel seçenekleri komut dosyasındaki ilk R kodu parçasında ayarlayabilirsiniz. Örneğin, her kod parçası için yalnızca çıktıların gösterilmesi ve kodun kendisinin gösterilmemesi için, bu komutu R kod parçasına dahil edebilirsiniz:</p>
+<div class="sourceCode" id="cb1801"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code></pre></div>
+<div id="metin-içinde-r-kodu" class="section level4 unnumbered">
+<h4>Metin İçinde R Kodu<a class="anchor" aria-label="anchor" href="#metin-i%C3%A7inde-r-kodu"><i class="fas fa-link"></i></a>
+</h4>
+<p>Geri tiklere minimum R kodunu da dahil edebilirsiniz. Geri tikler içinde, koda “r” ve bir boşluk ile başlayın, böylece RStudio, kodu R kodu olarak değerlendireceğini bilir. Aşağıdaki örneğe bakın.</p>
+<p>Aşağıdaki örnek, birden çok seviyedeki başlıkları ve madde işaretlerini gösterir, geçerli tarihi çıktı olarak kullanmak için (Sys.Date()) için R kodunu kullanır.</p>
+<div class="inline-figure"><img src="images/markdown/2_text.png" width="80%" style="display: block; margin: auto;"></div>
+<p>Yukarıdaki örnek basittir (geçerli tarihi gösterir), ancak aynı sintaksı kullanarak daha karmaşık R kodu tarafından üretilen değerleri görüntüleyebilirsiniz (örneğin, bir sütunun min, medyan, maks. değerini hesaplamak gibi). Ayrıca, komut dosyasına daha önce R kodu parçalarında oluşturulmuş R nesnelerini veya değerlerini de entegre edebilirsiniz.</p>
+<p>Örnek olarak, aşağıdaki komut dosyası, 18 yaşından küçük vakaların oranını tidyverse işlevlerini kullanarak hesaplar ve 18altı (less18), toplam (total) ve 18altıoran (less18prop) nesnelerini oluşturur. Bu dinamik değer sonraki metne eklenir. Bir word belgesine nasıl çıktı alındığını (örüldüğünü) görüyoruz.</p>
+<div class="inline-figure"><img src="images/markdown/3_chunktext.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="görseller" class="section level3 unnumbered">
+<h3>Görseller<a class="anchor" aria-label="anchor" href="#g%C3%B6rseller"><i class="fas fa-link"></i></a>
+</h3>
+<p>Görüntüleri R Markdown’ınıza iki yoldan biriyle dahil edebilirsiniz:</p>
+<div class="sourceCode" id="cb1802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1802-1"><a href="r-markdown-ile-raporlar.html#cb1802-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[](<span class="st">"path/to/image.png"</span>)  </span></code></pre></div>
+<p>Yukarıdakiler işe yaramazsa, knitr::include_graphics() kullanmayı deneyin.</p>
+<div class="sourceCode" id="cb1803"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"path/to/image.png"</span><span class="op">)</span></span></code></pre></div>
+<p>(unutmayın, dosya yolunuz buradaki paket kullanılarak yazılabilir)</p>
+<div class="sourceCode" id="cb1804"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"image.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="tablolar" class="section level3 unnumbered">
+<h3>Tablolar<a class="anchor" aria-label="anchor" href="#tablolar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Kısa çizgi ( - ) ve çubuklar ( | ) kullanarak bir tablo oluşturun. Çubukların önündeki/arasındaki kısa çizgi sayısı, metin yazılmaya başlamadan önceki boş karakter sayısını belirtir.</p>
+<div class="sourceCode" id="cb1805"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1805-1"><a href="r-markdown-ile-raporlar.html#cb1805-1" aria-hidden="true" tabindex="-1"></a>Column 1 |Column  2 |Column 3</span>
+<span id="cb1805-2"><a href="r-markdown-ile-raporlar.html#cb1805-2" aria-hidden="true" tabindex="-1"></a>---------|----------|--------</span>
+<span id="cb1805-3"><a href="r-markdown-ile-raporlar.html#cb1805-3" aria-hidden="true" tabindex="-1"></a>Cell A   |Cell B    |Cell C</span>
+<span id="cb1805-4"><a href="r-markdown-ile-raporlar.html#cb1805-4" aria-hidden="true" tabindex="-1"></a>Cell D   |Cell E    |Cell F</span></code></pre></div>
+<p>Yukarıdaki kod aşağıdaki tabloyu oluşturur:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Column 1</th>
+<th>Column 2</th>
+<th>Column 3</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Cell A</td>
+<td>Cell B</td>
+<td>Cell C</td>
+</tr>
+<tr class="even">
+<td>Cell D</td>
+<td>Cell E</td>
+<td>Cell F</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="sekmeli-bölümler" class="section level3 unnumbered">
+<h3>Sekmeli Bölümler<a class="anchor" aria-label="anchor" href="#sekmeli-b%C3%B6l%C3%BCmler"><i class="fas fa-link"></i></a>
+</h3>
+<p>HTML çıktılarında bölümleri “sekmeler” halinde düzenleyebilirsiniz. Bunun için bir başlıktan sonra gelen küme parantezleri { } içine .tabset’i eklemeniz yeterlidir. Bu başlığın altındaki herhangi bir alt başlık (aynı seviyedeki başka bir başlığa kadar), kullanıcının tıklayabileceği sekmeler olarak görünecektir. Daha fazlasını <a href="https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html">buradan</a> okuyabilirsiniz.</p>
+<p><img src="images/markdown/tabbed_script.png" width="100%" style="display: block; margin: auto;"><img src="images/markdown/tabbed_view.gif" width="100%" style="display: block; margin: auto;"></p>
+<p>Sekmelere kendilerine özgü bir görünüm vermek için .tabset’ten sonra ek olarak ‘.tabset-pills’ seçeneği ekleyebilirsiniz. Sekmeli HTML çıktısını görüntülerken, Ctrl+f arama işlevinin gizli sekmeleri değil, yalnızca “etkin” sekmeleri arayacağını unutmayın.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="dosya-yapısı" class="section level2" number="40.4">
+<h2>
+<span class="header-section-number">40.4</span> Dosya yapısı<a class="anchor" aria-label="anchor" href="#dosya-yap%C4%B1s%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<p>R Markdown’unuzu ve ilişkili R komut dosyalarını yapılandırmanın birkaç yolu vardır. Her birinin avantajları ve dezavantajları vardır:</p>
+<p>• Kendine yeten R Markdown - rapor için gereken her şey R Markdown içinde içe aktarılır veya oluşturulur
+• Diğer dosyaları kaynak olarak kullanma - source() komutuyla harici R komut dosyalarını çalıştırabilir ve çıktılarını Rmd’de kullanabilirsiniz.
+• Alt komut dosyaları - source() için alternatif bir mekanizma
+• Bir “runfile” kullanın - R Markdown’ı oluşturmadan önce komutları bir R betiğinde çalıştırın</p>
+<div id="kendine-yeten-rmd" class="section level3 unnumbered">
+<h3>Kendine yeten Rmd<a class="anchor" aria-label="anchor" href="#kendine-yeten-rmd"><i class="fas fa-link"></i></a>
+</h3>
+<p>Nispeten basit bir rapor için, R Markdown komut dosyanızı “kendi kendine yeterli” olacak ve herhangi bir harici komut dosyası içermeyecek şekilde düzenlemeyi seçebilirsiniz.</p>
+<p>R markdown’ı çalıştırmak için ihtiyacınız olan her şey, tüm kod parçaları ve paket yüklenmesi dahil olmak üzere, Rmd dosyası içinde gerçekleşir. Bu “kendi kendine yeten” yaklaşım, çok fazla veri işleme yapmanız gerekmediğinde (örneğin, temiz veya yarı temiz bir veri dosyası getirdiğinde) uygundur ve R Markdown’ın oluşturulması çok uzun sürmez.</p>
+<p>Bu senaryoda, R Markdown betiğinin bir mantıksal organizasyonu şöyle olabilir:
+1. Küresel knitr seçeneklerini ayarlayın
+2. Paketleri yükleyin
+3. Verileri içe aktarın
+4. Veriyi işleyin
+5. Çıktılar (tablolar, grafikler, vb.)
+6. Varsa çıktıları kaydedin (.csv, .png, vb.)</p>
+<div id="diğer-dosyaları-kaynak-olarak-kullanma" class="section level4 unnumbered">
+<h4>Diğer dosyaları kaynak olarak kullanma<a class="anchor" aria-label="anchor" href="#di%C4%9Fer-dosyalar%C4%B1-kaynak-olarak-kullanma"><i class="fas fa-link"></i></a>
+</h4>
+<p>“Kendi kendine yeterli” yaklaşımın bir varyasyonu, R Markdown kod parçalarının diğer R komut dosyalarını “kaynak” olarak kullanmasıdır (çalıştırma-run). Bu yaklaşım R Markdown betiğinizi daha az karmaşık, daha basit ve organize edilmesi daha kolay hale getirebilir. Son çıktıları raporun başında görüntülemek isterseniz de bu yaklaşım yardımcı olabilir. Bu yaklaşımda, son R Markdown betiği, önceden işlenmiş çıktıları bir belgede birleştirir.</p>
+<p>Bunu yapmanın yolu, temel R ‘source()’ fonksiyonuna R komut dosyalarını (dosya yolu ve uzantılı ad) sağlamaktır.</p>
+<div class="sourceCode" id="cb1806"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"your-script.R"</span>, local <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit_global.html">knit_global</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># or sys.source("your-script.R", envir = knitr::knit_global())</span></span></code></pre></div>
+<p>R Markdown içinde source() kullanılırken, Rmd dosyanızın oluşturulması sırasında harici dosyaların çalışmaya devam edeceğini unutmayın. Bu nedenle, raporu her oluşturduğunuzda komut dosyası çalıştırılır. Bu nedenle, bu source() komutlarının R Markdown içinde olması çalışma sürenizi hızlandırmaz ve hata ayıklamaya büyük ölçüde yardımcı olmaz, çünkü üretilen hata R Markdown üretilirken yazdırılmaya devam eder.</p>
+<p>Bir alternatif, child = knitr seçeneğini kullanmaktır.</p>
+<p>Farklı R ortamlarının farkında olmalısınız. Bir ortamda oluşturulan nesneler, R Markdown tarafından kullanılan ortamda bulunmayabilir.</p>
+</div>
+</div>
+<div id="runfile" class="section level3 unnumbered">
+<h3>Runfile<a class="anchor" aria-label="anchor" href="#runfile"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bu yaklaşım, R markdown ile beslenen nesneleri önceden işlemek için render() komutlarını içeren R betiğinin kullanılmasını içerir.</p>
+<p>Bu yaklaşımla, paketleri yükleyebilir, verileri yükleyebilir ve temizleyebilir ve hatta render()’dan önce ilgilendiğiniz grafikleri oluşturabilirsiniz. Bu adımlar, R komut dosyasında veya kaynaklı diğer komut dosyalarında ortaya çıkabilir. Bu komutlar aynı RStudio oturumunda gerçekleştiği ve nesneler ortama kaydedildiği sürece, nesneler daha sonra Rmd içeriği içinde çağrılabilir. Ardından, R markdown tüm önceden işlenmiş nesnelerle çıktı üretmek için yalnızca son adım için kullanılacaktır. Bu yöntemde bir şeyler ters giderse hata ayıklamak için çok daha kolaydır.</p>
+<p>Bu yaklaşım aşağıdaki nedenlerle yararlıdır:
+• Daha bilgilendirici hata mesajları - bu mesajlar R Markdown’dan değil, R betiğinden oluşturulacaktır. R markdown hataları, hangi parçada sorun olduğunu söyleme eğilimindedir, ancak hangi satırda olduğunu söylemez.
+• Uygunsa, uzun işleme adımlarını render() komutundan önce çalıştırabilirsiniz (yalnızca bir kez çalışır).</p>
+<p>Aşağıdaki örnekte, bir veri nesnesini R ortamında önceden işlediğimiz ve ardından render() kullanarak “create_output.Rmd”yi oluşturduğumuz ayrı bir R betiğine sahibiz.</p>
+<div class="sourceCode" id="cb1807"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"datafile.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>       <span class="co"># veriyi yükle ve ortama kaydet </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">hospital</span>, <span class="va">weight</span><span class="op">)</span>          <span class="co"># kısıtlı sütunları seç </span></span>
+<span></span>
+<span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>input <span class="op">=</span> <span class="st">"create_output.Rmd"</span><span class="op">)</span>   <span class="co"># Rmd dosyası oluştur</span></span></code></pre></div>
+</div>
+<div id="dosya-yapısı-1" class="section level3 unnumbered">
+<h3>Dosya yapısı<a class="anchor" aria-label="anchor" href="#dosya-yap%C4%B1s%C4%B1-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>İş akışı, oluşturulan belgeler ve şekiller için bir “çıktı” klasörüne ve temizlenmiş veriler için “veri” veya “girişler” klasörlerini içeren genel klasör yapısıyla da ilgilidir. Burada daha fazla ayrıntıya girmiyoruz, ancak Rutin raporların düzenlenmesi sayfasına göz atın.</p>
+</div>
+</div>
+<div id="belgenin-oluşturulması" class="section level2" number="40.5">
+<h2>
+<span class="header-section-number">40.5</span> Belgenin oluşturulması<a class="anchor" aria-label="anchor" href="#belgenin-olu%C5%9Fturulmas%C4%B1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Belgeyi aşağıdaki şekillerde oluşturabilirsiniz:
+• RStudio komut dosyası düzenleyicisinin üst kısmındaki “Knit” düğmesine manuel olarak basarak (hızlı ve kolay)
+• render() komutunu çalıştırın (R Markdown betiğinin dışında yürütülür)</p>
+<div id="seçenek-1-knit-butonu" class="section level3 unnumbered">
+<h3>Seçenek 1: “Knit” butonu<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-1-knit-butonu"><i class="fas fa-link"></i></a>
+</h3>
+<p>Rmd dosyasını açtığınızda, dosyanın üstündeki ‘Knit’ simgesine/düğmesine basın.</p>
+<p>R Studio, ilerlemeyi R konsolunuzun yakınındaki ’R markdown sekmesinde gösterecektir. Belge tamamlandığında otomatik olarak açılır.</p>
+<p>Belge, R işaretleme betiğinizle aynı klasöre ve aynı dosya adıyla (uzantı dışında) kaydedilecektir. Bu yaklaşım sürüm kontrolü için ideal değildir (manuel olarak taşınmadıkça her dosya oluşturmada var olan dosyanın üzerine yazılır), çünkü daha sonra dosyayı kendiniz yeniden adlandırmanız gerekebilir (örneğin dosya ismine bir tarih ekleyin).</p>
+<p>Bu, rmarkdown’dan render() işlevi için RStudio’nun kısayol düğmesidir. Bu yaklaşım, yalnızca gerekli tüm bileşenlerin bulunduğu veya dosya içinden kaynaklandığı kendi kendine yeten bir R markdown ile uyumludur.</p>
+<div class="inline-figure"><img src="images/markdown/4_progress.png" width="90%" style="display: block; margin: auto;"></div>
+</div>
+<div id="seçenek-2-render-komutu" class="section level3 unnumbered">
+<h3>Seçenek 2: <code>render()</code> komutu<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-2-render-komutu"><i class="fas fa-link"></i></a>
+</h3>
+<p>R Markdown çıktınızı üretmenin başka bir yolu da render() işlevini çalıştırmaktır (rmarkdown paketinden). Bu komutu R Markdown betiğinin dışında yürütmelisiniz - yani ya ayrı bir R betiğinde (genellikle “run dosyası” olarak adlandırılır) ya da R Konsolunda bağımsız bir komut olarak.</p>
+<div class="sourceCode" id="cb1808"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>input <span class="op">=</span> <span class="st">"my_report.Rmd"</span><span class="op">)</span></span></code></pre></div>
+<p>“knit” ile olduğu gibi, varsayılan ayarlar Rmd çıktısını aynı dosya adıyla (dosya uzantısı dışında) Rmd komut dosyasıyla aynı klasöre kaydeder. Örneğin “my_report.Rmd” örüldüğünde bir word belgesine örüyorsanız “my_report.docx” dosyasını oluşturacaktır. Ancak render() kullanarak farklı ayarlar kullanma seçeneğiniz vardır. render() aşağıdaki argümanları kabul eder:</p>
+<p>• output_format = Bu, dönüştürülecek çıktı biçimidir (ör. “html_document”, “pdf_document”, “word_document” veya “all”). Bunu, R Markdown betiği içindeki YAML’de de belirtebilirsiniz.
+• output_file = Bu, çıktı dosyasının (ve dosya yolunun) adıdır. Bu, aşağıda gösterildiği gibi here() veya str_glue() gibi R işlevleri aracılığıyla oluşturulabilir.
+• output_dir = Bu, dosyayı kaydetmek için bir çıktı dizinidir (klasör). Bu, Rmd dosyasının kaydedildiği dizinden başka bir alternatif seçmenize olanak tanır.
+• output_options = YAML komut dosyasındakileri geçersiz kılacak bir seçenekler listesi elde edebilirsiniz (ör. )
+• output_yaml = YAML özelliklerini içeren bir .yml dosyasının yolağını sağlayabilirsiniz
+• params = Aşağıdaki parametrelerle ilgili bölüme bakın
+• Tam listeye buradan bakın</p>
+<p>Bir örnek olarak, sürüm kontrolünü iyileştirmek için aşağıdaki komut, çıktı dosyasını dosya adı ve geçerli tarihle birlikte bir “çıktılar” alt klasörüne kaydeder. Dosya adını oluşturmak için, stringr paketindeki str_glue() fonkisyonu, statik dizelerle (açıkça yazılır) dinamik R kodunu (kıvrımlı parantezler içinde yazılır) birbirine ‘yapıştırmak’ için kullanılır. Örneğin 10 Nisan 2021 ise dosya adı “Report_2021-04-10.docx” olacaktır. str_glue() hakkında daha fazla ayrıntı için Karakterler ve dizeler sayfasına bakın.</p>
+<div class="sourceCode" id="cb1809"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span></span>
+<span>  input <span class="op">=</span> <span class="st">"create_output.Rmd"</span>,</span>
+<span>  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<p>Dosya işlenirken, RStudio Konsolu size %100’e kadar işlemeninm ilerlemesini ve işlemenin tamamlandığını belirten son bir mesaj gösterecektir.</p>
+</div>
+<div id="seçenek-3-reportfactory-paketi" class="section level3 unnumbered">
+<h3>Seçenek 3: <strong>reportfactory</strong> paketi<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-3-reportfactory-paketi"><i class="fas fa-link"></i></a>
+</h3>
+<p>R reportfactory paketi, raporları rutin olarak çalıştırdığınız senaryolara göre (örneğin günlük, haftalık…) R Markdown raporlarını düzenlemek ve derlemek için alternatif bir yöntem sunar. Birden çok R Markdown dosyasının derlenmesini ve çıktılarının organizasyonunu kolaylaştırır. Özünde, R Markdown raporlarını çalıştırabileceğiniz, çıktılar için otomatik olarak tarih ve zaman damgalı klasörler oluşturabileceğiniz ve “hafif” sürüm kontrolüne sahip olabileceğiniz bir “fabrika” sağlar.</p>
+<p>Rutin raporları organize etme sayfasında bu iş akışı hakkında daha fazla bilgi edinebilirsiniz.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="parametreli-raporlar" class="section level2" number="40.6">
+<h2>
+<span class="header-section-number">40.6</span> Parametreli Raporlar<a class="anchor" aria-label="anchor" href="#parametreli-raporlar"><i class="fas fa-link"></i></a>
+</h2>
+<p>Belirli bir ayarla (örneğin belirli bir tarih veya yer veya belirli örgü seçenekleriyle) çalıştırılabilmesi için bir raporu dinamik hale getirmek için parametreleştirmeyi kullanabilirsiniz. Aşağıda, temel bilgilere odaklanıyoruz, ancak parametreli raporlar hakkında çevrimiçi olarak daha fazla bilgi bulabilirsiniz.</p>
+<p>Ebola vaka listesini örnek olarak kullanarak, her hastane için her gün standart bir gözetim raporu oluşturmak istediğimizi varsayalım. Bunun parametreleri kullanarak nasıl yapılabileceğini gösteriyoruz.</p>
+<p><em>Önemli: Bitişik bir R komut dosyasında basit R nesneleri kullanarak resmi parametre yapısı (params) olmadan da dinamik raporlar oluşturmak mümkündür. Bu durum, bu bölümün sonunda açıklanmıştır.</em></p>
+<div id="parametrelerin-ayarlanması" class="section level3 unnumbered">
+<h3>Parametrelerin ayarlanması<a class="anchor" aria-label="anchor" href="#parametrelerin-ayarlanmas%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>R Markdown çıktınız için parametre değerleri belirlemek için birkaç seçeneğiniz vardır.</p>
+<div id="seçenek-1-yaml-içinde-parametrelerin-ayarlanması" class="section level4 unnumbered">
+<h4>Seçenek 1: YAML içinde parametrelerin ayarlanması<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-1-yaml-i%C3%A7inde-parametrelerin-ayarlanmas%C4%B1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Tanımlamak istediğiniz her parametre için girintili ifadeler içeren bir params: seçeneği eklemek için YAML’yi düzenleyin. Bu örnekte, değerlerini belirttiğimiz tarih ve hastane parametrelerini oluşturuyoruz. Bu değerler, rapor her çalıştırıldığında değişebilir. Çıktıyı üretmek için “Knit” düğmesini kullanırsanız, parametreler bu varsayılan değerlere sahip olacaktır. Benzer şekilde, render() komutunu kullanırsanız, render() komutunda aksi belirtilmedikçe parametreler bu varsayılan değerlere sahip olacaktır.</p>
+<div class="sourceCode" id="cb1810"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1810-1"><a href="r-markdown-ile-raporlar.html#cb1810-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1810-2"><a href="r-markdown-ile-raporlar.html#cb1810-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1810-3"><a href="r-markdown-ile-raporlar.html#cb1810-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb1810-4"><a href="r-markdown-ile-raporlar.html#cb1810-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1810-5"><a href="r-markdown-ile-raporlar.html#cb1810-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1810-6"><a href="r-markdown-ile-raporlar.html#cb1810-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1810-7"><a href="r-markdown-ile-raporlar.html#cb1810-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>Arka planda, bu parametre değerleri, params adı verilen salt okunur bir listede bulunur. Böylece, ortamınızdaki başka bir R nesnesi/değeri gibi parametre değerlerini R koduna ekleyebilirsiniz. Params$ yazıp ardından parametre adını yazmanız yeterlidir. Örneğin, hastane adını temsil etmek için params$hospital (varsayılan olarak “Merkez Hastane- Central Hospital”).</p>
+<p>Parametrelerin doğru veya yanlış değerleri de tutabileceğini ve bu nedenle bunların bir R kod parçası için knitr seçeneklerinize dahil edilebileceğini unutmayın. Örneğin, {r, eval=FALSE} yerine {r, eval=params$run} ayarını yapabilirsiniz, bu durumda kod parçasının çalışıp çalışmaması parametre çalıştırma: değerine bağlıdır.</p>
+<p>Tarih olan parametrelerin bir dize olarak girileceğini unutmayın. Bu nedenle, params$date’in R kodunda yorumlanması için muhtemelen Date sınıfına dönüştürmek için as.Date() veya benzer bir fonksiyonla sarılması gerekir.</p>
+</div>
+<div id="seçenek-2-parametrelerin-render-ile-ayarlanması" class="section level4 unnumbered">
+<h4>Seçenek 2: Parametrelerin <code>render()</code> ile ayarlanması<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-2-parametrelerin-render-ile-ayarlanmas%C4%B1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Yukarıda bahsedildiği gibi, çıktı üretmek için “Ör-Knit” düğmesine basmaya alternatif olarak, ayrı bir komut dosyasından render() fonksiyonunu yürütmektir. Bu durumda, bu fonksiyonda kullanılacak parametreleri render()’ın params = argümanında belirtebilirsiniz.</p>
+<p>Burada sağlanan herhangi bir parametre değerinin, YAML içinde yazılan varsayılan değerlerin üzerine yazılacağını unutmayın. Değerleri tırnak içinde yazıyoruz çünkü karakter/string değerleri olarak tanımlanmaları gerekiyor.</p>
+<p>Aşağıdaki komut, “surveillance_report.Rmd” dosyasını işler; dinamik bir çıktı dosyası adı ve klasörü belirtir. Ayrıca params = argümanına iki parametre sağlayan bir list() içerir.</p>
+<div class="sourceCode" id="cb1811"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span></span>
+<span>  input <span class="op">=</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
+<span>  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>date <span class="op">=</span> <span class="st">"2021-04-10"</span>, hospital  <span class="op">=</span> <span class="st">"Central Hospital"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="seçenek-3-bir-görsel-kullanıcı-arayüzü-kullanarak-parametreleri-ayarlayın" class="section level4 unnumbered">
+<h4>Seçenek 3: Bir Görsel Kullanıcı Arayüzü kullanarak parametreleri ayarlayın<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-3-bir-g%C3%B6rsel-kullan%C4%B1c%C4%B1-aray%C3%BCz%C3%BC-kullanarak-parametreleri-ayarlay%C4%B1n"><i class="fas fa-link"></i></a>
+</h4>
+<p>Daha iyi etkileşim için, parametreler için değerleri manuel olarak seçebildiğiniz Grafik Kullanıcı Arayüzü’nü (GUI) da kullanabilirsiniz. Bunu yapmak için ‘Ör-Knit’ düğmesinin yanındaki açılır menüyü tıklayıp ’Parametrelerle ör- Knit with parameters’i seçebiliriz.</p>
+<p>Belgenin YAML’sinde oluşturulan parametreler için değerleri yazmanıza izin veren bir açılır pencere görünecektir.</p>
+<div class="inline-figure"><img src="images/markdown/5_parametersGUI.png" width="50%" style="display: block; margin: auto;"></div>
+<p>Aynı sonucu, aşağıda gösterildiği gibi params = “ask” argümanını belirterek bir render() komutuyla da elde edebilirsiniz.</p>
+<div class="sourceCode" id="cb1812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1812-1"><a href="r-markdown-ile-raporlar.html#cb1812-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
+<span id="cb1812-2"><a href="r-markdown-ile-raporlar.html#cb1812-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
+<span id="cb1812-3"><a href="r-markdown-ile-raporlar.html#cb1812-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
+<span id="cb1812-4"><a href="r-markdown-ile-raporlar.html#cb1812-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> “ask”)</span></code></pre></div>
+<p>Ancak bu açılır pencereye değerlerin girilmesi hata ve yazım hatalarına tabidir. Açılır menülerden girilebilecek değerlere kısıtlamalar eklemeyi tercih edebilirsiniz. Bunu, her bir parametre için YAML’ye birkaç belirtim ekleyerek yapabilirsiniz params: entry</p>
+<ul>
+<li>label: söz konusu açılır menünün başlığı</li>
+<li>value: varsayılan (başlangıç) değerdir</li>
+<li>input: açılır menü için select şekilde ayarlayın</li>
+<li>choices: Açılır menüden uygun değerleri verin</li>
+</ul>
+<p>Aşağıda hastane parametresi için bu özellikler yazılmıştır.</p>
+<div class="sourceCode" id="cb1813"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1813-1"><a href="r-markdown-ile-raporlar.html#cb1813-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1813-2"><a href="r-markdown-ile-raporlar.html#cb1813-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1813-3"><a href="r-markdown-ile-raporlar.html#cb1813-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb1813-4"><a href="r-markdown-ile-raporlar.html#cb1813-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1813-5"><a href="r-markdown-ile-raporlar.html#cb1813-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1813-6"><a href="r-markdown-ile-raporlar.html#cb1813-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1813-7"><a href="r-markdown-ile-raporlar.html#cb1813-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> “Town:”</span></span>
+<span id="cb1813-8"><a href="r-markdown-ile-raporlar.html#cb1813-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">value</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1813-9"><a href="r-markdown-ile-raporlar.html#cb1813-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input</span><span class="kw">:</span><span class="at"> select</span></span>
+<span id="cb1813-10"><a href="r-markdown-ile-raporlar.html#cb1813-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choices</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Central Hospital</span><span class="kw">,</span><span class="at"> Military Hospital</span><span class="kw">,</span><span class="at"> Port Hospital</span><span class="kw">,</span><span class="at"> St. Mark</span><span class="st">'s Maternity Hospital (SMMH)]</span></span>
+<span id="cb1813-11"><a href="r-markdown-ile-raporlar.html#cb1813-11" aria-hidden="true" tabindex="-1"></a><span class="st">---</span></span></code></pre></div>
+<p>Örürken (‘parametrelerle ör(Knit)’ düğmesi aracılığıyla veya render() yoluyla), açılır pencerede seçim yapabileceğiniz seçenekler bulunur.</p>
+<div class="inline-figure"><img src="images/markdown/5_parametersGUIB.png" width="50%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="parametreli-örnek" class="section level3 unnumbered">
+<h3>Parametreli örnek<a class="anchor" aria-label="anchor" href="#parametreli-%C3%B6rnek"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aşağıdaki kod, R Markdown’da sırasıyla params<span class="math inline">\(date ve params\)</span>hospital olarak kullanılan tarih ve hastane için parametreler oluşturur.</p>
+<p>Ortaya çıkan rapor çıktısında, verilerin belirli bir hastaneye nasıl filtrelendiğini ve grafik başlığının doğru hastane ve tarihi ifade ettiğini görün. Burada “linelist_cleaned.rds” dosyasını kullanıyoruz, ancak satır listesinin parametreli tarihle uyumlu olması için bir tarih damgası olması uygun olacaktır.</p>
+<div class="inline-figure"><img src="images/markdown/6_Rmdexample.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Örme işlemi sonrası, varsayılan yazı tipi ve düzen ile son çıktı üretilir.</p>
+<div class="inline-figure"><img src="images/markdown/6_RmdexampleB.png" width="80%" style="display: block; margin: auto;"></div>
+</div>
+<div id="params-olmadan-parametreli-hale-getirme" class="section level3 unnumbered">
+<h3>
+<code>params</code> olmadan parametreli hale getirme<a class="anchor" aria-label="anchor" href="#params-olmadan-parametreli-hale-getirme"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ayrı bir komut dosyasından render() ile bir R Markdown dosyası oluşturuyorsanız, params: kullanmadan parametreleştirmenin etkisini yaratabilirsiniz.</p>
+<p>Örneğin, render() komutunu içeren R betiğinde, render() komutundan önce hastane ve tarihi iki R nesnesi (değeri) olarak basitçe tanımlayabilirsiniz. R Markdown’da, YAML’de bir params: bölümüne sahip olmanız gerekmez ve params<span class="math inline">\(date yerine tarih nesnesine ve params\)</span>hospital yerine hastaneye başvururuz.</p>
+<div class="sourceCode" id="cb1814"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Bu, R Markdown'dan ayrı bir R betiğidir.</span></span>
+<span></span>
+<span><span class="co"># R nesnelerini tanımlayın</span></span>
+<span><span class="va">hospital</span> <span class="op">&lt;-</span> <span class="st">"Central Hospital"</span></span>
+<span><span class="va">date</span> <span class="op">&lt;-</span> <span class="st">"2021-04-10"</span></span>
+<span></span>
+<span><span class="co"># R markdown oluşturun</span></span>
+<span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>input <span class="op">=</span> <span class="st">"create_output.Rmd"</span><span class="op">)</span> </span></code></pre></div>
+<p>Bu yaklaşımı takip etmek, “parametrelerle öremeyeceğiniz”, GUI’yi kullanamayacağınız veya parametreler içinde örgü seçeneklerini ekleyemeyeceğiniz anlamına gelir. Bununla birlikte, avantajlı olabilecek daha basit koda izin verir.</p>
+<!-- ======================================================= -->
+</div>
+</div>
+<div id="döngülü-raporlar" class="section level2" number="40.7">
+<h2>
+<span class="header-section-number">40.7</span> Döngülü raporlar<a class="anchor" aria-label="anchor" href="#d%C3%B6ng%C3%BCl%C3%BC-raporlar"><i class="fas fa-link"></i></a>
+</h2>
+<p>Her yetki alanı/birim için bir rapor üretmek için girdi parametrelerini değiştirerek bir raporu birden çok kez çalıştırmak isteyebiliriz. Bu, yineleme, döngü ve listeler sayfasında ayrıntılı olarak açıklanan yineleme araçları kullanılarak yapılabilir. Seçenekler, <em>purrr</em> paketini veya aşağıda açıklandığı gibi bir for döngüsünün kullanımını içerir.</p>
+<p>Aşağıda, ilgili tüm hastaneler için bir gözetim raporu oluşturmak için basit bir for döngüsü kullanıyoruz. Bu, tek bir komutla yapılır (hastane parametresini hastaneler için birer birer manuel olarak değiştirmek yerine). Raporları işleme komutu, Rmd raporunun dışında ayrı bir komut dosyasında bulunmalıdır. Bu komut dosyası aynı zamanda “dönüştürülecek” tanımlanmış nesneleri - bugünün tarihini ve döngünün uygulanacağı hastane adları vektörünü içerecektir.</p>
+<div class="sourceCode" id="cb1815"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hospitals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Central Hospital"</span>,</span>
+<span>                <span class="st">"Military Hospital"</span>, </span>
+<span>                <span class="st">"Port Hospital"</span>,</span>
+<span>                <span class="st">"St. Mark's Maternity Hospital (SMMH)"</span><span class="op">)</span> </span></code></pre></div>
+<p>Daha sonra, hastane vektöründeki her değer için komut çalıştıran bir döngü kullanarak bu değerlere render() fonksiyonunu uygularız. i harfi, yinelemede kullanılmakta olan hastanenin dizin konumunu (1 ila 4) temsil eder, öyle ki hospital_list[1] “Merkez Hastane” olur. Bu bilgi, render() komutunda iki yerde sağlanır:</p>
+<ol style="list-style-type: decimal">
+<li><p>Dosya adında. 10 Nisan 2021’de oluşturulan ilk yinelemenin dosya adı, çalışma dizininin ‘çıktı’ alt klasörüne kaydedilen “Report_Central Hospital_2021-04-10.docx” olacak şekilde belirlenmiştir.</p></li>
+<li><p>params = argümanına. Rmd, params$hospital değeri çağrıldığında dahili olarak hastane adını kullanır (veri setini yalnızca belirli bir hastaneye filtrelemek amacıyla). Bu örnekte, her hastane için bir tane olmak üzere dört dosya oluşturulacaktır.</p></li>
+</ol>
+<div class="sourceCode" id="cb1816"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">hospitals</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span></span>
+<span>    input <span class="op">=</span> <span class="st">"surveillance_report.Rmd"</span>,</span>
+<span>    output_file <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"output/Report_{hospitals[i]}_{Sys.Date()}.docx"</span><span class="op">)</span>,</span>
+<span>    params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>hospital  <span class="op">=</span> <span class="va">hospitals</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span>       </span></code></pre></div>
+<!-- In the scenario where you are f not using this strict form of parameterisation but saving objects to the environment, as discussed at the end of the parameterisation section, the render function would look like this: -->
+<!-- ```md -->
+<!-- for(i in 1:length(hospital_list)){ -->
+<!-- rmarkdown::render("surveillance_report.Rmd", -->
+<!--                   output_file = paste0("output/Report_", hospital_list[i], refdate, ".docx") -->
+<!-- }        -->
+<!-- ``` -->
+<!-- The text within the markdown would then need to refer to `hospital_list[i]` and `refdate`.  -->
+<!-- ======================================================= -->
+</div>
+<div id="şablonlar" class="section level2" number="40.8">
+<h2>
+<span class="header-section-number">40.8</span> Şablonlar<a class="anchor" aria-label="anchor" href="#%C5%9Fablonlar"><i class="fas fa-link"></i></a>
+</h2>
+<p>İstediğiniz biçimlendirmeyi içeren bir şablon belge kullanarak, Rmd çıktısının nasıl görüneceğinin estetiğini ayarlayabilirsiniz. Örneğin, istenen boyutlara, filigranlara (watermark), arka planlara ve yazı tiplerine sahip sayfaları/slaytları içeren bir MS Word veya Powerpoint dosyası oluşturabilirsiniz.</p>
+<div id="word-belgeleri" class="section level3 unnumbered">
+<h3>Word belgeleri<a class="anchor" aria-label="anchor" href="#word-belgeleri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir şablon oluşturmak için, yeni bir kelime word başlatın (veya size uygun formatta mevcut bir çıktıyı kullanın) ve stilleri tanımlayarak yazı tiplerini düzenleyin. Stillerde, Başlık 1, 2 ve 3 çeşitli markdown başlık seviyelerine atıfta bulunur (sırasıyla # Başlık 1, ## Başlık 2 ve ### Başlık 3). Paragrafın yanı sıra yazı tipi biçimlendirmesini de değiştirmek için stile sağ tıklayın ve ’değiştir’e tıklayın (örneğin, boşluk bırakmaya yardımcı olabilecek belirli stillerden önce sayfa ayrımları ekleyebilirsiniz). Kenar boşlukları, sayfa boyutu, başlıklar vb. gibi Word belgesinin diğer ayarları, üzerinde çalıştığınız normal bir kelime belgesi gibi doğrudan değiştirilebilir.</p>
+<div class="inline-figure"><img src="images/markdown/7_template.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="powerpoint-belgeleri" class="section level3 unnumbered">
+<h3>Powerpoint belgeleri<a class="anchor" aria-label="anchor" href="#powerpoint-belgeleri"><i class="fas fa-link"></i></a>
+</h3>
+<p>Yukarıdaki gibi, yeni bir slayt seti oluşturun veya istenen formatta mevcut bir powerpoint dosyasını kullanın. Daha fazla düzenleme için, ‘Görünüm’ ve ‘Asıl Slaytın’ üzerine tıklayın. Buradan, metin kutularındaki metin biçimlendirmesini ve ayrıca genel sayfa için arka plan/sayfa boyutlarını düzenleyerek “ana” slayt görünümünü değiştirebilirsiniz.</p>
+<div class="inline-figure"><img src="images/markdown/8_ppttemplate.PNG" width="100%" style="display: block; margin: auto;"></div>
+<p>Ne yazık ki, powerpoint dosyalarını düzenlemek biraz daha az esnektir:
+• Birinci düzey başlık (# Başlık 1) otomatik olarak yeni bir slaydın başlığı olur,
+• Bir ## Başlık 2 metni altyazı olarak değil, slaydın ana metin kutusundaki metin olarak görünecektir (Ana görünümü değiştirmenin bir yolunu bulamazsanız).
+• Çıktı alınan grafikler ve tablolar otomatik olarak yeni slaytlara geçecektir. Bunları birleştirmeniz gerekecektir, örneğin ggplot’ları birleştirmek için patchwork fonksiyonu, aynı sayfada görünmelerini sağlar. Birden çok görüntüyü tek bir slayta yerleştirmek için patchwork paketini kullanma hakkında [blog post] (<a href="https://mattherman.info/blog/ppt-patchwork/" class="uri">https://mattherman.info/blog/ppt-patchwork/</a>) gönderisine bakın.
+Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer paketine <a href="https://davidgohel.github.io/officer/"><strong>officer</strong> package</a> bakın.</p>
+</div>
+<div id="şablonların-yamle-entegrasyonu" class="section level3 unnumbered">
+<h3>Şablonların YAML’e entegrasyonu<a class="anchor" aria-label="anchor" href="#%C5%9Fablonlar%C4%B1n-yamle-entegrasyonu"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir şablon hazırlandıktan sonra, ilgili detaylar Rmd’nin YAML’sine ‘çıktı’ satırının altına ve belge tipinin belirtildiği yerin altına (ayrı bir satır olarak) eklenebilir. Not referans_doc, powerpoint slayt şablonları için kullanılabilir.</p>
+<p>Şablonu Rmd dosyasının bulunduğu klasöre (aşağıdaki örnekte olduğu gibi) veya içindeki bir alt klasöre kaydetmek en kolay yoldur.</p>
+<div class="sourceCode" id="cb1817"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1817-1"><a href="r-markdown-ile-raporlar.html#cb1817-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1817-2"><a href="r-markdown-ile-raporlar.html#cb1817-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1817-3"><a href="r-markdown-ile-raporlar.html#cb1817-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1817-4"><a href="r-markdown-ile-raporlar.html#cb1817-4" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">word_document</span><span class="kw">:</span></span>
+<span id="cb1817-5"><a href="r-markdown-ile-raporlar.html#cb1817-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reference_docx</span><span class="kw">:</span><span class="at"> </span><span class="st">"template.docx"</span></span>
+<span id="cb1817-6"><a href="r-markdown-ile-raporlar.html#cb1817-6" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1817-7"><a href="r-markdown-ile-raporlar.html#cb1817-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1817-8"><a href="r-markdown-ile-raporlar.html#cb1817-8" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1817-9"><a href="r-markdown-ile-raporlar.html#cb1817-9" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1817-10"><a href="r-markdown-ile-raporlar.html#cb1817-10" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
+<span id="cb1817-11"><a href="r-markdown-ile-raporlar.html#cb1817-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+</div>
+<div id="html-dosyalarının-formatlanması" class="section level3 unnumbered">
+<h3>HTML dosyalarının formatlanması<a class="anchor" aria-label="anchor" href="#html-dosyalar%C4%B1n%C4%B1n-formatlanmas%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p>HTML dosyaları şablon kullanmaz, ancak YAML içinde yapılandırılmış stiller içerebilir. HTML’ler etkileşimli ve esnek belgelerdir. Burada bazı temel seçenekleri ele alıyoruz.</p>
+<p>• Table of contents-İçindekiler): Aşağıda toc: true ile bir içindekiler tablosu ekleyebilir ve ayrıca toc_float: true ile siz kaydırdıkça görüntülenebilir formda olmasını (“kayan-floats”) belirtebiliriz.</p>
+<p>• Themes-Temalar: Bootswatch tema kitaplığından gelen önceden hazırlanmış bazı temalara başvurabiliriz. Aşağıdaki örnekte cerulean kullanıyoruz. Diğer seçenekler şunlardır: ournal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex ve yeti.</p>
+<p>• Highlight-Vurgula: Bu seçeneği yapılandırmak, vurgulanan metnin görünümünü değiştirir (örneğin, kod parçaları). Desteklenen stiller arasında default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, breezedark ve textmate. bulunur.</p>
+<p>Yukarıdaki seçeneklerin YAML’ye nasıl entegre edileceğine dair bir örnek.</p>
+<div class="sourceCode" id="cb1818"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1818-1"><a href="r-markdown-ile-raporlar.html#cb1818-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1818-2"><a href="r-markdown-ile-raporlar.html#cb1818-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"HTML example"</span></span>
+<span id="cb1818-3"><a href="r-markdown-ile-raporlar.html#cb1818-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb1818-4"><a href="r-markdown-ile-raporlar.html#cb1818-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb1818-5"><a href="r-markdown-ile-raporlar.html#cb1818-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1818-6"><a href="r-markdown-ile-raporlar.html#cb1818-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1818-7"><a href="r-markdown-ile-raporlar.html#cb1818-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cerulean</span></span>
+<span id="cb1818-8"><a href="r-markdown-ile-raporlar.html#cb1818-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
+<span id="cb1818-9"><a href="r-markdown-ile-raporlar.html#cb1818-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb1818-10"><a href="r-markdown-ile-raporlar.html#cb1818-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>Aşağıda, her ikisi de kayan formda içindekiler tablolarına sahip, ancak farklı tema ve vurgulama stilleri seçilen iki HTML çıktısı örneği verilmiştir:</p>
+<div class="inline-figure"><img src="images/markdown/9_html.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="dinamik-içerik" class="section level2" number="40.9">
+<h2>
+<span class="header-section-number">40.9</span> Dinamik içerik<a class="anchor" aria-label="anchor" href="#dinamik-i%C3%A7erik"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bir HTML çıktısında, rapor içeriğiniz dinamik olabilir. Aşağıda bazı örnekler verilmiştir:</p>
+<div id="tablolar-1" class="section level3 unnumbered">
+<h3>Tablolar<a class="anchor" aria-label="anchor" href="#tablolar-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bir HTML raporunda, içeriğin dinamik olması için filtreler ve kaydırma çubukları ile veri çerçevesi / tibble yazdırabilirsiniz. Bu özelliği sunan birkaç paket mevcuttur.</p>
+<p>Bunu DT paketiyle yapmak için, bu el kitabında kullanıldığı gibi, şöyle bir kod parçası ekleyebilirsiniz:</p>
+<div class="inline-figure"><img src="images/markdown/10_dynamictable.png" width="100%" style="display: block; margin: auto;"></div>
+<p>datatable() fonksiyonu, sağlanan veri çerçevesini okuyucu için dinamik bir tablo olarak yazdıracaktır. Tablonun en sol tarafını basitleştirmek için satır adları için rownames = argümanını FALSE-YANLIŞ olarak ayarlayabilirsiniz. filter = “top”, her sütun üzerinde bir filtre sağlar. option() fonksiyonunun argümanlar kısmına diğer özelliklerin bir listesini girin. Aşağıda iki tane argüman yer almaktadır: pageLength = 5, görünen satır sayısını 5 olarak ayarlar (kalan satırlar oklar arasında gezinerek görüntülenebilir) ve scrollX=TRUE tablonun altında bir kaydırma çubuğu etkinleştirir (sağa çok fazla uzanan sütunlar için).</p>
+<p>Veri setiniz çok büyükse, veri çerçevesini head() içine sararak yalnızca en üstteki X sayıdaki satırları görüntülemeyi düşünün.</p>
+</div>
+<div id="html-araçları" class="section level3 unnumbered">
+<h3>HTML araçları<a class="anchor" aria-label="anchor" href="#html-ara%C3%A7lar%C4%B1"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="http://www.htmlwidgets.org/">HTML widgets for R</a> R için HTML widget’ları, JavaScript kitaplıklarını kullanarak artırılmış etkileşim sağlayan özel bir R paketleri sınıfıdır. Bu paketleri HTML R Markdown çıktılarına gömebilirsiniz.</p>
+<p>Bu widget’ların bazı yaygın örnekleri şunları içerir:</p>
+<p>• Plotly (bu el kitabı sayfasında ve <a href="r-markdown-ile-g%C3%B6sterge-panelleri.html#interaktif-grafikler">İnteraktif grafikler</a> sayfasında kullanılır)
+• visNetwork (bu el kitabının İletim Zincirleri sayfasında kullanılır)
+• Leaflet (bu el kitabının GIS Temelleri sayfasında kullanılır)
+• dygraphs (zaman serisi verilerini etkileşimli olarak göstermek için kullanılır)
+• DT (datatable()) (filtre, sıralama vb. ile dinamik tabloları göstermek için kullanılır)</p>
+<p>Plotly’den ggplotly() fonksiyonunun kullanımı özellikle kolaydır. Etkileşimli grafikler sayfasına bakın.</p>
+</div>
+</div>
+<div id="kaynaklar-32" class="section level2" number="40.10">
+<h2>
+<span class="header-section-number">40.10</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-32"><i class="fas fa-link"></i></a>
+</h2>
+<p>Daha fazla bilgi şuralarda bulunabilir:</p>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></li>
+<li><a href="https://rmarkdown.rstudio.com/articles_intro.html" class="uri">https://rmarkdown.rstudio.com/articles_intro.html</a></li>
+</ul>
+<p>• Markdown vs knitr vs R markdown’ın için iyi bir açıklama: <a href="https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown" class="uri">https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown</a></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></div>
+<div class="next"><a href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-markdown-ile-raporlar"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
+<li><a class="nav-link" href="#haz%C4%B1rl%C4%B1k-32"><span class="header-section-number">40.1</span> Hazırlık</a></li>
+<li>
+<a class="nav-link" href="#ba%C5%9Flang%C4%B1%C3%A7"><span class="header-section-number">40.2</span> Başlangıç</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rmarkdown-r-paketini-y%C3%BCkleme">rmarkdown R paketini yükleme</a></li>
+<li><a class="nav-link" href="#yeni-bir-rmd-dosyas%C4%B1-ba%C5%9Flatmak">Yeni bir Rmd dosyası başlatmak</a></li>
+<li><a class="nav-link" href="#bilinmesi-%C3%B6nemli-noktalar">Bilinmesi önemli noktalar</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#r-markdown-bile%C5%9Fenleri"><span class="header-section-number">40.3</span> R Markdown bileşenleri</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#yaml-metadatas%C4%B1">YAML metadatası</a></li>
+<li><a class="nav-link" href="#metin">Metin</a></li>
+<li><a class="nav-link" href="#kod-par%C3%A7alar%C4%B1">Kod parçaları</a></li>
+<li><a class="nav-link" href="#g%C3%B6rseller">Görseller</a></li>
+<li><a class="nav-link" href="#tablolar">Tablolar</a></li>
+<li><a class="nav-link" href="#sekmeli-b%C3%B6l%C3%BCmler">Sekmeli Bölümler</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#dosya-yap%C4%B1s%C4%B1"><span class="header-section-number">40.4</span> Dosya yapısı</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#kendine-yeten-rmd">Kendine yeten Rmd</a></li>
+<li><a class="nav-link" href="#runfile">Runfile</a></li>
+<li><a class="nav-link" href="#dosya-yap%C4%B1s%C4%B1-1">Dosya yapısı</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#belgenin-olu%C5%9Fturulmas%C4%B1"><span class="header-section-number">40.5</span> Belgenin oluşturulması</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#se%C3%A7enek-1-knit-butonu">Seçenek 1: “Knit” butonu</a></li>
+<li><a class="nav-link" href="#se%C3%A7enek-2-render-komutu">Seçenek 2: render() komutu</a></li>
+<li><a class="nav-link" href="#se%C3%A7enek-3-reportfactory-paketi">Seçenek 3: reportfactory paketi</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#parametreli-raporlar"><span class="header-section-number">40.6</span> Parametreli Raporlar</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#parametrelerin-ayarlanmas%C4%B1">Parametrelerin ayarlanması</a></li>
+<li><a class="nav-link" href="#parametreli-%C3%B6rnek">Parametreli örnek</a></li>
+<li><a class="nav-link" href="#params-olmadan-parametreli-hale-getirme">params olmadan parametreli hale getirme</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#d%C3%B6ng%C3%BCl%C3%BC-raporlar"><span class="header-section-number">40.7</span> Döngülü raporlar</a></li>
+<li>
+<a class="nav-link" href="#%C5%9Fablonlar"><span class="header-section-number">40.8</span> Şablonlar</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#word-belgeleri">Word belgeleri</a></li>
+<li><a class="nav-link" href="#powerpoint-belgeleri">Powerpoint belgeleri</a></li>
+<li><a class="nav-link" href="#%C5%9Fablonlar%C4%B1n-yamle-entegrasyonu">Şablonların YAML’e entegrasyonu</a></li>
+<li><a class="nav-link" href="#html-dosyalar%C4%B1n%C4%B1n-formatlanmas%C4%B1">HTML dosyalarının formatlanması</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#dinamik-i%C3%A7erik"><span class="header-section-number">40.9</span> Dinamik içerik</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tablolar-1">Tablolar</a></li>
+<li><a class="nav-link" href="#html-ara%C3%A7lar%C4%B1">HTML araçları</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#kaynaklar-32"><span class="header-section-number">40.10</span> Kaynaklar</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
