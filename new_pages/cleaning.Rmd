@@ -895,7 +895,7 @@ table(linelist$hospital, useNA = "always")
 Aşağıda, mantık ve koşulların kullanımıyla bir sütundaki değerlerin nasıl yeniden kodlanacağını gösteriyoruz:
 
 • Basit mantık için replace(), ifelse() ve if_else() kullanımı
-• Daha karmaşık mantık için case_while() kullanımı
+• Daha karmaşık mantık için case_when() kullanımı
 
 
 
@@ -960,9 +960,9 @@ Bir veri çerçevesi bağlamı dışında, kodunuzda kullanılan bir nesnenin de
 
 ### Karmaşık mantık {#clean_case_when .unnumbered}  
 
-Birçok yeni gruba yeniden kodlama yapıyorsanız veya değerleri yeniden kodlamak için karmaşık mantıksal ifadeler kullanmanız gerekiyorsa dplyr'in case_while() fonksiyonunu kullanın. Bu fonkisyon, veri çerçevesindeki her satırı değerlendirir, satırların belirtilen kriterleri karşılayıp karşılamadığını değerlendirir ve doğru yeni değeri atar.
+Birçok yeni gruba yeniden kodlama yapıyorsanız veya değerleri yeniden kodlamak için karmaşık mantıksal ifadeler kullanmanız gerekiyorsa dplyr'in case_when() fonksiyonunu kullanın. Bu fonkisyon, veri çerçevesindeki her satırı değerlendirir, satırların belirtilen kriterleri karşılayıp karşılamadığını değerlendirir ve doğru yeni değeri atar.
 
-case_When() komutları, "tilde" ~ ile ayrılmış Sağ Taraf (RHS) ve Sol Taraf (LHS) içeren ifadelerden oluşur. Mantık kriterleri her bir ifadenin sol tarafında ve ilgili değerler sağ tarafındadır. İfadeler virgülle ayrılır.
+`case_When()` komutları, "tilde" ~ ile ayrılmış Sağ Taraf (RHS) ve Sol Taraf (LHS) içeren ifadelerden oluşur. Mantık kriterleri her bir ifadenin sol tarafında ve ilgili değerler sağ tarafındadır. İfadeler virgülle ayrılır.
 
 Örneğin, burada age_years sütunu oluşturmak için age ve age_unit sütunlarını kullanıyoruz:
 
@@ -979,11 +979,29 @@ linelist <- linelist %>%
 ```
 
 
-Verilerdeki her satır değerlendirilirken, kriterler case_while() ifadelerinin yazıldığı sırayla - yukarıdan aşağıya - uygulanır/değerlendirilir. Belirli bir satır için en üstteki ölçüt DOĞRU olarak değerlendirilirse, RHS değeri atanır ve kalan ölçütler o satır için test edilmez. Bu nedenle, en spesifik kriterleri önce ve en genel olanı en son yazmak en iyisidir.
+Verilerdeki her satır değerlendirilirken, kriterler case_when() ifadelerinin yazıldığı sırayla - yukarıdan aşağıya - uygulanır/değerlendirilir. Belirli bir satır için en üstteki ölçüt DOĞRU olarak değerlendirilirse, RHS değeri atanır ve kalan ölçütler o satır için test edilmez. Bu nedenle, en spesifik kriterleri önce ve en genel olanı en son yazmak en iyisidir.
 
 Bu satırlar boyunca, son ifadenizde, önceki kriterlerden herhangi birini karşılamayan satırları yakalayacak şekilde, sol tarafa DOĞRU'yu yerleştirin. Bu ifadenin sağ tarafına “kontrol et!” gibi bir değer atanabilir. veya eksik olarak değerlendirilir.
 
+Aşağıda, doğrulanmış ve şüpheli vakalar için bir vaka tanımına göre hasta sınıflandırmasıyla yeni bir sütun oluşturmak için kullanılan bir başka `case_when()` örneği yer almaktadır:  
 
+```{r, eval=F}
+linelist <- linelist %>% 
+     mutate(case_status = case_when(
+          
+          # if patient had lab test and it is positive,
+          # then they are marked as a confirmed case 
+          ct_blood < 20                   ~ "Confirmed",
+          
+          # given that a patient does not have a positive lab result,
+          # if patient has a "source" (epidemiological link) AND has fever, 
+          # then they are marked as a suspect case
+          !is.na(source) & fever == "yes" ~ "Suspect",
+          
+          # any other patient not addressed above 
+          # is marked for follow up
+          TRUE                            ~ "To investigate"))
+```
 
 <span style="color: red;">**_TEHLİKE:_** **Sağ taraftaki değerlerin tümü aynı sınıfta olmalıdır** - sayısal, karakter, tarih, mantıksal vb. Eksik (NA) ya senaryoyu ele almadan bırakın ya da NA_character_, NA_real_ (sayısal veya POSIX) ve as.Date(NA) gibi NA'nın özel varyasyonlarını kullanmanız gerekebilir. [Tarihlerle çalışma] bölümünden daha fazlasını okuyabilirsiniz.</span>  
 
@@ -1032,7 +1050,7 @@ linelist <- linelist %>%
   mutate(hospital = na_if(hospital, "Missing"))
 ```
 
-Not: na_if() **mantık kriterleri için kullanılamaz** (örneğin, "tüm değerler > 99") - bunun için replace() veya case_while() kullanın: 
+Not: na_if() **mantık kriterleri için kullanılamaz** (örneğin, "tüm değerler > 99") - bunun için replace() veya case_when() kullanın: 
 
 ```{r, eval=F}
 # 40'ın üzerindeki sıcaklıkları NA'ya dönüştürün
@@ -1179,7 +1197,7 @@ Burada sayısal sütunlardan kategoriler oluşturmaya yönelik bazı özel yakla
 
 • epikit paketinden age_categories()
 • temel R’dan cut()
-• case_When()
+• case_when()
 • quantile() ve ntile() ile nicel sonlanmalar
 
 
@@ -1458,9 +1476,9 @@ left_join(ntile_table, ntile_ranges, by = "even_groups")
 <!-- ======================================================= -->
 ### `case_when()` { .unnumbered}
 
-Sayısal bir sütundan kategoriler oluşturmak için case_while() dplyr fonksiyonunu kullanmak mümkündür, ancak epikit veya cut()'tan age_categories() kullanmak daha kolaydır çünkü bunlar otomatik olarak sıralı bir faktör oluşturacaktır.
+Sayısal bir sütundan kategoriler oluşturmak için case_when() dplyr fonksiyonunu kullanmak mümkündür, ancak epikit veya cut()'tan age_categories() kullanmak daha kolaydır çünkü bunlar otomatik olarak sıralı bir faktör oluşturacaktır.
 
-case_while() kullanıyorsanız, lütfen bu sayfanın değerleri yeniden kodla bölümünde daha önce açıklandığı gibi doğru kullanıldığını kontrol edin. Ayrıca tüm sağ taraftaki değerlerin aynı sınıfta olması gerektiğini unutmayın. Bu nedenle, sağ tarafta NA istiyorsanız, “Eksik” yazmalı veya NA_character_ özel NA değerini kullanmalısınız.
+case_when() kullanıyorsanız, lütfen bu sayfanın değerleri yeniden kodla bölümünde daha önce açıklandığı gibi doğru kullanıldığını kontrol edin. Ayrıca tüm sağ taraftaki değerlerin aynı sınıfta olması gerektiğini unutmayın. Bu nedenle, sağ tarafta NA istiyorsanız, “Eksik” yazmalı veya NA_character_ özel NA değerini kullanmalısınız.
 
 
 
