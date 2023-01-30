@@ -170,7 +170,7 @@
 <h3>Paketleri yükleyin<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleyin-8"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>pacman</strong>’den <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> fonksiyonunu kullanarak, bu analiz için gerekli paketleri yükleriz (ve gerekirse kurarız).</p>
-<div class="sourceCode" id="cb1977"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1971"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">rio</span>,        <span class="co"># verileri içe aktarmak için</span></span>
 <span>  <span class="va">data.table</span>, <span class="co"># verileri gruplamak ve temizlemek için</span></span>
@@ -183,12 +183,12 @@
 </h3>
 <p>Bu sayfa, el kitabında atıfta bulunulan vaka satır listesini kullanarak <strong>data.table</strong>’ın bazı temel fonksiyonlarını keşfedecektir.</p>
 <p>Simüle edilmiş bir Ebola salgınından vakaların veri setini içe aktarıyoruz. Adım adım izlenecek verileri indirmek istiyorsanız, [Kitap ve verileri indir] sayfasındaki talimatlara bakın. Veri kümesi, <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonu kullanılarak içe aktarılır. Verileri içe aktarmanın çeşitli yolları için <a href="i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar.html#i%C3%A7e-ve-d%C4%B1%C5%9Fa-aktar">İçe ve dışa aktar</a> hakkındaki sayfaya bakın. Buradan veri çerçevesini bir veri tablosuna dönüştürmek için <code>data.table()</code> kullanıyoruz.</p>
-<div class="sourceCode" id="cb1978"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1972"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"linelist_cleaned.xlsx"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>‘fread()’ fonksiyonu, .csv dosyaları gibi normal sınırlandırılmış dosyaları doğrudan bir veri tablosu biçimine içe aktarmak için kullanılır. Data.tables’ı düzenli sınırlandırılmış dosyalar olarak yazmak için kullanılan bu işlev ve muadili ‘fwrite()’, büyük veritabanları için çok hızlı ve hesaplama açısından verimli seçeneklerdir.</p>
 <p>“linelist”in ilk 20 satırı:</p>
 <p>Veri çerçeveleri için kullanılan ‘dim()’ gibi R Tabanı komutları, veri tabloları için de kullanılabilir.</p>
-<div class="sourceCode" id="cb1979"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1973"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span> <span class="co">#veri tablosundaki satır ve sütun sayısını verir</span></span></code></pre></div>
 <pre><code>## [1] 5888   30</code></pre>
 </div>
@@ -199,12 +199,12 @@
 </h2>
 <p><strong>DT[i, j, by]</strong> yapısını hatırlayarak, satır numaralarını veya mantıksal ifadeleri kullanarak satırları filtreleyebiliriz. i değişkeni ilk; bu nedenle, <strong>DT[i]</strong> veya <strong>DT[i,]</strong> sözdizimi kullanılabilir.</p>
 <p>İlk örnek veri tablosunun ilk 5 satırını alır, ikinci örnek alt küme vakaları 18 yaş ve üzeridir ve üçüncü örnek alt kümeler 18 yaş veya üzeri ancak Merkez Hastanede teşhis edilmemiş vakaları içerir:</p>
-<div class="sourceCode" id="cb1981"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1975"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="co">#1.ila 5. satır arasını getirir</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">]</span> <span class="co">#alt küme vakaları 18 yaşa eşit veya daha büyük</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span> <span class="op">&amp;</span> <span class="va">hospital</span> <span class="op">!=</span> <span class="st">"Central Hospital"</span><span class="op">]</span> <span class="co">#18 yaşına eşit veya daha büyük ancak Merkez Hastanede teşhis edilmemiş alt kümeler</span></span></code></pre></div>
 <p>i bağımsız değişkeninde .N kullanılması, veri tablosundaki toplam satır sayısını temsil eder. Bu, satır numaralarını alt kümelemek için kullanılabilir:</p>
-<div class="sourceCode" id="cb1982"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1976"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">.N</span><span class="op">]</span> <span class="co">#son satırı getirir</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="fl">15</span><span class="op">:</span><span class="va">.N</span><span class="op">]</span> <span class="co">#15. satırdan son satıra kadar getirir</span></span></code></pre></div>
 <div id="filtreleme-için-yardımcı-fonksiyonları-kullanma" class="section level3 unnumbered">
@@ -215,7 +215,7 @@
 * hastane değişkeninin “Hastane” içerdiği satırları filtreleyin
 * sonucun “İyileşme” veya “Ölüm” olduğu satırları filtreleyin
 * 40-60 yaş aralığındaki satırları filtreleyin</p>
-<div class="sourceCode" id="cb1983"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1977"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">%like%</span> <span class="st">"Hospital"</span><span class="op">]</span> <span class="co">#hastane değişkeninin "Hastane" içerdiği satırları filtreleyin</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">outcome</span> <span class="op">%chin%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Recover"</span>, <span class="st">"Death"</span><span class="op">)</span><span class="op">]</span> <span class="co">#sonucun "İyileşme" veya "Ölüm" olduğu satırları filtreleyin</span></span>
 <span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">%between%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">60</span><span class="op">)</span><span class="op">]</span> <span class="co">#40-60 yaş aralığındaki satırları filtreleyin</span></span>
@@ -232,7 +232,7 @@
 <h3>Sütunları seçme<a class="anchor" aria-label="anchor" href="#s%C3%BCtunlar%C4%B1-se%C3%A7me"><i class="fas fa-link"></i></a>
 </h3>
 <p>İlk örnek, veri tablosunun birinci, üçüncü ve beşinci sütunlarını alır; ikinci örnek, boy, ağırlık ve cinsiyet sütunları dışındaki tüm sütunları seçer. Üçüncü örnek, <strong>case_id</strong> ve <strong>outcome</strong> sütunlarını seçmek için <code>.()</code> sarmasını kullanır.</p>
-<div class="sourceCode" id="cb1984"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1978"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">linelist</span><span class="op">[</span> , <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gender"</span>, <span class="st">"age"</span>, <span class="st">"wt_kg"</span>, <span class="st">"ht_cm"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">linelist</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">case_id</span>, <span class="va">outcome</span><span class="op">)</span><span class="op">]</span> <span class="co">#linelist[ , .(case_id, outcome)] aynı şekilde çalışır</span></span></code></pre></div>
@@ -245,14 +245,14 @@
 * Hastanede 7 günden fazla kalan vaka sayısını sayın
 * Askeri hastanede ölen vakaların yaş ortalamasını hesaplayın
 * Merkez hastanede iyileşen vakaların standart sapma, ortanca, yaş ortalamasını hesaplayın</p>
-<div class="sourceCode" id="cb1985"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1979"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">days_onset_hosp</span> <span class="op">&gt;</span> <span class="fl">7</span> , <span class="va">.N</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 189</code></pre>
-<div class="sourceCode" id="cb1987"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1981"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">%like%</span> <span class="st">"Military"</span> <span class="op">&amp;</span> <span class="va">outcome</span> <span class="op">%chin%</span> <span class="st">"Death"</span>, <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#na.rm = T siler N/A değerleri</span></span></code></pre></div>
 <pre><code>##         V1
 ## 1: 15.9084</code></pre>
-<div class="sourceCode" id="cb1989"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1983"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">hospital</span> <span class="op">==</span> <span class="st">"Central Hospital"</span> <span class="op">&amp;</span> <span class="va">outcome</span> <span class="op">==</span> <span class="st">"Recover"</span>, </span>
 <span>                 <span class="fu">.</span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>                   median_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
@@ -271,7 +271,7 @@
 * vaka sayısını hastaneye göre gruplandırın
 * 18 yaş ve üzeri vakalarda cinsiyete göre vakaların ortalama boy ve kilolarını, iyileşip ölmediklerini hesaplayın
 * 7 günü aşan başvurularda, vaka sayısını yattığı aya ve yattığı hastaneye göre sayısını hesaplayın</p>
-<div class="sourceCode" id="cb1991"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1985"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span><span class="op">]</span> <span class="co">#hastaneye göre vaka sayıları</span></span></code></pre></div>
 <pre><code>##                                hospital    N
 ## 1:                                Other  885
@@ -280,7 +280,7 @@
 ## 4:                        Port Hospital 1762
 ## 5:                    Military Hospital  896
 ## 6:                     Central Hospital  454</code></pre>
-<div class="sourceCode" id="cb1993"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1987"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">age</span> <span class="op">&gt;</span> <span class="fl">18</span>, <span class="fu">.</span><span class="op">(</span>mean_wt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">wt_kg</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
 <span>                             mean_ht <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ht_cm</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span><span class="va">gender</span>, <span class="va">outcome</span><span class="op">)</span><span class="op">]</span> <span class="co">#NAs, verilerin eksik olduğu kategorileri temsil eder</span></span></code></pre></div>
 <pre><code>##    gender outcome  mean_wt  mean_ht
@@ -293,7 +293,7 @@
 ## 7:   &lt;NA&gt; Recover 67.21429 175.2143
 ## 8:   &lt;NA&gt;   Death 69.16667 170.7917
 ## 9:   &lt;NA&gt;    &lt;NA&gt; 70.25000 175.5000</code></pre>
-<div class="sourceCode" id="cb1995"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1989"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span><span class="va">days_onset_hosp</span> <span class="op">&gt;</span> <span class="fl">7</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span>month <span class="op">=</span> <span class="fu">month</span><span class="op">(</span><span class="va">date_hospitalisation</span><span class="op">)</span>, <span class="va">hospital</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##     month                             hospital  N
 ##  1:     5                    Military Hospital  3
@@ -334,26 +334,26 @@
 ## 36:    12                        Port Hospital  1
 ##     month                             hospital  N</code></pre>
 <p>Data.table ayrıca zincirleme ifadelere aşağıdaki gibi izin verir:</p>
-<div class="sourceCode" id="cb1997"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1991"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">hospital</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">N</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#1. tüm vakaları hastaneye göre seçer, 2. vakaları azalan sırayla sıralar, 3. en büyük vaka yüküne sahip 3 hastaneyi alt kümeler</span></span></code></pre></div>
 <pre><code>##             hospital    N
 ## 1:     Port Hospital 1762
 ## 2:           Missing 1469
 ## 3: Military Hospital  896</code></pre>
 <p>Bu örneklerde, veri tablosundaki bir satırın yeni bir duruma eşit olduğu varsayımını izliyoruz ve bu nedenle veri tablosundaki satır sayısını temsil etmek için <strong>.N</strong>’yi kullanabiliriz. Benzersiz durumların sayısını temsil eden başka bir yararlı fonksiyon, belirli bir girdideki benzersiz değerlerin sayısını döndüren “uniqueN()” dir. Aşağıda gösterilmektedir:</p>
-<div class="sourceCode" id="cb1999"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1993"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu">uniqueN</span><span class="op">(</span><span class="va">gender</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="co">#hatırlayın .() j değişkeninde bir veri tablosu döndürür</span></span></code></pre></div>
 <pre><code>##    V1
 ## 1:  3</code></pre>
 <p>Cinsiyet sütunundaki benzersiz değerler m, f ve N/A olduğundan cevap 3’tür. Belirli bir girdideki tüm benzersiz değerleri döndüren temel R fonksiyonu “unique()” ile karşılaştırın:</p>
-<div class="sourceCode" id="cb2001"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1995"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##      V1
 ## 1:    m
 ## 2:    f
 ## 3: &lt;NA&gt;</code></pre>
 <p>Belirli bir aydaki benzersiz vakaların sayısını bulmak için aşağıdakileri yazarız:</p>
-<div class="sourceCode" id="cb2003"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1997"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="fu">uniqueN</span><span class="op">(</span><span class="va">case_id</span><span class="op">)</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span>month <span class="op">=</span> <span class="fu">month</span><span class="op">(</span><span class="va">date_hospitalisation</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##     month   V1
 ##  1:     5   62
@@ -374,7 +374,7 @@
 <span class="header-section-number">50.6</span> Veri tablolarına ekleme ve güncelleme<a class="anchor" aria-label="anchor" href="#veri-tablolar%C4%B1na-ekleme-ve-g%C3%BCncelleme"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>:=</code> operatörü, bir veri tablosuna veri eklemek veya bu tabloya veri güncellemek için kullanılır. Veri tablonuza sütun eklemek aşağıdaki şekillerde yapılabilir:</p>
-<div class="sourceCode" id="cb2005"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1999"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span><span class="op">[</span>, <span class="va">adult</span> <span class="op">:=</span> <span class="va">age</span> <span class="op">&gt;=</span> <span class="fl">18</span><span class="op">]</span> <span class="co">#bir sütun ekler</span></span>
 <span><span class="va">linelist</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"child"</span>, <span class="st">"wt_lbs"</span><span class="op">)</span> <span class="op">:=</span> <span class="fu">.</span><span class="op">(</span><span class="va">age</span> <span class="op">&lt;</span> <span class="fl">18</span>, <span class="va">wt_kg</span><span class="op">*</span><span class="fl">2.204</span><span class="op">)</span><span class="op">]</span> <span class="co">#birden çok sütun eklemek için c("") ve list() veya .() sözdizimi gerekir</span></span>
 <span><span class="va">linelist</span><span class="op">[</span>, <span class="fu">`:=`</span> <span class="op">(</span>bmi_in_range <span class="op">=</span> <span class="op">(</span><span class="va">bmi</span> <span class="op">&gt;</span> <span class="fl">16</span> <span class="op">&amp;</span> <span class="va">bmi</span> <span class="op">&lt;</span> <span class="fl">40</span><span class="op">)</span>,</span>

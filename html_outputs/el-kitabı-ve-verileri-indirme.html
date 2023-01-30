@@ -163,7 +163,7 @@
 </h3>
 <p>Sizin için <strong>epirhandbook</strong> adında bir R paketi tasarladık. El kitabını bilgisayarınıza indirebilmek için <code>download_book()</code> adlı bir fonksiyon oluşturduk. Bu fonksiyonu R programınızda kullanabilirsiniz.</p>
 <p>Bu pakette ayrıca <code>get_data()</code> adlı bir fonksiyon da mevcuttur. Bu fonskiyonla tüm örnek verileri bilgisayarınıza indirebilirsiniz.</p>
-<p><a href="https://github.com/appliedepi/epirhandbook">Github sayfamızdan <em>appliedepi</em></a> <strong>epirhandbook</strong> R paketini indirmek için aşağıda verdiğimiz kodu kullanabilirsiniz. İndireceğiniz bu paket CRAN’da olmadığı için (Github’da kayıtlı) <code>p_install_gh()</code> özel fonksiyonunu kullanmanız gerekecektir.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook">Github sayfamızdan <em>appliedepi</em></a> <strong>epirhandbook</strong> R paketini indirmek için aşağıda verdiğimiz kodu kullanabilirsiniz. İndireceğiniz bu paket CRAN’da olmadığı için (Github’da kayıtlı) <code><a href="https://rdrr.io/pkg/pacman/man/p_install_gh.html">p_install_gh()</a></code> özel fonksiyonunu kullanmanız gerekecektir.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Epi R El Kitabı paketinin en son sürümünü indirin</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_install_gh.html">p_install_gh</a></span><span class="op">(</span><span class="st">"appliedepi/epirhandbook"</span><span class="op">)</span></span></code></pre></div>
@@ -186,7 +186,7 @@
 <h3>R paketimizi kullanma<a class="anchor" aria-label="anchor" href="#r-paketimizi-kullanma"><i class="fas fa-link"></i></a>
 </h3>
 <p>Tüm verileri indirmenin en kolay yolu, R paketimiz olan <strong>epirhandbook</strong> kurmaktır. Bu paket tüm örnek verileri bilgisayarınızda seçtiğiniz bir klasöre kaydeden <code>get_data()</code> fonksiyonunu içerir.</p>
-<p>R paketini <strong>epirhandbook</strong>u kurmak için aşağıdaki kodu çalıştırın. Paketimiz CRAN’da bulunmamaktadır. Bu yüzden kurmak için <code>p_install_gh()</code> fonksiyonunu kullanın. Parantez içindeki referans, Github organizasyonumuza (“<em>appliedepi</em>”) ve <strong>epirhandbook</strong> proje adına atıfta bulunnmaktadır.</p>
+<p>R paketini <strong>epirhandbook</strong>u kurmak için aşağıdaki kodu çalıştırın. Paketimiz CRAN’da bulunmamaktadır. Bu yüzden kurmak için <code><a href="https://rdrr.io/pkg/pacman/man/p_install_gh.html">p_install_gh()</a></code> fonksiyonunu kullanın. Parantez içindeki referans, Github organizasyonumuza (“<em>appliedepi</em>”) ve <strong>epirhandbook</strong> proje adına atıfta bulunnmaktadır.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Epi R El Kitabı paketinin en son sürümünü indirin</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_install_gh.html">p_install_gh</a></span><span class="op">(</span><span class="st">"appliedepi/epirhandbook"</span><span class="op">)</span></span></code></pre></div>
@@ -229,7 +229,7 @@
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span><span class="op">)</span> <span class="co"># rio paketini kurun/yükleyin</span></span>
 <span></span>
 <span><span class="co"># dosyayı doğrudan Github'dan içe aktarın</span></span>
-<span><span class="va">cleaning_dict</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/cleaning_dict.csv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">cleaning_dict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/cleaning_dict.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="data_malaria" class="section level4 unnumbered">
 <h4>Sıtma sayısı verileri<a class="anchor" aria-label="anchor" href="#data_malaria"><i class="fas fa-link"></i></a>
@@ -248,7 +248,7 @@ Sıtma sayılarını (.rds dosyası)
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span><span class="op">)</span> <span class="co"># rio paketini kurun/yükleyin</span></span>
 <span></span>
 <span><span class="co"># dosyayı doğrudan Github'dan içe aktarın</span></span>
-<span><span class="va">likert_data</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/nsbatra/Epi_R_handbook/master/data/likert_data.csv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">likert_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/nsbatra/Epi_R_handbook/master/data/likert_data.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="esnek-pano" class="section level4 unnumbered">
 <h4>Esnek pano<a class="anchor" aria-label="anchor" href="#esnek-pano"><i class="fas fa-link"></i></a>
@@ -316,26 +316,26 @@ Temaslı takip verilerini (.rds dosyası)
 <span><span class="co"># A Ülkesi</span></span>
 <span><span class="co">##############</span></span>
 <span><span class="co"># A ülkesi için demografi bilgilerini Github'dan içeri aktarın</span></span>
-<span><span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span><span class="op">)</span></span>
+<span><span class="va">A_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># A ülkesi için ölüm bilgilerini Github'dan içeri aktarın</span></span>
-<span><span class="va">A_deaths</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span><span class="op">)</span></span>
+<span><span class="va">A_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryA.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">##############</span></span>
 <span><span class="co"># B Ülkesi</span></span>
 <span><span class="co">##############</span></span>
 <span><span class="co"># B ülkesi için demografi bilgilerini Github'dan içeri aktarın</span></span>
-<span><span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span><span class="op">)</span></span>
+<span><span class="va">B_demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/country_demographics_2.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># B ülkesi için ölüm bilgilerini Github'dan içeri aktarın</span></span>
-<span><span class="va">B_deaths</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span><span class="op">)</span></span>
+<span><span class="va">B_deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/deaths_countryB.csv"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co">###############</span></span>
 <span><span class="co"># Referans</span></span>
 <span><span class="co">###############</span></span>
 <span><span class="co"># Referans demografik bilgileri Github'dan içeri aktarın</span></span>
-<span><span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu">import</span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">standard_pop_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"https://github.com/appliedepi/epirhandbook_eng/raw/master/data/standardization/world_standard_population_by_sex.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="data_outbreak" class="section level4 unnumbered">
 <h4>Zaman serileri ve salgın tespiti<a class="anchor" aria-label="anchor" href="#data_outbreak"><i class="fas fa-link"></i></a>
@@ -410,9 +410,9 @@ Kurgusal anket nüfus verilerini (.xlsx)
 <p>[Shiny Gösterge Tabloları] ile ilgili sayfa, sıtma verilerini görüntülemek için uygulamanın yapısını göstermektedir.</p>
 <p>Shiny uygulamasını oluşturan R dosyalarını indirmek için:</p>
 <p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_app/app.R" class="download-button">Shiny uygulaması için hem kullanıcı arayüzünü hem de sunucu kodunu içeren app.R dosyasını<span> indirmek için burayı tıklayabilirsiniz.</span></a></p>
-<p><a href="https://github.com/appliedepi/epirhandbook_eng/blob/master/data/malaria_app/data/facility_count_data.rds" class="download-button">Shiny uygulaması için sıtma verilerini içeren property_count_data.rds dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> <code>here()</code> fonksiyonunun doğru çalışması için onu bir “data” klasöründe saklamayı unutmayın.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/blob/master/data/malaria_app/data/facility_count_data.rds" class="download-button">Shiny uygulaması için sıtma verilerini içeren property_count_data.rds dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> <code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> fonksiyonunun doğru çalışması için onu bir “data” klasöründe saklamayı unutmayın.</p>
 <p><a href="https://github.com/appliedepi/epirhandbook_eng/blob/master/data/malaria_app/global.R" class="download-button">Sayfada açıklandığı gibi, uygulama açılmadan önce çalışması gereken global.R dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> Sayfada açıklandığı gibi, uygulama açılmadan önce çalıştırmayı unutmayın.</p>
-<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_app/funcs/plot_epicurve.R" class="download-button">global.R tarafından sağlanan plot_epicurve.R dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> <code>here()</code> fonksiyonlarının doğru çalışması için onu bir “funcs” klasöründe saklamayı unutmayın.</p>
+<p><a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/malaria_app/funcs/plot_epicurve.R" class="download-button">global.R tarafından sağlanan plot_epicurve.R dosyasını indirmek için burayı tıklayabilirsiniz.<span></span></a> <code><a href="https://here.r-lib.org//reference/here.html">here()</a></code> fonksiyonlarının doğru çalışması için onu bir “funcs” klasöründe saklamayı unutmayın.</p>
 
 </div>
 </div>

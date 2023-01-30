@@ -165,7 +165,7 @@
 <h3>Paketler<a class="anchor" aria-label="anchor" href="#paketler-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Bu kod kümesi, analizler için gereken paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() fonksiyonunu vurguluyoruz. Ayrıca temel R’dan library() ile paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R temelleri sayfasına bakın. <a href="https://epirhandbook.com/r-basics.html">R temelleri</a></p>
-<div class="sourceCode" id="cb1105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span>,          <span class="co"># Dosyanın içe aktarılması</span></span>
 <span>               <span class="va">here</span>,         <span class="co"># Dosyanın yerinin bulunması</span></span>
 <span>               <span class="va">tidyverse</span>,    <span class="co"># veri yönetimi + ggplot2 grafikleri</span></span>
@@ -190,18 +190,18 @@
 <p>Bu bölümde kullanılan örnek veri seti, 2001 ve 2011 yılları arasında Almanya’da rapor edilen haftalık kampilobakter vaka sayılarıdır. Bu veri dosyasını (.xlsx) indirmek için buraya tıklayabilirsiniz.<a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/time_series/campylobacter_germany.xlsx" class="download-button">(.xlsx) olarak görülecektir.</a></p>
 <p>Bu veri seti, surveillance paketinde bulunan veri setinin küçültülmüş bir versiyonudur. (detaylar için surveillance paketini yükleyin ve bkz. ?campyDE) <a href="https://cran.r-project.org/web/packages/surveillance/"><strong>surveillance</strong></a></p>
 <p>Bu verileri rio paketinden import() fonksiyonu ile içe aktarın (.xlsx, .csv, .rds gibi birçok dosya türünü işler - ayrıntılar için [İçe Aktarma ve Dışa Aktarma] sayfasına bakın).</p>
-<div class="sourceCode" id="cb1106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sayımları R'ye aktar</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"campylobacter_germany.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p>Sayımların ilk 10 satırı aşağıda gösterilmiştir</p>
-<div id="htmlwidget-f40c22566641019c0e33" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f40c22566641019c0e33">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c115fb926c589d325d2a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c115fb926c589d325d2a">{"x":{"filter":"none","vertical":false,"data":[["2001-12-31T00:00:00Z","2002-01-07T00:00:00Z","2002-01-14T00:00:00Z","2002-01-21T00:00:00Z","2002-01-28T00:00:00Z","2002-02-04T00:00:00Z","2002-02-11T00:00:00Z","2002-02-18T00:00:00Z","2002-02-25T00:00:00Z","2002-03-04T00:00:00Z"],[514,913,1023,887,815,792,803,807,692,705]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>date<\/th>\n      <th>case<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="temiz-veri-1" class="section level3 unnumbered">
 <h3>Temiz veri<a class="anchor" aria-label="anchor" href="#temiz-veri-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Aşağıdaki kod, tarih sütununun uygun biçimde olmasını sağlar. Bu sekme için tsibble paketini kullanacağız ve bu nedenle bir takvim haftası değişkeni oluşturmak için yearweek fonksiyonu kullanılacaktır. Bunu yapmanın başka yolları da vardır (ayrıntılar için <a href="https://epirhandbook.com/working-with-dates.html">Tarihlerle çalışma</a> sayfasına bakın), ancak zaman serileri için en iyisi tarihleri tek bir çerçeve (<strong>tsibble</strong>) içinde tutmaktır.</p>
-<div class="sourceCode" id="cb1107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## tarih sütununun uygun biçimde olduğundan emin olun</span></span>
 <span><span class="va">counts</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span></span>
@@ -220,7 +220,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Burada gösterim amacıyla, verileri Copernicus iklim veri deposundan çekmek için ecmwfr paketini kullanmak için gereken R kodunu tanıtacağız. Bunun çalışması için ücretsiz bir hesap oluşturmanız gerekecektir. Paketin web sitesinde bunun nasıl yapılacağına dair yararlı bir yol gösterilmiştir<a href="https://github.com/bluegreen-labs/ecmwfr#use-copernicus-climate-data-store-cds">walkthrough</a>.</p>
 <p>Aşağıda, uygun API anahtarlarına sahip olduğunuzda, bunun nasıl yapılacağına ilişkin örnek kod verilmiştir. Aşağıdaki X’leri hesap kimliklerinizle değiştirmeniz gerekir. Her seferinde bir yıllık veri indirmeniz gerekir, aksi takdirde sunucu zaman aşımına uğrayacaktır.</p>
 <p>Verilerini indirmek istediğiniz konumun koordinatlarından emin değilseniz, açık sokak haritalarından koordinatları almak için tmaptools paketini kullanabilirsiniz. Alternatif bir seçenek photon paketidir,<a href="https://github.com/rCarto/photon"><strong>photon</strong></a> ancak bu henüz CRAN’da yayınlanmamıştır; photon’un güzel yanı, aramanız için birkaç eşleşme olduğunda daha fazla bağlamsal veri sağlamasıdır.</p>
-<div class="sourceCode" id="cb1108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## konum koordinatlarını al</span></span>
 <span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu">geocode_OSM</span><span class="op">(</span><span class="st">"Germany"</span>, geometry <span class="op">=</span> <span class="st">"point"</span><span class="op">)</span></span>
 <span></span>
@@ -275,7 +275,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 </h3>
 <p>İster iklim verilerini el kitabımız üzerinden indirmiş olun, ister yukarıdaki kodu kullanmış olun, artık bilgisayarınızda aynı klasörde saklanan 10 yıllık “.nc” iklim veri dosyalarına sahip olmalısınız.</p>
 <p>Bu dosyaları stars paketiyle R’a aktarmak için aşağıdaki kodu kullanın.</p>
-<div class="sourceCode" id="cb1109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## hava durumu klasörüne giden yolu tanımlayın </span></span>
 <span><span class="va">file_paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span></span>
 <span>  <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"time_series"</span>, <span class="st">"weather"</span><span class="op">)</span>, <span class="co"># replace with your own file path </span></span>
@@ -297,7 +297,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 ## t2m, tp, 
 ## t2m, tp,</code></pre>
 <p>Bu dosyalar nesne verisi olarak içe aktarıldıktan sonra onları bir veri çerçevesine dönüştüreceğiz.</p>
-<div class="sourceCode" id="cb1111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## veri çerçevesine değiştir</span></span>
 <span><span class="va">temp_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## değişkenler ekleyin ve birimleri düzeltin</span></span>
@@ -327,12 +327,12 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Zaman serisi verilerini yapılandırmak ve işlemek için bir dizi farklı paket vardır. Bahsedildiği gibi, tidyverts paket ailesine odaklanacağız ve bu nedenle zaman serisi nesnemizi tanımlamak için tsibble paketini kullanacağız. Zaman serisi nesnesi olarak tanımlanan bir veri setine sahip olmak, analizimizi yapılandırmanın çok daha kolay olduğu anlamına gelir.</p>
 <p>Bunu yapmak için tsibble() fonksiyonunu kullanırız ve “indeks”i, yani ilgilenilen zaman birimini belirten değişkeni belirtiriz. Bizim durumumuzda bu, epiweek değişkenidir.</p>
 <p>Örneğin, il bazında haftalık sayıları olan bir veri setimiz olsaydı, key = değişkenini kullanarak gruplama değişkenini de belirleyebilirdik. Bu, her grup için analiz yapmamızı sağlar.</p>
-<div class="sourceCode" id="cb1113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## zaman serisi nesnesini tanımla</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu">tsibble</span><span class="op">(</span><span class="va">counts</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span></span></code></pre></div>
 <p>class(counts)’a baktığınızda, düzenli bir veri çerçevesi (“tbl_df”, “tbl”, “data.frame”) olmanın yanı sıra, bir zaman serisi veri çerçevesinin (“tbl_ts”) ek özelliklerine sahip olduğunu gösterir.</p>
 <p>ggplot2 kullanarak verilerinize hızlıca göz atabilirsiniz. Olay örgüsünde net bir mevsimsel motif olduğunu ve eksik veri olmadığını görüyoruz. Ancak, her yılın başında raporlama ile ilgili bir sorun var gibi görünüyor; vakalar yılın son haftasında düşmekte ve sonraki yılın ilk haftasında artmaktadır.</p>
-<div class="sourceCode" id="cb1114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## haftaya göre vakaların bir çizgi grafiğini çizin</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span>, y <span class="op">=</span> <span class="va">case</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -344,7 +344,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 </h3>
 <p>tsibble yinelenen gözlemlere izin vermez. Bu nedenle, her satırın benzersiz veya (anahtar değişkene göre) grup içinde benzersiz olması gerekir. Paket, kopyaları tanımlamaya yardımcı olan birkaç işleve sahiptir. Bunlar, satırın bir kopya olup olmadığına dair bir DOĞRU/YANLIŞ vektörü veren are_duplicated() ve size duplike satırların veri çerçevesini veren duplicates() fonksiyonlarını içerir.</p>
 <p>İstediğiniz satırları nasıl seçeceğinizle ilgili daha fazla ayrıntı için Tekilleştirme (De-duplikasyon) sayfasına bakabilirsiniz. <a href="https://epirhandbook.com/de-duplication.html">Tekilleştirme</a></p>
-<div class="sourceCode" id="cb1115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## satırların kopya olup olmadığını DOĞRU/YANLIŞ vektörü olarak çıkarın</span></span>
 <span><span class="fu">are_duplicated</span><span class="op">(</span><span class="va">counts</span>, index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> </span>
 <span></span>
@@ -358,7 +358,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Yukarıdaki kısa incelememizde hiçbir eksik olmadığını gördük, ancak yeni yıl civarında raporlama gecikmesinde bir sorun olduğunu da gördük. Bu sorunu çözmenin bir yolu, bu değerleri eksik olarak ayarlamak ve ardından değerleri atfetmek olabilir. Zaman serisi atamasının en basit şekli, en son kayıp olmayan ve bir sonraki kayıp olmayan değer arasına düz bir çizgi çizmektir. Bunu yapmak için imputeTS paketinden na_interpolation() fonksiyonunu kullanacağız.</p>
 <p>Tahmin için değerler atamada diğer seçenekler için <a href="https://epirhandbook.com/missing-data.html">Eksik veri</a> sayfasına bakabilirsiniz.</p>
 <p>Diğer bir alternatif, hareketli ortalama hesaplamak, belirgin raporlama sorunlarını denemek ve düzeltmek olabilir (bir sonraki bölüme ve Hareketli ortalamalar sayfasına bakın)<a href="https://epirhandbook.com/moving-averages.html">Hareketli ortalamalar</a>).</p>
-<div class="sourceCode" id="cb1116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## raporlama sorunları olan haftalar yerine eksikleri olan bir değişken oluşturun</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>case_miss <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
@@ -393,7 +393,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <h3>Hareketli ortalamalar<a class="anchor" aria-label="anchor" href="#timeseries_moving"><i class="fas fa-link"></i></a>
 </h3>
 <p>Veriler çok gürültülüyse (yukarı ve aşağı atlamalar sayılır), hareketli bir ortalama hesaplamak yardımcı olabilir. Aşağıdaki örnekte, her hafta için önceki dört haftadaki ortalama vaka sayısını hesaplıyoruz. Bu hesap ile, verilerin daha yorumlanabilir hale gelmesi için düzeltme yapılır. Örneğimiz için bu düzeltmenin faydası kısıtlıdır, bu yüzden daha fazla analiz için interpolasyonlu verilere bağlı kalınacaktuır. Daha fazla ayrıntı için Hareketli ortalamalar sayfasına bakın. <a href="https://epirhandbook.com/moving-averages.html">Hareketli ortalamalar</a>.</p>
-<div class="sourceCode" id="cb1117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## hareketli bir ortalama değişkeni oluşturun (eksiklerle ilgilenilecektir)</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>     <span class="co">## ma_4w değişkenini oluştur</span></span>
@@ -416,7 +416,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 </h3>
 <p>Aşağıda bir periodogram oluşturmak için özel bir fonksiyon tanımlıyoruz. R’de fonksiyonların nasıl yazılacağı hakkında bilgi için Fonksiyon yazma sayfasına bakın.</p>
 <p>İlk olarak fonksiyon tanımlanır. Fonksiyonun argümanları, sütun sayıları olan bir veri tabanını, veri tabanının ilk haftası olan başlangıç_haftası =, yılda kaç periyot olduğunu gösteren bir sayıyı (örneğin 52, 12) ve son olarak çıktı stilini içerir (aşağıdaki koddaki ayrıntılara bakın).</p>
-<div class="sourceCode" id="cb1118"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Fonksiyonun argümanları</span></span>
 <span><span class="co">#####################</span></span>
 <span><span class="co">## x veritabanıdır</span></span>
@@ -474,7 +474,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Period (Weeks)"</span>, y <span class="op">=</span> <span class="st">"Log(density)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/periodogram-1.png" width="672"></div>
-<div class="sourceCode" id="cb1119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## haftaları içeren vektörü artan sırayla elde edin </span></span>
 <span><span class="va">peak_weeks</span> <span class="op">&lt;-</span> <span class="fu">periodogram</span><span class="op">(</span><span class="va">counts</span>, </span>
 <span>                          <span class="va">case_int</span>, </span>
@@ -490,7 +490,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>• Trend döngüsü (verinin uzun vadeli seyri)
 • Mevsimsellik (tekrarlanan modeller)
 • Rastgele (trend ve sezon çıkarıldıktan sonra kalan)</p>
-<div class="sourceCode" id="cb1120"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## sayımlar veri tabanını ayrıştır </span></span>
 <span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co"># additif klasik ayrıştırma modeli uygula </span></span>
@@ -508,7 +508,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Otokorelasyon size her haftadaki sayımlar ile önceki haftalardaki sayımlar (gecikme olarak adlandırılır) arasındaki ilişkiyi anlatır.</p>
 <p>ACF() fonksiyonunu kullanarak, farklı gecikmelerdeki ilişkiyi bize bir dizi çizgi gösteren bir grafik oluşturabiliriz. Gecikmenin 0 (x = 0) olduğu yerde, çizgi gözlem ile kendisi arasındaki ilişkiyi gösterdiğinden (burada gösterilmemiştir) her zaman 1 olacaktır. Burada gösterilen ilk satır (x = 1), her gözlem ile bir önceki gözlem arasındaki ilişkiyi gösterir (1 gecikme), ikincisi gözlem ile iki önceki gözlem arasındaki ilişkiyi gösterir (2 gecikme) ve gecikme sayıları bu şekilde artarak devam eder (Her bir gözlem ile 1 yıllık (52 hafta öncesi) gözlem arasındaki ilişkiyi gösteren 52’ye kadar)</p>
 <p>PACF() fonksiyonunun kullanılması (kısmi otokorelasyon için) aynı ilişkiyi gösterir, ancak aradaki diğer tüm haftalar için ayarlanmış bir ölçüttür. Kısmi otokorelasyon, periyodikliği belirlemek için daha az yararlıdır.</p>
-<div class="sourceCode" id="cb1121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## sayım veri tabanını kullanma</span></span>
 <span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## yıl içindeki gecikmeleri kullanarak otokorelasyonu hesaplayın</span></span>
@@ -516,7 +516,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="co">## grafik oluşturun</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/autocorrelation-1.png" width="672"></div>
-<div class="sourceCode" id="cb1122"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## sayım veri tabanını kullanma </span></span>
 <span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## yıl içindeki gecikmeleri kullanarak kısmi otokorelasyonu hesaplayın</span></span>
@@ -525,7 +525,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/autocorrelation-2.png" width="672"></div>
 <p>Ljung-Box testini (stats paketinde) kullanarak zaman serisinde null hipotezini (yani otokorelasyonlu olup olmadığı) test edebilirsiniz. Anlamlı bir p değeri, verilerde otokorelasyon olduğunu gösterir.</p>
-<div class="sourceCode" id="cb1123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## bağımsızlık testi </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html">Box.test</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span>, type <span class="op">=</span> <span class="st">"Ljung-Box"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -548,7 +548,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Fourier terimleri, sinüs ve kosinüs eğrilerinin eş epi hafta ve case_int değişkenlerini kullanarak fourier terimleri ekleyindeğeridir. Aradaki fark, bu terimlerin verilerinizi açıklamak için en uygun eğri kombinasyonunu bulmaya dayalı bulunmasıdır.</p>
 <p>Yalnızca bir fourier terimine kullanacak olsaydınız, periodogramınızda görülen en sık meydana gelen gecikmeniz için (bizim durumumuzda 52 hafta) bir sinüs ve bir kosinüs kullanmaya eşdeğer olacaktır. Forecast paketindeki fourier() fonksiyonunu kullanıyoruz.</p>
 <p>Aşağıdaki kodda $ operatörünü kullanarak atadık, çünkü fourier() iki sütun oluşturur (biri sinüs, diğeri kosinüs için) ve bu nedenle bunlar veri tabanına “fourier” adı verilen bir liste olarak eklenir - ancak bu liste daha sonra regresyonda normal bir değişken olarak kullanılabilir:</p>
-<div class="sourceCode" id="cb1125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## epi hafta ve case_int değişkenlerini kullanarak fourier terimleri ekleyin</span></span>
 <span><span class="va">counts</span><span class="op">$</span><span class="va">fourier</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">fourier</span><span class="op">(</span>K <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -561,7 +561,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Diğer fark, önce modeli tanımlamamız ve ardından onu verilere fit() ile uydurmamızdır. Bu, aynı sintaksa sahip birden çok farklı modeli karşılaştırmaya izin verdiği için yararlıdır.</p>
 <p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> Sayılar yerine oranları kullanmak istiyorsanız, offset(log(population) terimini ekleyerek popülasyon değişkenini logaritmik bir offset terimi olarak dahil edebilirsiniz. Bu durumda bir oran oluşturmak için predict() fonksiyonunu kullanmadan önce popülasyonu 1 olarak ayarlamanız gerekir. </span></p>
 <p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> ARIMA veya prophet gibi daha karmaşık modelleri uygulamak için fable paketine bakAbilirsiniz. <a href="https://fable.tidyverts.org/index.html"><strong>fable</strong></a>.</span></p>
-<div class="sourceCode" id="cb1126"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
 <span>  <span class="co">## ilgilenilen sonuç olarak vaka sayısını belirlemek</span></span>
@@ -599,7 +599,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 </h3>
 <p>Modelimizin gözlemlenen verilere ne kadar uyum gösterdiğini görmek için artıklara bakmamız gerekir. Artıklar, gözlemlenen değerler ile modelden tahmin edilen değerler arasındaki farktır. Bunu basitçe case_int - tahmin formülünü kullanarak hesaplayabiliriz, ancak residuals() fonksiyonu bunu bizim için doğrudan regresyondan çıkarır.</p>
 <p>Aşağıdan gördüğümüz gibi modelle tüm varyansı açıklamamaktayız. Daha fazla fourier terimi kullanmamız ve genliği ele almamız gerekebilir. Ancak bu örnek için olduğu gibi bırakacağız. Grafikler, modelimizin tepe ve diplerde (sayılar en yüksek ve en düşük olduğunda) daha kötü olduğunu ve gözlemlenen sayıları olduğundan daha az tahmin etme olasılığının (underestimate) yüksek olabileceğini gösteriyor.</p>
-<div class="sourceCode" id="cb1127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## artıkların hesabı </span></span>
 <span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>resid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">fitted_model</span><span class="op">$</span><span class="va">fitted_model</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span>
@@ -611,14 +611,14 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"epiweek"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-856-1.png" width="672"></div>
-<div class="sourceCode" id="cb1128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## artıklarda otokorelasyon var mı (hatanın bir motifi var mı?)</span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">ACF</span><span class="op">(</span><span class="va">resid</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-856-2.png" width="672"></div>
-<div class="sourceCode" id="cb1129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## artıklar normal olarak dağılmış mı (tahminin altında mı yoksa üzerinde mi?)</span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -626,7 +626,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_rug.html">geom_rug</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-856-3.png" width="672"></div>
-<div class="sourceCode" id="cb1130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## gözlemlenen sayıları artıklarıyla karşılaştırın</span></span>
 <span>  <span class="co">## ayrıca motif görülmemeli</span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -634,7 +634,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-856-4.png" width="672"></div>
-<div class="sourceCode" id="cb1131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## artıkların otokorelasyonunu test edin</span></span>
 <span><span class="co">## H0, artıkların beyaz gürültü (yani rastgele) olmasıdır</span></span>
 <span><span class="co">## bağımsızlık testi</span></span>
@@ -645,7 +645,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 ## 
 ## data:  observed$resid
 ## X-squared = 346.64, df = 1, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb1133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## </span></span>
 <span><span class="co">##  Box-Ljung test</span></span>
 <span><span class="co">## </span></span>
@@ -664,7 +664,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <h3>Veritabanlarının birleştirilmesi<a class="anchor" aria-label="anchor" href="#veritabanlar%C4%B1n%C4%B1n-birle%C5%9Ftirilmesi"><i class="fas fa-link"></i></a>
 </h3>
 <p>Hafta değişkenini kullanarak veri tabanlarımızı birleştirebiliriz. Birleştirme hakkında daha fazla bilgi için birleştirme ilgili el kitabı bölümüne bakın. <a href="https://epirhandbook.com/joining-data.html">joining</a>.</p>
-<div class="sourceCode" id="cb1134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## sol birleştirme, böylece yalnızca sayılarda mevcut olan satırlarımız olur </span></span>
 <span><span class="co">## temp_data'dan tarih değişkenini çıkarın (aksi takdirde yinelenir)</span></span>
 <span></span>
@@ -677,7 +677,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <h3>Tanımlayıcı analizler<a class="anchor" aria-label="anchor" href="#tan%C4%B1mlay%C4%B1c%C4%B1-analizler-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Görünür bir ilişki olup olmadığını görmek için önce verilerinizi çizin. Aşağıdaki grafik, iki değişkenin mevsimselliği yönünden görünür bir ilişki olduğunu ve sıcaklığın vaka sayısından birkaç hafta önce zirveye ulaştığını göstermektedir. Verilerin pivotlanması hakkında daha fazla bilgi için, verilerin pivotlanmasıyla ilgili el kitabı bölümüne bakın. <a href="https://epirhandbook.com/pivoting-data.html">pivoting data</a>.</p>
-<div class="sourceCode" id="cb1135"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## sadece ilgilendiğimiz değişkenler veritabanında kalır  </span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">epiweek</span>, <span class="va">case_int</span>, <span class="va">t2m</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -704,7 +704,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <h3>Gecikmeler ve çapraz korelasyonlar<a class="anchor" aria-label="anchor" href="#gecikmeler-ve-%C3%A7apraz-korelasyonlar"><i class="fas fa-link"></i></a>
 </h3>
 <p>Vakalar ve sıcaklık arasında hangi haftaların en çok ilişkili olduğunu test etmek çapraz korelasyon uygulanır. feasts paketinden çapraz korelasyon fonksiyonunu (CCF()) kullanabiliriz. Ayrıca autoplot() fonksiyonunu kullanarak (arrange kullanmak yerine) grafik oluşturabilirsiniz.</p>
-<div class="sourceCode" id="cb1136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## interpolasyonlu sayımlar ve sıcaklık arasındaki çapraz korelasyonu hesaplayın</span></span>
 <span>  <span class="fu">CCF</span><span class="op">(</span><span class="va">case_int</span>, <span class="va">t2m</span>,</span>
@@ -732,7 +732,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 ## 10      47W 0.638</code></pre>
 <p>Burada 4 haftalık bir gecikmenin en yüksek oranda ilişkili olduğunu görüyoruz, bu nedenle regresyonumuza dahil etmek için gecikmeli bir sıcaklık değişkeni oluşturuyoruz.</p>
 <p><span style="color: red;"><strong><em>TEHLİKE:</em></strong> Gecikmeli sıcaklık değişkenindeki verilerin ilk dört haftasının eksik olduğunu (NA) unutmayın - çünkü veri almak için önceki dört hafta mevcut değildi. Bu veri tabanını trending predict() fonksiyonuyla kullanmak için, daha aşağıda predict() fonksiyonu içinde simulate_pi = FALSE argümanını kullanmamız gerekir. Simulate (simüle et) seçeneğini kullanmak istediysek, aşağıdaki kod parçasına drop_na(t2m_lag4) terimini ekleyerek eksikleri çıkararak yeni bir veri tabanı olarak kaydetmeliyiz.</span></p>
-<div class="sourceCode" id="cb1138"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## sıcaklık için dört hafta gecikmeli yeni bir değişken oluşturun</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>t2m_lag4 <span class="op">=</span> <span class="fu">lag</span><span class="op">(</span><span class="va">t2m</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -743,7 +743,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 </h3>
 <p>Daha önce gösterildiği gibi negatif bir binom regresyon modeli geliştiriyoruz. Bu sefer modelimize dört hafta gecikmeli sıcaklık değişkenini ekliyoruz.</p>
 <p><span style="color: orange;"><strong><em>UYARI:</em></strong> predict() değişkeninde simulate_pi = FALSE kullanımına dikkat edin. Bunun nedeni, trending’in varsayılan davranışının bir tahmin aralığı oluşturmak için ciTools paketini kullanmasıdır. NA (eksik) sayılar varsa bu paket çalışmaz ve daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
-<div class="sourceCode" id="cb1139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
 <span>  <span class="co">## ilgilenilen çıktı olarak vaka sayısını belirleyin </span></span>
@@ -762,7 +762,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span><span class="co">## güven aralıklarını ve tahmin aralıklarını hesaplayın</span></span>
 <span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fitted_model</span>, simulate_pi <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Tek tek terimleri araştırmak için, get_model() fonksiyonunu kullanarak orijinal negatif binom regresyonunu trend formatından çıkarabilir sonrasında üstel tahminleri ve ilişkili güven aralıklarını elde etmek için broom paketi tidy() işlevine iletebiliriz. Bu bize, trend ve mevsimsellik için kontrol edildikten sonra gecikmeli sıcaklığın vaka sayılarına benzer olduğunu ve vaka sayılarıyla anlamlı olarak ilişkili (tahmini ~ 1) olduğunu gösterir. Bu sonuç , gecikmeli sıcaklık değişkeninin gelecekteki vaka sayılarını tahmin etmek için iyi bir değişken olabileceğini düşündürmektedir (iklim tahminleri zaten hazır olduğu için).</p>
-<div class="sourceCode" id="cb1140"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fitted_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## orijinal negatif binom regresyonunu elde edin </span></span>
 <span>  <span class="fu">get_model</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -778,7 +778,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 ## 4 fourierC1-52    0.823 0.0200         -9.78 1.35e-22    0.791     0.855
 ## 5 t2m_lag4        1.01  0.00269         2.48 1.30e- 2    1.00      1.01</code></pre>
 <p>Modelin hızlı görsel incelemesi, modelin gözlemlenen vaka sayılarını tahmin etmede daha iyi bir iş çıkarabileceğini gösterir.</p>
-<div class="sourceCode" id="cb1142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## regresyonunuzu çiz</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## model tahmini için bir satır ekleyin</span></span>
@@ -798,7 +798,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <h4>Rezidüeller (Artıklar)<a class="anchor" aria-label="anchor" href="#rezid%C3%BCeller-art%C4%B1klar"><i class="fas fa-link"></i></a>
 </h4>
 <p>Modelimizin gözlemlenen verilerle ne kadar uyumlu olduğunu görmek için artıkları tekrar araştırırız. Buradaki sonuçlar ve yorum önceki regresyona benzer, bu nedenle sıcaklık değişkenini içermeyen daha basit bir modele bağlı kalmak daha uygun olabilir.</p>
-<div class="sourceCode" id="cb1143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## artıkları hesapla</span></span>
 <span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>resid <span class="op">=</span> <span class="va">case_int</span> <span class="op">-</span> <span class="va">estimate</span><span class="op">)</span></span>
@@ -812,7 +812,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <pre><code>## Warning: Removed 4 rows containing missing values (`geom_line()`).</code></pre>
 <pre><code>## Warning: Removed 4 rows containing missing values (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-857-1.png" width="672"></div>
-<div class="sourceCode" id="cb1146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 4 satır kaldırıldı (geom_path).</span></span>
 <span></span>
 <span> </span>
@@ -822,7 +822,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu">ACF</span><span class="op">(</span><span class="va">resid</span>, lag_max <span class="op">=</span> <span class="fl">52</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-857-2.png" width="672"></div>
-<div class="sourceCode" id="cb1147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## artıklar normal dağılım gösteriyor mu (tahminin altında mı yoksa üzerinde mi?)</span></span>
 <span><span class="va">observed</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -831,7 +831,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing non-finite values (`stat_bin()`).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-857-3.png" width="672"></div>
-<div class="sourceCode" id="cb1149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Uyarı: Sonlu olmayan değerler içeren 4 satır kaldırıldı (stat_bin).</span></span>
 <span></span>
 <span> </span>
@@ -843,7 +843,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted"</span>, y <span class="op">=</span> <span class="st">"Residuals"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: Removed 4 rows containing missing values (`geom_point()`).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-857-4.png" width="672"></div>
-<div class="sourceCode" id="cb1151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 4 satır kaldırıldı (geom_point).</span></span>
 <span></span>
 <span> </span>
@@ -880,7 +880,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Tarihlerinizi tek bir yerde tanımlamak ve ardından bunları kodunuzun geri kalanında kullanmak daha kolaydır.</p>
 <p>Burada bir başlangıç tarihi (gözlemlerimizin başladığı tarih) ve bir bitiş tarihi (temel dönemimizin sonu olan- ve tahmine ne zaman başlayacağımızın tarihi) tanımlarız. ~Ayrıca ilgilendiğimiz yılda (tahmin edeceğimiz yılda) kaç hafta olduğunu da tanımlarız ~. Ayrıca, temel kesim tarihimiz ile tahmin etmek istediğimiz bitiş tarihi arasında kaç hafta olduğunu da tanımlarız.</p>
 <p><span style="color: black;"><strong><em>NOT:</em></strong> Bu örnekte, şu anda Eylül 2011’in sonundaymış gibi davranıyoruz (“2011 W39”).</span></p>
-<div class="sourceCode" id="cb1153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## başlangıç tarihini tanımlayın (gözlemlerin başladığı zaman)</span></span>
 <span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">epiweek</span><span class="op">)</span></span>
 <span></span>
@@ -898,7 +898,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <h4>Satır eklemek<a class="anchor" aria-label="anchor" href="#sat%C4%B1r-eklemek"><i class="fas fa-link"></i></a>
 </h4>
 <p>Tidyverse formatında tahmin yapabilmek için, veri setimizde doğru sayıda satıra, yani yukarıda tanımlanan end_date tarihine kadar her hafta için bir satıra ihtiyacımız var. Aşağıdaki kod, bu satırları bir gruplama değişkenine göre eklemenize izin verir - örneğin, bir veri tabanında birden fazla ülkemiz varsa, ülkeye göre gruplayabilir ve ardından her biri için uygun satırlar ekleyebiliriz. tsibble’ın group_by_key() fonksiyonu , bu gruplandırmayı yapmamıza ve ardından gruplanmış verileri dplyr fonkisyonlarına, group_modify() ve add_row()’a geçirmemize izin verir. Ardından, verilerde mevcut olan maksimum hafta değerinden bir sonraki hafta ile bitiş haftası arasındaki hafta sırasını belirleriz.</p>
-<div class="sourceCode" id="cb1154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## yılın sonuna kadar eksik haftaları ekleyin</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co">## bölgeye göre grup</span></span>
@@ -915,7 +915,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 </h4>
 <p>Fourier terimlerimizi yeniden tanımlamamız gerekiyor - çünkü bu terimleri temel tarihe uydurmak ve gelecek yıl için ekstrapole etmek istiyoruz. Bunu yapmak için fourier() fonkisyonundan iki çıktı listesini bir araya getirmemiz gerekiyor; ilki temel veriler içindir ve ikincisi ilgilenilen yılı (h argümanını tanımlayarak) tahmin eder.</p>
 <p>Not: Satırları bağlamak için rbind() (tidyverse’teki bind_rows yerine) kullanmalıyız, çünkü fourier sütunları bir liste biçimindedir (yani ayrı ayrı adlandırılmaz).</p>
-<div class="sourceCode" id="cb1155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## fourier terimlerini tanımlayın (sincos)</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -951,7 +951,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <p>Daha sonra veri kümelerini listeden çıkarmak için purrr paketi pluck() fonksiyonunu kullanırız (bu fonksiyon köşeli parantez kullanmaya eşdeğer, örneğin dat[[1]] gibi ) ve daha sonra modelimizi temel verilere uydurabilir ve ardından kesintiden sonra ilgilendiğimiz veri için predict() fonksiyonunu kullanabiliriz.</p>
 <p>Purrr hakkında daha fazla bilgi edinmek için Yineleme (iterasyon), döngüler ve listeler sayfasına bakın.</p>
 <p><span style="color: orange;"><strong><em>UYARI:</em></strong> predict() fonksiyonunda simulate_pi = FALSE argümanının kullanımına dikkat edin. Bunun nedeni, trend oluşturmanın varsayılan davranışının bir tahmin aralığını oluşturmak için ciTools paketinin kullanılmasıdır. NA (eksik) değerler varsa bu fonksiyon çalışmaz ve ayrıca daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
-<div class="sourceCode" id="cb1156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># uyum ve tahmin için bölünmüş veriler</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">epiweek</span> <span class="op">&lt;=</span> <span class="va">cut_off</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -986,7 +986,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span><span class="co">## temel ve tahmin edilmiş veri tabanlarını birleştirin </span></span>
 <span><span class="va">observed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">observed</span>, <span class="va">forecasts</span><span class="op">)</span></span></code></pre></div>
 <p>Daha önce olduğu gibi modelimizi ggplot ile görselleştirebiliriz. %95 tahmin aralığının üzerindeki gözlemlenen değerleri dikkat çekmek amacıyla kırmızı noktalarla vurgularız. Bu sefer tahminin başladığı tarihi etiketlemek için dikey bir çizgi de ekliyoruz.</p>
-<div class="sourceCode" id="cb1157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## regresyonunuzu görselleştirin </span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## model tahmini için bir satır ekleyin</span></span>
@@ -1020,7 +1020,7 @@ Dünyanın herhangi bir yerindeki iklim verileri AB’nin Copernicus Uydusundan 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: Removed 13 rows containing missing values (`geom_line()`).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/forecast_plot-1.png" width="672"></div>
-<div class="sourceCode" id="cb1159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 13 satır kaldırıldı(geom_path).</span></span></code></pre></div>
 <!-- ======================================================= -->
 </div>
@@ -1039,7 +1039,7 @@ and practice”</a>.</p>
 <img src="https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png"><em>Görsel yazarlardan alınan izinle yeniden oluşturulmuştur</em></p>
 <p>Aşağıda, veri kümeleri üzerinde döngü işlemini uygulamak için purrr paketinden map() fonksiyonunu kullanıyoruz. Daha sonra, doğruluk ölçülerini hesaplama amacıyla yardstick paketini kullanmak için elde ettiğimiz tahminleri bir veri tabanına aktarır ve orijinal vaka sayılarıyla birleştiririz. Aşağıda belirtilen dört ölçüyü hesaplıyoruz: Kök Ortalama Kare Hatası (RMSE), Ortalama mutlak hata (MAE), Ortalama mutlak ölçekli hata (MASE), Ortalama mutlak yüzde hatası (MAPE).</p>
 <p><span style="color: orange;"><strong><em>UYARI:</em></strong> predict() fonksiyonunda simulate_pi = FALSE argümanının kullanımına dikkat edin. Bunun nedeni, trend oluşturmanın varsayılan davranışının bir tahmin aralığını oluşturmak için ciTools paketinin kullanılmasıdır. NA (eksik) değerler varsa bu fonksiyon çalışmaz ve ayrıca daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
-<div class="sourceCode" id="cb1160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Çapraz doğrulama: Kayan pencereye dayalı olarak önümüzdeki haftaları tahmin etme</span></span>
 <span></span>
 <span><span class="co">## 52 haftalık pencerelerde kaydırarak verilerinizi genişletin (öncesi + sonrası)</span></span>
@@ -1206,7 +1206,7 @@ ve <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb
 <p>İlk seçenek, iyileştirilmiş Farrington yöntemini kullanır. Bu yöntem, negatif bir binom glm’ye (trend dahil) uyum gösterir ve eşik değeri oluşturmak için geçmiş salgınları (aykırı değerler) düşük değer olarak kullanır.</p>
 <p>İkinci seçenek glrnb yöntemini kullanır. Bu aynı zamanda negatif bir binom glm’ye (genelleştirilmiş doğrusal modele) de uyar, ancak trend ve fourier terimlerini içerir (burada tercih edilir). Regresyon, “kontrol ortalamasını” (~uyumlu değerleri) hesaplamak için kullanılır - daha sonra her hafta için ortalamada kayma olup olmadığını değerlendirmek için hesaplanmış bir genelleştirilmiş olabilirlik oranı (likelihood ratio) istatistiği kullanır. Her hafta için eşiğin önceki haftaları hesaba kattığını unutmayın, bu nedenle sürekli bir kayma varsa bir alarm tetiklenecektir. (Ayrıca her alarmdan sonra algoritmanın sıfırlandığını unutmayın)</p>
 <p>surveillance paketiyle çalışmak için öncelikle çerçeveye sığacak bir “gözetim zaman serisi” nesnesi (sts() fonksiyonunu kullanarak) tanımlamamız gerekir.</p>
-<div class="sourceCode" id="cb1162"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## gözetim zaman serisi nesnesini tanımla</span></span>
 <span><span class="co">## not. popülasyon nesnesine bir payda ekleyebilirsiniz (bkz. ?sts)</span></span>
 <span><span class="va">counts_sts</span> <span class="op">&lt;-</span> <span class="fu">sts</span><span class="op">(</span>observed <span class="op">=</span> <span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">]</span>,</span>
@@ -1224,7 +1224,7 @@ ve <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb
 <span><span class="va">weekrange</span> <span class="op">&lt;-</span> <span class="va">cut_off</span> <span class="op">-</span> <span class="va">start_date</span></span></code></pre></div>
 <!-- ======================================================= -->
 <p>Daha sonra Farrington yöntemi için parametrelerimizi bir liste halinde tanımlarız. Ardından farringtonFlexible() fonksiyonunu kullanarak algoritmayı çalıştırırız ve ardından bunu veri setimize dahil etmek için <a href="mailto:farringtonmethod@upperbound" class="email">farringtonmethod@upperbound</a> kullanarak bir uyarı eşiğini çıkarabiliriz. <a href="mailto:Farringtonmethod@alarm" class="email">Farringtonmethod@alarm</a> kullanarak her hafta için uyarı tetiklendiyse (eşiğin üzerindeyse) DOĞRU/YANLIŞ değerlerini çıkarmak da mümkündür.</p>
-<div class="sourceCode" id="cb1163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## kontrolü tanımlayın </span></span>
 <span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## eşik için zaman periyodunu tanımlayın (yani 2011)</span></span>
@@ -1249,7 +1249,7 @@ ve <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb
 <span>               <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              <span class="st">"threshold"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">farringtonmethod</span><span class="op">@</span><span class="va">upperbound</span></span></code></pre></div>
 <p>Daha sonra sonuçları daha önce olduğu gibi ggplot’ta görselleştirebiliriz.</p>
-<div class="sourceCode" id="cb1164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## gözlemlenen vaka sayılarını bir çizgi olarak ekleyin</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1273,7 +1273,7 @@ ve <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb
 <p><span style="color: orange;"><strong><em>UYARI:</em></strong> Bu yöntem, eşikleri hesaplamak için “kaba kuvvet” (önyüklemeye [bootstrapping’e] benzer) kullanır, bu nedenle uzun zaman alabilir!</span></p>
 <p>Ayrıntılar için <a href="https://cran.r-project.org/web/packages/surveillance/vignettes/glrnb.pdf">GLRNB gösterimi</a>
 bakabilirsiniz.</p>
-<div class="sourceCode" id="cb1165"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## kontrol ayarlarını belirleyin </span></span>
 <span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>  <span class="co">## hangi zaman dilimi için eşik değer isteneceğini tanımlayın (yani 2011)</span></span>
@@ -1299,7 +1299,7 @@ bakabilirsiniz.</p>
 <span>               <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">case_int</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              <span class="st">"threshold_glrnb"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">glrnbmethod</span><span class="op">@</span><span class="va">upperbound</span></span></code></pre></div>
 <p>Çıktıları daha önce olduğu gibi görselleştirin.</p>
-<div class="sourceCode" id="cb1166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## gözlemlenen vaka sayılarını bir çizgi olarak ekleyin</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1338,7 +1338,7 @@ Gerektiğinde ek terimler trend ve sezon eklenebilir.</p>
 sonrası dönemin bir parçasıdır ve ön dönemde sıfırdır.
 Bu, <span class="math inline">\(β_2\)</span> ve <span class="math inline">\(β_3\)</span> tahminlerinin müdahalenin etkileri olduğu anlamına gelir.</p>
 <p>Elimizdeki tüm verileri (yani geriye dönük olarak) kullanacağımızdan, burada tahmin yapmadan fourier terimlerini yeniden hesaplamamız gerekiyor. Ek olarak, regresyon için gereken ekstra terimleri hesaplamamız gerekiyor.</p>
-<div class="sourceCode" id="cb1167"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## epi hafta ve case_int değişkenlerini kullanarak fourier terimleri ekleyin</span></span>
 <span><span class="va">counts</span><span class="op">$</span><span class="va">fourier</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">counts</span>, <span class="va">epiweek</span>, <span class="va">case_int</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">as_tsibble</span><span class="op">(</span>index <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1362,7 +1362,7 @@ Bu, <span class="math inline">\(β_2\)</span> ve <span class="math inline">\(β_
 <span>    time_post <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">epiweek</span> <span class="op">-</span> <span class="va">intervention_week</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Daha sonra bu terimleri negatif bir binom regresyonuna uydurmak için kullanırız ve çıktısı yüzde değişimi olan bir tablo elde ederiz. Bu örnekte, önemli bir değişiklik görülmemiştir.</p>
 <p><span style="color: orange;"><strong><em>DİKKAT:</em></strong> Npredict() değişkeninde simulate_pi = FALSE kullanımına dikkat edin. Bunun nedeni, trending’in varsayılan davranışının bir tahmin aralığı oluşturmak için ciTools paketini kullanmasıdır. NA (eksik) sayılar varsa bu paket çalışmaz ve daha granüler aralıklar üretir. Ayrıntılar için ?trending::predict.trending_model_fit’e bakın. </span></p>
-<div class="sourceCode" id="cb1168"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## uydurmak istediğiniz modeli tanımlayın (negatif binom)</span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">glm_nb_model</span><span class="op">(</span></span>
 <span>  <span class="co">## ilgilenilen çıktı olarak vaka sayısını belirleyeni </span></span>
@@ -1419,7 +1419,7 @@ Bu, <span class="math inline">\(β_2\)</span> ve <span class="math inline">\(β_
 ## # … with abbreviated variable names ¹​`95%CI low (perc)`, ²​`95%CI high (perc)`,
 ## #   ³​`p-value`</code></pre>
 <p>Daha önce olduğu gibi, regresyonun çıktılarını görselleştirebiliriz.</p>
-<div class="sourceCode" id="cb1170"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">observed</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">epiweek</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="co">## gözlemlenen vaka sayılarını bir çizgi olarak ekle</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">case_int</span>, colour <span class="op">=</span> <span class="st">"Observed"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1447,7 +1447,7 @@ Bu, <span class="math inline">\(β_2\)</span> ve <span class="math inline">\(β_
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: Removed 13 rows containing missing values (`geom_line()`).</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/plot_interrupted-1.png" width="672"></div>
-<div class="sourceCode" id="cb1172"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1167"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Uyarı: Eksik değerler içeren 13 satır kaldırıldı (geom_path).</span></span></code></pre></div>
 <!-- ======================================================= -->
 </div>

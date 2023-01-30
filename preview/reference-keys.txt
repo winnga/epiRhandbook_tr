@@ -4,3 +4,6 @@ ggplotly-ile-grafikler
 değişiklikler
 isı-grafikleri
 kaynaklar
+el-kitabı-ve-verileri-indirme
+çevrimdışı-el-kitabı-indirme
+örnek-bazlı-verileri-indirme

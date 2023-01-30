@@ -425,9 +425,9 @@ daha sonra atıfta bulunuldu (soldan sağa):</p>
 </h3>
 <p>Perde arkasında gerçekte olan şey, “git dalı” ile yeni bir şube oluşturmanız ve ardından “git checkout” ile dala gitmenizdir (<em>Örneğin</em> Git’e sonraki taahhütlerinizin orada gerçekleşeceğini söyleyin).
 Git deponuzdan:</p>
-<div class="sourceCode" id="cb1950"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1950-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1950-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch my-new-branch  <span class="co"># Yeni bir dal oluşturun</span></span>
-<span id="cb1950-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1950-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout my-new-branch <span class="co"># Oluşturulan dala gidin</span></span>
-<span id="cb1950-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1950-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> my-new-branch <span class="co"># İkisi aynı anda (Kısayol)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1944"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1944-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1944-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch my-new-branch  <span class="co"># Yeni bir dal oluşturun</span></span>
+<span id="cb1944-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1944-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout my-new-branch <span class="co"># Oluşturulan dala gidin</span></span>
+<span id="cb1944-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1944-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> my-new-branch <span class="co"># İkisi aynı anda (Kısayol)</span></span></code></pre></div>
 <p>Konsolu kullanma hakkında daha fazla bilgi için sondaki Git komutlarına bakınız.</p>
 </div>
 </div>
@@ -473,13 +473,13 @@ sağ bölmede (görünüm .docs veya .xlsx gibi daha karmaşık dosyalarda çal�
 </h3>
 <p>Sahne arkasında kullanılan iki fonksiyon, seçme/sahneleme için “git add” fonksiyonudur.
 dosyalar ve ‘git commit’ commit etmek içindir.</p>
-<div class="sourceCode" id="cb1951"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1951-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="co"># değişiklikleri izle </span></span>
-<span id="cb1951-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1951-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add new_pages/collaboration.Rmd  <span class="co"># commit edilecek dosyaları seçin (= değişiklikleri yapın)</span></span>
-<span id="cb1951-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1951-5"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Describe commit from Github Desktop"</span> <span class="co"># değişiklikleri bir mesajla commit et</span></span>
-<span id="cb1951-6"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1951-7"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log  <span class="co"># geçmiş commitlerle ilgili bilgileri görüntüle</span></span></code></pre></div>
+<div class="sourceCode" id="cb1945"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1945-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="co"># değişiklikleri izle </span></span>
+<span id="cb1945-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1945-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add new_pages/collaboration.Rmd  <span class="co"># commit edilecek dosyaları seçin (= değişiklikleri yapın)</span></span>
+<span id="cb1945-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1945-5"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Describe commit from Github Desktop"</span> <span class="co"># değişiklikleri bir mesajla commit et</span></span>
+<span id="cb1945-6"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1945-7"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1945-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log  <span class="co"># geçmiş commitlerle ilgili bilgileri görüntüle</span></span></code></pre></div>
 </div>
 <div id="önceki-bir-commiti-değiştirin" class="section level3 unnumbered">
 <h3>Önceki bir commit’i değiştirin<a class="anchor" aria-label="anchor" href="#%C3%B6nceki-bir-commiti-de%C4%9Fi%C5%9Ftirin"><i class="fas fa-link"></i></a>
@@ -488,11 +488,11 @@ dosyalar ve ‘git commit’ commit etmek içindir.</p>
 <p>Rstudio’da, COMMIT düğmesiyle aynı satırda bir “Önceki commit’i değiştir” kutusu olduğu için oldukça açıktır.</p>
 <p>Belirsiz bir nedenle, işlevsellik Github Desktop’ta olduğu gibi uygulanmamıştır, ancak (kavramsal olarak garip ama kolay) bir yol vardır. Henüz değişikliklerinizi commit etmiş <strong>ancak push etmediyseniz</strong>, COMMIT düğmesinin hemen altında bir “GERİ AL” düğmesi görünür. Üzerine tıklayın geri alacaktır (ancak aşamalı dosyalarınızı ve commit mesajınızı saklayın). Değişikliklerinizi kaydedin, gerekirse commit’e yeni dosyalar ekleyin ve tekrar commit edin.</p>
 <p>Konsolda:</p>
-<div class="sourceCode" id="cb1952"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1952-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add [YOUR FILES] <span class="co"># Yeni değişikliklerinizi aşamalandırın</span></span>
-<span id="cb1952-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1952-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span>  <span class="co"># Önceki commit'i değiştir</span></span>
-<span id="cb1952-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1952-5"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1952-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span> <span class="at">-m</span> <span class="st">"An updated commit message"</span>  <span class="co"># Önceki commitlerini değiştirin VE mesajını güncelleyin</span></span></code></pre></div>
+<div class="sourceCode" id="cb1946"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1946-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add [YOUR FILES] <span class="co"># Yeni değişikliklerinizi aşamalandırın</span></span>
+<span id="cb1946-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1946-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span>  <span class="co"># Önceki commit'i değiştir</span></span>
+<span id="cb1946-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1946-5"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1946-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span> <span class="at">-m</span> <span class="st">"An updated commit message"</span>  <span class="co"># Önceki commitlerini değiştirin VE mesajını güncelleyin</span></span></code></pre></div>
 <p><em>Not: Zaten herkese açık olan ve ortak çalışanlarınızla paylaşılan commitleri değiştirmeden önce düşünün</em>.</p>
 </div>
 </div>
@@ -535,9 +535,9 @@ dosyalar ve ‘git commit’ commit etmek içindir.</p>
 <h4>Konsol<a class="anchor" aria-label="anchor" href="#konsol"><i class="fas fa-link"></i></a>
 </h4>
 <p>Şaşırtıcı olmayan bir şekilde, komutlar <em>getir(fetch)</em>, <em>çek(pull)</em> ve <em>ittir(push)</em> şeklindedir.</p>
-<div class="sourceCode" id="cb1953"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1953-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1953-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch  <span class="co"># uzak dizinde yeni commitler var mı?</span></span>
-<span id="cb1953-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1953-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull   <span class="co"># Uzak commitleri yerel dalınıza getirin</span></span>
-<span id="cb1953-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1953-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push   <span class="co"># Bu dalın yerel commitlerini uzak dala aktarın</span></span></code></pre></div>
+<div class="sourceCode" id="cb1947"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1947-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch  <span class="co"># uzak dizinde yeni commitler var mı?</span></span>
+<span id="cb1947-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull   <span class="co"># Uzak commitleri yerel dalınıza getirin</span></span>
+<span id="cb1947-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1947-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push   <span class="co"># Bu dalın yerel commitlerini uzak dala aktarın</span></span></code></pre></div>
 </div>
 <div id="çekmek-istiyorum-ama-yerel-işim-var" class="section level3 unnumbered">
 <h3>Çekmek istiyorum ama yerel işim var<a class="anchor" aria-label="anchor" href="#%C3%A7ekmek-istiyorum-ama-yerel-i%C5%9Fim-var"><i class="fas fa-link"></i></a>
@@ -567,8 +567,8 @@ dosyalar ve ‘git commit’ commit etmek içindir.</p>
 </h3>
 <p>İlk önce değişikliklerin alıcısı olacak dala geri dönün.
 Bu genellikle <em>master</em> şeklindedir, ancak başka bir dal da olabilir. Sonra master içine çalışma dalınızı birleştirin.</p>
-<div class="sourceCode" id="cb1954"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1954-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1954-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master  <span class="co"># Master'a (veya taşımak istediğiniz dala) geri dönün</span></span>
-<span id="cb1954-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1954-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge this_fancy_new_branch</span></code></pre></div>
+<div class="sourceCode" id="cb1948"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1948-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1948-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout master  <span class="co"># Master'a (veya taşımak istediğiniz dala) geri dönün</span></span>
+<span id="cb1948-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1948-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge this_fancy_new_branch</span></code></pre></div>
 <p><a href="https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging">Bu sayfa</a> daha gelişmiş bir dallanma örneği gösterir ve perde arkasında neler olduğunu biraz açıklar .</p>
 </div>
 <div id="githubda-çekme-istekleri-gönderme" class="section level3 unnumbered">
@@ -654,18 +654,18 @@ birleştirme seçenekleri</a> (ör. boşlukları yok sayma, ortak çalışana ö
 - <em>origin</em> = Github profilinizdeki depo sürümünüz</p>
 <p>[Bu öğreticiyi (<a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork" class="uri">https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork</a>) okuyabilir veya aşağıdakileri takip edebilirsiniz:</p>
 <p>İlk önce Git terminalinizi yazın (deponuzun içine):</p>
-<div class="sourceCode" id="cb1955"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1955-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1955-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span></code></pre></div>
+<div class="sourceCode" id="cb1949"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1949-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1949-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span></code></pre></div>
 <p>Yukarı akış deposunu henüz yapılandırmadıysanız, <em>Origin</em> ile başlayan iki satır görmelisiniz. “fetch” ve “push”un işaret ettiği uzak depoyu gösterirler. Unutmayın, <em>Origin</em>, Github’daki deponun kendi sürümünüz için geleneksel takma addır. Örneğin:</p>
 <div class="inline-figure"><img src="images/github_fork_2.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
 <p>Şimdi yeni bir uzak depo ekleyin:</p>
-<div class="sourceCode" id="cb1956"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1956-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1956-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/appliedepi/epirhandbook_eng.git</span></code></pre></div>
+<div class="sourceCode" id="cb1950"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1950-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1950-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/appliedepi/epirhandbook_eng.git</span></code></pre></div>
 <p>Burada adres, bir depoyu klonladığınızda Github’un ürettiği adrestir (klonlama ile ilgili bölüme bakın). Şimdi dört uzak işaretçiniz olacak:</p>
 <div class="inline-figure"><img src="images/github_fork_3.png" width="100%" height="200%" style="display: block; margin: auto;"></div>
 <p>Artık kurulum tamamlandığında, değişiklikleri orijinal (<em>upstream</em>) deposundan almak istediğinizde, güncellemek istediğiniz dala(<em>checkout</em>) gitmeniz ve şunu yazmanız yeterlidir:</p>
-<div class="sourceCode" id="cb1957"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1957-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1957-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch upstream <span class="co"># Uzak depodan yeni commitleri alın</span></span>
-<span id="cb1957-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1957-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout the_branch_you_want_to_update</span>
-<span id="cb1957-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1957-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge upstream/the_branch_you_want_to_update  <span class="co"># Yukarı akış dalını kendi dalınızla birleştirin.</span></span>
-<span id="cb1957-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1957-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="co"># Uzak deponun kendi sürümünüzü güncelleyin</span></span></code></pre></div>
+<div class="sourceCode" id="cb1951"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1951-1"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch upstream <span class="co"># Uzak depodan yeni commitleri alın</span></span>
+<span id="cb1951-2"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout the_branch_you_want_to_update</span>
+<span id="cb1951-3"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge upstream/the_branch_you_want_to_update  <span class="co"># Yukarı akış dalını kendi dalınızla birleştirin.</span></span>
+<span id="cb1951-4"><a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#cb1951-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="co"># Uzak deponun kendi sürümünüzü güncelleyin</span></span></code></pre></div>
 <p>Çakışmalar varsa, bunları Çakışmaları çözme bölümünde açıklandığı gibi çözmeniz gerekecektir.</p>
 <p><strong>Özet</strong>: çatallama klonlanıyor, ancak Github sunucu tarafında.
 Eylemlerin geri kalanı, tipik işbirliği iş akışı eylemleridir.

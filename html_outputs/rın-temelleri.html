@@ -633,12 +633,12 @@ her öğenin aynı sınıfa sahip olmasını gerektirmektedir (ör.hepsi sayısa
 <div id="nasıl-kurulum-yapar-ve-yüklerim" class="section level4 unnumbered">
 <h4>Nasıl kurulum yapar ve yüklerim?<a class="anchor" aria-label="anchor" href="#nas%C4%B1l-kurulum-yapar-ve-y%C3%BCklerim"><i class="fas fa-link"></i></a>
 </h4>
-<p>Bu el kitabında, <strong>pacman</strong> paketini (“paket yöneticisi” kısaltması) kullanmanızı öneririz. Gerekirse bir paketi kuracak <em>ve</em> mevcut R oturumunda kullanmak üzere yükleyecek uygun bir <code>p_load()</code> fonksiyonu sunar.</p>
-<p>Sözdizimi oldukça basit. Paketlerin adlarını ‘p_load()’ parantezleri içinde virgülle ayırarak listeleyin. Bu komut, henüz kurulmamışlarsa <strong>rio</strong>, <strong>tidyverse</strong> ve <strong>here</strong> paketlerini kuracak ve bunları kullanım için yükleyecektir. Bu, komut dosyalarını başkalarıyla paylaşırken <code>p_load()</code> yaklaşımını kullanışlı ve özlü hale getirir. Paket adlarının büyük/küçük harfe duyarlı olduğunu unutmayın.</p>
+<p>Bu el kitabında, <strong>pacman</strong> paketini (“paket yöneticisi” kısaltması) kullanmanızı öneririz. Gerekirse bir paketi kuracak <em>ve</em> mevcut R oturumunda kullanmak üzere yükleyecek uygun bir <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> fonksiyonu sunar.</p>
+<p>Sözdizimi oldukça basit. Paketlerin adlarını ‘p_load()’ parantezleri içinde virgülle ayırarak listeleyin. Bu komut, henüz kurulmamışlarsa <strong>rio</strong>, <strong>tidyverse</strong> ve <strong>here</strong> paketlerini kuracak ve bunları kullanım için yükleyecektir. Bu, komut dosyalarını başkalarıyla paylaşırken <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> yaklaşımını kullanışlı ve özlü hale getirir. Paket adlarının büyük/küçük harfe duyarlı olduğunu unutmayın.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Paketleri kurup yükleyebilirsiniz.(Gerekli görürseniz)</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span>, <span class="va">tidyverse</span>, <span class="va">here</span><span class="op">)</span></span></code></pre></div>
-<p>Paket adını (<strong>pacman</strong>) fonksiyon adından (<code>p_load()</code>) önce açıkça yazan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> sözdizimini kullandığımızı ve iki adet iki nokta üst üste <code>::</code> ile bağlandığını unutmayın. Bu sözdizimi, <strong>pacman</strong> paketini de yüklediği için kullanışlıdır (zaten kurulu olduğu varsayılarak).</p>
+<p>Paket adını (<strong>pacman</strong>) fonksiyon adından (<code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code>) önce açıkça yazan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code> sözdizimini kullandığımızı ve iki adet iki nokta üst üste <code>::</code> ile bağlandığını unutmayın. Bu sözdizimi, <strong>pacman</strong> paketini de yüklediği için kullanışlıdır (zaten kurulu olduğu varsayılarak).</p>
 <p>Sıklıkla göreceğiniz alternatif <strong>temel</strong> R fonksiyonları vardır. Bir paketi kurmak için <strong>temel</strong> R fonksiyonu <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> fonksiyonudur. Kurulacak paketin adı parantez içinde <em>tırnak içinde</em> belirtilmelidir. Bir komutta birden çok paket kurmak istiyorsanız, bunlar bir <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> karakter vektörü içinde listelenmelidir.</p>
 <p>Not: Bu komut bir paketi <em>kurar</em>, ancak geçerli oturumda kullanmak için <em>yüklemez</em>.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -648,7 +648,7 @@ her öğenin aynı sınıfa sahip olmasını gerektirmektedir (ör.hepsi sayısa
 <span><span class="co"># Temel R için çoklu paketlerin kurulumu</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"rio"</span>, <span class="st">"here"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Kurulum ayrıca, RStudio “Paketler” bölmesine gidip istenen paket adını arayarak “Kur” seçeneğine tıklanarak da gerçekleştirilebilir.</p>
-<p>Bir paketi kullanmak üzere (kurulduktan sonra) <strong>yüklemek</strong> için <strong>temel</strong> R fonksiyonu ’library()’dir. Bir seferde yalnızca bir paket yükleyebilir (<code>p_load()</code> kullanmanın başka bir nedeni). Paket adını tırnak işaretleri ile veya tırnak işaretleri olmadan sağlayabilirsiniz.</p>
+<p>Bir paketi kullanmak üzere (kurulduktan sonra) <strong>yüklemek</strong> için <strong>temel</strong> R fonksiyonu ’library()’dir. Bir seferde yalnızca bir paket yükleyebilir (<code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> kullanmanın başka bir nedeni). Paket adını tırnak işaretleri ile veya tırnak işaretleri olmadan sağlayabilirsiniz.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Temel R için paket yüklenmesi</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
@@ -657,7 +657,7 @@ her öğenin aynı sınıfa sahip olmasını gerektirmektedir (ör.hepsi sayısa
 <p>Bir paketin kurulu ve/veya yüklenmiş olup olmadığını kontrol etmek için RStudio’da Paketler bölmesini görüntüleyebilirsiniz. Paket kurulu ise sürüm numarası ile orada gösterilir. Kutusu işaretliyse, geçerli oturum için yüklenir.</p>
 <p><strong>Github’dan Kurulum</strong></p>
 <p>Bazen, henüz CRAN’da bulunmayan bir paketi yüklemeniz gerekir. Veya belki de paket CRAN’da mevcuttur, ancak daha kararlı yayınlanan CRAN sürümünde henüz sunulmayan yeni özelliklere sahip <em>geliştirme sürümünü</em> istiyorsunuzdur. Bunlar genellikle <a href="https://github.com/">github.com</a> web sitesinde ücretsiz, halka açık bir kod “deposu” içinde barındırılır. <a href="git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi.html#git-ve-github-ile-s%C3%BCr%C3%BCm-kontrol%C3%BC-ve-i%C5%9Fbirli%C4%9Fi">Git ve Github ile sürüm kontrolü ve işbirliği</a> El kitabı sayfasından Github hakkında daha fazla bilgi edinebilirsiniz.</p>
-<p>Github’dan R paketlerini indirmek için, gerekirse paketi kuracak ve mevcut R oturumunuzda kullanmak üzere yükleyecek olan <strong>pacman</strong>’dan <code>p_load_gh()</code> fonksiyonunu kullanabilirsiniz. Kurulum alternatifleri arasında <strong>remotes</strong> veya <strong>devtools</strong> paketlerinin kullanılması yer alır. <a href="https://cran.r-project.org/web/packages/pacman/pacman.pdf">Paket belgelerinde</a> tüm <strong>pacman</strong> fonksiyonları hakkında daha fazla bilgi edinin.</p>
+<p>Github’dan R paketlerini indirmek için, gerekirse paketi kuracak ve mevcut R oturumunuzda kullanmak üzere yükleyecek olan <strong>pacman</strong>’dan <code><a href="https://rdrr.io/pkg/pacman/man/p_load_gh.html">p_load_gh()</a></code> fonksiyonunu kullanabilirsiniz. Kurulum alternatifleri arasında <strong>remotes</strong> veya <strong>devtools</strong> paketlerinin kullanılması yer alır. <a href="https://cran.r-project.org/web/packages/pacman/pacman.pdf">Paket belgelerinde</a> tüm <strong>pacman</strong> fonksiyonları hakkında daha fazla bilgi edinin.</p>
 <p>Github’dan yüklemek için daha fazla bilgi sağlamanız gerekir. Şunları sağlamalısın:</p>
 <ol style="list-style-type: decimal">
 <li>Depo sahibinin Github kimliği</li>
@@ -668,11 +668,11 @@ her öğenin aynı sınıfa sahip olmasını gerektirmektedir (ör.hepsi sayısa
 <p>Aşağıdaki örneklerde, tırnak içindeki ilk kelime depo sahibinin Github ID’sidir, eğik çizgiden sonra deponun adı (paketin adı) olur.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Github deposundan epicontacts paketini kur ve yükle.</span></span>
-<span><span class="fu">p_load_gh</span><span class="op">(</span><span class="st">"reconhub/epicontacts"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_gh.html">p_load_gh</a></span><span class="op">(</span><span class="st">"reconhub/epicontacts"</span><span class="op">)</span></span></code></pre></div>
 <p>Ana dal dışında bir “daldan” (sürüm) kurulum yapmak istiyorsanız, dal adını depo adından sonra şu ifade ile birlikte “@” ekleyin.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Github'dan epicontacts paketinin "zaman çizelgesi" dalını kurun</span></span>
-<span><span class="fu">p_load_gh</span><span class="op">(</span><span class="st">"reconhub/epicontacts@timeline"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_gh.html">p_load_gh</a></span><span class="op">(</span><span class="st">"reconhub/epicontacts@timeline"</span><span class="op">)</span></span></code></pre></div>
 <p>Github sürümü ile bilgisayarınızdaki sürüm arasında herhangi bir fark yoksa herhangi bir işlem yapılmayacaktır. “update = TRUE” değişkeni yerine “p_load_current_gh()” komutu kullanarak yeniden yüklemeyi “zorlayabilirsiniz” (force). Bu [çevrimiçi gösterimde] <a href="http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html" class="uri">http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html</a> adresinde <strong>pacman</strong> hakkında daha fazla bilgi edinin)</p>
 <p><strong>ZIP veya TAR’dan yükleme</strong></p>
 <p>Paketi bir URL’den yükleyebilirsiniz:</p>
@@ -680,7 +680,7 @@ her öğenin aynı sınıfa sahip olmasını gerektirmektedir (ör.hepsi sayısa
 <code class="sourceCode R"><span><span class="va">packageurl</span> <span class="op">&lt;-</span> <span class="st">"https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">packageurl</span>, repos<span class="op">=</span><span class="cn">NULL</span>, type<span class="op">=</span><span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 <p>Veya sıkıştırılmış bir dosyada bilgisayarınıza indirin:</p>
-<p>Seçenek 1: <strong>remotes</strong> paketinden <code>install_local()</code> kullanmak</p>
+<p>Seçenek 1: <strong>remotes</strong> paketinden <code><a href="https://remotes.r-lib.org/reference/install_local.html">install_local()</a></code> kullanmak</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span><span class="op">(</span><span class="st">"~/Downloads/dplyr-master.zip"</span><span class="op">)</span></span></code></pre></div>
 <p>Seçenek 2: <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> komutunu kullanarak, ZIP dosyasının dosya yolunu sağlayarak ve <code>type = "source</code> ve <code>repos = NULL</code> ayarını yaparak.</p>
@@ -710,13 +710,13 @@ her öğenin aynı sınıfa sahip olmasını gerektirmektedir (ör.hepsi sayısa
 <div id="paketleri-sil" class="section level3 unnumbered">
 <h3>Paketleri sil<a class="anchor" aria-label="anchor" href="#paketleri-sil"><i class="fas fa-link"></i></a>
 </h3>
-<p><strong>pacman</strong>’den <code>p_delete()</code> veya <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/utils/remove.packages.html">remove.packages()</a></code> komutlarını kullanabilirsiniz. Alternatif olarak, kitaplığınızı içeren klasörü bulup manuel olarak silebilirsiniz.</p>
+<p><strong>pacman</strong>’den <code><a href="https://rdrr.io/pkg/pacman/man/p_delete.html">p_delete()</a></code> veya <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/utils/remove.packages.html">remove.packages()</a></code> komutlarını kullanabilirsiniz. Alternatif olarak, kitaplığınızı içeren klasörü bulup manuel olarak silebilirsiniz.</p>
 </div>
 <div id="bağlılıklar" class="section level3 unnumbered">
 <h3>Bağlılıklar<a class="anchor" aria-label="anchor" href="#ba%C4%9Fl%C4%B1l%C4%B1klar"><i class="fas fa-link"></i></a>
 </h3>
 <p>Paketler genellikle çalışmak için diğer paketlere bağlıdır. Bunlara bağlılıklar (dependencies)denir. Bir bağlılık yüklenemezse, buna bağlı olan paket de yüklenemeyebilir.</p>
-<p><code>p_depends()</code> ile bir paketin bağlılıklarını görün ve <code>p_depends_reverse()</code> ile hangi paketlerin ona bağlı olduğunu görün</p>
+<p><code><a href="https://rdrr.io/pkg/pacman/man/p_depends.html">p_depends()</a></code> ile bir paketin bağlılıklarını görün ve <code><a href="https://rdrr.io/pkg/pacman/man/p_depends.html">p_depends_reverse()</a></code> ile hangi paketlerin ona bağlı olduğunu görün</p>
 </div>
 <div id="maskelenmiş-fonksiyonlar" class="section level3 numbered" number="3.7.1">
 <h3>
@@ -728,7 +728,7 @@ her öğenin aynı sınıfa sahip olmasını gerektirmektedir (ör.hepsi sayısa
 <p>Maskelemeyi düzeltmenin yolları şunlardır:</p>
 <ol style="list-style-type: decimal">
 <li>Komutta paket adını belirtin. Örneğin, <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> kodunu kullanın</li>
-<li>Paketlerin yüklenme sırasını yeniden düzenleyin (ör. <code>p_load()</code> içinde) ve <strong>yeni bir R oturumu başlatın</strong>
+<li>Paketlerin yüklenme sırasını yeniden düzenleyin (ör. <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> içinde) ve <strong>yeni bir R oturumu başlatın</strong>
 </li>
 </ol>
 </div>

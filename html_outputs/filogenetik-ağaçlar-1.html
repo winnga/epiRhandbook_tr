@@ -158,7 +158,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <h3>Paketlerin yüklenmesi<a class="anchor" aria-label="anchor" href="#paketlerin-y%C3%BCklenmesi-6"><i class="fas fa-link"></i></a>
 </h3>
 <p>Bu kod parçası, gerekli paketlerin yüklenmesini göstermektedir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() fonksiyonunu vurguluyoruz. Ayrıca, temel R’dan library() ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R’ın temelleri sayfasına bakın.</p>
-<div class="sourceCode" id="cb1733"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1727"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
 <span>  <span class="va">rio</span>,             <span class="co"># içe/dışa aktarım </span></span>
 <span>  <span class="va">here</span>,            <span class="co"># ilişkili dosya yolları</span></span>
@@ -177,10 +177,10 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <p>Not: Filogenetik ağaç dosyasının kendi içinde sekans verileri içermediğini, yalnızca sekanslar arasındaki genetik mesafelerin bir sonucu olduğunu anlamak önemlidir. Bu nedenle, bir ağaç dosyasından sekanslama verilerini çıkaramıyoruz.</p>
 <p>İlk olarak, bir Newick filogenetik ağaç dosyasını .txt formatında içe aktarmak için ape paketinden read.tree() fonksiyonunu kullanırız ve “phylo” sınıfı bir liste nesnesinde saklarız. Gerekirse, ilgili dosya yolunu belirtmek için here paketindeki here() fonksiyonunu kullanın.</p>
 <p>Not: Bu durumda newick ağacı, Github’dan daha kolay kullanım ve indirme için bir .txt dosyası olarak kaydedilir.</p>
-<div class="sourceCode" id="cb1734"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1728"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html">read.tree</a></span><span class="op">(</span><span class="st">"Shigella_tree.txt"</span><span class="op">)</span></span></code></pre></div>
 <p>Ağaç nesnemizi inceliyoruz ve 299 uç (veya örnek) ve 236 nod içerdiğini görüyoruz.</p>
-<div class="sourceCode" id="cb1735"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1729"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree</span></span></code></pre></div>
 <pre><code>## 
 ## Phylogenetic tree with 299 tips and 236 internal nodes.
@@ -192,22 +192,22 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## 
 ## Rooted; includes branch lengths.</code></pre>
 <p>İkinci olarak, rio paketindeki import() fonksiyonunu kullanarak cinsiyet, menşe ülke ve antimikrobiyal direnç özellikleri gibi her numune için ek bilgiler içeren bir .csv dosyası olarak saklanan tabloyu içe aktarırız:</p>
-<div class="sourceCode" id="cb1737"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1731"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"sample_data_Shigella_tree.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>Aşağıda verilerin ilk 50 satırı verilmiştir:</p>
-<div id="htmlwidget-32f7e3f7ac2f2da887fb" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-32f7e3f7ac2f2da887fb">{"x":{"filter":"none","vertical":false,"data":[["S17BD05944","S15BD07413","S18BD07247","S19BD07384","S18BD07338","S18BD02657","S19BD06884","S16BD02574","S16BD04069","S17BD08170","S15BD07250","S17BD07935","S17BD00384","S19BD06034","S17BD08948","S17BD04542","S17BD07399","S17BD08233","S19BD07381","S17BD07961","S18BD09176","S19BD07393","S18BD02580","S17BD02526","S17BD06833","S18BD01024","S18BD03411","S18BD09515","S17BD07332","S18BD06598","S17BD02164","S19BD06386","S19BD06283","S19BD06285","S19BD05221","S18BD06749","S17BD02088","S17BD07692","S14BD03573","S17BD01135","S19BD06689","S15BD06969","S18BD01106","S17BD00525","S19BD07036","S18BD06401","S18BD06486","S17BD06426","S17BD05916","S18BD07708"],["Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei"],["Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium"],["Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe"],[null,"Georgia",null,"Morocco",null,null,null,"Thailand",null,null,null,null,null,null,null,"Iran",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Morocco","France","Turkey","Egypt","Tunisia","Congo",null,null,null,null,null,null,null,null,null,null,"Egypt",null,null],["2017","2015","2018","2019","2018","2018","2019","2016","2016","2017","2015","2017","2017","2019","2017","2017","2017","2017","2019","2017","2018","2019","2018","2017","2017","2018","2018","2018","2017","2018","2017","2019","2019","2019","2019","2018","2017","2017","2014","2017","2019","2015","2018","2017","2019","2018","2018","2017","2017","2018"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL"],[null,"Male","Female","Female","Male","Male","Male","Male","Male","Male","Female",null,"Male","Male","Female","Male","Male","Female","Female","Male","Male","Male","Male","Female","Male","Female","Female","Male","Female","Male","Female","Female","Female","Female","Female","Female","Male","Male",null,"female","Male","Female","Male","Male","Male","Male","Male","Male","Male","Female"],[null,null,null,null,null,"gyrA D87Y","gyrA D87Y","gyrA D87Y","gyrA D87Y",null,null,"gyrA D87Y",null,null,"gyrA D87Y",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA S83L",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA D87Y",null,null,null,"gyrA D87Y",null,null,null,null,null,null,null],[null,null,null,null,null,"mphA","mphA",null,null,null,null,"mphA",null,null,"mphA",null,null,null,null,null,null,null,null,null,null,"mphA","mphA",null,null,null,null,null,null,null,"mphA/ermB",null,null,"mphA",null,null,null,null,"mphA",null,null,null,null,null,null,null],[8,0,16,8,8,64,64,0,0,64,0,64,8,8,64,8,8,8,8,8,8,16,8,8,8,64,64,8,8,8,8,8,8,2,64,8,8,64,0,8,8,0,64,8,4,8,8,8,8,8],[0.25,0,0.03,0.02,0.02,0.5,0.5,0,0,8,0,0.5,0.02,0.02,0.5,0.25,0.02,0.02,0.02,0.02,0.02,0.12,0.02,0.02,0.02,0.5,0.25,0.03,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,1,0,0.02,0.02,0,0.5,0.02,0.02,4,0.02,0.02,0.25,0.02]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Sample_ID<\/th>\n      <th>serotype<\/th>\n      <th>Country<\/th>\n      <th>Continent<\/th>\n      <th>Travel_history<\/th>\n      <th>Year<\/th>\n      <th>Belgium<\/th>\n      <th>Source<\/th>\n      <th>Gender<\/th>\n      <th>gyrA_mutations<\/th>\n      <th>macrolide_resistance_genes<\/th>\n      <th>MIC_AZM<\/th>\n      <th>MIC_CIP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[11,12]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c18fa45902a4fda7a059" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c18fa45902a4fda7a059">{"x":{"filter":"none","vertical":false,"data":[["S17BD05944","S15BD07413","S18BD07247","S19BD07384","S18BD07338","S18BD02657","S19BD06884","S16BD02574","S16BD04069","S17BD08170","S15BD07250","S17BD07935","S17BD00384","S19BD06034","S17BD08948","S17BD04542","S17BD07399","S17BD08233","S19BD07381","S17BD07961","S18BD09176","S19BD07393","S18BD02580","S17BD02526","S17BD06833","S18BD01024","S18BD03411","S18BD09515","S17BD07332","S18BD06598","S17BD02164","S19BD06386","S19BD06283","S19BD06285","S19BD05221","S18BD06749","S17BD02088","S17BD07692","S14BD03573","S17BD01135","S19BD06689","S15BD06969","S18BD01106","S17BD00525","S19BD07036","S18BD06401","S18BD06486","S17BD06426","S17BD05916","S18BD07708"],["Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei","Sonnei"],["Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium","Belgium"],["Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe","Europe"],[null,"Georgia",null,"Morocco",null,null,null,"Thailand",null,null,null,null,null,null,null,"Iran",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Morocco","France","Turkey","Egypt","Tunisia","Congo",null,null,null,null,null,null,null,null,null,null,"Egypt",null,null],["2017","2015","2018","2019","2018","2018","2019","2016","2016","2017","2015","2017","2017","2019","2017","2017","2017","2017","2019","2017","2018","2019","2018","2017","2017","2018","2018","2018","2017","2018","2017","2019","2019","2019","2019","2018","2017","2017","2014","2017","2019","2015","2018","2017","2019","2018","2018","2017","2017","2018"],["Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL","NRC BEL"],[null,"Male","Female","Female","Male","Male","Male","Male","Male","Male","Female",null,"Male","Male","Female","Male","Male","Female","Female","Male","Male","Male","Male","Female","Male","Female","Female","Male","Female","Male","Female","Female","Female","Female","Female","Female","Male","Male",null,"female","Male","Female","Male","Male","Male","Male","Male","Male","Male","Female"],[null,null,null,null,null,"gyrA D87Y","gyrA D87Y","gyrA D87Y","gyrA D87Y",null,null,"gyrA D87Y",null,null,"gyrA D87Y",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA S83L",null,null,null,null,null,null,null,null,null,null,"gyrA D87Y","gyrA D87Y",null,null,null,"gyrA D87Y",null,null,null,null,null,null,null],[null,null,null,null,null,"mphA","mphA",null,null,null,null,"mphA",null,null,"mphA",null,null,null,null,null,null,null,null,null,null,"mphA","mphA",null,null,null,null,null,null,null,"mphA/ermB",null,null,"mphA",null,null,null,null,"mphA",null,null,null,null,null,null,null],[8,0,16,8,8,64,64,0,0,64,0,64,8,8,64,8,8,8,8,8,8,16,8,8,8,64,64,8,8,8,8,8,8,2,64,8,8,64,0,8,8,0,64,8,4,8,8,8,8,8],[0.25,0,0.03,0.02,0.02,0.5,0.5,0,0,8,0,0.5,0.02,0.02,0.5,0.25,0.02,0.02,0.02,0.02,0.02,0.12,0.02,0.02,0.02,0.5,0.25,0.03,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,0.02,1,0,0.02,0.02,0,0.5,0.02,0.02,4,0.02,0.02,0.25,0.02]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Sample_ID<\/th>\n      <th>serotype<\/th>\n      <th>Country<\/th>\n      <th>Continent<\/th>\n      <th>Travel_history<\/th>\n      <th>Year<\/th>\n      <th>Belgium<\/th>\n      <th>Source<\/th>\n      <th>Gender<\/th>\n      <th>gyrA_mutations<\/th>\n      <th>macrolide_resistance_genes<\/th>\n      <th>MIC_AZM<\/th>\n      <th>MIC_CIP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[11,12]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="temizleme-ve-inceleme" class="section level3 unnumbered">
 <h3>Temizleme ve inceleme<a class="anchor" aria-label="anchor" href="#temizleme-ve-inceleme"><i class="fas fa-link"></i></a>
 </h3>
 <p>Verilerimizi temizler ve inceleriz: Filogenetik ağaca doğru örnek verilerini atamak için, sample_data veri çerçevesindeki Sample_ID sütunundaki değerlerin ağaç dosyasındaki tip.labels değerleriyle eşleşmesi gerekir:</p>
 <p>Ağaç dosyasındaki tip.labels formatını, R tabanından head() ile ilk 6 girişe bakarak kontrol ederiz.</p>
-<div class="sourceCode" id="cb1738"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1732"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## [1] "SRR5006072" "SRR4192106" "S18BD07865" "S18BD00489" "S17BD08906" "S17BD05939"</code></pre>
 <p>Ayrıca sample_data veri çerçevemizdeki ilk sütunun Sample_ID olduğundan emin oluruz. Temel R’dan colnames() kullanarak veri çerçevemizin sütun adlarına bakarız.</p>
-<div class="sourceCode" id="cb1740"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1734"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">sample_data</span><span class="op">)</span>   </span></code></pre></div>
 <pre><code>##  [1] "Sample_ID"                  "serotype"                  
 ##  [3] "Country"                    "Continent"                 
@@ -217,16 +217,16 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## [11] "macrolide_resistance_genes" "MIC_AZM"                   
 ## [13] "MIC_CIP"</code></pre>
 <p>Biçimlendirmenin tip.label’dekiyle aynı olduğundan emin olmak için veri çerçevesindeki Sample_ID’lere bakarız (örneğin, harflerin tümü büyük harf olması, harfler ve sayılar arasında fazladan alt çizgi olmaması, vb.)</p>
-<div class="sourceCode" id="cb1742"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1736"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span><span class="op">)</span> <span class="co"># we again inspect only the first 6 using head()</span></span></code></pre></div>
 <pre><code>## [1] "S17BD05944" "S15BD07413" "S18BD07247" "S19BD07384" "S18BD07338" "S18BD02657"</code></pre>
 <p>Ayrıca tüm örneklerin ağaç dosyasında bulunup bulunmadığını, eşleşip eşleşmedikleri bir DOĞRU veya YANLIŞ mantıksal vektörü oluşturarak karşılaştırabiliriz. (Basitleştirmek için burada gösterilmemiştir).</p>
-<div class="sourceCode" id="cb1744"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1738"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span></span>
 <span></span>
 <span><span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span></span></code></pre></div>
 <p>Bu vektörleri ağaçta olmayan herhangi bir örnek kimliğini göstermek için kullanabiliriz (hiçbiri yoktur).</p>
-<div class="sourceCode" id="cb1745"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1739"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span><span class="op">[</span><span class="op">!</span><span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## character(0)</code></pre>
 <p>İnceleme sonucu, veri çerçevesindeki Sample_ID formatının tip.labels’deki örnek isimlerine karşılık geldiğini görebiliriz. Bunların eşleşmesi için aynı sırada sıralanması gerekmez.</p>
@@ -243,7 +243,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 </h3>
 <p>ggtree birçok farklı düzen formatı sunar ve bazıları özel amacınız için diğerlerinden daha uygun olabilir. Aşağıda birkaç gösterim var. Diğer seçenekler için bu <a href="http://yulab-smu.top/treedata-book/chapter4.html">çevrimiçi kitaba</a> bakabilirsiniz.</p>
 <p>İşte bazı örnek ağaç düzenleri:</p>
-<div class="sourceCode" id="cb1747"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1741"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggtree</span><span class="op">(</span><span class="va">tree</span><span class="op">)</span>                                            <span class="co"># basit doğrusal ağaç</span></span>
 <span><span class="fu">ggtree</span><span class="op">(</span><span class="va">tree</span>, branch.length <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>                    <span class="co"># uçların hizalandığı basit doğrusal ağaç </span></span>
 <span><span class="fu">ggtree</span><span class="op">(</span><span class="va">tree</span>, layout<span class="op">=</span><span class="st">"circular"</span><span class="op">)</span>                         <span class="co"># basit dairesel ağaç</span></span>
@@ -255,7 +255,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 </h3>
 <p>%&lt;+% operatörü, sample_data veri çerçevesini ağaç dosyasına bağlamak için kullanılır. Ağacınızın en basit gösterimi, uçlara örnek isimlerin eklenmesi, ayrıca uç noktalarının ve istenirse dalların renklendirilmesidir:</p>
 <p>İşte dairesel bir ağaç örneği:</p>
-<div class="sourceCode" id="cb1748"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1742"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggtree</span><span class="op">(</span><span class="va">tree</span>, layout <span class="op">=</span> <span class="st">"circular"</span>, branch.length <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span> <span class="op">%&lt;+%</span> <span class="va">sample_data</span> <span class="op">+</span> <span class="co">#%&lt;+%, ağaca örnek verilerle veri çerçevesi ekler</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">Belgium</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>                       <span class="co"># dalları veri çerçevenizdeki bir değişkene göre renklendirin</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span></span>
@@ -297,7 +297,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <span>    legend.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>   </span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_adding_sampledata-1.png" width="672" style="display: block; margin: auto;"></div>
 <p>Diğer herhangi bir ggplot nesnesinde yaptığınız gibi, ağaç grafiğinizi ggsave() ile dışa aktarabilirsiniz. Bu şekilde yazıldığında, ggsave(), üretilen son grafiği belirttiğiniz dosya yoluna kaydeder. Alt klasörlere vb. kolayca kaydetmek için here() ve ilgili dosya yollarını kullanabileceğinizi unutmayın.</p>
-<div class="sourceCode" id="cb1749"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1743"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"example_tree_circular_1.png"</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></code></pre></div>
 <!-- ======================================================= -->
 </div>
@@ -313,7 +313,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 </h3>
 <p>Ağacınızı “kesmek” istemiyorsanız ve sadece bir kısmını daha yakından incelemek istiyorsanız, belirli bir kısmı görüntülemek için yakınlaştırabilirsiniz.</p>
 <p>İlk olarak, tüm ağacı doğrusal biçimde çiziyoruz ve ağaçtaki her bir noda sayısal etiketler ekliyoruz.</p>
-<div class="sourceCode" id="cb1750"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1744"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggtree</span><span class="op">(</span><span class="va">tree</span>,<span class="op">)</span> <span class="op">%&lt;+%</span> <span class="va">sample_data</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_tiplab</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span>                <span class="co"># ağaç dosyasındaki örnek adıyla tüm dalların uçlarını etiketler</span></span>
 <span>  <span class="fu">geom_text2</span><span class="op">(</span></span>
@@ -327,7 +327,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <span><span class="va">p</span>  <span class="co"># çıktı alın</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_zoom_in-1.png" width="50%" style="display: block; margin: auto;"></div>
 <p>Belirli bir dalı yakınlaştırmak için (sağa doğru uzanarak), ggtree p nesnesinde viewClade() fonkisyonunu kullanın ve daha yakından bakmak için nod numarasını sağlayın:</p>
-<div class="sourceCode" id="cb1751"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1745"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">viewClade</span><span class="op">(</span><span class="va">p</span>, node <span class="op">=</span> <span class="fl">452</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_zoom_in_452-1.png" width="50%" style="display: block; margin: auto;"></div>
 </div>
@@ -335,12 +335,12 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <h3>Daralan dallar<a class="anchor" aria-label="anchor" href="#daralan-dallar"><i class="fas fa-link"></i></a>
 </h3>
 <p>Ancak, bu dalı yok saymak isteyebiliriz ve aynı noddaki (nod nr. 452) collapse() fonksiyonunu kullanarak dalı daraltabiliriz. Bu ağaç p_collapsed olarak tanımlanır.</p>
-<div class="sourceCode" id="cb1752"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1746"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_collapsed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collapse</a></span><span class="op">(</span><span class="va">p</span>, node <span class="op">=</span> <span class="fl">452</span><span class="op">)</span></span>
 <span><span class="va">p_collapsed</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_collapse_452-1.png" width="50%" style="display: block; margin: auto;"></div>
 <p>Anlaşılır olması için, p_collapsed’ı yazdırdığımızda, daraltılmış dalın noduna geom_point2() ile mavi elmas şekli ekleriz.</p>
-<div class="sourceCode" id="cb1753"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1747"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_collapsed</span> <span class="op">+</span> </span>
 <span><span class="fu">geom_point2</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>subset <span class="op">=</span> <span class="op">(</span><span class="va">node</span> <span class="op">==</span> <span class="fl">452</span><span class="op">)</span><span class="op">)</span>,  <span class="co"># we assign a symbol to the collapsed node</span></span>
 <span>            size <span class="op">=</span> <span class="fl">5</span>,                     <span class="co"># define the size of the symbol</span></span>
@@ -353,7 +353,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 </h3>
 <p>Daha kalıcı bir değişiklik yapmak ya da çalışma için yeni ve küçültülmüş bir ağaç oluşturmak istiyorsak, ağacın bir kısmının tree_subset() ile alt kümesini alabiliriz. Ardından bu alt kümeyi yeni bir newick ağaç dosyası veya .txt dosyası olarak kaydedebilirsiniz.</p>
 <p>İlk olarak, neyin altküme olacağına karar vermek için ağaç nodlarını ve uç etiketlerini inceleriz.</p>
-<div class="sourceCode" id="cb1754"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1748"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggtree</span><span class="op">(</span></span>
 <span>  <span class="va">tree</span>,</span>
 <span>  branch.length <span class="op">=</span> <span class="st">'none'</span>,</span>
@@ -370,30 +370,30 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <span>   plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span>, face<span class="op">=</span><span class="st">"bold"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_subsetting-1.png" width="50%" style="display: block; margin: auto;"></div>
 <p>Şimdi, ağacın 528 numaralı nodundan alt küme oluşturmaya karar verdiğimizi varsayalım (sadece bu dalda 528 nodundan sonraki uçlarını tutalım) ve onu yeni bir sub_tree1 nesnesi olarak kaydedelim:</p>
-<div class="sourceCode" id="cb1755"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1749"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub_tree1</span> <span class="op">&lt;-</span> <span class="fu">tree_subset</span><span class="op">(</span></span>
 <span>  <span class="va">tree</span>,</span>
 <span>  node <span class="op">=</span> <span class="fl">528</span><span class="op">)</span>                                            <span class="co"># ağacın 528 nodundan alt kümesini oluşturuyoruz</span></span></code></pre></div>
 <p>1 numaralı alt küme ağacına bir göz atalım:</p>
-<div class="sourceCode" id="cb1756"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1750"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggtree</span><span class="op">(</span><span class="va">sub_tree1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_tiplab</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Subset tree 1"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1327-1.png" width="672"></div>
 <p>Ayrıca, “geriye” kaç tane nod eklemek istediğinizi belirterek belirli bir örneğe dayalı olarak alt kümeler oluşturabilirsiniz. Ağacın aynı kısmını bir örneğe dayanarak alt kümelendirelim, bu durumda S17BD07692 için 9 nod geriye giderek ve onu yeni bir sub_tree2 nesnesi olarak kaydedelim:</p>
-<div class="sourceCode" id="cb1757"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1751"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub_tree2</span> <span class="op">&lt;-</span> <span class="fu">tree_subset</span><span class="op">(</span></span>
 <span>  <span class="va">tree</span>,</span>
 <span>  <span class="st">"S17BD07692"</span>,</span>
 <span>  levels_back <span class="op">=</span> <span class="fl">9</span><span class="op">)</span> <span class="co"># geri seviye sayısı, örnek ucundan geriye kaç nod gideceğinizi tanımlar.</span></span></code></pre></div>
 <p>Şimdi alt küme ağacına bir göz atalım:</p>
-<div class="sourceCode" id="cb1758"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1752"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggtree</span><span class="op">(</span><span class="va">sub_tree2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_tiplab</span><span class="op">(</span>size <span class="op">=</span><span class="fl">3</span><span class="op">)</span>  <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Subset tree 2"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1329-1.png" width="672"></div>
 <p>Yeni ağacınızı, ape paketindeki write.tree() fonksiyonunu kullanarak bir Newick formatında veya hatta bir metin dosyası olarak da kaydedebilirsiniz</p>
-<div class="sourceCode" id="cb1759"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1753"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># .nwk formatında kaydetmek için</span></span>
 <span><span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/write.tree.html">write.tree</a></span><span class="op">(</span><span class="va">sub_tree2</span>, file<span class="op">=</span><span class="st">'data/phylo/Shigella_subtree_2.nwk'</span><span class="op">)</span></span>
 <span></span>
@@ -405,7 +405,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 </h3>
 <p>Daha önce de belirtildiği gibi, ağaçtaki uçların veya nodların sırasını değiştiremeyiz, çünkü bu onların genetik akrabalıklarına dayanır ve görsel manipülasyona izin yoktur. Ancak, görselleştirmemizi kolaylaştıracaksa, dalları nodların etrafında döndürebiliriz.</p>
 <p>İlk olarak, işlemek istediğimiz nodu seçmek için yeni alt küme ağacımızı (alt küme 2) nod etiketleriyle çizeriz ve bir ggtree çizim nesnesi ‘p’ olarak saklarız.</p>
-<div class="sourceCode" id="cb1760"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1754"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggtree</span><span class="op">(</span><span class="va">sub_tree2</span><span class="op">)</span> <span class="op">+</span>  </span>
 <span>  <span class="fu">geom_tiplab</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_text2</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>subset<span class="op">=</span><span class="op">!</span><span class="va">isTip</span>, label<span class="op">=</span><span class="va">node</span><span class="op">)</span>, <span class="co"># ağaçtaki tüm nodları etiketler</span></span>
@@ -416,7 +416,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <span><span class="va">p</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_rotating_1-1.png" width="50%" style="display: block; margin: auto;"></div>
 <p>Ardından, ggtree::rotate() veya ggtree::flip() fonksiyonlarını uygulayarak nodları değiştirebiliriz: Not: Hangi nodları manuple ettiğimizi göstermek için, ilgilendiğimiz noddaki örnekleri vurgulamak için önce ggtree’den geom_hilight() fonksiyonunu uygularız. ggtree çizim nesnesini yeni bir nesne olarak (p1) saklayın.</p>
-<div class="sourceCode" id="cb1761"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1755"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_hilight</span><span class="op">(</span>  <span class="co"># nod 39'u mavi olarak vurgular, "extend =" renk bloğunun uzunluğunu tanımlamamızı sağlar</span></span>
 <span>  node <span class="op">=</span> <span class="fl">39</span>,</span>
 <span>  fill <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
@@ -431,7 +431,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <span><span class="va">p1</span> <span class="co"># çıktı alın</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_rotating_2-1.png" width="50%" style="display: block; margin: auto;"></div>
 <p>Şimdi p1 nesnesindeki nod 37’yi döndürebiliriz, böylece nod 38’deki örnekler en üste hareket eder. Döndürülen ağacı yeni bir p2 nesnesi olarak saklıyoruz.</p>
-<div class="sourceCode" id="cb1762"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1756"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">ggtree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggtree/man/rotate.html">rotate</a></span><span class="op">(</span><span class="va">p1</span>, <span class="fl">37</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Rotated Node 37"</span><span class="op">)</span></span>
 <span></span>
@@ -439,7 +439,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <span><span class="va">p2</span>   <span class="co"># çıktı alın</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1330-1.png" width="672"></div>
 <p>Ya da p1 nesnesindeki 36 nolu nodu döndürmek ve 37 nolu nodu yukarı ve 39 nolu nodu aşağıya çevirmek için flip (çevirme= komutunu kullanabiliriz. Ters çevrilmiş ağacı yeni bir p3 nesnesi olarak saklıyoruz.</p>
-<div class="sourceCode" id="cb1763"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1757"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p3</span> <span class="op">&lt;-</span>  <span class="fu">flip</span><span class="op">(</span><span class="va">p1</span>, <span class="fl">39</span>, <span class="fl">37</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Rotated Node 36"</span><span class="op">)</span></span>
 <span></span>
@@ -451,7 +451,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <h3>Numune verilerini içeren açıklamalı örnek alt ağaç<a class="anchor" aria-label="anchor" href="#numune-verilerini-i%C3%A7eren-a%C3%A7%C4%B1klamal%C4%B1-%C3%B6rnek-alt-a%C4%9Fa%C3%A7"><i class="fas fa-link"></i></a>
 </h3>
 <p>2017 ve 2018’de alt ağacımızda 39. nodda meydana gelen klonal genişlemeli vaka kümesini araştırdığımızı varsayalım. Yakın ilişkili diğer suşların kökenini görmek için suş izolasyonunun yanı sıra ülkeye göre seyahat geçmişi ve rengi de ekliyoruz:</p>
-<div class="sourceCode" id="cb1764"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1758"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggtree</span><span class="op">(</span><span class="va">sub_tree2</span><span class="op">)</span> <span class="op">%&lt;+%</span> <span class="va">sample_data</span> <span class="op">+</span>     <span class="co"># sample_data'ya bağlanmak için %&lt;+% operatörünü kullanırız</span></span>
 <span>  <span class="fu">geom_tiplab</span><span class="op">(</span>                          <span class="co"># ağaç dosyasındaki numune adıyla tüm dalların uçlarını etiketler</span></span>
 <span>    size <span class="op">=</span> <span class="fl">2.5</span>,</span>
@@ -502,7 +502,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 </h2>
 <p>ggtree::gheatmap() fonksiyonunu kullanarak bir ısı haritası biçiminde antimikrobiyal direnç genlerinin kategorik olarak varlığı ve antimikrobiyallere karşı ölçülen direnç için sayısal değerler gibi daha karmaşık bilgiler de ekleyebiliriz.</p>
 <p>İlk önce ağacımızı çizmemiz gerekiyor (bu doğrusal veya dairesel olabilir) ve ağacı yeni bir ggtree çizim nesnesi p’de saklamamız gerekiyor: Bölüm 3’teki sub_tree’yi kullanacağız.)</p>
-<div class="sourceCode" id="cb1765"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1759"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggtree</span><span class="op">(</span><span class="va">sub_tree2</span>, branch.length<span class="op">=</span><span class="st">'none'</span>, layout<span class="op">=</span><span class="st">'circular'</span><span class="op">)</span> <span class="op">%&lt;+%</span> <span class="va">sample_data</span> <span class="op">+</span></span>
 <span> <span class="fu">geom_tiplab</span><span class="op">(</span>size <span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
 <span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
@@ -519,19 +519,19 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <p>İkinci olarak verilerimizi hazırlıyoruz. Farklı değişkenleri yeni renk şemaları ile görselleştirmek için veri çerçevemizi istenen değişkene göre alt gruplara ayırıyoruz. Sample_ID’yi satır adları olarak eklemek önemlidir, aksi takdirde verileri ağaç tip.labels ile eşleştiremez:</p>
 <p>Örneğimizde Shigella enfeksiyonlarını tedavi etmek için kullanılan önemli bir birinci basamak antibiyotik olan siprofloksasine direnç kazandırabilecek mutasyonlara ve cinsiyete bakmak istiyoruz.</p>
 <p>Cinsiyet için bir veri çerçevesi oluşturuyoruz:</p>
-<div class="sourceCode" id="cb1766"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1760"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"gender"</span> <span class="op">=</span> <span class="va">sample_data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Gender"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">gender</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span></span></code></pre></div>
 <p>Siprofloksasin direncine nede olan gyrA genindeki mutasyonlar için bir veri çerçevesi oluşturuyoruz:</p>
-<div class="sourceCode" id="cb1767"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1761"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cipR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"cipR"</span> <span class="op">=</span> <span class="va">sample_data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gyrA_mutations"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">cipR</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span></span></code></pre></div>
 <p>Siprofloksasin için ölçülen minimum inhibitör konsantrasyonu (MIC) için bir veri çerçevesi oluşturuyoruz:</p>
-<div class="sourceCode" id="cb1768"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1762"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MIC_Cip</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"mic_cip"</span> <span class="op">=</span> <span class="va">sample_data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MIC_CIP"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">MIC_Cip</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sample_data</span><span class="op">$</span><span class="va">Sample_ID</span></span></code></pre></div>
 <p>Filogenetik ağaca cinsiyet için ikili bir ısı haritası ekleyen ve onu yeni bir ggtree grafi nesnesi h1’de saklayan bir ilk grafik oluşturuyoruz:</p>
-<div class="sourceCode" id="cb1769"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1763"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h1</span> <span class="op">&lt;-</span>  <span class="fu">gheatmap</span><span class="op">(</span><span class="va">p</span>, <span class="va">gender</span>,                                 <span class="co"># ağaç grafiğimize cinsiyet veri çerçevesinin ısı haritası katmanını ekliyoruz</span></span>
 <span>                offset <span class="op">=</span> <span class="fl">10</span>,                               <span class="co"># ofset, ısı haritasını sağa kaydırır,</span></span>
 <span>                width <span class="op">=</span> <span class="fl">0.10</span>,                              <span class="co"># genişlik, ısı haritası sütununun genişliğini tanımlar,</span></span>
@@ -549,16 +549,16 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## Adding another scale for y, which will replace the existing scale.
 ## Scale for fill is already present.
 ## Adding another scale for fill, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb1771"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1765"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h1</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_sampledata_heatmap_gender-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Ardından, gyrA genindeki siprofloksasine direnç sağlayan mutasyonlar hakkında bilgi ekliyoruz:</p>
 <p>Not: WGS verilerinde kromozomal nokta mutasyonlarının varlığı, Zankari ve arkadaşları tarafından geliştirilen PointFinder aracı kullanılarak önceden belirlenmiştir. (referanslar bölümündeki referansa bakın)</p>
 <p>İlk olarak, mevcut çizim nesnemiz h1’e yeni bir renk şeması atarız ve onu nesne h2’de saklarız. Bu, ısı haritasındaki ikinci değişkenimizin renklerini tanımlamamızı ve değiştirmemizi sağlar.</p>
-<div class="sourceCode" id="cb1772"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1766"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h2</span> <span class="op">&lt;-</span> <span class="va">h1</span> <span class="op">+</span> <span class="fu">new_scale_fill</span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <p>Ardından ikinci ısı haritası katmanını h2’ye ekler ve birleştirilmiş grafikleri yeni bir nesne h3’te saklarız:</p>
-<div class="sourceCode" id="cb1773"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1767"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h3</span> <span class="op">&lt;-</span> <span class="fu">gheatmap</span><span class="op">(</span><span class="va">h2</span>, <span class="va">cipR</span>,         <span class="co"># Siprofloksasine direnç mutasyonlarını tanımlayan ikinci ısı haritası satırını ekler</span></span>
 <span>               offset <span class="op">=</span> <span class="fl">12</span>, </span>
 <span>               width <span class="op">=</span> <span class="fl">0.10</span>, </span>
@@ -576,11 +576,11 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## Adding another scale for y, which will replace the existing scale.
 ## Scale for fill is already present.
 ## Adding another scale for fill, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb1775"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1769"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h3</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_genes-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>İlk önce mevcut nesne h3’e yeni bir renk ölçeği katmanı ekleyerek ve ardından nihai nesne h5’i üretmek için elde edilen h4 nesnesine her suş için siprofloksasin için minimum inhibitör konsantrasyonu (MIC) verilerini ekleyerek yukarıdaki işlemi tekrarlıyoruz. :</p>
-<div class="sourceCode" id="cb1776"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1770"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># İlk önce yeni renklendirme şemasını ekliyoruz:</span></span>
 <span><span class="va">h4</span> <span class="op">&lt;-</span> <span class="va">h3</span> <span class="op">+</span> <span class="fu">new_scale_fill</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -602,11 +602,11 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## Adding another scale for y, which will replace the existing scale.
 ## Scale for fill is already present.
 ## Adding another scale for fill, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb1778"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1772"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h5</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_sampledata_heatmap_cip_MIC-1.png" width="90%" style="display: block; margin: auto;"></div>
 <p>Aynı alıştırmayı doğrusal bir ağaç için de yapabiliriz:</p>
-<div class="sourceCode" id="cb1779"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1773"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggtree</span><span class="op">(</span><span class="va">sub_tree2</span><span class="op">)</span> <span class="op">%&lt;+%</span> <span class="va">sample_data</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_tiplab</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="co"># labels the tips</span></span>
 <span>  <span class="fu">theme_tree2</span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
@@ -621,7 +621,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 <span><span class="va">p</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_1-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>Öncelikle cinsiyeti giriyoruz</p>
-<div class="sourceCode" id="cb1780"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1774"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h1</span> <span class="op">&lt;-</span>  <span class="fu">gheatmap</span><span class="op">(</span><span class="va">p</span>, <span class="va">gender</span>, </span>
 <span>                offset <span class="op">=</span> <span class="fl">0.003</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.1</span>, </span>
@@ -639,11 +639,11 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## Adding another scale for y, which will replace the existing scale.
 ## Scale for fill is already present.
 ## Adding another scale for fill, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb1782"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1776"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h1</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_2-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>Ardından, başka bir renk şeması katmanı ekledikten sonra siprofloksasine direnç mutasyonlarını ekliyoruz:</p>
-<div class="sourceCode" id="cb1783"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1777"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h2</span> <span class="op">&lt;-</span> <span class="va">h1</span> <span class="op">+</span> <span class="fu">new_scale_fill</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">h3</span> <span class="op">&lt;-</span> <span class="fu">gheatmap</span><span class="op">(</span><span class="va">h2</span>, <span class="va">cipR</span>,   </span>
 <span>               offset <span class="op">=</span> <span class="fl">0.004</span>, </span>
@@ -663,11 +663,11 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## Adding another scale for y, which will replace the existing scale.
 ## Scale for fill is already present.
 ## Adding another scale for fill, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb1785"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1779"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">h3</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_3-1.png" width="80%" style="display: block; margin: auto;"></div>
 <p>Ardından laboratuvar tarafından belirlenen minimum engelleyici konsantrasyonu (MIC) ekliyoruz:</p>
-<div class="sourceCode" id="cb1786"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1780"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h4</span> <span class="op">&lt;-</span> <span class="va">h3</span> <span class="op">+</span> <span class="fu">new_scale_fill</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">h5</span> <span class="op">&lt;-</span> <span class="fu">gheatmap</span><span class="op">(</span><span class="va">h4</span>, <span class="va">MIC_Cip</span>, </span>
 <span>               offset <span class="op">=</span> <span class="fl">0.005</span>,  </span>
@@ -688,7 +688,7 @@ Bu sayfada, filogenetik ağaçların bir veri çerçevesiyle birleştirilmiş ha
 ## Adding another scale for y, which will replace the existing scale.
 ## Scale for fill is already present.
 ## Adding another scale for fill, which will replace the existing scale.</code></pre>
-<div class="sourceCode" id="cb1788"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1782"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h5</span></span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/phylogenetic_trees_sampledata_heatmap_linear_4-1.png" width="80%" style="display: block; margin: auto;"></div>
 <!-- ======================================================= -->

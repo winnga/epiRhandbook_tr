@@ -57,7 +57,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook Banner Turkish Rehb
 
 **Kullanımı**: Bu çevrimiçi kitap, dünya çapında **300.000 kişi tarafından 1 milyondan fazla kez** kullanılmıştır.
 
-**Hedef:** Yaygın epidemiyolojik sorunlara çözümler üreten, pratik, hedef odaklı ve hızlı bir (çevrimiçi ve **[çevrimdışı][Download handbook and data]**) referans kılavuz olarak rol oynamak.
+**Hedef:** Yaygın epidemiyolojik sorunlara çözümler üreten, pratik, hedef odaklı ve hızlı bir (çevrimiçi ve **[çevrimdışı][El Kitabı ve verileri indirme]**) referans kılavuz olarak rol oynamak.
 
 **R'a yeni mi başlıyorsun?** Ücretsiz **[interaktif eğitimlerimiz](https://www.appliedepi.org/tutorial/)** ya da senkronize, sanal **[kurslarımız](https://www.appliedepi.org/live/)** Amerika CDC, Dünya Sağlık Örgütü dahil olmak üzere 75'ten fazla sağlık örgütü ve saha eğitim programlarında kullanıldı.  
 
@@ -123,7 +123,7 @@ Onlarca yıllık epidemiyoloji deneyimine sahip eğitmenlerimizle **canlı R eğ
 
 * İçindekiler bölümündeki sayfalara göz atabilir veya arama kutusunu kullanabilirsiniz
 * Kodu kopyalamak için "kopyala" simgelerine tıklayabilirsiniz
-* [örnek verileri][Download handbook and data] kullanarak kendiniz de deneyebilirsiniz  
+* [örnek verileri][El Kitabı ve verileri indirme] kullanarak kendiniz de deneyebilirsiniz  
 
 **Çevrimdışı versiyonu**  
 

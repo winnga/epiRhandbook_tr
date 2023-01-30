@@ -24,7 +24,7 @@ rmd_files: [
   # SECTION
    "new_pages/cat_reports_dashboards.Rmd",                 # start of new section
    "new_pages/interactive_plots.Rmd",
-  # "new_pages/reportfactory.Rmd",
+   "new_pages/data_used.Rmd",
   # "new_pages/flexdashboard.Rmd",
   # "new_pages/shiny_basics.Rmd",
 
