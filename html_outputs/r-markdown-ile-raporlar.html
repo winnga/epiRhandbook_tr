@@ -114,7 +114,7 @@
 <li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
 <li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
 <li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li><a class="" href="interaktif-grafikler.html"><span class="header-section-number">39</span> İnteraktif grafikler</a></li>
 <li class="book-part">Reports and dashboards</li>
 <li><a class="active" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
 <li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
@@ -148,9 +148,9 @@ Bu tür belgeler, rutin güncelleme (örneğin, günlük gözetim raporları) ve
 • R Markdown içeren Panolar sayfası, bir R Markdown raporunun pano olarak nasıl biçimlendirileceğini açıklar.</p>
 <p>Not : R4Epis projesi, MSF proje lokasyonlarında karşılaşılan yaygın salgın ve çalışma senaryoları için şablon olan R Markdown komut dosyaları geliştirmiştir.</p>
 <!-- ======================================================= -->
-<div id="hazırlık-32" class="section level2" number="40.1">
+<div id="hazırlık-33" class="section level2" number="40.1">
 <h2>
-<span class="header-section-number">40.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-32"><i class="fas fa-link"></i></a>
+<span class="header-section-number">40.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-33"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>R Markdown arkaplanı</strong></p>
 <p>İlgili bazı kavram ve paketleri açıklamak için:
@@ -167,7 +167,7 @@ Bu tür belgeler, rutin güncelleme (örneğin, günlük gözetim raporları) ve
 <p>• rmarkdown paketi (knitr ayrıca otomatik olarak kurulacaktır)
 • RStudio ile birlikte gelmesi gereken Pandoc. RStudio kullanmıyorsanız, Pandoc’u buradan indirebilirsiniz: <a href="http://pandoc.org" class="uri">http://pandoc.org</a>.
 • PDF çıktısı oluşturmak istiyorsanız (biraz daha zor), LaTeX’i kurmanız gerekecek. Daha önce LaTeX yüklememiş olan R Markdown kullanıcıları için TinyTeX’i (<a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>) yüklemenizi öneririz. Aşağıdaki komutları kullanabilirsiniz:</p>
-<div class="sourceCode" id="cb1799"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1800"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">tinytex</span><span class="op">)</span>     <span class="co"># tinytex paketini yükleyin </span></span>
 <span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># TinyTeX yazılımını yüklemek için R komutu </span></span></code></pre></div>
 <!-- ======================================================= -->
@@ -180,7 +180,7 @@ Bu tür belgeler, rutin güncelleme (örneğin, günlük gözetim raporları) ve
 <h3>rmarkdown R paketini yükleme<a class="anchor" aria-label="anchor" href="#rmarkdown-r-paketini-y%C3%BCkleme"><i class="fas fa-link"></i></a>
 </h3>
 <p>rmarkdown R paketini kurun. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() işlevini vurguluyoruz. Ayrıca, temel R’dan library() ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R temelleri ile ilgili sayfaya bakın.</p>
-<div class="sourceCode" id="cb1800"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1801"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rmarkdown</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="yeni-bir-rmd-dosyası-başlatmak" class="section level3 unnumbered">
@@ -220,9 +220,9 @@ Bu tür belgeler, rutin güncelleme (örneğin, günlük gözetim raporları) ve
 <p>“YAML meta verileri” veya yalnızca “YAML” olarak anılan bu bileşen, R Markdown belgesinin en üstündedir. Komut dosyasının bu bölümü, Rmd dosyanız için ne tür bir çıktı üretileceğini, biçimlendirme tercihlerini ve belge başlığı, yazar ve tarih gibi diğer meta verileri gösterecektir. Burada belirtilmeyen başka kullanımlar da vardır (Çıktı oluşturma’ bölümünde anlatılmaktadır). Girintilerin önemli olduğunu unutmayın; sekmeler kabul edilmez ancak boşluklar kabul edilir.</p>
 <p>Bu bölüm yalnızca üç tire (—) içeren bir satırla başlamalı ve yalnızca üç tire içeren bir satırla kapatılmalıdır. YAML parametreleri anahtar:değer (key:value) çiftleri halinde kodlanır. YAML’de iki nokta üst üste işareti (:) yerleşimi önemlidir - anahtar:değer çiftleri iki nokta üst üste işareti ile ayrılır (eşittir işaretleriyle değil!).</p>
 <p>YAML, belge için meta verilerle başlamalıdır. Bu birincil YAML parametrelerinin (girintisiz) sırası önemli değildir. Örneğin:</p>
-<div class="sourceCode" id="cb1801"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1801-1"><a href="r-markdown-ile-raporlar.html#cb1801-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document"</span></span>
-<span id="cb1801-2"><a href="r-markdown-ile-raporlar.html#cb1801-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Me"</span></span>
-<span id="cb1801-3"><a href="r-markdown-ile-raporlar.html#cb1801-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2022-11-21"</span></span></code></pre></div>
+<div class="sourceCode" id="cb1802"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1802-1"><a href="r-markdown-ile-raporlar.html#cb1802-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document"</span></span>
+<span id="cb1802-2"><a href="r-markdown-ile-raporlar.html#cb1802-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Me"</span></span>
+<span id="cb1802-3"><a href="r-markdown-ile-raporlar.html#cb1802-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-01-30"</span></span></code></pre></div>
 <p>R kodunu YAML değerleri içinde satır içi kod olarak (ters tikler içinde, r önce gelir) veya tırnak işaretleri içinde yazarak kullanabilirsiniz (tarih için yukarıdaki örneğe bakın:).</p>
 <p>Yukarıdaki resimde, varsayılan çıktımızın bir html dosyası olacağını seçtiğimiz için, YAML’nin çıktı: html_document olarak kodlandığını görebiliriz. Ancak bunu powerpoint_presentation veya word_document veya hatta pdf_document olarak değiştirebiliriz.</p>
 </div>
@@ -250,7 +250,7 @@ Bu tür belgeler, rutin güncelleme (örneğin, günlük gözetim raporları) ve
 <h4>Renk<a class="anchor" aria-label="anchor" href="#renk"><i class="fas fa-link"></i></a>
 </h4>
 <p>R Markdown’da metnin rengini değiştirmek için basit bir mekanizma yoktur. Çıktınız bir HTML dosyasıysa, geçici bir çözüm, işaretleme metnine bir HTML satırı eklemektir. Aşağıdaki HTML kodu, kalın kırmızı renkte bir metin satırı yazdıracaktır.</p>
-<div class="sourceCode" id="cb1802"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1802-1"><a href="r-markdown-ile-raporlar.html#cb1802-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;span</span> <span class="er">style</span><span class="ot">=</span><span class="st">"color: red;"</span><span class="kw">&gt;</span>**_DANGER:_** This is a warning.<span class="kw">&lt;/span&gt;</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb1803"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1803-1"><a href="r-markdown-ile-raporlar.html#cb1803-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;span</span> <span class="er">style</span><span class="ot">=</span><span class="st">"color: red;"</span><span class="kw">&gt;</span>**_DANGER:_** This is a warning.<span class="kw">&lt;/span&gt;</span>  </span></code></pre></div>
 <p><span style="color: red;">**__TEHLİKE:_** Bu bir uyarıdır.</span></p>
 </div>
 <div id="başlıklar" class="section level4 unnumbered">
@@ -258,24 +258,24 @@ Bu tür belgeler, rutin güncelleme (örneğin, günlük gözetim raporları) ve
 </h4>
 <p>Bir R Markdown betiğinin metin bölümündeki hash (#) sembolü, bir başlık oluşturur. Bu, normal bir R betiğinde olduğu gibi, bir hash sembolünün yorum yapma/açıklama ekleme/devre dışı bırakma mekanizması olduğu komut dosyasındaki bir R kodundan farklıdır.</p>
 <p>Yeni bir satırın başlangıcında farklı sayıda hash sembolü ile farklı başlık seviyeleri oluşturulur. Bir hash sembolü, bir başlık veya birincil başlıktır. İki hash sembol, ikinci düzey bir başlıktır. Üçüncü ve dördüncü seviye başlıklar, art arda daha fazla hash sembolü ile yapılabilir.</p>
-<div class="sourceCode" id="cb1803"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1803-1"><a href="r-markdown-ile-raporlar.html#cb1803-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Birinci düzey başlık / Genel başlık</span></span>
-<span id="cb1803-2"><a href="r-markdown-ile-raporlar.html#cb1803-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1803-3"><a href="r-markdown-ile-raporlar.html#cb1803-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## İkinci seviye başlık</span></span>
-<span id="cb1803-4"><a href="r-markdown-ile-raporlar.html#cb1803-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1803-5"><a href="r-markdown-ile-raporlar.html#cb1803-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Üçüncü seviye başlık </span></span></code></pre></div>
+<div class="sourceCode" id="cb1804"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1804-1"><a href="r-markdown-ile-raporlar.html#cb1804-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Birinci düzey başlık / Genel başlık</span></span>
+<span id="cb1804-2"><a href="r-markdown-ile-raporlar.html#cb1804-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1804-3"><a href="r-markdown-ile-raporlar.html#cb1804-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## İkinci seviye başlık</span></span>
+<span id="cb1804-4"><a href="r-markdown-ile-raporlar.html#cb1804-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1804-5"><a href="r-markdown-ile-raporlar.html#cb1804-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Üçüncü seviye başlık </span></span></code></pre></div>
 </div>
 <div id="madde-işaretleri-ve-numaralandırma" class="section level4 unnumbered">
 <h4>Madde İşaretleri ve Numaralandırma<a class="anchor" aria-label="anchor" href="#madde-i%C5%9Faretleri-ve-numaraland%C4%B1rma"><i class="fas fa-link"></i></a>
 </h4>
 <p>Bir madde işareti listesi oluşturmak için yıldız işaretlerini (*) kullanın. Önceki cümleyi bitirin, iki boşluk bırakın, iki kez Enter/Return yapın ve ardından madde işaretlerinizi başlatın. Yıldız işareti ile madde işareti ile metniniz arasına bir boşluk ekleyin. Her madde işaretinden sonra iki boşluk girin ve ardından Enter/Return yapın. Alt madde işaretleri aynı şekilde çalışır ancak girintilidir. Sayılar aynı şekilde çalışır, ancak yıldız işareti yerine 1), 2) vb. yazın. Aşağıda R Markdown komut dosyası metninizin nasıl görünebileceği açıklanmıştır.</p>
-<div class="sourceCode" id="cb1804"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1804-1"><a href="r-markdown-ile-raporlar.html#cb1804-1" aria-hidden="true" tabindex="-1"></a>Madde işaretlerim (bu kolondan sonra iki boşluk var):</span>
-<span id="cb1804-2"><a href="r-markdown-ile-raporlar.html#cb1804-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1804-3"><a href="r-markdown-ile-raporlar.html#cb1804-3" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Madde 1 (ardından iki boşluk ve Enter/Return)</span>
-<span id="cb1804-4"><a href="r-markdown-ile-raporlar.html#cb1804-4" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Madde 2 (ardından iki boşluk ve Enter/Return)</span>
-<span id="cb1804-5"><a href="r-markdown-ile-raporlar.html#cb1804-5" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>Alt madde işareti 1 (ardından iki boşluk ve Enter/Return)</span>
-<span id="cb1804-6"><a href="r-markdown-ile-raporlar.html#cb1804-6" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>Alt madde 2 (ardından iki boşluk ve Enter/Return)</span>
-<span id="cb1804-7"><a href="r-markdown-ile-raporlar.html#cb1804-7" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1804-8"><a href="r-markdown-ile-raporlar.html#cb1804-8" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
+<div class="sourceCode" id="cb1805"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1805-1"><a href="r-markdown-ile-raporlar.html#cb1805-1" aria-hidden="true" tabindex="-1"></a>Madde işaretlerim (bu kolondan sonra iki boşluk var):</span>
+<span id="cb1805-2"><a href="r-markdown-ile-raporlar.html#cb1805-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1805-3"><a href="r-markdown-ile-raporlar.html#cb1805-3" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Madde 1 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1805-4"><a href="r-markdown-ile-raporlar.html#cb1805-4" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Madde 2 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1805-5"><a href="r-markdown-ile-raporlar.html#cb1805-5" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>Alt madde işareti 1 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1805-6"><a href="r-markdown-ile-raporlar.html#cb1805-6" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>Alt madde 2 (ardından iki boşluk ve Enter/Return)</span>
+<span id="cb1805-7"><a href="r-markdown-ile-raporlar.html#cb1805-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1805-8"><a href="r-markdown-ile-raporlar.html#cb1805-8" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
 </div>
 <div id="metne-yorum-yapılması" class="section level4 unnumbered">
 <h4>Metne yorum yapılması<a class="anchor" aria-label="anchor" href="#metne-yorum-yap%C4%B1lmas%C4%B1"><i class="fas fa-link"></i></a>
@@ -309,7 +309,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <div class="inline-figure"><img src="images/markdown/3_chunk.png" width="80%" style="display: block; margin: auto;"></div>
 <p>Ayrıca her parçanın sağ üst tarafında, kodu bir parça içinde veya tüm kodu önceki parçalarda çalıştırmak için yararlı olan iki ok vardır. Ne yaptıklarını görmek için üzerinde gezinin.</p>
 <p>Komut dosyasındaki tüm parçalara uygulanacak genel seçenekleri komut dosyasındaki ilk R kodu parçasında ayarlayabilirsiniz. Örneğin, her kod parçası için yalnızca çıktıların gösterilmesi ve kodun kendisinin gösterilmemesi için, bu komutu R kod parçasına dahil edebilirsiniz:</p>
-<div class="sourceCode" id="cb1805"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1806"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code></pre></div>
 <div id="metin-içinde-r-kodu" class="section level4 unnumbered">
 <h4>Metin İçinde R Kodu<a class="anchor" aria-label="anchor" href="#metin-i%C3%A7inde-r-kodu"><i class="fas fa-link"></i></a>
@@ -326,22 +326,22 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <h3>Görseller<a class="anchor" aria-label="anchor" href="#g%C3%B6rseller"><i class="fas fa-link"></i></a>
 </h3>
 <p>Görüntüleri R Markdown’ınıza iki yoldan biriyle dahil edebilirsiniz:</p>
-<div class="sourceCode" id="cb1806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1806-1"><a href="r-markdown-ile-raporlar.html#cb1806-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[](<span class="st">"path/to/image.png"</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb1807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1807-1"><a href="r-markdown-ile-raporlar.html#cb1807-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>[](<span class="st">"path/to/image.png"</span>)  </span></code></pre></div>
 <p>Yukarıdakiler işe yaramazsa, knitr::include_graphics() kullanmayı deneyin.</p>
-<div class="sourceCode" id="cb1807"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1808"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"path/to/image.png"</span><span class="op">)</span></span></code></pre></div>
 <p>(unutmayın, dosya yolunuz buradaki paket kullanılarak yazılabilir)</p>
-<div class="sourceCode" id="cb1808"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1809"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"image.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="tablolar" class="section level3 unnumbered">
 <h3>Tablolar<a class="anchor" aria-label="anchor" href="#tablolar"><i class="fas fa-link"></i></a>
 </h3>
 <p>Kısa çizgi ( - ) ve çubuklar ( | ) kullanarak bir tablo oluşturun. Çubukların önündeki/arasındaki kısa çizgi sayısı, metin yazılmaya başlamadan önceki boş karakter sayısını belirtir.</p>
-<div class="sourceCode" id="cb1809"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1809-1"><a href="r-markdown-ile-raporlar.html#cb1809-1" aria-hidden="true" tabindex="-1"></a>Column 1 |Column  2 |Column 3</span>
-<span id="cb1809-2"><a href="r-markdown-ile-raporlar.html#cb1809-2" aria-hidden="true" tabindex="-1"></a>---------|----------|--------</span>
-<span id="cb1809-3"><a href="r-markdown-ile-raporlar.html#cb1809-3" aria-hidden="true" tabindex="-1"></a>Cell A   |Cell B    |Cell C</span>
-<span id="cb1809-4"><a href="r-markdown-ile-raporlar.html#cb1809-4" aria-hidden="true" tabindex="-1"></a>Cell D   |Cell E    |Cell F</span></code></pre></div>
+<div class="sourceCode" id="cb1810"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1810-1"><a href="r-markdown-ile-raporlar.html#cb1810-1" aria-hidden="true" tabindex="-1"></a>Column 1 |Column  2 |Column 3</span>
+<span id="cb1810-2"><a href="r-markdown-ile-raporlar.html#cb1810-2" aria-hidden="true" tabindex="-1"></a>---------|----------|--------</span>
+<span id="cb1810-3"><a href="r-markdown-ile-raporlar.html#cb1810-3" aria-hidden="true" tabindex="-1"></a>Cell A   |Cell B    |Cell C</span>
+<span id="cb1810-4"><a href="r-markdown-ile-raporlar.html#cb1810-4" aria-hidden="true" tabindex="-1"></a>Cell D   |Cell E    |Cell F</span></code></pre></div>
 <p>Yukarıdaki kod aşağıdaki tabloyu oluşturur:</p>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
@@ -398,7 +398,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 </h4>
 <p>“Kendi kendine yeterli” yaklaşımın bir varyasyonu, R Markdown kod parçalarının diğer R komut dosyalarını “kaynak” olarak kullanmasıdır (çalıştırma-run). Bu yaklaşım R Markdown betiğinizi daha az karmaşık, daha basit ve organize edilmesi daha kolay hale getirebilir. Son çıktıları raporun başında görüntülemek isterseniz de bu yaklaşım yardımcı olabilir. Bu yaklaşımda, son R Markdown betiği, önceden işlenmiş çıktıları bir belgede birleştirir.</p>
 <p>Bunu yapmanın yolu, temel R ‘source()’ fonksiyonuna R komut dosyalarını (dosya yolu ve uzantılı ad) sağlamaktır.</p>
-<div class="sourceCode" id="cb1810"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1811"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"your-script.R"</span>, local <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit_global.html">knit_global</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># or sys.source("your-script.R", envir = knitr::knit_global())</span></span></code></pre></div>
 <p>R Markdown içinde source() kullanılırken, Rmd dosyanızın oluşturulması sırasında harici dosyaların çalışmaya devam edeceğini unutmayın. Bu nedenle, raporu her oluşturduğunuzda komut dosyası çalıştırılır. Bu nedenle, bu source() komutlarının R Markdown içinde olması çalışma sürenizi hızlandırmaz ve hata ayıklamaya büyük ölçüde yardımcı olmaz, çünkü üretilen hata R Markdown üretilirken yazdırılmaya devam eder.</p>
@@ -415,7 +415,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 • Daha bilgilendirici hata mesajları - bu mesajlar R Markdown’dan değil, R betiğinden oluşturulacaktır. R markdown hataları, hangi parçada sorun olduğunu söyleme eğilimindedir, ancak hangi satırda olduğunu söylemez.
 • Uygunsa, uzun işleme adımlarını render() komutundan önce çalıştırabilirsiniz (yalnızca bir kez çalışır).</p>
 <p>Aşağıdaki örnekte, bir veri nesnesini R ortamında önceden işlediğimiz ve ardından render() kullanarak “create_output.Rmd”yi oluşturduğumuz ayrı bir R betiğine sahibiz.</p>
-<div class="sourceCode" id="cb1811"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1812"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"datafile.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>       <span class="co"># veriyi yükle ve ortama kaydet </span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">hospital</span>, <span class="va">weight</span><span class="op">)</span>          <span class="co"># kısıtlı sütunları seç </span></span>
 <span></span>
@@ -447,7 +447,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <h3>Seçenek 2: <code>render()</code> komutu<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-2-render-komutu"><i class="fas fa-link"></i></a>
 </h3>
 <p>R Markdown çıktınızı üretmenin başka bir yolu da render() işlevini çalıştırmaktır (rmarkdown paketinden). Bu komutu R Markdown betiğinin dışında yürütmelisiniz - yani ya ayrı bir R betiğinde (genellikle “run dosyası” olarak adlandırılır) ya da R Konsolunda bağımsız bir komut olarak.</p>
-<div class="sourceCode" id="cb1812"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1813"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span>input <span class="op">=</span> <span class="st">"my_report.Rmd"</span><span class="op">)</span></span></code></pre></div>
 <p>“knit” ile olduğu gibi, varsayılan ayarlar Rmd çıktısını aynı dosya adıyla (dosya uzantısı dışında) Rmd komut dosyasıyla aynı klasöre kaydeder. Örneğin “my_report.Rmd” örüldüğünde bir word belgesine örüyorsanız “my_report.docx” dosyasını oluşturacaktır. Ancak render() kullanarak farklı ayarlar kullanma seçeneğiniz vardır. render() aşağıdaki argümanları kabul eder:</p>
 <p>• output_format = Bu, dönüştürülecek çıktı biçimidir (ör. “html_document”, “pdf_document”, “word_document” veya “all”). Bunu, R Markdown betiği içindeki YAML’de de belirtebilirsiniz.
@@ -458,7 +458,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 • params = Aşağıdaki parametrelerle ilgili bölüme bakın
 • Tam listeye buradan bakın</p>
 <p>Bir örnek olarak, sürüm kontrolünü iyileştirmek için aşağıdaki komut, çıktı dosyasını dosya adı ve geçerli tarihle birlikte bir “çıktılar” alt klasörüne kaydeder. Dosya adını oluşturmak için, stringr paketindeki str_glue() fonkisyonu, statik dizelerle (açıkça yazılır) dinamik R kodunu (kıvrımlı parantezler içinde yazılır) birbirine ‘yapıştırmak’ için kullanılır. Örneğin 10 Nisan 2021 ise dosya adı “Report_2021-04-10.docx” olacaktır. str_glue() hakkında daha fazla ayrıntı için Karakterler ve dizeler sayfasına bakın.</p>
-<div class="sourceCode" id="cb1813"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1814"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span></span>
 <span>  input <span class="op">=</span> <span class="st">"create_output.Rmd"</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
@@ -487,13 +487,13 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <h4>Seçenek 1: YAML içinde parametrelerin ayarlanması<a class="anchor" aria-label="anchor" href="#se%C3%A7enek-1-yaml-i%C3%A7inde-parametrelerin-ayarlanmas%C4%B1"><i class="fas fa-link"></i></a>
 </h4>
 <p>Tanımlamak istediğiniz her parametre için girintili ifadeler içeren bir params: seçeneği eklemek için YAML’yi düzenleyin. Bu örnekte, değerlerini belirttiğimiz tarih ve hastane parametrelerini oluşturuyoruz. Bu değerler, rapor her çalıştırıldığında değişebilir. Çıktıyı üretmek için “Knit” düğmesini kullanırsanız, parametreler bu varsayılan değerlere sahip olacaktır. Benzer şekilde, render() komutunu kullanırsanız, render() komutunda aksi belirtilmedikçe parametreler bu varsayılan değerlere sahip olacaktır.</p>
-<div class="sourceCode" id="cb1814"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1814-1"><a href="r-markdown-ile-raporlar.html#cb1814-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1814-2"><a href="r-markdown-ile-raporlar.html#cb1814-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb1814-3"><a href="r-markdown-ile-raporlar.html#cb1814-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb1814-4"><a href="r-markdown-ile-raporlar.html#cb1814-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1814-5"><a href="r-markdown-ile-raporlar.html#cb1814-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb1814-6"><a href="r-markdown-ile-raporlar.html#cb1814-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb1814-7"><a href="r-markdown-ile-raporlar.html#cb1814-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1815"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1815-1"><a href="r-markdown-ile-raporlar.html#cb1815-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1815-2"><a href="r-markdown-ile-raporlar.html#cb1815-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1815-3"><a href="r-markdown-ile-raporlar.html#cb1815-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb1815-4"><a href="r-markdown-ile-raporlar.html#cb1815-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1815-5"><a href="r-markdown-ile-raporlar.html#cb1815-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1815-6"><a href="r-markdown-ile-raporlar.html#cb1815-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1815-7"><a href="r-markdown-ile-raporlar.html#cb1815-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>Arka planda, bu parametre değerleri, params adı verilen salt okunur bir listede bulunur. Böylece, ortamınızdaki başka bir R nesnesi/değeri gibi parametre değerlerini R koduna ekleyebilirsiniz. Params$ yazıp ardından parametre adını yazmanız yeterlidir. Örneğin, hastane adını temsil etmek için params$hospital (varsayılan olarak “Merkez Hastane- Central Hospital”).</p>
 <p>Parametrelerin doğru veya yanlış değerleri de tutabileceğini ve bu nedenle bunların bir R kod parçası için knitr seçeneklerinize dahil edilebileceğini unutmayın. Örneğin, {r, eval=FALSE} yerine {r, eval=params$run} ayarını yapabilirsiniz, bu durumda kod parçasının çalışıp çalışmaması parametre çalıştırma: değerine bağlıdır.</p>
 <p>Tarih olan parametrelerin bir dize olarak girileceğini unutmayın. Bu nedenle, params$date’in R kodunda yorumlanması için muhtemelen Date sınıfına dönüştürmek için as.Date() veya benzer bir fonksiyonla sarılması gerekir.</p>
@@ -504,7 +504,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <p>Yukarıda bahsedildiği gibi, çıktı üretmek için “Ör-Knit” düğmesine basmaya alternatif olarak, ayrı bir komut dosyasından render() fonksiyonunu yürütmektir. Bu durumda, bu fonksiyonda kullanılacak parametreleri render()’ın params = argümanında belirtebilirsiniz.</p>
 <p>Burada sağlanan herhangi bir parametre değerinin, YAML içinde yazılan varsayılan değerlerin üzerine yazılacağını unutmayın. Değerleri tırnak içinde yazıyoruz çünkü karakter/string değerleri olarak tanımlanmaları gerekiyor.</p>
 <p>Aşağıdaki komut, “surveillance_report.Rmd” dosyasını işler; dinamik bir çıktı dosyası adı ve klasörü belirtir. Ayrıca params = argümanına iki parametre sağlayan bir list() içerir.</p>
-<div class="sourceCode" id="cb1815"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1816"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span></span>
 <span>  input <span class="op">=</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
 <span>  output_file <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"outputs/Report_{Sys.Date()}.docx"</span><span class="op">)</span>,</span>
@@ -517,10 +517,10 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <p>Belgenin YAML’sinde oluşturulan parametreler için değerleri yazmanıza izin veren bir açılır pencere görünecektir.</p>
 <div class="inline-figure"><img src="images/markdown/5_parametersGUI.png" width="50%" style="display: block; margin: auto;"></div>
 <p>Aynı sonucu, aşağıda gösterildiği gibi params = “ask” argümanını belirterek bir render() komutuyla da elde edebilirsiniz.</p>
-<div class="sourceCode" id="cb1816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1816-1"><a href="r-markdown-ile-raporlar.html#cb1816-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
-<span id="cb1816-2"><a href="r-markdown-ile-raporlar.html#cb1816-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
-<span id="cb1816-3"><a href="r-markdown-ile-raporlar.html#cb1816-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
-<span id="cb1816-4"><a href="r-markdown-ile-raporlar.html#cb1816-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> “ask”)</span></code></pre></div>
+<div class="sourceCode" id="cb1817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1817-1"><a href="r-markdown-ile-raporlar.html#cb1817-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(</span>
+<span id="cb1817-2"><a href="r-markdown-ile-raporlar.html#cb1817-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">input =</span> <span class="st">"surveillance_report.Rmd"</span>,  </span>
+<span id="cb1817-3"><a href="r-markdown-ile-raporlar.html#cb1817-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output_file =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"outputs/Report_{Sys.Date()}.docx"</span>),</span>
+<span id="cb1817-4"><a href="r-markdown-ile-raporlar.html#cb1817-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> “ask”)</span></code></pre></div>
 <p>Ancak bu açılır pencereye değerlerin girilmesi hata ve yazım hatalarına tabidir. Açılır menülerden girilebilecek değerlere kısıtlamalar eklemeyi tercih edebilirsiniz. Bunu, her bir parametre için YAML’ye birkaç belirtim ekleyerek yapabilirsiniz params: entry</p>
 <ul>
 <li>label: söz konusu açılır menünün başlığı</li>
@@ -529,17 +529,17 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <li>choices: Açılır menüden uygun değerleri verin</li>
 </ul>
 <p>Aşağıda hastane parametresi için bu özellikler yazılmıştır.</p>
-<div class="sourceCode" id="cb1817"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1817-1"><a href="r-markdown-ile-raporlar.html#cb1817-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1817-2"><a href="r-markdown-ile-raporlar.html#cb1817-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb1817-3"><a href="r-markdown-ile-raporlar.html#cb1817-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb1817-4"><a href="r-markdown-ile-raporlar.html#cb1817-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1817-5"><a href="r-markdown-ile-raporlar.html#cb1817-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb1817-6"><a href="r-markdown-ile-raporlar.html#cb1817-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1817-7"><a href="r-markdown-ile-raporlar.html#cb1817-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> “Town:”</span></span>
-<span id="cb1817-8"><a href="r-markdown-ile-raporlar.html#cb1817-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">value</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb1817-9"><a href="r-markdown-ile-raporlar.html#cb1817-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input</span><span class="kw">:</span><span class="at"> select</span></span>
-<span id="cb1817-10"><a href="r-markdown-ile-raporlar.html#cb1817-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choices</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Central Hospital</span><span class="kw">,</span><span class="at"> Military Hospital</span><span class="kw">,</span><span class="at"> Port Hospital</span><span class="kw">,</span><span class="at"> St. Mark</span><span class="st">'s Maternity Hospital (SMMH)]</span></span>
-<span id="cb1817-11"><a href="r-markdown-ile-raporlar.html#cb1817-11" aria-hidden="true" tabindex="-1"></a><span class="st">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1818"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1818-1"><a href="r-markdown-ile-raporlar.html#cb1818-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1818-2"><a href="r-markdown-ile-raporlar.html#cb1818-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1818-3"><a href="r-markdown-ile-raporlar.html#cb1818-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb1818-4"><a href="r-markdown-ile-raporlar.html#cb1818-4" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1818-5"><a href="r-markdown-ile-raporlar.html#cb1818-5" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1818-6"><a href="r-markdown-ile-raporlar.html#cb1818-6" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1818-7"><a href="r-markdown-ile-raporlar.html#cb1818-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> “Town:”</span></span>
+<span id="cb1818-8"><a href="r-markdown-ile-raporlar.html#cb1818-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">value</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1818-9"><a href="r-markdown-ile-raporlar.html#cb1818-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">input</span><span class="kw">:</span><span class="at"> select</span></span>
+<span id="cb1818-10"><a href="r-markdown-ile-raporlar.html#cb1818-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">choices</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Central Hospital</span><span class="kw">,</span><span class="at"> Military Hospital</span><span class="kw">,</span><span class="at"> Port Hospital</span><span class="kw">,</span><span class="at"> St. Mark</span><span class="st">'s Maternity Hospital (SMMH)]</span></span>
+<span id="cb1818-11"><a href="r-markdown-ile-raporlar.html#cb1818-11" aria-hidden="true" tabindex="-1"></a><span class="st">---</span></span></code></pre></div>
 <p>Örürken (‘parametrelerle ör(Knit)’ düğmesi aracılığıyla veya render() yoluyla), açılır pencerede seçim yapabileceğiniz seçenekler bulunur.</p>
 <div class="inline-figure"><img src="images/markdown/5_parametersGUIB.png" width="50%" style="display: block; margin: auto;"></div>
 </div>
@@ -559,7 +559,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 </h3>
 <p>Ayrı bir komut dosyasından render() ile bir R Markdown dosyası oluşturuyorsanız, params: kullanmadan parametreleştirmenin etkisini yaratabilirsiniz.</p>
 <p>Örneğin, render() komutunu içeren R betiğinde, render() komutundan önce hastane ve tarihi iki R nesnesi (değeri) olarak basitçe tanımlayabilirsiniz. R Markdown’da, YAML’de bir params: bölümüne sahip olmanız gerekmez ve params<span class="math inline">\(date yerine tarih nesnesine ve params\)</span>hospital yerine hastaneye başvururuz.</p>
-<div class="sourceCode" id="cb1818"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1819"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Bu, R Markdown'dan ayrı bir R betiğidir.</span></span>
 <span></span>
 <span><span class="co"># R nesnelerini tanımlayın</span></span>
@@ -578,7 +578,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 </h2>
 <p>Her yetki alanı/birim için bir rapor üretmek için girdi parametrelerini değiştirerek bir raporu birden çok kez çalıştırmak isteyebiliriz. Bu, yineleme, döngü ve listeler sayfasında ayrıntılı olarak açıklanan yineleme araçları kullanılarak yapılabilir. Seçenekler, <em>purrr</em> paketini veya aşağıda açıklandığı gibi bir for döngüsünün kullanımını içerir.</p>
 <p>Aşağıda, ilgili tüm hastaneler için bir gözetim raporu oluşturmak için basit bir for döngüsü kullanıyoruz. Bu, tek bir komutla yapılır (hastane parametresini hastaneler için birer birer manuel olarak değiştirmek yerine). Raporları işleme komutu, Rmd raporunun dışında ayrı bir komut dosyasında bulunmalıdır. Bu komut dosyası aynı zamanda “dönüştürülecek” tanımlanmış nesneleri - bugünün tarihini ve döngünün uygulanacağı hastane adları vektörünü içerecektir.</p>
-<div class="sourceCode" id="cb1819"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1820"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hospitals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Central Hospital"</span>,</span>
 <span>                <span class="st">"Military Hospital"</span>, </span>
 <span>                <span class="st">"Port Hospital"</span>,</span>
@@ -588,7 +588,7 @@ Buradan knitr özellikleri hakkında daha fazla bilgi edinin.</p>
 <li><p>Dosya adında. 10 Nisan 2021’de oluşturulan ilk yinelemenin dosya adı, çalışma dizininin ‘çıktı’ alt klasörüne kaydedilen “Report_Central Hospital_2021-04-10.docx” olacak şekilde belirlenmiştir.</p></li>
 <li><p>params = argümanına. Rmd, params$hospital değeri çağrıldığında dahili olarak hastane adını kullanır (veri setini yalnızca belirli bir hastaneye filtrelemek amacıyla). Bu örnekte, her hastane için bir tane olmak üzere dört dosya oluşturulacaktır.</p></li>
 </ol>
-<div class="sourceCode" id="cb1820"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1821"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">hospitals</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span></span>
 <span>    input <span class="op">=</span> <span class="st">"surveillance_report.Rmd"</span>,</span>
@@ -632,17 +632,17 @@ Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer
 </h3>
 <p>Bir şablon hazırlandıktan sonra, ilgili detaylar Rmd’nin YAML’sine ‘çıktı’ satırının altına ve belge tipinin belirtildiği yerin altına (ayrı bir satır olarak) eklenebilir. Not referans_doc, powerpoint slayt şablonları için kullanılabilir.</p>
 <p>Şablonu Rmd dosyasının bulunduğu klasöre (aşağıdaki örnekte olduğu gibi) veya içindeki bir alt klasöre kaydetmek en kolay yoldur.</p>
-<div class="sourceCode" id="cb1821"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1821-1"><a href="r-markdown-ile-raporlar.html#cb1821-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1821-2"><a href="r-markdown-ile-raporlar.html#cb1821-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
-<span id="cb1821-3"><a href="r-markdown-ile-raporlar.html#cb1821-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1821-4"><a href="r-markdown-ile-raporlar.html#cb1821-4" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">word_document</span><span class="kw">:</span></span>
-<span id="cb1821-5"><a href="r-markdown-ile-raporlar.html#cb1821-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reference_docx</span><span class="kw">:</span><span class="at"> </span><span class="st">"template.docx"</span></span>
-<span id="cb1821-6"><a href="r-markdown-ile-raporlar.html#cb1821-6" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1821-7"><a href="r-markdown-ile-raporlar.html#cb1821-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
-<span id="cb1821-8"><a href="r-markdown-ile-raporlar.html#cb1821-8" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
-<span id="cb1821-9"><a href="r-markdown-ile-raporlar.html#cb1821-9" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb1821-10"><a href="r-markdown-ile-raporlar.html#cb1821-10" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
-<span id="cb1821-11"><a href="r-markdown-ile-raporlar.html#cb1821-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1822"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1822-1"><a href="r-markdown-ile-raporlar.html#cb1822-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1822-2"><a href="r-markdown-ile-raporlar.html#cb1822-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Surveillance report</span></span>
+<span id="cb1822-3"><a href="r-markdown-ile-raporlar.html#cb1822-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1822-4"><a href="r-markdown-ile-raporlar.html#cb1822-4" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">word_document</span><span class="kw">:</span></span>
+<span id="cb1822-5"><a href="r-markdown-ile-raporlar.html#cb1822-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">reference_docx</span><span class="kw">:</span><span class="at"> </span><span class="st">"template.docx"</span></span>
+<span id="cb1822-6"><a href="r-markdown-ile-raporlar.html#cb1822-6" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1822-7"><a href="r-markdown-ile-raporlar.html#cb1822-7" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">date</span><span class="kw">:</span><span class="at"> 2021-04-10</span></span>
+<span id="cb1822-8"><a href="r-markdown-ile-raporlar.html#cb1822-8" aria-hidden="true" tabindex="-1"></a><span class="at"> </span><span class="fu">hospital</span><span class="kw">:</span><span class="at"> Central Hospital</span></span>
+<span id="cb1822-9"><a href="r-markdown-ile-raporlar.html#cb1822-9" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb1822-10"><a href="r-markdown-ile-raporlar.html#cb1822-10" aria-hidden="true" tabindex="-1"></a><span class="at"> </span></span>
+<span id="cb1822-11"><a href="r-markdown-ile-raporlar.html#cb1822-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 </div>
 <div id="html-dosyalarının-formatlanması" class="section level3 unnumbered">
 <h3>HTML dosyalarının formatlanması<a class="anchor" aria-label="anchor" href="#html-dosyalar%C4%B1n%C4%B1n-formatlanmas%C4%B1"><i class="fas fa-link"></i></a>
@@ -652,16 +652,16 @@ Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer
 <p>• Themes-Temalar: Bootswatch tema kitaplığından gelen önceden hazırlanmış bazı temalara başvurabiliriz. Aşağıdaki örnekte cerulean kullanıyoruz. Diğer seçenekler şunlardır: ournal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex ve yeti.</p>
 <p>• Highlight-Vurgula: Bu seçeneği yapılandırmak, vurgulanan metnin görünümünü değiştirir (örneğin, kod parçaları). Desteklenen stiller arasında default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, breezedark ve textmate. bulunur.</p>
 <p>Yukarıdaki seçeneklerin YAML’ye nasıl entegre edileceğine dair bir örnek.</p>
-<div class="sourceCode" id="cb1822"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1822-1"><a href="r-markdown-ile-raporlar.html#cb1822-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1822-2"><a href="r-markdown-ile-raporlar.html#cb1822-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"HTML example"</span></span>
-<span id="cb1822-3"><a href="r-markdown-ile-raporlar.html#cb1822-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
-<span id="cb1822-4"><a href="r-markdown-ile-raporlar.html#cb1822-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
-<span id="cb1822-5"><a href="r-markdown-ile-raporlar.html#cb1822-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1822-6"><a href="r-markdown-ile-raporlar.html#cb1822-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1822-7"><a href="r-markdown-ile-raporlar.html#cb1822-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cerulean</span></span>
-<span id="cb1822-8"><a href="r-markdown-ile-raporlar.html#cb1822-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
-<span id="cb1822-9"><a href="r-markdown-ile-raporlar.html#cb1822-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
-<span id="cb1822-10"><a href="r-markdown-ile-raporlar.html#cb1822-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb1823"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1823-1"><a href="r-markdown-ile-raporlar.html#cb1823-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1823-2"><a href="r-markdown-ile-raporlar.html#cb1823-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"HTML example"</span></span>
+<span id="cb1823-3"><a href="r-markdown-ile-raporlar.html#cb1823-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb1823-4"><a href="r-markdown-ile-raporlar.html#cb1823-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb1823-5"><a href="r-markdown-ile-raporlar.html#cb1823-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1823-6"><a href="r-markdown-ile-raporlar.html#cb1823-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1823-7"><a href="r-markdown-ile-raporlar.html#cb1823-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cerulean</span></span>
+<span id="cb1823-8"><a href="r-markdown-ile-raporlar.html#cb1823-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">highlight</span><span class="kw">:</span><span class="at"> kate</span></span>
+<span id="cb1823-9"><a href="r-markdown-ile-raporlar.html#cb1823-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb1823-10"><a href="r-markdown-ile-raporlar.html#cb1823-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>Aşağıda, her ikisi de kayan formda içindekiler tablolarına sahip, ancak farklı tema ve vurgulama stilleri seçilen iki HTML çıktısı örneği verilmiştir:</p>
 <div class="inline-figure"><img src="images/markdown/9_html.png" width="100%" style="display: block; margin: auto;"></div>
 </div>
@@ -685,7 +685,7 @@ Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer
 </h3>
 <p><a href="http://www.htmlwidgets.org/">HTML widgets for R</a> R için HTML widget’ları, JavaScript kitaplıklarını kullanarak artırılmış etkileşim sağlayan özel bir R paketleri sınıfıdır. Bu paketleri HTML R Markdown çıktılarına gömebilirsiniz.</p>
 <p>Bu widget’ların bazı yaygın örnekleri şunları içerir:</p>
-<p>• Plotly (bu el kitabı sayfasında ve <a href="r-markdown-ile-g%C3%B6sterge-panelleri.html#interaktif-grafikler">İnteraktif grafikler</a> sayfasında kullanılır)
+<p>• Plotly (bu el kitabı sayfasında ve <a href="r-markdown-ile-g%C3%B6sterge-panelleri.html#interaktif-grafikler-1">İnteraktif grafikler</a> sayfasında kullanılır)
 • visNetwork (bu el kitabının İletim Zincirleri sayfasında kullanılır)
 • Leaflet (bu el kitabının GIS Temelleri sayfasında kullanılır)
 • dygraphs (zaman serisi verilerini etkileşimli olarak göstermek için kullanılır)
@@ -693,9 +693,9 @@ Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer
 <p>Plotly’den ggplotly() fonksiyonunun kullanımı özellikle kolaydır. Etkileşimli grafikler sayfasına bakın.</p>
 </div>
 </div>
-<div id="kaynaklar-32" class="section level2" number="40.10">
+<div id="kaynaklar-33" class="section level2" number="40.10">
 <h2>
-<span class="header-section-number">40.10</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-32"><i class="fas fa-link"></i></a>
+<span class="header-section-number">40.10</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-33"><i class="fas fa-link"></i></a>
 </h2>
 <p>Daha fazla bilgi şuralarda bulunabilir:</p>
 <ul>
@@ -707,13 +707,13 @@ Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></div>
+<div class="prev"><a href="interaktif-grafikler.html"><span class="header-section-number">39</span> İnteraktif grafikler</a></div>
 <div class="next"><a href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#r-markdown-ile-raporlar"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
-<li><a class="nav-link" href="#haz%C4%B1rl%C4%B1k-32"><span class="header-section-number">40.1</span> Hazırlık</a></li>
+<li><a class="nav-link" href="#haz%C4%B1rl%C4%B1k-33"><span class="header-section-number">40.1</span> Hazırlık</a></li>
 <li>
 <a class="nav-link" href="#ba%C5%9Flang%C4%B1%C3%A7"><span class="header-section-number">40.2</span> Başlangıç</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#rmarkdown-r-paketini-y%C3%BCkleme">rmarkdown R paketini yükleme</a></li>
@@ -767,7 +767,7 @@ Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer
 <li><a class="nav-link" href="#html-ara%C3%A7lar%C4%B1">HTML araçları</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#kaynaklar-32"><span class="header-section-number">40.10</span> Kaynaklar</a></li>
+<li><a class="nav-link" href="#kaynaklar-33"><span class="header-section-number">40.10</span> Kaynaklar</a></li>
 </ul>
 
       <div class="book-extra">
@@ -784,7 +784,7 @@ Powerpoint sunumlarıyla daha derinlemesine çalışacak bir araç için officer
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-21.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2023-01-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

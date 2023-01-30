@@ -18,12 +18,12 @@ rmd_files: [
   # INTRO & CONTRIBUTORS
   "index.Rmd",                              # objectives, how to read, authors, acknowledgements
 
-  # # DATA VIZ
+  # # SERCTION
   #"new_pages/phylogenetic_trees.Rmd",
 
-  # # REPORTS AND DASHBOARDS
-  # "new_pages/cat_reports_dashboards.Rmd",                 # start of new section
-  # "new_pages/rmarkdown.Rmd",
+  # SECTION
+   "new_pages/cat_reports_dashboards.Rmd",                 # start of new section
+   "new_pages/interactive_plots.Rmd",
   # "new_pages/reportfactory.Rmd",
   # "new_pages/flexdashboard.Rmd",
   # "new_pages/shiny_basics.Rmd",

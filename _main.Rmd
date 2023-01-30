@@ -26,7 +26,7 @@ documentclass: book
 #  {-}
 
 ```{r, out.width = "100%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x500.png"))
+knitr::include_graphics(here::here("images", "Epi R Handbook Banner Turkish Rehberi.png"))
 # library(knitr)
 # opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
@@ -53,15 +53,15 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 
 <!-- ## About this handbook   -->
 
-## R for applied epidemiology and public health {-}  
+## Uygulamalı epidemiyoloji ve halk sağlığı için R {-}  
 
-**Usage**: This handbook has been used over **1 million times by 300,000 people** around the world.
+**Kullanımı**: Bu çevrimiçi kitap, dünya çapında **300.000 kişi tarafından 1 milyondan fazla kez** kullanılmıştır.
 
-**Objective:** Serve as a quick R code reference manual (online and **[offline][Download handbook and data]**) with task-centered examples that address common epidemiological problems.  
+**Hedef:** Yaygın epidemiyolojik sorunlara çözümler üreten, pratik, hedef odaklı ve hızlı bir (çevrimiçi ve **[çevrimdışı][Download handbook and data]**) referans kılavuz olarak rol oynamak.
 
-**Are you just starting with R?** Try our **[free interactive tutorials](https://www.appliedepi.org/tutorial/)** or synchronous, virtual **[intro course](https://www.appliedepi.org/live/)** used by US CDC, WHO, and 75+ other health agencies and Field Epi Training Programs worldwide.  
+**R'a yeni mi başlıyorsun?** Ücretsiz **[interaktif eğitimlerimiz](https://www.appliedepi.org/tutorial/)** ya da senkronize, sanal **[kurslarımız](https://www.appliedepi.org/live/)** Amerika CDC, Dünya Sağlık Örgütü dahil olmak üzere 75'ten fazla sağlık örgütü ve saha eğitim programlarında kullanıldı.  
 
-**Languages:** [Vietnamese (Tiếng Việt)](https://epirhandbook.com/vn/), [Japanese (日本)](https://epirhandbook.com/jp/), [Turkish (Türkçe)](https://epirhandbook.com/tr/)  
+**Diller:** [Vietnamca (Tiếng Việt)](https://epirhandbook.com/vn/), [Japonca (日本)](https://epirhandbook.com/jp/), [İspanyolca (Español)](https://epirhandbook.com/es/) [Türkçe](https://epirhandbook.com/tr/)  
 
 
 <!-- * Use practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...   -->
@@ -79,7 +79,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 <!-- </form> -->
 
 <br>
-<span style="color: black;">**Written by epidemiologists, for epidemiologists**</span>
+<span style="color: black;">**Epidemiyologlar tarafından epidemiyologlar için yazılmıştır**</span>
 
 :::: {style="display: flex;"}
 
@@ -98,13 +98,13 @@ a column separator -->
 
 ::: {}
 
-**[Applied Epi](http://www.appliedepi.org)** is a nonprofit organisation and grassroots movement of frontline epis from around the world. We write in our spare time to offer this resource to the community. Your encouragement and feedback is most welcome:  
+**[Applied Epi](http://www.appliedepi.org)** dünyanın dört bir yanında faaliyetlerde bulunan, kar amacı gütmeyen bir kuruluştur. Böyle bir kaynağı sağlık çalışanlarına sunabilmek için kişisel vaktimizi bunu yazmaya ayırdık. Desteğinizi ve geri bildirimlerinizi memnuniyetle kabul ederiz:  
 
-* Visit our **[website](http://www.appliedepi.org)** and **[join our contact list](https://forms.gle/9awNd8syypTSYUsn7)**  
-* **contact@appliedepi.org**, tweet **[\@appliedepi](https://twitter.com/appliedepi)**, or **[LinkedIn](www.linkedin.com/company/appliedepi)**  
-* Submit issues to our **[Github repository](https://github.com/appliedepi/epiRhandbook_eng)**  
+* **[Websitemizi](http://www.appliedepi.org)** ziyaret edip **[irtibat listemize katılabilirsiniz](https://forms.gle/9awNd8syypTSYUsn7)**.
+* **contact@appliedepi.org** mail adresimiz, **[\@appliedepi](https://twitter.com/appliedepi)** twitter veya **[LinkedIn](www.linkedin.com/company/appliedepi)** hesabımızdan bize ulaşabilirsiniz.  
+* **[Github sunucumuza](https://github.com/appliedepi/epiRhandbook_eng)** sorunlarınızı bildirebilirsiniz. 
 
-**We offer live R training** from instructors with decades of applied epidemiology experience - email us to discuss.
+Onlarca yıllık epidemiyoloji deneyimine sahip eğitmenlerimizle **canlı R eğitimi sunuyoruz** - başvurmak için bize e-mail atabilirsiniz.
 :::
 
 ::::
@@ -119,98 +119,98 @@ a column separator -->
 
 
 <!-- ======================================================= -->
-## How to use this handbook {-} 
+## Kitabı nasıl kullanabilirim? {-} 
 
-* Browse the pages in the Table of Contents, or use the search box
-* Click the "copy" icons to copy code  
-* You can follow-along with [the example data][Download handbook and data]  
+* İçindekiler bölümündeki sayfalara göz atabilir veya arama kutusunu kullanabilirsiniz
+* Kodu kopyalamak için "kopyala" simgelerine tıklayabilirsiniz
+* [örnek verileri][Download handbook and data] kullanarak kendiniz de deneyebilirsiniz  
 
-**Offline version**  
+**Çevrimdışı versiyonu**  
 
-See instructions in the [Download handbook and data] page.  
+[El Kitabı ve verileri indirme] sayfasında çevrimdışı versiyonuna nasıl ulaşacağınızı görebilirsiniz.  
 
 
 
 <!-- ======================================================= -->
-## Acknowledgements {-}  
+## Teşekkür {-}  
 
-This handbook is produced by a collaboration of epidemiologists from around the world drawing upon experience with organizations including local, state, provincial, and national health agencies, the World Health Organization (WHO), Médecins Sans Frontières / Doctors without Borders (MSF), hospital systems, and academic institutions.
+Bu el kitabı, Dünya Sağlık Örgütü (WHO), Médecins Sans Frontières / Sınır Tanımayan Doktorlar (MSF), bölgesel ve ulusal sağlık örgütleri, akademik kurumlar ve hastaneler dahil olmak üzere pek çok kuruluşun deneyimlerinden faydalanılarak dünyanın dört bir yanından epidemiyologların işbirliğiyle hazırlanmıştır.
 
-This handbook is **not** an approved product of any specific organization. Although we strive for accuracy, we provide no guarantee of the content in this book.  
-
-
-### Contributors {-}  
-
-**Editor:** [Neale Batra](https://www.linkedin.com/in/neale-batra/) 
-
-**Authors**: [Neale Batra](https://www.linkedin.com/in/neale-batra/), [Alex Spina](https://github.com/aspina7), [Paula Blomquist](https://www.linkedin.com/in/paula-bianca-blomquist-53188186/), [Finlay Campbell](https://github.com/finlaycampbell), [Henry Laurenson-Schafer](https://github.com/henryls1), [Isaac Florence](www.Twitter.com/isaacatflorence), [Natalie Fischer](https://www.linkedin.com/in/nataliefischer211/), [Aminata Ndiaye](https://twitter.com/aminata_fadl), [Liza Coyer]( https://www.linkedin.com/in/liza-coyer-86022040/), [Jonathan Polonsky](https://twitter.com/jonny_polonsky), [Yurie Izawa](https://ch.linkedin.com/in/yurie-izawa-a1590319), [Chris Bailey](https://twitter.com/cbailey_58?lang=en), [Daniel Molling](https://www.linkedin.com/in/daniel-molling-4005716a/), [Isha Berry](https://twitter.com/ishaberry2), [Emma Buajitti](https://twitter.com/buajitti), [Mathilde Mousset](https://mathildemousset.wordpress.com/research/), [Sara Hollis](https://www.linkedin.com/in/saramhollis/), Wen Lin  
-
-**Reviewers and supporters**: Pat Keating,  [Amrish Baidjoe](https://twitter.com/Ammer_B), Annick Lenglet, Margot Charette, Danielly Xavier, Marie-Amélie Degail Chabrat, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Kate Kelsey, [Berhe Etsay](https://www.linkedin.com/in/berhe-etsay-5752b1154/), John Rossow, Mackenzie Zendt, James Wright, Laura Haskins, [Flavio Finger](ffinger.github.io), Tim Taylor, [Jae Hyoung Tim Lee](https://www.linkedin.com/in/jaehyoungtlee/), [Brianna Bradley](https://www.linkedin.com/in/brianna-bradley-bb8658155), [Wayne Enanoria](https://www.linkedin.com/in/wenanoria), Manual Albela Miranda, [Molly Mantus](https://www.linkedin.com/in/molly-mantus-174550150/), Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga  
-
-**Illustrations**: Calder Fong  
+Bu el kitabı, belirli bir kuruluşun onaylanmış bir ürünü **değildir**. En doğru bilgiyi sizinle paylaşmak için çabalasak da, bu kitaptaki içerikle ilgili hiçbir garanti veremeyiz. 
 
 
-<!-- **Editor-in-Chief:** Neale Batra  -->
+### Katkıda Bulunanlar {-}  
 
-<!-- **Project core team:** Neale Batra, Alex Spina, Amrish Baidjoe, Pat Keating, Henry Laurenson-Schafer, Finlay Campbell   -->
+**Editör:** [Neale Batra](https://www.linkedin.com/in/neale-batra/) 
 
-<!-- **Authors**: Neale Batra, Alex Spina, Paula Blomquist, Finlay Campbell, Henry Laurenson-Schafer, [Isaac Florence](www.Twitter.com/isaacatflorence), Natalie Fischer, Aminata Ndiaye, Liza Coyer, Jonathan Polonsky, Yurie Izawa, Chris Bailey, Daniel Molling, Isha Berry, Emma Buajitti, Mathilde Mousset, Sara Hollis, Wen Lin   -->
+**Yazarlar**: [Neale Batra](https://www.linkedin.com/in/neale-batra/), [Alex Spina](https://github.com/aspina7), [Paula Blomquist](https://www.linkedin.com/in/paula-bianca-blomquist-53188186/), [Finlay Campbell](https://github.com/finlaycampbell), [Henry Laurenson-Schafer](https://github.com/henryls1), [Isaac Florence](www.Twitter.com/isaacatflorence), [Natalie Fischer](https://www.linkedin.com/in/nataliefischer211/), [Aminata Ndiaye](https://twitter.com/aminata_fadl), [Liza Coyer]( https://www.linkedin.com/in/liza-coyer-86022040/), [Jonathan Polonsky](https://twitter.com/jonny_polonsky), [Yurie Izawa](https://ch.linkedin.com/in/yurie-izawa-a1590319), [Chris Bailey](https://twitter.com/cbailey_58?lang=en), [Daniel Molling](https://www.linkedin.com/in/daniel-molling-4005716a/), [Isha Berry](https://twitter.com/ishaberry2), [Emma Buajitti](https://twitter.com/buajitti), [Mathilde Mousset](https://mathildemousset.wordpress.com/research/), [Sara Hollis](https://www.linkedin.com/in/saramhollis/), Wen Lin  
 
-<!-- **Reviewers**: Pat Keating, Mathilde Mousset, Annick Lenglet, Margot Charette, Isha Berry, Paula Blomquist, Natalie Fischer, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Daniel Molling, Kate Kelsey, Berhe Etsay, John Rossow, Mackenzie Zendt, James Wright, Wayne Enanoria, Laura Haskins, Flavio Finger, Tim Taylor, Jae Hyoung Tim Lee, Brianna Bradley, Manual Albela Miranda, Molly Mantus, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga   -->
+**Katkıda bulunanlar**: Pat Keating,  [Amrish Baidjoe](https://twitter.com/Ammer_B), Annick Lenglet, Margot Charette, Danielly Xavier, Marie-Amélie Degail Chabrat, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Kate Kelsey, [Berhe Etsay](https://www.linkedin.com/in/berhe-etsay-5752b1154/), John Rossow, Mackenzie Zendt, James Wright, Laura Haskins, [Flavio Finger](ffinger.github.io), Tim Taylor, [Jae Hyoung Tim Lee](https://www.linkedin.com/in/jaehyoungtlee/), [Brianna Bradley](https://www.linkedin.com/in/brianna-bradley-bb8658155), [Wayne Enanoria](https://www.linkedin.com/in/wenanoria), Manual Albela Miranda, [Molly Mantus](https://www.linkedin.com/in/molly-mantus-174550150/), Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga  
 
+**İllüstrasyonlar**: Calder Fong  
 
-### Funding and support {-}  
+**Çevirmenler**: Çağrı Emin Şahin, Abdullah Ömer Şeker, Can Ilgin, Ömer Özer, Yasemin Denizli  
 
-This book was primarily a volunteer effort that took thousands of hours to create.  
+<!-- **Yazı işleri müdürü:** Neale Batra  -->
 
-The handbook received some supportive funding via a COVID-19 emergency capacity-building grant from [TEPHINET](https://www.tephinet.org/), the global network of Field Epidemiology Training Programs (FETPs).  
+<!-- **Proje ana ekibi:** Neale Batra, Alex Spina, Amrish Baidjoe, Pat Keating, Henry Laurenson-Schafer, Finlay Campbell   -->
 
-Administrative support was provided by the EPIET Alumni Network ([EAN](https://epietalumni.net/)), with special thanks to Annika Wendland. EPIET is the European Programme for Intervention Epidemiology Training.  
+<!-- **Yazarlar**: Neale Batra, Alex Spina, Paula Blomquist, Finlay Campbell, Henry Laurenson-Schafer, [Isaac Florence](www.Twitter.com/isaacatflorence), Natalie Fischer, Aminata Ndiaye, Liza Coyer, Jonathan Polonsky, Yurie Izawa, Chris Bailey, Daniel Molling, Isha Berry, Emma Buajitti, Mathilde Mousset, Sara Hollis, Wen Lin   -->
 
-Special thanks to Médecins Sans Frontières (MSF) Operational Centre Amsterdam (OCA) for their support during the development of this handbook.  
-
-
-*This publication was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.*
+<!-- **Redaksiyon**: Pat Keating, Mathilde Mousset, Annick Lenglet, Margot Charette, Isha Berry, Paula Blomquist, Natalie Fischer, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Daniel Molling, Kate Kelsey, Berhe Etsay, John Rossow, Mackenzie Zendt, James Wright, Wayne Enanoria, Laura Haskins, Flavio Finger, Tim Taylor, Jae Hyoung Tim Lee, Brianna Bradley, Manual Albela Miranda, Molly Mantus, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga   -->
 
 
+### Fonlama ve destek {-}  
 
-### Inspiration {-}  
+Bu kitap binlerce saat süren gönüllü bir çabanın sonunda ortaya çıktı. 
 
-The multitude of tutorials and vignettes that provided knowledge for development of handbook content are credited within their respective pages.  
+El kitabı, Saha Epidemiyolojisi küresel ağı olan [TEPHINET'in](https://www.tephinet.org/) COVID-19 acil durum kapasite geliştirme hibesinden destek fonu aldı.
 
-More generally, the following sources provided inspiration for this handbook:  
-[The "R4Epis" project](https://r4epis.netlify.app/) (a collaboration between MSF and RECON)  
-[R Epidemics Consortium (RECON)](https://www.repidemicsconsortium.org/)  
-[R for Data Science book (R4DS)](https://r4ds.had.co.nz/)  
-[bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/)  
-[Netlify](https://www.netlify.com) hosts this website  
+Ayrıca El kitabı Annika Wendland'ın destekleriyle EPIET Mezunlar Ağı'ndan ([EAN](https://epietalumni.net/)) idari destek aldı. EPIET, girişimsel epidemiyoloji eğitimi veren bir Avrupa programıdır.
+
+Bu el kitabının geliştirilmesi sırasındaki destekleri için Médecins Sans Frontières (MSF) Amsterdam Operasyon Merkezi'ne (OCA) özellikle teşekkür ederiz. 
 
 
-<!-- ### Image credits {-}   -->
+*Bu yayın, NU2GGH001873 numaralı İşbirliği Anlaşması ile Hastalık Kontrol ve Önleme Merkezi tarafından Küresel Sağlık Kurulu'nun bir programı olan TEPHINET aracılığıyla finanse edilmiştir. İçeriğin oluşturulması yalnızca yazarların sorumluluğundadır ve Hastalık Kontrol ve Önleme Merkezi, Sağlık ve İnsan Hizmetleri Departmanı, Küresel Sağlık Kurulu veya TEPHINET'in resmi görüşlerini temsil etmemektedir.*
+
+
+
+### İlham {-}  
+
+El kitabı içeriğinin geliştirilmesi için, bilgi amaçlı, çok sayıda öğretici ve kısa hikaye, ilgili sayfalarında paylaşılmıştır. 
+
+Daha genel olarak, aşağıdaki kaynaklar bu el kitabı için ilham kaynağı olmuştur:
+["R4Epis" projesi](https://r4epis.netlify.app/) (MSF ve RECON işbirliği)  
+[R Salgın Konsorsiyumu (RECON)](https://www.repidemicsconsortium.org/)  
+[Veri Bilimi için R kitabı (R4DS)](https://r4ds.had.co.nz/)  
+[bookdown: R Markdown ile Kitap ve Teknik Belge Yazma](https://bookdown.org/yihui/bookdown/)  
+[Netlify](https://www.netlify.com) (website sunucusu)  
+
+
+<!-- ### Görseller {-}   -->
 
 <!-- Images in logo from US CDC Public Health Image Library) include [2013 Yemen looking for mosquito breeding sites](https://phil.cdc.gov/Details.aspx?pid=19623), [Ebola virus](https://phil.cdc.gov/Details.aspx?pid=23186), and [Survey in Rajasthan](https://phil.cdc.gov/Details.aspx?pid=19838).   -->
 
 
-## Terms of Use and Contribution {-}  
+## Kullanım ve Katkı Koşulları {-}  
 
-### License {.unnumbered} 
+### Lisans {.unnumbered} 
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a> Applied Epi Incorporated, 2021 <br />This work is licensed by Applied Epi Incorporated under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-
-
-Academic courses and epidemiologist training programs are welcome to use this handbook with their students, but please send us an email to let us know. If you have questions about your intended use, email **contact@appliedepi.org**.  
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a> Applied Epi Anonim Şirketi, 2021 <br />Bu yayın, Applied Epi Anonim Şirketi tarafından <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">"Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License"ı ile lisanslanmıştır.</a>.
 
 
-### Citation {.unnumbered}
+Akademik kurslarda ve epidemiyoloji eğitim programlarında bu el kitabı eğitim amaçlı kullanılıp çoğaltılabilir. Böyle bir durum söz konusu olduğunda bize e-posta ile haber vermenizi rica ediyoruz. Kullanım amacınızla ilgili sorularınız varsa **contact@appliedepi.org** adresine e-posta gönderebilirsiniz.
+
+
+### Alıntı {.unnumbered}
 
 Batra, Neale, et al. The Epidemiologist R Handbook. 2021.  <a rel="license" href="https://zenodo.org/badge/231610102.svg"><img alt="DOI" style="border-width:0" src="https://zenodo.org/badge/231610102.svg" /></a><br />
 
-### Contribution {.unnumbered}  
+### Katkı {.unnumbered}  
 
-If you would like to make a content contribution, please contact with us first via Github issues or by email. We are implementing a schedule for updates and are creating a contributor guide.  
+İçerik katkısı yapmak istiyorsanız, lütfen önce Github veya e-posta yoluyla bizimle iletişime geçin. Güncellemeler için bir kapsamlı bir program uyguluyor ve bu amaçla destek rehberi hazırlıyoruz.
 
-Please note that the epiRhandbook project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
-
+Lütfen destek vermeden önce epiRhandbook projesi [Davranış Kuralları](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html) kılavuzunu inceleyin. Bu projeye katkıda bulunarak, kılavuzda belirlenen şartlara uymayı kabul etmiş olursunuz.
 ```{r include=FALSE, cache=FALSE}
 
 # clear workspace
@@ -5191,7 +5191,7 @@ table(linelist$hospital, useNA = "always")
 Aşağıda, mantık ve koşulların kullanımıyla bir sütundaki değerlerin nasıl yeniden kodlanacağını gösteriyoruz:
 
 • Basit mantık için replace(), ifelse() ve if_else() kullanımı
-• Daha karmaşık mantık için case_while() kullanımı
+• Daha karmaşık mantık için case_when() kullanımı
 
 
 
@@ -5256,9 +5256,9 @@ Bir veri çerçevesi bağlamı dışında, kodunuzda kullanılan bir nesnenin de
 
 ### Karmaşık mantık {#clean_case_when .unnumbered}  
 
-Birçok yeni gruba yeniden kodlama yapıyorsanız veya değerleri yeniden kodlamak için karmaşık mantıksal ifadeler kullanmanız gerekiyorsa dplyr'in case_while() fonksiyonunu kullanın. Bu fonkisyon, veri çerçevesindeki her satırı değerlendirir, satırların belirtilen kriterleri karşılayıp karşılamadığını değerlendirir ve doğru yeni değeri atar.
+Birçok yeni gruba yeniden kodlama yapıyorsanız veya değerleri yeniden kodlamak için karmaşık mantıksal ifadeler kullanmanız gerekiyorsa dplyr'in case_when() fonksiyonunu kullanın. Bu fonkisyon, veri çerçevesindeki her satırı değerlendirir, satırların belirtilen kriterleri karşılayıp karşılamadığını değerlendirir ve doğru yeni değeri atar.
 
-case_When() komutları, "tilde" ~ ile ayrılmış Sağ Taraf (RHS) ve Sol Taraf (LHS) içeren ifadelerden oluşur. Mantık kriterleri her bir ifadenin sol tarafında ve ilgili değerler sağ tarafındadır. İfadeler virgülle ayrılır.
+`case_When()` komutları, "tilde" ~ ile ayrılmış Sağ Taraf (RHS) ve Sol Taraf (LHS) içeren ifadelerden oluşur. Mantık kriterleri her bir ifadenin sol tarafında ve ilgili değerler sağ tarafındadır. İfadeler virgülle ayrılır.
 
 Örneğin, burada age_years sütunu oluşturmak için age ve age_unit sütunlarını kullanıyoruz:
 
@@ -5275,11 +5275,29 @@ linelist <- linelist %>%
 ```
 
 
-Verilerdeki her satır değerlendirilirken, kriterler case_while() ifadelerinin yazıldığı sırayla - yukarıdan aşağıya - uygulanır/değerlendirilir. Belirli bir satır için en üstteki ölçüt DOĞRU olarak değerlendirilirse, RHS değeri atanır ve kalan ölçütler o satır için test edilmez. Bu nedenle, en spesifik kriterleri önce ve en genel olanı en son yazmak en iyisidir.
+Verilerdeki her satır değerlendirilirken, kriterler case_when() ifadelerinin yazıldığı sırayla - yukarıdan aşağıya - uygulanır/değerlendirilir. Belirli bir satır için en üstteki ölçüt DOĞRU olarak değerlendirilirse, RHS değeri atanır ve kalan ölçütler o satır için test edilmez. Bu nedenle, en spesifik kriterleri önce ve en genel olanı en son yazmak en iyisidir.
 
 Bu satırlar boyunca, son ifadenizde, önceki kriterlerden herhangi birini karşılamayan satırları yakalayacak şekilde, sol tarafa DOĞRU'yu yerleştirin. Bu ifadenin sağ tarafına “kontrol et!” gibi bir değer atanabilir. veya eksik olarak değerlendirilir.
 
+Aşağıda, doğrulanmış ve şüpheli vakalar için bir vaka tanımına göre hasta sınıflandırmasıyla yeni bir sütun oluşturmak için kullanılan bir başka `case_when()` örneği yer almaktadır:  
 
+```{r, eval=F}
+linelist <- linelist %>% 
+     mutate(case_status = case_when(
+          
+          # if patient had lab test and it is positive,
+          # then they are marked as a confirmed case 
+          ct_blood < 20                   ~ "Confirmed",
+          
+          # given that a patient does not have a positive lab result,
+          # if patient has a "source" (epidemiological link) AND has fever, 
+          # then they are marked as a suspect case
+          !is.na(source) & fever == "yes" ~ "Suspect",
+          
+          # any other patient not addressed above 
+          # is marked for follow up
+          TRUE                            ~ "To investigate"))
+```
 
 <span style="color: red;">**_TEHLİKE:_** **Sağ taraftaki değerlerin tümü aynı sınıfta olmalıdır** - sayısal, karakter, tarih, mantıksal vb. Eksik (NA) ya senaryoyu ele almadan bırakın ya da NA_character_, NA_real_ (sayısal veya POSIX) ve as.Date(NA) gibi NA'nın özel varyasyonlarını kullanmanız gerekebilir. [Tarihlerle çalışma] bölümünden daha fazlasını okuyabilirsiniz.</span>  
 
@@ -5328,7 +5346,7 @@ linelist <- linelist %>%
   mutate(hospital = na_if(hospital, "Missing"))
 ```
 
-Not: na_if() **mantık kriterleri için kullanılamaz** (örneğin, "tüm değerler > 99") - bunun için replace() veya case_while() kullanın: 
+Not: na_if() **mantık kriterleri için kullanılamaz** (örneğin, "tüm değerler > 99") - bunun için replace() veya case_when() kullanın: 
 
 ```{r, eval=F}
 # 40'ın üzerindeki sıcaklıkları NA'ya dönüştürün
@@ -5475,7 +5493,7 @@ Burada sayısal sütunlardan kategoriler oluşturmaya yönelik bazı özel yakla
 
 • epikit paketinden age_categories()
 • temel R’dan cut()
-• case_When()
+• case_when()
 • quantile() ve ntile() ile nicel sonlanmalar
 
 
@@ -5754,9 +5772,9 @@ left_join(ntile_table, ntile_ranges, by = "even_groups")
 <!-- ======================================================= -->
 ### `case_when()` { .unnumbered}
 
-Sayısal bir sütundan kategoriler oluşturmak için case_while() dplyr fonksiyonunu kullanmak mümkündür, ancak epikit veya cut()'tan age_categories() kullanmak daha kolaydır çünkü bunlar otomatik olarak sıralı bir faktör oluşturacaktır.
+Sayısal bir sütundan kategoriler oluşturmak için case_when() dplyr fonksiyonunu kullanmak mümkündür, ancak epikit veya cut()'tan age_categories() kullanmak daha kolaydır çünkü bunlar otomatik olarak sıralı bir faktör oluşturacaktır.
 
-case_while() kullanıyorsanız, lütfen bu sayfanın değerleri yeniden kodla bölümünde daha önce açıklandığı gibi doğru kullanıldığını kontrol edin. Ayrıca tüm sağ taraftaki değerlerin aynı sınıfta olması gerektiğini unutmayın. Bu nedenle, sağ tarafta NA istiyorsanız, “Eksik” yazmalı veya NA_character_ özel NA değerini kullanmalısınız.
+case_when() kullanıyorsanız, lütfen bu sayfanın değerleri yeniden kodla bölümünde daha önce açıklandığı gibi doğru kullanıldığını kontrol edin. Ayrıca tüm sağ taraftaki değerlerin aynı sınıfta olması gerektiğini unutmayın. Bu nedenle, sağ tarafta NA istiyorsanız, “Eksik” yazmalı veya NA_character_ özel NA değerini kullanmalısınız.
 
 
 
@@ -31463,20 +31481,19 @@ options(scipen=1, digits=7)
 
 <!--chapter:end:new_pages/phylogenetic_trees.Rmd-->
 
+# İnteraktif grafikler { }  
 
-# Interactive plots { }  
+Veri görselleştirmenin özelleştirebilir ve etkileşimli olması önemini gün geçtikçe arttırmaya devam ediyor. Sonuç olarak, interaktif grafikler daha yaygın kullanılmaktadır. Analizlerinize interaktif grafikleri dahil etmenin birkaç yolu vardır, bunun için kullanılan en yaygın paketler **plotly** ve **shiny**'dir.
 
-Data visualisation is increasingly required to be interrogable by the audience. Consequently, is is becoming common to create interactive plots. There are several ways to include these but the two most common are **plotly** and **shiny**. 
+Bu sayfada, mevcut bir ggplot()' grafiğini **plotly** ile etkileşimli bir hale dönüştürmeye odaklanacağız. **shiny** hakkında daha fazla bilgiyi [Shiny ile Gösterge Panelleri] sayfasında bulabilirsiniz. İnteraktif grafiklerin PDF veya Word belgelerinde değil, yalnızca HTML formatındaki R belgelerinde kullanılabileceği vurgulamak istiyoruz.
 
-In this page we will focus on converting an existing `ggplot()` plot into an interactive plot with **plotly**. You can read more about **shiny** in the [Dashboards with Shiny] page. What is worth mentioning is that interactive plots are only useable in HTML format R markdown documents, not PDF or Word documents.
-
-Below is a basic epicurve that has been transformed to be interactive using the integration of **ggplot2** and **plotly** (hover your mouse over the plot, zoom in, or click items in the legend). 
+Aşağıda, **ggplot2** ve **plotly** entegrasyonu kullanılarak interaktif bir hale dönüştürülmüş temel bir epidemiyolojik eğri bulunmaktadır (farenizi çizimin üzerine getirin, yakınlaştırın veya göstergedeki öğeleri tıklayın). 
 
 ```{r plotly_demo, out.width=c('75%'), out.height=c('500px'), echo=F, warning=F, message=F}
 pacman::p_load(plotly, rio, here, ggplot2, dplyr, lubridate)
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
-## these buttons are superfluous/distracting
+## bu düğmeler gereksiz/dikkat dağıtıcı
 plotly_buttons_remove <- list('zoom2d','pan2d','lasso2d', 'select2d','zoomIn2d',
                               'zoomOut2d','autoScale2d','hoverClosestCartesian',
                               'toggleSpikelines','hoverCompareCartesian')
@@ -31499,47 +31516,46 @@ p %>%
 ```
 
 <!-- ======================================================= -->
-## Preparation {  }
+## Hazırlık {  }
 
-### Load packages {.unnumbered}  
+### Paketleri yükleme {.unnumbered}  
 
-This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
-
+Aşağıdaki kod parçaso, analizler için gereken paketlerin yüklenmesini göstermektedir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen **pacman**’dan `p_load()` fonksiyonunu vurgulamaktayız. R tabanından `library()` ile daha öncesinde kurmuş olduğunuz paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R’ın temelleri sayfasına bakabilirsiniz.
 
 ```{r}
 pacman::p_load(
-  rio,       # import/export
-  here,      # filepaths
-  lubridate, # working with dates
-  plotly,    # interactive plots
-  scales,    # quick percents
-  tidyverse  # data management and visualization
+  rio,       # Dosyaları içeri/dışarı aktarılması
+  here,      # Dosya yolağını tespit edilmesi 
+  lubridate, # Tarihlerle çalışma
+  plotly,    # İnteraktif grafikler
+  scales,    # Yüzdelerin oranlara kolayca çevrilmesi
+  tidyverse  # Veri yönetimi ve görselleştirilmesi
   ) 
 ```
 
-### Start with a `ggplot()` {.unnumbered}  
+### `ggplot()` hazırlama {.unnumbered}  
 
-In this page we assume that you are beginning with a `ggplot()` plot that you want to convert to be interactive. We will build several of these plots in this page, using the case `linelist` used in many pages of this handbook.  
+Bu sayfada, etkileşimli hale dönüştürmek istediğiniz bir `ggplot()` grafiğiyle işe başladığınızı varsayıyoruz. Bu el kitabının birçok sayfasında kullanılan `linelist` metodunu kullanarak bu sayfadaki grafiklerden birkaçını oluşturacağız.
 
 
-### Import data {.unnumbered}
+### Veriyi içe aktarma {.unnumbered}
 
-To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details).  
+Simüle edilmiş bir Ebola salgınına ait vakaların veri setini içe aktarıyoruz. Takip etmek isterseniz, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'> “temiz satır listesi” dosyasını indirmek için tıklayın.</a> (.rds dosyası olarak) Verilerinizi **rio** paketinden `import()` işleviyle içe aktarın (.xlsx, .rds, .csv gibi birçok dosya türünü kabul eder - ayrıntılar için [İçe ve dışa aktarma] sayfasına bakın). 
 
 ```{r, echo=F}
-# import the linelist into R
+# veri setini içe aktar
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-# import case linelist 
+# veri setini indir 
 linelist <- import("linelist_cleaned.rds")
 ```
 
-The first 50 rows of the linelist are displayed below.
+Veri setindeki ilk 50 satır aşağıda listelenmiştir.
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# veri listesini tablo olarak göster
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -31550,59 +31566,57 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 
   
 <!-- ======================================================= -->
-## Plot with `ggplotly()` {  }
+## `ggplotly()` ile grafikler {  }
 
-The function `ggplotly()` from the **plotly** package makes it easy to convert a `ggplot()` to be interactive. Simply save your `ggplot()` and then pipe it to the `ggplotly()` function.  
+**plotly** paketindeki ggplotly() işlevi bir `ggplot()` grafiğini kolayca etkileşimli hale dönüştürebilir. Kısaca "ggplot()" dosyanızı kaydedin ve ardından onu "ggplotly()" işlevine aktarın.
 
+Aşağıda, belirli bir haftada ölen vakaların oranını gösteren basit bir grafik çizeceğiz:  
 
-Below, we plot a simple line representing the proportion of cases who died in a given week:  
-
-We begin by creating a summary dataset of each epidemiological week, and the percent of cases with a known outcome that died.  
+İlk olarak, her epidemiyolojik hafta için bir özet veri seti, çıktıları bilinen vakaların sayısı ve bu vakalardaki ölüm yüzdesini oluşturarak başlıyoruz.
 
 ```{r}
 weekly_deaths <- linelist %>%
-  group_by(epiweek = floor_date(date_onset, "week")) %>%  # create and group data by epiweek column
-  summarise(                                              # create new summary data frame:
-    n_known_outcome = sum(!is.na(outcome), na.rm=T),      # number of cases per group with known outcome
-    n_death  = sum(outcome == "Death", na.rm=T),          # number of cases per group who died
-    pct_death = 100*(n_death / n_known_outcome)           # percent of cases with known outcome who died
+  group_by(epiweek = floor_date(date_onset, "week")) %>%  # veri setini epidemiyolojik hafta olarak oluştur ve grupla
+  summarise(                                              # yeni özet veri çerçevesi oluştur:
+    n_known_outcome = sum(!is.na(outcome), na.rm=T),      # bilinen çıktıları olan hasta sayısı
+    n_death  = sum(outcome == "Death", na.rm=T),          # ölen vaka sayısı
+    pct_death = 100*(n_death / n_known_outcome)           # çıktıları bilinen hastalar içinde ölen vaka oranı
   )
 ```
-Here is the first 50 rows of the `weekly_deaths` dataset.  
+`weekly_deaths` veri setinin ilk 50 satırı:
 
 ```{r message=FALSE, echo=F}
 DT::datatable(head(weekly_deaths, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
-Then we create the plot with **ggplot2**, using `geom_line()`.  
+Ardından **ggplot2** ile `geom_line()` işlevini kullanarak grafiği oluşturuyoruz.
 
 ```{r, warning=F, message=F}
-deaths_plot <- ggplot(data = weekly_deaths)+            # begin with weekly deaths data
-  geom_line(mapping = aes(x = epiweek, y = pct_death))  # make line 
+deaths_plot <- ggplot(data = weekly_deaths)+            # weekly deaths verileri ile başla
+  geom_line(mapping = aes(x = epiweek, y = pct_death))  # çizgi oluştur
 
-deaths_plot   # print
+deaths_plot   # yazdır
 ```
 
+Bu grafiği aşağıdaki gibi `ggplotly()` işleviyle basitçe etkileşimli hale getirebiliriz. X ve y değerlerini göstermek için farenizi çizginin üzerine getirin. Grafiği yakınlaştırabilir ve etrafa sürükleyebilirsiniz. Simgeleri grafiğin sağ üst köşesinde görebilirsiniz. Sırayla, aşağıdaki aksiyonları alabilirsiniz: 
 
-We can make this interactive by simply passing this plot to `ggplotly()`, as below. Hover your mouse over the line to show the x and y values. You can zoom in on the plot, and drag it around. You can also see icons in the upper-right of the plot. In order, they allow you to:  
-
-* Download the current view as a PNG image  
-* Zoom in with a select box  
-* "Pan", or move across the plot by clicking and dragging the plot  
-* Zoom in, zoom out, or return to default zoom  
-* Reset axes to defaults  
-* Toggle on/off "spike lines" which are dotted lines from the interactive point extending to the x and y axes  
-* Adjustments to whether data show when you are not hovering on the line  
+* Geçerli grafiği bir PNG görüntüsü olarak indirin
+* Seçim kutusuyla görüntüyü yakınlaştırın
+* "Kaydırma" çubuğu veya grafiği tıklayıp sürükleyerek grafik üzerinde hareket edin
+* Yakınlaştırın, uzaklaştırın veya varsayılan yakınlaştırmaya dönün
+* Eksenleri varsayılanlara sıfırlayın
+* X ve y eksenlerine uzanan "interaktif çizgileri" açıp/kapayın
+* Verilerin gösterilip gösterilmeyeceğine ilişkin ayarlamaları düzenleyin
 
 
 ```{r}
 deaths_plot %>% plotly::ggplotly()
 ```
 
-Grouped data work with `ggplotly()` as well. Below, a weekly epicurve is made, grouped by outcome. The stacked bars are interactive. Try clicking on the different items in the legend (they will appear/disappear).  
+`ggplotly()` gruplanmış verilerde de çalışır. Aşağıda, çıktılarına göre gruplandırılmış haftalık bir epidemiyoloji eğrisi yapılmıştır. Yığılmış çubuklar etkileşimlidir. Grafikteki farklı öğelere tıklamayı deneyin (tıkladığınız öğeler görünecek / gizlenecektir).
 
 
 ```{r plot_show, eval=F}
-# Make epidemic curve with incidence2 pacakge
+# incidence2 paketi ile epidemiyoloji eğrisi düzenle
 p <- incidence2::incidence(
   linelist,
   date_index = date_onset,
@@ -31611,7 +31625,7 @@ p <- incidence2::incidence(
 ```
 
 ```{r, echo=T, eval=F}
-# Plot interactively  
+# İnteraktif grafik
 p %>% plotly::ggplotly()
 ```
   
@@ -31622,11 +31636,11 @@ p %>%
 ```
   
 <!-- ======================================================= -->
-## Modifications {  }
+## Değişiklikler {  }
 
-### File size {.unnumbered}  
+### Dosya boyutu {.unnumbered}  
 
-When exporting in an R Markdown generated HTML (like this book!) you want to make the plot as small data size as possible (with no negative side effects in most cases). For this, just pipe the interactive plot to `partial_bundle()`, also from **plotly**.  
+R Markdown tarafından oluşturulan bir HTML'de dışa aktarırken (bu kitap gibi!) grafiğin veri boyutunu küçültmek isteyebilirsiniz (çoğu durumda hiçbir olumsuz yan etkisi yoktur). Bunun için interaktif grafiği yine **plotly** paketinden `partial_bundle()` işlevine aktarmanız yeterli olacaktır.
 
 ```{r plot_tidyshow, eval=F}
 p <- p %>% 
@@ -31634,34 +31648,34 @@ p <- p %>%
   plotly::partial_bundle()
 ```
 
-### Buttons {.unnumbered}  
+### Düğmeler {.unnumbered}  
 
-Some of the buttons on a standard plotly are superfluous and can be distracting, so you can remove them. You can do this simply by piping the output into `config()` from **plotly** and specifying which buttons to remove. In the below example we specify in advance the names of the buttons to remove, and provide them to the argument `modeBarButtonsToRemove = `. We also set `displaylogo = FALSE` to remove the plotly logo.  
+Standart bir plotly grafiğindeki bazı düğmeler dikkat dağıtıcı olabilir. İsterseniz, bunları kaldırabilirsiniz. Bunu, grafik çıktısını **plotly** paketinden `config()` işlevi içine aktararak yapabilirsiniz. İşlev içinde hangi düğmelerin kaldırılacağını belirtmeniz gerekmektedir. Aşağıdaki örnekte, kaldırılacak düğmelerin adlarını önceden belirleyip `modeBarButtonsToRemove =` argümanına yazıyoruz. Ayrıca plotly logosunu kaldırmak için de `displaylogo = FALSE` argümanını ekledik. 
 
 ```{r plot_tidyshow2, eval=F}
-## these buttons are distracting and we want to remove them
+## bu düğmeler dikkat dağıtıyor ve bunları kaldırmak istiyoruz
 plotly_buttons_remove <- list('zoom2d','pan2d','lasso2d', 'select2d','zoomIn2d',
                               'zoomOut2d','autoScale2d','hoverClosestCartesian',
                               'toggleSpikelines','hoverCompareCartesian')
 
-p <- p %>%          # re-define interactive plot without these buttons
+p <- p %>%          # etkileşimli grafiği bu düğmeler olmadan yeniden tanımla
   plotly::config(displaylogo = FALSE, modeBarButtonsToRemove = plotly_buttons_remove)
 ```
 
 
 
 <!-- ======================================================= -->
-## Heat tiles {  }
+## Isı grafikleri {  }
 
-You can make almost any `ggplot()` plot interactive, including heat tiles. In the page on [Heat plots] you can read about how to make the below plot, which displays the proportion of days per week that certain facilities reported data to their province.  
+Isı haritası da dahil olmak üzere neredeyse tüm `ggplot()` grafiklerini interaktif hale getirebilirsiniz. [Isı grafikleri] sayfasında, belirli illerde kurulmuş olan malarya tesislerine ait bir grafiğin nasıl yapıldığı anlatılmaktadır. Bu grafikte haftanın bazı günlerinde tesislerden elde edilen veriler görselleştirilmiştir. 
 
-Here is the code, although we will not describe it in depth here.  
+Örnek kodu, burada derinlemesine açıklamayacak olsak bile aşağıda paylaşıyoruz.  
 
 ```{r  message=F, warning=F}
-# import data
+# verileri içe aktar
 facility_count_data <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
 
-# aggregate data into Weeks for Spring district
+# Spring bölgesine ait verileri Weeks'te topla
 agg_weeks <- facility_count_data %>% 
   filter(District == "Spring",
          data_date < as.Date("2020-08-01")) %>% 
@@ -31681,7 +31695,7 @@ agg_weeks <- facility_count_data %>%
   right_join(tidyr::expand(., week, location_name)) %>% 
   mutate(week = aweek::week2date(week))
 
-# create plot
+# grafiği oluştur
 metrics_plot <- ggplot(agg_weeks,
        aes(x = week,
            y = location_name,
@@ -31711,10 +31725,10 @@ metrics_plot <- ggplot(agg_weeks,
        subtitle = "District health facilities, April-May 2019",
        caption = "7-day weeks beginning on Mondays.")
 
-metrics_plot # print
+metrics_plot # yazdır
 ```
 
-Below, we make it interactive and modify it for simple buttons and file size.  
+Aşağıda, grafiği etkileşimli hale getiriyoruz. Düğmeleri ve dosya boyutunu değiştiriyoruz.
 
 ```{r,  out.width=c('95%'), out.height=c('500px')}
 metrics_plot %>% 
@@ -31793,11 +31807,9 @@ metrics_plot %>%
 <!-- ``` -->
 
 <!-- ======================================================= -->
-## Resources {  }
+## Kaynaklar {  }
 
-Plotly is not just for R, but also works well with Python (and really any data science language as it's built in JavaScript). You can read more about it on the [plotly website](https://plotly.com/r/)
-
-
+Plotly sadece R'da değil, aynı zamanda Python (ve JavaScript temelli herhangi bir veri bilimi kodlama dili) ile de çalışmaktadır. Daha fazla bilgiye [plotly web sitesinden](https://plotly.com/r/) ulaşabilirsiniz.
 ```{r include=FALSE, cache=FALSE}
 
 # clear workspace

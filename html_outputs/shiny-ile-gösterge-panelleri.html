@@ -114,7 +114,7 @@
 <li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
 <li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
 <li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li><a class="" href="interaktif-grafikler.html"><span class="header-section-number">39</span> İnteraktif grafikler</a></li>
 <li class="book-part">Reports and dashboards</li>
 <li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
 <li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
@@ -144,16 +144,16 @@
 <!-- R based dashboards are also advantageous in that they centralise how code is run - when the same code is run on different machines, often people will have to deal with differing file paths, different R versions, and different package installations. For this reason, dashboards are a great way to share code with others in a user friendly way! -->
 <p>Shiny ile gösterge tablolarını öğrenen birinin, veri dönüştürme ve görselleştirme konusunda iyi bilgiye sahip olması ve kod hatalarını ayıklama ve kod işlevleri konularında bilgili olması önerilir. Gösterge panelleriyle çalışmak, başladığınızda sezgisel değildir ve bazen anlaşılması zordur, ancak öğrenmesi harika bir beceridir ve pratikle çok daha kolay hale gelir!</p>
 <p>Bu sayfa, shiny ve uzantıları olan panellerin nasıl oluşturulacağına dair kısa bir genel bakış sağlayacaktır. Panelleri daha hızlı, daha kolay, ancak daha az özelleştirilebilir hale getirmenin alternatif bir yöntemi için, flextable <a href="r-markdown-ile-g%C3%B6sterge-panelleri.html#r-markdown-ile-g%C3%B6sterge-panelleri">R Markdown ile gösterge panelleri</a> sayfasına bakabilirsiniz.</p>
-<div id="hazırlık-35" class="section level2" number="43.1">
+<div id="hazırlık-36" class="section level2" number="43.1">
 <h2>
-<span class="header-section-number">43.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-35"><i class="fas fa-link"></i></a>
+<span class="header-section-number">43.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-36"><i class="fas fa-link"></i></a>
 </h2>
-<div id="paketleri-yükleme-12" class="section level3 unnumbered">
-<h3>Paketleri yükleme<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleme-12"><i class="fas fa-link"></i></a>
+<div id="paketleri-yükleme-13" class="section level3 unnumbered">
+<h3>Paketleri yükleme<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCkleme-13"><i class="fas fa-link"></i></a>
 </h3>
 <p>Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen pacman’ın p_load() fonkisyonunu vurguluyoruz. Ayrıca, temel R’dan library() ile kurulu paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için R temelleri sayfasına bakın.</p>
 <p><strong>shiny</strong> R paketini kurarak başlıyoruz:</p>
-<div class="sourceCode" id="cb1841"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1842"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"shiny"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="verileri-içe-aktarma-9" class="section level3 unnumbered">
@@ -178,25 +178,25 @@
 <li>Biri <em>ui.R</em> ve diğeri <em>server.R</em> olarak adlandırılan iki dosya</li>
 </ol>
 <p>Bu sayfada, <em>app.R</em> adında bir dosyaya sahip olduğunuz ilk yaklaşımı kullanacağız. İşte örnek bir komut dosyası:</p>
-<div class="sourceCode" id="cb1842"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1843"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#  app.R örneği</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
 <span>    <span class="co"># Uygulama başlığı</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"My app"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"My app"</span><span class="op">)</span>,</span>
 <span></span>
 <span>    <span class="co"># Kaydırıcı giriş araçlı kenar çubuğu</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"input_1"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"input_1"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
 <span></span>
 <span>        <span class="co"># Grafiği göster   </span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
-<span>           <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"my_plot"</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>           <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"my_plot"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -204,18 +204,18 @@
 <span><span class="co"># Bir histogram çizmek için gereken sunucu mantığını tanımlayın</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
 <span>     </span>
-<span>     <span class="va">plot_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>     <span class="va">plot_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>          <span class="fu">plot_func</span><span class="op">(</span>param <span class="op">=</span> <span class="va">input_1</span><span class="op">)</span></span>
 <span>     <span class="op">}</span><span class="op">)</span></span>
 <span>     </span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">my_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">my_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>       <span class="fu">plot_1</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># Uygulamayı çalıştırın</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p>Bu dosyayı açarsanız, biri kullanıcı arayüzü ve diğeri sunucu olarak adlandırılan iki nesnenin tanımlandığını fark edeceksiniz. Bu nesneler shiny uygulamasında tanımlanmalıdır ve uygulamanın kendi yapısının merkezinde yer alırlar! Aslında, yukarıda açıklanan iki dosya yapısı arasındaki tek fark, yapı 1’de hem kullanıcı arayüzünün hem de sunucunun tek bir dosyada tanımlanması, yapı 2’de ise ayrı dosyalarda tanımlanmalarıdır. Not: Ayrıca, uygulamamızda source() fonksiyonunu uygulayabileceğimiz başka .R dosyalarına da sahip olabiliriz (Daha büyük bir uygulamamız varsa bu şekilde yapmalıyız).</p>
 </div>
 <div id="sunucu-ve-kullanıcı-arayüzü-ui" class="section level3 unnumbered">
@@ -266,18 +266,18 @@
 <li>Ortaya çıkan salgın eğrimizi gösterebileceğimiz bir alan.</li>
 </ol>
 <p>Bu şöyle görünebilir:</p>
-<div class="sourceCode" id="cb1843"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1844"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
 <span>         <span class="co"># selector for district</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_district"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select district"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -291,7 +291,7 @@
 <span>              multiple <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         <span class="co"># selector for age group</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_agegroup"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select age group"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -306,9 +306,9 @@
 <span></span>
 <span>    <span class="op">)</span>,</span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
 <span>      <span class="co"># epicurve goes here</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>    </span>
 <span>  <span class="op">)</span></span>
@@ -341,7 +341,7 @@
 4. Kullanıcı girdilerine dayalı olarak verilerimizi görselleştirmek için bir fonksiyon geliştirin</p>
 <p>Bu liste oldukça basittir ve yapılması çok zor olmamalıdır. Artık bu sürecin hangi bölümlerinin yalnızca bir kez yapılması gerektiğini ve hangi bölümlerin kullanıcı girdilerine yanıt olarak çalıştırılması gerektiğini düşünmek önemlidir. Bunun nedeni, shiny uygulamalarının genellikle kullanımdan önce yalnızca bir kez çalıştırılan bazı kodları çalıştırmasıdır. Kodumuzun çoğu bu bölüme taşınabilirse, uygulamamızın performansına yardımcı olacaktır. Bu örnek için, sadece verilerimizi/paketlerimizi yüklememiz ve temel dönüşümleri bir kez yapmamız gerekiyor, böylece kodu sunucunun dışına yerleştirebiliriz. Bu, sunucuda ihtiyacımız olan tek kodun verilerimizi görselleştirecek kod olduğu anlamına gelir. Önce tüm bu bileşenleri bir komut dosyasında geliştirelim. Ancak verilerimizi bir fonksiyon ile görselleştirdiğimiz için, fonksiyonun kodunu sunucunun dışına da koyabiliriz, böylece uygulama çalıştığında fonksiyonumuz ortamda olur!</p>
 <p>Önce verilerimizi yükleyelim. Yeni bir proje ile çalıştığımız ve temizlemek istediğimiz için data adında yeni bir dizin oluşturabilir ve sıtma verilerimizi oraya ekleyebiliriz. Aşağıdaki kodu, uygulamamızın yapısını temizlediğimizde sileceğimiz bir test komut dosyasında çalıştırabiliriz.</p>
-<div class="sourceCode" id="cb1844"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1845"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># veriyi oku</span></span>
@@ -350,41 +350,42 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 3,038 × 10
-##    location_name data_date  submitted_date Province District malar…¹ malar…² malar…³ malar…⁴ newid
-##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;      &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;
-##  1 Facility 1    2020-08-11 2020-08-12     North    Spring        11      12      23      46     1
-##  2 Facility 2    2020-08-11 2020-08-12     North    Bolo          11      10       5      26     2
-##  3 Facility 3    2020-08-11 2020-08-12     North    Dingo          8       5       5      18     3
-##  4 Facility 4    2020-08-11 2020-08-12     North    Bolo          16      16      17      49     4
-##  5 Facility 5    2020-08-11 2020-08-12     North    Bolo           9       2       6      17     5
-##  6 Facility 6    2020-08-11 2020-08-12     North    Dingo          3       1       4       8     6
-##  7 Facility 6    2020-08-10 2020-08-12     North    Dingo          4       0       3       7     6
-##  8 Facility 5    2020-08-10 2020-08-12     North    Bolo          15      14      13      42     5
-##  9 Facility 5    2020-08-09 2020-08-12     North    Bolo          11      11      13      35     5
-## 10 Facility 5    2020-08-08 2020-08-12     North    Bolo          19      15      15      49     5
-## # … with 3,028 more rows, and abbreviated variable names ¹​`malaria_rdt_0-4`, ²​`malaria_rdt_5-14`,
-## #   ³​malaria_rdt_15, ⁴​malaria_tot</code></pre>
+##    locat…¹ data_date  submitte…² Provi…³ Distr…⁴ malar…⁵ malar…⁶ malar…⁷ malar…⁸ newid
+##    &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;
+##  1 Facili… 2020-08-11 2020-08-12 North   Spring       11      12      23      46     1
+##  2 Facili… 2020-08-11 2020-08-12 North   Bolo         11      10       5      26     2
+##  3 Facili… 2020-08-11 2020-08-12 North   Dingo         8       5       5      18     3
+##  4 Facili… 2020-08-11 2020-08-12 North   Bolo         16      16      17      49     4
+##  5 Facili… 2020-08-11 2020-08-12 North   Bolo          9       2       6      17     5
+##  6 Facili… 2020-08-11 2020-08-12 North   Dingo         3       1       4       8     6
+##  7 Facili… 2020-08-10 2020-08-12 North   Dingo         4       0       3       7     6
+##  8 Facili… 2020-08-10 2020-08-12 North   Bolo         15      14      13      42     5
+##  9 Facili… 2020-08-09 2020-08-12 North   Bolo         11      11      13      35     5
+## 10 Facili… 2020-08-08 2020-08-12 North   Bolo         19      15      15      49     5
+## # … with 3,028 more rows, and abbreviated variable names ¹​location_name,
+## #   ²​submitted_date, ³​Province, ⁴​District, ⁵​`malaria_rdt_0-4`, ⁶​`malaria_rdt_5-14`,
+## #   ⁷​malaria_rdt_15, ⁸​malaria_tot</code></pre>
 <p>Tidy (düzenli) veri standartları kullanırsak bu verilerle çalışmak daha kolay olacaktır, bu nedenle yaş grubunun bir sütun olduğu ve vakaların başka bir sütun olduğu uzun bir veri formatına da pivotlamalıyız. Verilerin pivotlanması sayfasında öğrendiklerimizi kullanarak bunu kolayca yapabiliriz.</p>
-<div class="sourceCode" id="cb1846"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1847"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">malaria_data</span> <span class="op">&lt;-</span> <span class="va">malaria_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">newid</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"malaria_"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"age_group"</span>, values_to <span class="op">=</span> <span class="st">"cases_reported"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 12,152 × 7
-##    location_name data_date  submitted_date Province District age_group        cases_reported
-##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                     &lt;int&gt;
-##  1 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_0-4              11
-##  2 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_5-14             12
-##  3 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_15               23
-##  4 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_tot                  46
-##  5 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_0-4              11
-##  6 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_5-14             10
-##  7 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_15                5
-##  8 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_tot                  26
-##  9 Facility 3    2020-08-11 2020-08-12     North    Dingo    malaria_rdt_0-4               8
-## 10 Facility 3    2020-08-11 2020-08-12     North    Dingo    malaria_rdt_5-14              5
-## # … with 12,142 more rows</code></pre>
+##    location_name data_date  submitted_date Province District age_group        cases_…¹
+##    &lt;chr&gt;         &lt;date&gt;     &lt;date&gt;         &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;               &lt;int&gt;
+##  1 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_0-4        11
+##  2 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_5-14       12
+##  3 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_rdt_15         23
+##  4 Facility 1    2020-08-11 2020-08-12     North    Spring   malaria_tot            46
+##  5 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_0-4        11
+##  6 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_5-14       10
+##  7 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_rdt_15          5
+##  8 Facility 2    2020-08-11 2020-08-12     North    Bolo     malaria_tot            26
+##  9 Facility 3    2020-08-11 2020-08-12     North    Dingo    malaria_rdt_0-4         8
+## 10 Facility 3    2020-08-11 2020-08-12     North    Dingo    malaria_rdt_5-14        5
+## # … with 12,142 more rows, and abbreviated variable name ¹​cases_reported</code></pre>
 <p>Bu şeklide verilerimizi hazırlamayı bitirdik! Bu iş paketi, “R komut dosyasını test etme” için geliştirilecek şeyler listemizdeki 1, 2 ve 3 numaralı maddeleri kapsar. Son ve en zor görev, kullanıcı tanımlı parametrelere dayalı bir salgın eğrisi üretmek için bir fonksiyon oluşturmak olacaktır. Daha önce de belirtildiği gibi, shiny öğrenen herkesin, çalışma prensiplerini anlamak için önce fonksiyonel programlama (fonkisyonların yazılması) bölümünü incelemesi şiddetle tavsiye edilir!</p>
 <p>Fonksiyonumuzu tanımlarken, hangi parametreleri dahil etmek istediğimizi planlamak zor olabilir. Shiny ile fonksiyonel programlama için, ilgili her parametrenin genellikle kendisiyle ilişkilendirilmiş bir widget’ı olacaktır, bu nedenle bunu planlamak genellikle oldukça kolaydır! Örneğin mevcut uygulamamızda, bölgeye göre filtreleme yapabilmek ve bunun için bir widget’ımız olmasını istiyoruz, bunun için bir bölge parametresini ekleyebiliriz. Tesise göre filtrelemek için herhangi bir uygulama işlevimiz şimdilik olmadığı için bu nedenle bunu bir parametre olarak eklememize gerek yoktur. Üç parametreli bir fonksiyon yazarak başlayalım:</p>
 <ol style="list-style-type: decimal">
@@ -392,7 +393,7 @@
 <li>Seçim bölgesi</li>
 <li>Tercih edilen yaş grubu</li>
 </ol>
-<div class="sourceCode" id="cb1848"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1849"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_epicurve</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">district</span> <span class="op">=</span> <span class="st">"All"</span>, <span class="va">agegroup</span> <span class="op">=</span> <span class="st">"malaria_tot"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -446,16 +447,16 @@
 <p>Nasıl çalıştığı nispeten basit olduğu için bu fonksiyon hakkında çok fazla ayrıntıya girmeyeceğiz. Bununla birlikte, not edilmesi gereken bir nota, hata vereceği zamanlarda NULL elde ederek hataları ayıklamamızdır. Bunun nedeni, shiny’de sunucu bir çizim nesnesi yerine bir NULL nesnesi ürettiğinde, kullanıcı arayüzünde hiçbir şey gösterilmeyecek olmasıdır! Bu önemlidir, aksi takdirde hatalar genellikle uygulamanızın çalışmayı durdurmasına neden olur.</p>
 <p>Dikkat edilmesi gereken bir diğer nokta da, bölge girdisini değerlendirirken %in% operatörünün kullanılmasıdır. Yukarıda bahsedildiği gibi bu operatör birden çok değere sahip bir karakter vektörü olarak kullanılabilir ,bu nedenle %in% operatörünü kullanmak, == operatöründen daha esnektir.</p>
 <p>Fonksiyonumuzu test edelim!</p>
-<div class="sourceCode" id="cb1849"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1850"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="st">"Bolo"</span>, agegroup <span class="op">=</span> <span class="st">"malaria_rdt_0-4"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1446-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1447-1.png" width="672"></div>
 <p>Fonksiyonumuz çalışırken, tüm bunların shiny uygulamamıza nasıl sığacağını anlamamız gerekiyor. Başlangıç kodu kavramından daha önce bahsetmiştik, ancak şimdi bunu uygulamamızın yapısına nasıl dahil edebileceğimize bakalım. Bunu yapabilmemizin iki yolu var!</p>
 <ol style="list-style-type: decimal">
 <li>Bu kodu <em>app.R</em> dosyanıza komut dosyasının başına (kullanıcı arayüzünün üstüne) koyun veya</li>
 <li>Uygulamanızın <em>global.R</em> adlı dizininde yeni bir dosya oluşturun ve başlangıç kodunu bu dosyaya yerleştirin.</li>
 </ol>
 <p>Bu noktada, dosya yapınızı basit bir şekilde ayırmanıza izin verdiği için, özellikle daha büyük uygulamalarda, ikinci seçenekteki dosya yapısını kullanmanın genellikle daha kolay olduğunu belirtmekte fayda var. Şimdi bu global.R betiğini tamamen geliştirelim. Böyle görünebilir:</p>
-<div class="sourceCode" id="cb1850"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1851"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># global.R betiği</span></span>
 <span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"shiny"</span><span class="op">)</span></span>
@@ -525,7 +526,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <p>Bright’ın harika bir özelliği, app.R, server.R, ui.R ve global.R adlı dosyaların ne için olduğunu anlamasıdır, bu nedenle herhangi bir kod aracılığıyla bunları birbirine bağlamaya gerek yoktur. Bu yüzden sadece global.R’deki bu kodu dizinde bulundurmak uygulamamızı başlatmadan önce çalışması için yeterlidir!</p>
 <p>Ayrıca, çizim işlevini kendi dosyasına taşımamızın uygulamamızın organizasyonunu iyileştireceğini de unutmamalıyız – bu eylem özellikle uygulamalar büyüdükçe yararlı olacaktır. Bunu yapmak için funcs adında başka bir dizin oluşturabilir ve bu işlevi plot_epicurve.R adlı bir dosyaya yerleştirebiliriz. Daha sonra bu işlevi global.R’de aşağıdaki komutla okuyabiliriz:</p>
-<div class="sourceCode" id="cb1851"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1852"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"funcs"</span>, <span class="st">"plot_epicurve.R"</span><span class="op">)</span>, local <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Uygulama bir sunucuda yayınlandığında kaynak bulmayı etkileyeceğinden, shiny uygulamalarında her zaman local argümanını ‘local= TRUE’ belirtmeniz gerektiğini unutmayın.</p>
 </div>
@@ -540,16 +541,16 @@
 <li><p>Son noktalar - bunlar sunucudan kullanıcı arayüzüne iletilen çıktılardır. Örneğimizde, ürettiğimiz salgın eğrisi bu olacaktır.</p></li>
 </ol>
 <p>Bunu akılda tutarak, sunucumuzu adım adım oluşturalım. Burada sadece referans olması için UI kodumuzu tekrar göstereceğiz:</p>
-<div class="sourceCode" id="cb1852"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb1853"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
 <span>         <span class="co"># bölge için seçici</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_district"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select district"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -563,7 +564,7 @@
 <span>              multiple <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         <span class="co"># yaş grubu için seçici</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_agegroup"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select age group"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -578,9 +579,9 @@
 <span></span>
 <span>    <span class="op">)</span>,</span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
 <span>      <span class="co"># salgın eğrisi burada bulunur</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>    </span>
 <span>  <span class="op">)</span></span>
@@ -592,10 +593,10 @@
 <p>• Bir çıktı:
 • Salgın eğrisi (sıtma_epicurve çıkış kimliği ile)</p>
 <p>Daha önce de belirtildiği gibi, girdi ve çıktılarımıza atadığımız bu benzersiz isimler çok önemlidir. Benzersiz olmalıdırlar ve kullanıcı arayüzü ile sunucu arasında bilgi iletmek için kullanılırlar. Sunucumuzda girdilerimize ‘input<span class="math inline">\(inputID' ve output sintaksı aracılığıyla erişiyoruz ve 'output\)</span>output_name’ sintaksı aracılığıyla kullanıcı arayüzüne iletiyoruz. Şimdi bir örneğe bakalım, çünkü bunu başka türlü anlaşılması güçtür.</p>
-<div class="sourceCode" id="cb1853"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1854"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
 <span>    <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  </span>
@@ -604,7 +605,7 @@
 <p>Sunucunun kullanıcı girdilerine nasıl tepki verdiğinin temellerini anlamak için, girdiler değiştiğinde çıktının (altta yatan paket aracılığıyla) da değişeceğin ve her değişimle bir grafik oluşturmak için bu fonksiyonu yeniden çalıştıracağını unutmamalısınız. Burada renderPlot() fonksiyonunu da kullandığımızı unutmayın – bu fonksiyon, nesneleri bir kullanıcı arabirimi çıktısına ileten sınıfa özgü fonkisyonlar ailesindendir. Benzer şekilde davranan birkaç fonksiyon vardır, ancak kullanılan fonksiyonun kullanıcı arayüzüne ilettiğiniz nesnenin sınıfıyla eşleştiğinden emin olmanız gerekir! Örneğin:</p>
 <ul>
 <li>
-<code><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText()</a></code> - kullanıcı arayüzüne metin gönderir</li>
+<code><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPrint.html">renderText()</a></code> - kullanıcı arayüzüne metin gönderir</li>
 <li>
 <code>renderDataTable</code> - kullanıcı arayüzüne etkileşimli bir tablo gönderir.</li>
 </ul>
@@ -648,7 +649,7 @@
 <li><p><code>tags$b()</code> ve <code>tags$i()</code> - bunlar kalın etiketler tags<span class="math inline">\(b() ve italik etiketler tags\)</span>i() oluşturmak için kullanılır.</p></li>
 <li><p><code>tags$ul()</code>, <code>tags$ol()</code> ve <code>tags$li()</code> - bunlar, listelerin oluşturulmasında kullanılan etiketlerdir. Bunların tümü aşağıdaki sintaks içinde kullanılır ve kullanıcının sıralı bir liste (tags<span class="math inline">\(ol(); yani numaralandırılmış) veya sırasız liste (tags\)</span>ul(), yani madde işareti noktaları) oluşturmasına izin verir. Tags$li(), kullanılan liste türünden bağımsız olarak listedeki öğeleri belirtmek için kullanılır. Örneğin.:</p></li>
 </ul>
-<div class="sourceCode" id="cb1854"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1855"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">ol</span><span class="op">(</span></span>
 <span>  </span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">li</span><span class="op">(</span><span class="st">"Item 1"</span><span class="op">)</span>,</span>
@@ -665,17 +666,17 @@
 <p>Bu nesnelerin her birine, <code>tags$...</code> aracılığıyla veya bazıları için de yalnızca fonksiyon aracılığıyla erişilebileceğini unutmayın. Bunlar eş anlamlıdır, ancak daha açık olmayı ve yanlışlıkla fonksiyonların üzerine yazmamayı tercih ederseniz, <code>tags$...</code> stili etiketleri kullanmak yardımcı olabilir. Bu aynı zamanda mevcut etiketlerin kapsamlı bir listesi değildir. Tüm etiketlerin tam listesi <a href="https://shiny.rstudio.com/articles/tag-glossary.html">burada</a> shiny olarak mevcuttur ve daha da fazlası HTML’yi doğrudan kullanıcı arayüzünüze ekleyerek kullanılabilir!</p>
 <p>Kendinize güveniyorsanız, herhangi birindeki stil argümanı ile HTML etiketlerinize herhangi bir <strong>css stil öğesi</strong> de ekleyebilirsiniz. Bunun nasıl çalıştığına ayrıntılı olarak girmeyeceğiz, ancak bir kullanıcı arayüzündeki estetik değişiklikleri test etmek için, chrome’da (tarayıcıda çalıştırdığınız shiny uygulamanızın) HTML denetçi modunu kullanmak ve nesnelerin stilini kendiniz düzenleyebilirsiniz!</p>
 <p>Uygulamamıza biraz metin ekleyelim</p>
-<div class="sourceCode" id="cb1855"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb1856"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
 <span>         <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">h4</a></span><span class="op">(</span><span class="st">"Options"</span><span class="op">)</span>,</span>
 <span>         <span class="co"># selector for district</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_district"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select district"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -689,7 +690,7 @@
 <span>              multiple <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         <span class="co"># selector for age group</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_agegroup"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select age group"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -703,9 +704,9 @@
 <span>         <span class="op">)</span>,</span>
 <span>    <span class="op">)</span>,</span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
 <span>      <span class="co"># salgın eğrisi burada bulunur</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">p</a></span><span class="op">(</span><span class="st">"Welcome to the malaria facility visualisation app! To use this app, manipulate the widgets on the side to change the epidemic curve according to your preferences! To download a high quality image of the plot you've created, you can also download it with the download button. To see the raw data, use the raw data tab for an interactive form of the table. The data dictionary is as follows:"</span><span class="op">)</span>,</span>
@@ -728,7 +729,7 @@
 <h3>Bir link (köprü) eklemek<a class="anchor" aria-label="anchor" href="#bir-link-k%C3%B6pr%C3%BC-eklemek"><i class="fas fa-link"></i></a>
 </h3>
 <p>Bir web sitesine link eklemek için, bağlantıyla birlikte tags<span class="math inline">\(a() kullanın ve metni aşağıda gösterildiği gibi görüntüleyin. Bağımsız bir paragrafa için metni p() içine koyun. Bir cümlenin sadece birkaç kelimesini linke bağlamak için, cümleyi parçalara ayırın ve köprülü kısım için tag\)</span>a() kullanın. Bağlantının yeni bir tarayıcı penceresinde açılmasını sağlamak için argüman olarak target = “_blank” ekleyin.</p>
-<div class="sourceCode" id="cb1856"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1857"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">a</span><span class="op">(</span>href <span class="op">=</span> <span class="st">"www.epiRhandbook.com"</span>, <span class="st">"Visit our website!"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="indirme-düğmesi-eklemek" class="section level3 unnumbered">
@@ -736,16 +737,16 @@
 </h3>
 <p>Üç özellikten ikincisine geçelim. İndirme düğmesini uygulamaya eklemek oldukça yaygındır ve yapılması oldukça kolaydır. Kullanıcı arayüzümüze başka bir widget eklememiz gerekiyor ve bunun için sunucumuza başka bir çıktı eklememiz gerekiyor. Bu örnekte reaktif iletkenleri de tanıtabiliriz!</p>
 <p>Önce kullanıcı arabirimimizi güncelleyelim - bu kolay çünkü shiny, downloadButton() adlı bir widget ile birlikte gelir - ona bir inputId ve bir etiket verelim.</p>
-<div class="sourceCode" id="cb1857"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb1858"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
 <span>         <span class="co"># selector for district</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_district"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select district"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -759,7 +760,7 @@
 <span>              multiple <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         <span class="co"># yaş grubu için seçici</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_agegroup"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select age group"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -773,16 +774,16 @@
 <span>         <span class="op">)</span>,</span>
 <span>         <span class="co"># dikey hat</span></span>
 <span>         <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadButton.html">downloadButton</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/downloadButton.html">downloadButton</a></span><span class="op">(</span></span>
 <span>           outputId <span class="op">=</span> <span class="st">"download_epicurve"</span>,</span>
 <span>           label <span class="op">=</span> <span class="st">"Download plot"</span></span>
 <span>         <span class="op">)</span></span>
 <span></span>
 <span>    <span class="op">)</span>,</span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
 <span>      <span class="co"># salgon eğrisi buradadır</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">p</a></span><span class="op">(</span><span class="st">"Welcome to the malaria facility visualisation app! To use this app, manipulate the widgets on the side to change the epidemic curve according to your preferences! To download a high quality image of the plot you've created, you can also download it with the download button. To see the raw data, use the raw data tab for an interactive form of the table. The data dictionary is as follows:"</span><span class="op">)</span>,</span>
@@ -802,14 +803,14 @@
 <span><span class="op">)</span></span></code></pre></div>
 <p>Burada ek olarak bir hr() etiketi eklediğimizi unutmayın - bu, kontrol widgetlarımızı indirme widgetlarımızdan ayıran yatay bir çizgi ekler. Bu, daha önce tartıştığımız HTML etiketlerinden bir diğeridir.</p>
 <p>Artık kullanıcı arayüzümüz hazır olduğuna göre, sunucu bileşenini eklememiz gerekiyor. İndirmeler, downloadHandler() fonksiyonuyla sunucuda yapılır. Grafiğimize benzer şekilde, indirme düğmesiyle aynı inputId’ye sahip bir çıktıya eklememiz gerekiyor. Bu fonkisyonun iki argümanı vardır - dosya adı ve içerik - bunların ikisi de işlevdir. Tahmin edebileceğiniz gibi, dosya adı indirilen dosyanın adını belirtmek için, içerik ise neyin indirileceğini belirtmek için kullanılır. İçerik, verileri yerel olarak kaydetmek için kullanacağınız bir fonkisyon içerir - bu nedenle, bir csv dosyası indiriyorsanız rio::export() fonksiyonunu kullanabilirsiniz. Bir grafik indirdiğimiz için ggplot2::ggsave() kullanacağız. Bunu nasıl programlayacağımıza bakalım (henüz sunucuya eklemeyeceğiz).</p>
-<div class="sourceCode" id="cb1858"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1859"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
 <span>    <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
 <span>    filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span></span>
 <span>    <span class="op">}</span>,</span>
@@ -830,8 +831,8 @@
 <li>eventReactive()- bu rektif iletken, kullanıcının hangi girişlerin tekrar çalışmasına neden olduğunu belirleyebilmesi dışında, reaktif() ile aynı şekilde çalışır. Bu, reaktif iletkeninizin işlenmesi uzun zaman alıyorsa yararlıdır, ancak reaktif iletken daha sonra açıklanacaktır.</li>
 </ol>
 <p>İki örneğe bakalım:</p>
-<div class="sourceCode" id="cb1859"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">malaria_plot_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb1860"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">malaria_plot_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span><span class="op">)</span></span>
 <span>  </span>
@@ -839,27 +840,27 @@
 <span></span>
 <span></span>
 <span><span class="co"># sadece bölge seçici değiştiğinde çalışır!</span></span>
-<span><span class="va">malaria_plot_er</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, <span class="op">{</span></span>
+<span><span class="va">malaria_plot_er</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html">eventReactive</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>eventReactive() kurulumunu kullandığımızda, bu kod parçasının çalışmasına hangi girdilerin neden olduğunu belirleyebiliriz - bu şu anda bizim için pek kullanışlı değil, bu yüzden şimdilik bırakabiliriz. c() ile birden çok giriş ekleyebileceğinizi unutmayın.</p>
 <p>Bunu sunucu kodumuza nasıl entegre edebileceğimize bakalım:</p>
-<div class="sourceCode" id="cb1860"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1861"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
-<span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  </span>
 <span>  </span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
 <span>    <span class="fu">malaria_plot</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
 <span>    </span>
 <span>    filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span></span>
@@ -881,7 +882,7 @@
 <h3>Tesis seçici eklemek<a class="anchor" aria-label="anchor" href="#tesis-se%C3%A7ici-eklemek"><i class="fas fa-link"></i></a>
 </h3>
 <p>Bir sonraki özelliğimize geçelim - belirli tesisler için bir seçici. Fonksiyonumuza kodumuzdan bir argüman olarak iletebileceğimiz başka bir parametre uygulayacağız. İlk önce bunu yapmaya odaklanalım. – Yeni parametre diğer parametrelerle aynı ilkelere göre çalışır. Fonksiyonumuzu güncelleyip test edelim.</p>
-<div class="sourceCode" id="cb1861"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1862"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_epicurve</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">district</span> <span class="op">=</span> <span class="st">"All"</span>, <span class="va">agegroup</span> <span class="op">=</span> <span class="st">"malaria_tot"</span>, <span class="va">facility</span> <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="st">"All"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">district</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -952,11 +953,11 @@
 <span>  </span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Haydi deneyelim:</p>
-<div class="sourceCode" id="cb1862"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="st">"Spring"</span>, agegroup <span class="op">=</span> <span class="st">"malaria_rdt_0-4"</span>, facility <span class="op">=</span> <span class="st">"Facility 1"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1463-1.png" width="672"></div>
-<p>Verilerimizdeki tüm tesisler için hangi tesislerin hangi bölgelere karşılık geldiği çok net değildir - ve son kullanıcı da bu bilgiye erişemeyecektir. Bu, uygulamayı kullanmayı oldukça zor hale getirebilir. Bu nedenle, kullanıcı bölgeyi değiştirdikçe UI’deki tesis seçeneklerini dinamik olarak değiştirmeliyiz - biri diğerini filtrelemelidir! Seçeneklerde kullandığımız çok fazla değişken olduğundan, global.R dosyamızdaki kullanıcı arayüzü için bazı ayarlarımızı verilerimizden oluşturmak isteyebiliriz. Örneğin, verilerimizi okuduktan sonra bu kod parçasını global.R’ye ekleyebiliriz:</p>
 <div class="sourceCode" id="cb1863"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="st">"Spring"</span>, agegroup <span class="op">=</span> <span class="st">"malaria_rdt_0-4"</span>, facility <span class="op">=</span> <span class="st">"Facility 1"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-1464-1.png" width="672"></div>
+<p>Verilerimizdeki tüm tesisler için hangi tesislerin hangi bölgelere karşılık geldiği çok net değildir - ve son kullanıcı da bu bilgiye erişemeyecektir. Bu, uygulamayı kullanmayı oldukça zor hale getirebilir. Bu nedenle, kullanıcı bölgeyi değiştirdikçe UI’deki tesis seçeneklerini dinamik olarak değiştirmeliyiz - biri diğerini filtrelemelidir! Seçeneklerde kullandığımız çok fazla değişken olduğundan, global.R dosyamızdaki kullanıcı arayüzü için bazı ayarlarımızı verilerimizden oluşturmak isteyebiliriz. Örneğin, verilerimizi okuduktan sonra bu kod parçasını global.R’ye ekleyebiliriz:</p>
+<div class="sourceCode" id="cb1864"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_districts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">malaria_data</span><span class="op">$</span><span class="va">District</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># bölgeye göre konum adlarının veri çerçevesi</span></span>
@@ -965,10 +966,10 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Bölgelere bakalım</p>
-<div class="sourceCode" id="cb1864"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1865"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_districts</span></span></code></pre></div>
 <pre><code>## [1] "All"     "Spring"  "Bolo"    "Dingo"   "Barnard"</code></pre>
-<div class="sourceCode" id="cb1866"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1867"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">facility_list</span></span></code></pre></div>
 <pre><code>## # A tibble: 65 × 2
 ##    location_name District
@@ -985,16 +986,16 @@
 ## 10 Facility 18   Bolo    
 ## # … with 55 more rows</code></pre>
 <p>Bu yeni değişkenler, hem sunucu hem de kullanıcı arabirimi tarafından global olarak görünür olduklarından, herhangi bir sorun olmadan kullanıcı arabirimine geçirebiliriz! Arayüzümüzü güncelleyelim:</p>
-<div class="sourceCode" id="cb1868"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb1869"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
 <span>         <span class="co"># bölge için seçici</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_district"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select district"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="va">all_districts</span>,</span>
@@ -1002,7 +1003,7 @@
 <span>              multiple <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         <span class="co"># yaş grubu için seçici</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>              inputId <span class="op">=</span> <span class="st">"select_agegroup"</span>,</span>
 <span>              label <span class="op">=</span> <span class="st">"Select age group"</span>,</span>
 <span>              choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -1015,7 +1016,7 @@
 <span>              multiple <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>         <span class="op">)</span>,</span>
 <span>         <span class="co"># kurum için seçici</span></span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>           inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
 <span>           label <span class="op">=</span> <span class="st">"Select Facility"</span>,</span>
 <span>           choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span><span class="op">)</span>,</span>
@@ -1024,16 +1025,16 @@
 <span>         </span>
 <span>         <span class="co"># dikey çizgi</span></span>
 <span>         <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadButton.html">downloadButton</a></span><span class="op">(</span></span>
+<span>         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/downloadButton.html">downloadButton</a></span><span class="op">(</span></span>
 <span>           outputId <span class="op">=</span> <span class="st">"download_epicurve"</span>,</span>
 <span>           label <span class="op">=</span> <span class="st">"Download plot"</span></span>
 <span>         <span class="op">)</span></span>
 <span></span>
 <span>    <span class="op">)</span>,</span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
 <span>      <span class="co"># salgın eğrisi buradadır</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">p</a></span><span class="op">(</span><span class="st">"Welcome to the malaria facility visualisation app! To use this app, manipulate the widgets on the side to change the epidemic curve according to your preferences! To download a high quality image of the plot you've created, you can also download it with the download button. To see the raw data, use the raw data tab for an interactive form of the table. The data dictionary is as follows:"</span><span class="op">)</span>,</span>
@@ -1062,8 +1063,8 @@
 </ol>
 <p>Ayrıca, widget’ları güncelleyen shiny fonksiyonlarını da anlamamız gerekir. Bunların çalıştırılması oldukça basittir - önce sunucu fonkisyonundan oturum nesnesini alırlar (bunun şimdilik anlaşılması gerekmez), ardından değiştirilecek fonksiyonun inputId’sini alırlar. Ardından, selectInput() tarafından seçilmiş olan tüm parametrelerin yeni sürümleri iletilir - bunlar widget’ta otomatik olarak güncellenecektir.</p>
 <p>Bunu sunucumuzda nasıl kullanabileceğimize dair izole bir örneğe bakalım. Kullanıcı bölgeyi değiştirdiğinde, tesis gruplarımızı bölgeye göre filtrelemek ve seçenekleri yalnızca o bölgede mevcut olanları) yansıtacak (ve tüm tesisler için bir seçenek oluşturacak şekilde güncellemek istiyoruz.</p>
-<div class="sourceCode" id="cb1869"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb1870"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">select_district</span> <span class="op">==</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span></span>
@@ -1075,21 +1076,21 @@
 <span>  </span>
 <span>  <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="va">new_choices</span><span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span><span class="va">session</span>, inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span><span class="va">session</span>, inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
 <span>                    choices <span class="op">=</span> <span class="va">new_choices</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Ve bu kadar! Bunu sunucumuza ekleyebiliriz ve bu davranış şimdi işe yarayacaktır. Yeni sunucumuz şöyle görünmelidir:</p>
-<div class="sourceCode" id="cb1870"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1871"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
-<span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span>, facility <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_facility</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  </span>
 <span>  </span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    </span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">select_district</span> <span class="op">==</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span></span>
@@ -1101,17 +1102,17 @@
 <span>    </span>
 <span>    <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="va">new_choices</span><span class="op">)</span></span>
 <span>    </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span><span class="va">session</span>, inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span><span class="va">session</span>, inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
 <span>                      choices <span class="op">=</span> <span class="va">new_choices</span><span class="op">)</span></span>
 <span>    </span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  </span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
 <span>    <span class="fu">malaria_plot</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
 <span>    </span>
 <span>    filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span></span>
@@ -1134,34 +1135,34 @@
 <h3>Tabloya yeni bir sekme eklemek<a class="anchor" aria-label="anchor" href="#tabloya-yeni-bir-sekme-eklemek"><i class="fas fa-link"></i></a>
 </h3>
 <p>Şimdi uygulamamıza eklemek istediğimiz son bileşene geçeceğiz. Kullanıcı arayüzünü iki sekmeye ayırmak isteyeceğiz, bunlardan biri, kullanıcının salgın eğrisini oluşturdukları verileri görebileceği etkileşimli bir tabloya sahip olacak. Bunu yapmak için, sekmelerle ilgili shiny ile birlikte gelen paket dahili kullanıcı arabirimi öğelerini kullanabiliriz. Temel düzeyde, ana panelimizin çoğunu bu genel yapıya dahil edebiliriz:</p>
-<div class="sourceCode" id="cb1871"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1872"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ... kullanıcı arayüzünden geri kalan</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/tabsetPanel.html">tabsetPanel</a></span><span class="op">(</span></span>
 <span>    type <span class="op">=</span> <span class="st">"tabs"</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Epidemic Curves"</span>,</span>
 <span>      <span class="va">...</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Data"</span>,</span>
 <span>      <span class="va">...</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Bunu kullanıcı arayüzümüze uygulayalım. Ayrıca burada DT paketini kullanmak isteyeceğiz - bu, önceden var olan verilerden etkileşimli tablolar oluşturmak için harika bir pakettir. Bu örnekte DT::datatableOutput() fonksiyonunun kullanıldığını görebiliriz.</p>
-<div class="sourceCode" id="cb1872"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb1873"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>     </span>
-<span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
+<span>     <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"Malaria facility visualisation app"</span><span class="op">)</span>,</span>
 <span>     </span>
-<span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>     <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
 <span>          </span>
-<span>          <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
 <span>               <span class="co"># bölge için seçici</span></span>
-<span>               <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>               <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>                    inputId <span class="op">=</span> <span class="st">"select_district"</span>,</span>
 <span>                    label <span class="op">=</span> <span class="st">"Select district"</span>,</span>
 <span>                    choices <span class="op">=</span> <span class="va">all_districts</span>,</span>
@@ -1169,7 +1170,7 @@
 <span>                    multiple <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>               <span class="op">)</span>,</span>
 <span>               <span class="co"># yaş grubu için seçici</span></span>
-<span>               <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>               <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>                    inputId <span class="op">=</span> <span class="st">"select_agegroup"</span>,</span>
 <span>                    label <span class="op">=</span> <span class="st">"Select age group"</span>,</span>
 <span>                    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -1182,7 +1183,7 @@
 <span>                    multiple <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>               <span class="op">)</span>,</span>
 <span>               <span class="co"># kurum için seçici</span></span>
-<span>               <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
+<span>               <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>                    inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
 <span>                    label <span class="op">=</span> <span class="st">"Select Facility"</span>,</span>
 <span>                    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span><span class="op">)</span>,</span>
@@ -1191,21 +1192,21 @@
 <span>               </span>
 <span>               <span class="co"># dikey çizgi</span></span>
 <span>               <span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadButton.html">downloadButton</a></span><span class="op">(</span></span>
+<span>               <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/downloadButton.html">downloadButton</a></span><span class="op">(</span></span>
 <span>                    outputId <span class="op">=</span> <span class="st">"download_epicurve"</span>,</span>
 <span>                    label <span class="op">=</span> <span class="st">"Download plot"</span></span>
 <span>               <span class="op">)</span></span>
 <span>               </span>
 <span>          <span class="op">)</span>,</span>
 <span>          </span>
-<span>          <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
-<span>               <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>               <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/tabsetPanel.html">tabsetPanel</a></span><span class="op">(</span></span>
 <span>                    type <span class="op">=</span> <span class="st">"tabs"</span>,</span>
-<span>                    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
+<span>                    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
 <span>                         <span class="st">"Epidemic Curves"</span>,</span>
-<span>                         <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span></span>
+<span>                         <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"malaria_epicurve"</span><span class="op">)</span></span>
 <span>                    <span class="op">)</span>,</span>
-<span>                    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
+<span>                    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html">tabPanel</a></span><span class="op">(</span></span>
 <span>                         <span class="st">"Data"</span>,</span>
 <span>                         <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/dataTableOutput.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"raw_data"</span><span class="op">)</span></span>
 <span>                    <span class="op">)</span></span>
@@ -1228,16 +1229,16 @@
 <span>     <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Artık uygulamamız sekmeler halinde düzenlenmiştir! Sunucuda da gerekli düzenlemeleri yapalım. Veri setimizi oluşturmadan önce değiştirmemiz gerekmediğinden, sadece malaria_data veri setini DT::renderDT() aracılığıyla kullanıcı arayüzüne dönüştürüyoruz!</p>
-<div class="sourceCode" id="cb1873"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1874"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
-<span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="va">malaria_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu">plot_epicurve</span><span class="op">(</span><span class="va">malaria_data</span>, district <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_district</span>, agegroup <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_agegroup</span>, facility <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">select_facility</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  </span>
 <span>  </span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observe.html">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    </span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">select_district</span> <span class="op">==</span> <span class="st">"All"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="va">facility_list</span><span class="op">$</span><span class="va">location_name</span></span>
@@ -1249,17 +1250,17 @@
 <span>    </span>
 <span>    <span class="va">new_choices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"All"</span>, <span class="va">new_choices</span><span class="op">)</span></span>
 <span>    </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span><span class="va">session</span>, inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span><span class="va">session</span>, inputId <span class="op">=</span> <span class="st">"select_facility"</span>,</span>
 <span>                      choices <span class="op">=</span> <span class="va">new_choices</span><span class="op">)</span></span>
 <span>    </span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  </span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">malaria_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html">renderPlot</a></span><span class="op">(</span></span>
 <span>    <span class="fu">malaria_plot</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">download_epicurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/downloadHandler.html">downloadHandler</a></span><span class="op">(</span></span>
 <span>    </span>
 <span>    filename <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"malaria_epicurve_{input$select_district}.png"</span><span class="op">)</span></span>
@@ -1341,8 +1342,8 @@ Buradan, hesabınızın url’sinin uygulamanızın adını yansıtacağını un
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#shiny-ile-g%C3%B6sterge-panelleri"><span class="header-section-number">43</span> Shiny ile Gösterge Panelleri</a></li>
 <li>
-<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-35"><span class="header-section-number">43.1</span> Hazırlık</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#paketleri-y%C3%BCkleme-12">Paketleri yükleme</a></li>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-36"><span class="header-section-number">43.1</span> Hazırlık</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paketleri-y%C3%BCkleme-13">Paketleri yükleme</a></li>
 <li><a class="nav-link" href="#verileri-i%C3%A7e-aktarma-9">Verileri içe aktarma</a></li>
 </ul>
 </li>
@@ -1388,7 +1389,7 @@ Buradan, hesabınızın url’sinin uygulamanızın adını yansıtacağını un
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-21.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2023-01-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

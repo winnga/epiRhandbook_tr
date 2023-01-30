@@ -1,0 +1,6 @@
+interaktif-grafikler
+hazırlık
+ggplotly-ile-grafikler
+değişiklikler
+isı-grafikleri
+kaynaklar

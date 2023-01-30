@@ -114,7 +114,7 @@
 <li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
 <li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
 <li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li><a class="" href="interaktif-grafikler.html"><span class="header-section-number">39</span> İnteraktif grafikler</a></li>
 <li class="book-part">Reports and dashboards</li>
 <li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
 <li><a class="active" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
@@ -142,16 +142,16 @@
 <p>Bu sayfa, raporlar için R Markdown kullanımına eşlik eden <strong>reportfactory</strong> paketini kapsamaktadır.</p>
 <p>Raporları rutin olarak çalıştırdığınız senaryolarda (günlük, haftalık vb.), birden çok R Markdown dosyasının derlenmesini ve çıktılarının organizasyonunu kolaylaştırır. Özünde, R Markdown raporlarını çalıştırabileceğiniz, çıktılar için otomatik olarak tarih ve zaman damgalı klasörler alabileceğiniz ve “hafif” sürüm kontrolüne sahip olabileceğiniz bir “fabrika” sağlar.</p>
 <p><strong>reportfactory</strong>, RECON (R Epidemics Consortium) tarafından geliştirilen paketlerden biridir. İşte onların <a href="https://www.repidemicsconsortium.org/">web sitesi</a> ve <a href="https://github.com/reconverse">Github</a>.</p>
-<div id="hazırlık-33" class="section level2" number="41.1">
+<div id="hazırlık-34" class="section level2" number="41.1">
 <h2>
-<span class="header-section-number">41.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-33"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.1</span> Hazırlık<a class="anchor" aria-label="anchor" href="#haz%C4%B1rl%C4%B1k-34"><i class="fas fa-link"></i></a>
 </h2>
 <div id="paketleri-yüklemek-1" class="section level3 unnumbered">
 <h3>Paketleri yüklemek<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCklemek-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>RStudio içinden, Github’dan <strong>reportfactory</strong> paketinin en son sürümünü yükleyin.</p>
 <p>Bunu, Github’dan en son sürümün yüklenmesini zorlayacak olan <code><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh()</a></code> ile <strong>pacman</strong> paketi aracılığıyla yapabilirsiniz. Github organizasyonunu (reconverse) ve veri havuzunu (rapor fabrikası) belirten “reconverse/reportfactory” karakter dizisini sağlayın. Alternatif olarak <strong>remotes</strong> paketinden <code><a href="https://remotes.r-lib.org/reference/install_github.html">install_github()</a></code> da kullanabilirsiniz.</p>
-<div class="sourceCode" id="cb1823"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1824"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Paketin en son sürümünü Github'dan yükleyin ve kurun</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load_current_gh.html">p_load_current_gh</a></span><span class="op">(</span><span class="st">"reconverse/reportfactory"</span><span class="op">)</span></span>
 <span><span class="co"># remotes::install_github("reconverse/reportfactory") # alternatif yöntem</span></span></code></pre></div>
@@ -167,7 +167,7 @@
 <li>Fabrika R projesinin adı “new_factory.Rproj” olarak adlandırılacaktır.</li>
 <li>RStudio oturumunuz bu R projesine “taşınacak”tır</li>
 </ul>
-<div class="sourceCode" id="cb1824"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1825"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Bu, fabrikayı çalışma dizininde yaratacaktır.</span></span>
 <span><span class="fu">new_factory</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Fabrikanın içine baktığınızda, alt klasörlerin ve bazı dosyaların otomatik olarak oluşturulduğunu görebilirsiniz.</p>
@@ -199,10 +199,10 @@
 </ul>
 <p>Değişkenlerin tam listesi için “?new_factory” konusuna bakabilirsiniz.</p>
 <p>Yeni fabrika oluşturduğunuzda, R oturumunuz yeni R projesine aktarılır, bu nedenle <strong>reportfactory</strong> paketini tekrar yüklemelisiniz.</p>
-<div class="sourceCode" id="cb1825"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1826"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">reportfactory</span><span class="op">)</span></span></code></pre></div>
 <p>Artık fabrikadaki iç yapıyı (tüm klasörler ve dosyalar) görmek için <code>factory_overview()</code> komutunu çalıştırabilirsiniz.</p>
-<div class="sourceCode" id="cb1826"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1827"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">factory_overview</span><span class="op">(</span><span class="op">)</span>            <span class="co"># fabrikaya genel bakışı konsola yazdır</span></span></code></pre></div>
 <p>Fabrika klasörlerinin ve dosyalarının aşağıdaki “ağacı” R konsoluna yazdırılır. “Veri” klasöründe “ham” ve “temiz” veriler ve örnek CSV verileri için alt klasörler bulunduğunu unutmayın. Ayrıca “report_sources” klasöründe “example_report.Rmd” vardır.</p>
 <div class="inline-figure"><img src="images/factory_overview.png" width="202"></div>
@@ -226,14 +226,14 @@
 <li>
 <strong>here</strong> paketindeki bir dosya yolunu kullanarak satır listesi verilerini içe aktarın (daha fazlasını [İçe aktarma ve dışa aktarma] sayfasından okuyun)</li>
 </ul>
-<div class="sourceCode" id="cb1827"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1828"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"clean"</span>, <span class="st">"linelist_cleaned.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Vakaların bir özet tablosunu yazdırın ve bunu bir .csv dosyası olarak <code><a href="https://rdrr.io/pkg/plotly/man/export.html">export()</a></code> ile dışa aktarın</li>
 <li>Bir salgın eğrisi yazdırın ve <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> ile .png dosyası olarak dışa aktarın</li>
 </ul>
 <p>Bu komutla “report_sources” klasöründeki yalnızca R Markdown raporlarının listesini inceleyebilirsiniz:</p>
-<div class="sourceCode" id="cb1828"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1829"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">list_reports</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="derlemek-compile" class="section level2" number="41.4">
@@ -257,7 +257,7 @@
 <h3>Numarasına göre derleyin<a class="anchor" aria-label="anchor" href="#numaras%C4%B1na-g%C3%B6re-derleyin"><i class="fas fa-link"></i></a>
 </h3>
 <p>Ayrıca, <code>reports =</code> için bir sayı veya sayı vektörü sağlayarak derlenecek Rmd betiğini de belirtebilirsiniz. Rakamlar, <code>list_reports()</code> çalıştırdığınızda raporların göründüğü sıraya göre hizalanmalıdır.</p>
-<div class="sourceCode" id="cb1829"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1830"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># İkinci ve dördüncü Rmds'yi "report_sources" klasöründe derleyin</span></span>
 <span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -271,19 +271,19 @@
 <h3>Alt klasöründen derleyin<a class="anchor" aria-label="anchor" href="#alt-klas%C3%B6r%C3%BCnden-derleyin"><i class="fas fa-link"></i></a>
 </h3>
 <p>“report_sources” klasörüne alt klasörler ekleyebilirsiniz. Bir alt klasörden R Markdown raporu çalıştırmak için, klasörün adını <code>subfolder =</code> olarak sağlamanız yeterlidir. Aşağıda, “report_sources” alt_klasöründe yaşayan bir Rmd raporunu derlemek için bir kod örneği verilmiştir.</p>
-<div class="sourceCode" id="cb1830"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1831"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>     reports <span class="op">=</span> <span class="st">"summary_for_partners.Rmd"</span>,</span>
 <span>     subfolder <span class="op">=</span> <span class="st">"for_partners"</span><span class="op">)</span></span></code></pre></div>
 <p>Aşağıdaki gibi sonunda bir eğik çizgi ile <code>reports =</code> alt klasör adını sağlayarak bir alt klasör içindeki tüm Rmd raporlarını derleyebilirsiniz.</p>
-<div class="sourceCode" id="cb1831"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1832"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span>reports <span class="op">=</span> <span class="st">"for_partners/"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="parametrelendirme" class="section level3 unnumbered">
 <h3>Parametrelendirme<a class="anchor" aria-label="anchor" href="#parametrelendirme"><i class="fas fa-link"></i></a>
 </h3>
 <p><a href="r-markdown-ile-raporlar.html#r-markdown-ile-raporlar">R Markdown ile Raporlar</a> sayfasında belirtildiği gibi, belirtilen parametrelerle raporlar çalıştırabilirsiniz. Bu parametreleri, ‘params =’ değişkeni aracılığıyla ‘compile_reports()’ öğesine bir liste olarak iletebilirsiniz. Örneğin, bu kurgusal raporda, R Markdown raporlarına sağlanan üç parametre vardır.</p>
-<div class="sourceCode" id="cb1832"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1833"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compile_reports</span><span class="op">(</span></span>
 <span>  reports <span class="op">=</span> <span class="st">"daily_sitrep.Rmd"</span>,</span>
 <span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>most_recent_data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -352,9 +352,9 @@
 <!-- ======================================================= -->
 </div>
 </div>
-<div id="kaynaklar-33" class="section level2" number="41.7">
+<div id="kaynaklar-34" class="section level2" number="41.7">
 <h2>
-<span class="header-section-number">41.7</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-33"><i class="fas fa-link"></i></a>
+<span class="header-section-number">41.7</span> Kaynaklar<a class="anchor" aria-label="anchor" href="#kaynaklar-34"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>reportfactory</strong> paketleri <a href="https://github.com/reconverse/reportfactory">Github sayfası</a></p>
 <p><strong>rfextras</strong> paketleri <a href="https://github.com/reconhub/rfextras">Github sayfası</a></p>
@@ -369,7 +369,7 @@
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
 <li>
-<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-33"><span class="header-section-number">41.1</span> Hazırlık</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#paketleri-y%C3%BCklemek-1">Paketleri yüklemek</a></li></ul>
+<a class="nav-link" href="#haz%C4%B1rl%C4%B1k-34"><span class="header-section-number">41.1</span> Hazırlık</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#paketleri-y%C3%BCklemek-1">Paketleri yüklemek</a></li></ul>
 </li>
 <li><a class="nav-link" href="#yeni-fabrika"><span class="header-section-number">41.2</span> Yeni fabrika</a></li>
 <li><a class="nav-link" href="#bir-rapor-olu%C5%9Fturun"><span class="header-section-number">41.3</span> Bir rapor oluşturun</a></li>
@@ -391,7 +391,7 @@
 <li><a class="nav-link" href="#ekstralar">Ekstralar</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#kaynaklar-33"><span class="header-section-number">41.7</span> Kaynaklar</a></li>
+<li><a class="nav-link" href="#kaynaklar-34"><span class="header-section-number">41.7</span> Kaynaklar</a></li>
 </ul>
 
       <div class="book-extra">
@@ -408,7 +408,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-21.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2023-01-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

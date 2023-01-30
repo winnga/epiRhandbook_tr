@@ -114,7 +114,7 @@
 <li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
 <li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
 <li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li><a class="" href="interaktif-grafikler.html"><span class="header-section-number">39</span> İnteraktif grafikler</a></li>
 <li class="book-part">Reports and dashboards</li>
 <li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
 <li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
@@ -168,7 +168,7 @@
 </h3>
 <p>Bu kod parçası, analizler için gereken paketlerin yüklenmesini gösterir. Bu el kitabında, gerekirse paketi kuran ve kullanım için yükleyen <strong>pacman</strong> paketinden <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> fonksiyonunu kullanacağız. Ayrıca R tabanı’dan <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile paketleri yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R temelleri] sayfasına bakabilirsiniz.</p>
 <p>Burada ayrıca, github’dan henüz CRAN’da yayınlanmayan bir paketi yüklemek için <strong>pacman</strong> paketinden <code><a href="https://rdrr.io/pkg/pacman/man/p_load_gh.html">p_load_gh()</a></code> fonksiyonunu kullanmayı gösteriyoruz.</p>
-<div class="sourceCode" id="cb1243"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1244"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## paketleri CRAN'dan yükle</span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">rio</span>,          <span class="co"># Dosya içe aktarma</span></span>
 <span>               <span class="va">here</span>,         <span class="co"># Dosya bulucu</span></span>
@@ -201,22 +201,22 @@
 <p><span style="color: darkgreen;"><strong><em>İPUCU:</em></strong> Kobo veri sözlüğünün anket sayfasının “name” sütununda değişken adları vardır. Her değişken için olası değerler, seçenekler sayfasında belirtilmiştir. Seçenekler sekmesinde “name” kısaltılmış değere sahiptir ve “label::english” ve “label::french” sütunları gerekli uzun versiyonlara da sahiptir. Bir Kobo sözlük excel dosyasını içe aktarmak için <strong>epidict</strong> paketi <code>msf_dict_survey()</code> fonksiyonunu kullanarak bu adları otomatik olarak yeniden biçimlendirebilirsiniz. Bu sayede kodlarınızı tekrardan kullanma şansınız olur.</span></p>
 <p><span style="color: orange;"><strong><em>DİKKAT:</em></strong> Bu örnek veri kümesi dışa aktarılan formatı ile aynı değildir (Kobo’da farklı anket düzeylerini ayrı ayrı dışa aktardığınız gibi) - farklı düzeyleri birleştirmek için aşağıdaki anket verileri bölümüne bakmalısınız.</span></p>
 <p>Veri kümesi, <strong>rio</strong> paketinden <code><a href="https://rdrr.io/pkg/rio/man/import.html">import()</a></code> fonksiyonu kullanılarak içe aktarılır. Verileri içe aktarmanın çeşitli yolları için <a href="https://epirhandbook.com/import-and-export.html">İçe ve dışa aktarma</a> sayfasına bakın.</p>
-<div class="sourceCode" id="cb1244"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># anket verilerini içe aktar</span></span>
 <span><span class="va">survey_data</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"survey_data.xlsx"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># sözlüğü R’ın içine aktar</span></span>
 <span><span class="va">survey_dict</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"survey_dict.xlsx"</span><span class="op">)</span> </span></code></pre></div>
 <p>Anketin ilk 10 satırı aşağıda gösterilmiştir.</p>
-<div id="htmlwidget-b0696a8352b620c36b33" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b0696a8352b620c36b33">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Uygun ağırlıklar üretebilmemiz için örneklem popülasyonundaki verileri de içe aktarmak istiyoruz. Bu veriler farklı formatlarda olabilir, ancak aşağıda görüldüğü gibi olmasını öneririz (bu sadece bir excel’e yazılabilir).</p>
-<div class="sourceCode" id="cb1245"><pre class="downlit sourceCode r">
+<div id="htmlwidget-be6cd81dd9f35c6a8a20" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-be6cd81dd9f35c6a8a20">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Uygun ağırlıklar üretebilmemiz için örneklem popülasyonundaki verileri de içe aktarmak istiyoruz. Bu veriler farklı formatlarda olabilir, ancak aşağıda görüldüğü gibi olmasını öneririz (bu sadece bir excel’e yazılabilir).</p>
+<div class="sourceCode" id="cb1246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># nüfus verilerini içe aktar</span></span>
 <span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu">rio</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"population.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p>Anketin ilk 10 satırı aşağıda gösterilmiştir.</p>
-<div id="htmlwidget-c04f0da05dff44621d54" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c04f0da05dff44621d54">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.0661,0.034,0.1811,0.138,0.0808,0.0661],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Küme anketleri için küme düzeyinde anket ağırlıkları eklemek isteyebilirsiniz. Bu verileri yukarıdaki gibi okuyabilirsiniz. Alternatif olarak, yalnızca birkaç sayı varsa, bunlar bir tibble’a aşağıdaki gibi girilebilir. Her durumda, anket verilerinizle eşleşen bir küme tanımlayıcısına sahip bir sütuna ve her bir kümedeki hane sayısını içeren başka bir sütuna ihtiyacınız olacaktır.</p>
-<div class="sourceCode" id="cb1246"><pre class="downlit sourceCode r">
+<div id="htmlwidget-ffe8509d3ee6d47864e3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ffe8509d3ee6d47864e3">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.0661,0.034,0.1811,0.138,0.0808,0.0661],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Küme anketleri için küme düzeyinde anket ağırlıkları eklemek isteyebilirsiniz. Bu verileri yukarıdaki gibi okuyabilirsiniz. Alternatif olarak, yalnızca birkaç sayı varsa, bunlar bir tibble’a aşağıdaki gibi girilebilir. Her durumda, anket verilerinizle eşleşen bir küme tanımlayıcısına sahip bir sütuna ve her bir kümedeki hane sayısını içeren başka bir sütuna ihtiyacınız olacaktır.</p>
+<div class="sourceCode" id="cb1247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## her kümedeki hane sayısını tanımla</span></span>
 <span><span class="va">cluster_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"village_1"</span>, <span class="st">"village_2"</span>, <span class="st">"village_3"</span>, <span class="st">"village_4"</span>, </span>
 <span>                                     <span class="st">"village_5"</span>, <span class="st">"village_6"</span>, <span class="st">"village_7"</span>, <span class="st">"village_8"</span>,</span>
@@ -230,7 +230,7 @@
 <p>Aşağıdaki kodlar, tarih sütununun uygun biçimde olmasını sağlar. Bunu yapmanın başka yolları da vardır (ayrıntılar için <a href="https://epirhandbook.com/working-with-dates.html">Tarihlerle çalışma</a> sayfasına bakın), ancak tarihleri tanımlamak için sözlüğü kullanmak hızlı ve kolaydır.</p>
 <p>Ayrıca **epikit* paketindeki <code>age_categories()</code> fonksiyonunu kullanarak bir yaş grubu değişkeni oluşturuyoruz - ayrıntılar için el kitabındaki <a href="https://epirhandbook.com/working-with-dates.html">Verileri temizleme</a> bölümüne bakabilirsiniz. Ek olarak, çeşitli kümelerin hangi bölgede olduğunu tanımlayan bir karakter değişkeni oluşturuyoruz.</p>
 <p>Son olarak, tüm evet/hayır değişkenlerini DOĞRU/YANLIŞ değişkenlere yeniden kodlarız - aksi takdirde bunlar <strong>survey</strong> orantı fonksiyonları tarafından kullanılamaz.</p>
-<div class="sourceCode" id="cb1247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## sözlükten tarih değişkeni adlarını seç </span></span>
 <span><span class="va">DATEVARS</span> <span class="op">&lt;-</span> <span class="va">survey_dict</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"date"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -289,7 +289,7 @@
 - Tabakalı ve küme</p>
 <p>Yukarıda açıklandığı gibi (anketinizi nasıl tasarladığınıza bağlı olarak) her seviye için veriler Kobo’dan ayrı bir veri seti olarak dışa aktarılacaktır. Örneğimizde, haneler için bir düzey ve bu hanelerdeki bireyler için bir düzey vardır.</p>
 <p>Bu iki seviye benzersiz bir tanımlayıcı ile birbirine bağlanır. Bir Kobo veri kümesi için bu değişken, bireysel düzeyde “_parent_index” ile eşleşen hane düzeyinde “_index” dir. Bu, eşleşen her bireyle hane için yeni satırlar oluşturacaktır, ayrıntılar için <a href="https://epirhandbook.com/joining-data.html">Verileri ekleme</a> ilgili el kitabı bölümüne bakabilirsiniz.</p>
-<div class="sourceCode" id="cb1248"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## eksiksiz bir veri seti oluşturmak için bireysel ve hane verilerini birleştir</span></span>
 <span><span class="va">survey_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">survey_data_hh</span>, </span>
 <span>                         <span class="va">survey_data_indiv</span>,</span>
@@ -307,7 +307,7 @@
 </h2>
 <p>Mortalite araştırmaları için, ilgilendiğimiz döneme ait uygun bir ölüm oranını hesaplayabilmek için her bireyin bölgede ne kadar süredir bulunduğunu bilmek istiyoruz. Bu, tüm anketlerde geçerli değildir, ancak özellikle ölüm anketleri için bu önemlidir, çünkü bunlar sık sık hareketli veya göç etmiş nüfuslarda kullanılabilir.</p>
 <p>Bunu yapmak için önce, geri çağırma dönemi olarak da bilinen ilgilendiğimiz süreyi tanımlarız (yani, katılımcılardan soruları cevaplarken rapor vermelerinin istendiği süre). Daha sonra bu süreyi, uygun olmayan tarihleri kayıp olarak ayarlamak için kullanabiliriz, örneğin ölümler ilgili dönemin dışından bildirilirse.</p>
-<div class="sourceCode" id="cb1249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## geri çağırma süresinin başlangıcını/sonunu ayarla</span></span>
 <span><span class="co">## veri setinden tarih değişkenleri olarak değiştirilebilir</span></span>
 <span><span class="co">## (örn. başlangıç tarihi &amp; anket tarihi)</span></span>
@@ -337,7 +337,7 @@
 <p>Daha sonra her birey için başlangıç ve bitiş tarihlerini tanımlamak için tarih değişkenlerimizi kullanabiliriz. Tarihlerin nedenlerini belirlemek için <strong>sitrep</strong> paketinden <code>find_start_date()</code> fonksiyonunu kullanabilir ve ardından bunu günler arasındaki farkı (kişi-zaman) hesaplamak için kullanabiliriz.</p>
 <p>başlangıç tarihi: Geri çağırma döneminiz içindeki en erken uygun varış olayı Geri çağırma sürenizin başlangıcı (önceden tanımladığınız) veya varsa, geri çağırma başlangıcından sonraki bir tarih (örneğin varışlar veya doğumlar)</p>
 <p>bitiş tarihi: Geri çağırma süreniz içindeki en erken uygun ayrılma olayı Geri çağırma sürenizin sonu ya da varsa, geri çağırma süresinin bitiminden önceki bir tarih (örn. ayrılışlar, ölümler)</p>
-<div class="sourceCode" id="cb1250"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## başlangıç ve bitiş tarihleri/nedenleri için yeni değişkenler oluştur</span></span>
 <span><span class="va">survey_data</span> <span class="op">&lt;-</span> <span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>     <span class="co">## ankete girilen en erken tarihi seç</span></span>
@@ -389,7 +389,7 @@
 <p>Anket ağırlıkları eklemeden önce hatalı gözlemleri bırakmanız önemlidir. Örneğin, negatif gözlem süresine sahip gözlemleriniz varsa, bunları kontrol etmeniz gerekecektir (bunu <strong>sitrep</strong> paketinden <code>assert_positive_timespan()</code> fonksiyonuyla yapabilirsiniz. Başka bir şey de boş satırlar bırakmak istiyorsanız (örneğin <code>drop_na(uid)</code> ile) veya kopyaları kaldırabilirsiniz (ayrıntılar için El Kitabının <a href="tekille%C5%9Ftirme-1.html#tekille%C5%9Ftirme-2">Tekilleştirme</a> bölümüne bakın). İzinsiz olanların da çıkarılması gerekir.</p>
 <p>Bu örnekte, bırakmak ve ayrı bir veri çerçevesinde saklamak istediğimiz durumları filtreliyoruz - bu şekilde anketten hariç tutulanları tanımlayabiliriz. Ardından, bu bırakılan durumları anket verilerimizden çıkarmak için <strong>dplyr</strong> paketinden <code><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join()</a></code> fonksiyonunu kullanırız.</p>
 <p><span style="color: red;"><strong><em>TEHLİKE:</em></strong> Ağırlık değişkeninizde veya anket tasarımınızla ilgili herhangi bir değişkende (örneğin yaş, cinsiyet, tabaka veya küme değişkenleri) eksik değerler olamaz.</span></p>
-<div class="sourceCode" id="cb1251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1252"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## düşürdüğünüz vakaları tanımlayabilmek için sakla (ör.rıza dışı</span></span>
 <span><span class="co">## veya yanlış köy/küme)</span></span>
 <span><span class="va">dropped</span> <span class="op">&lt;-</span> <span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -398,7 +398,7 @@
 <span><span class="co">## kullanılmayan satırları anket veri setinden çıkarmak için bırakılan vakaları kullan </span></span>
 <span><span class="va">survey_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">survey_data</span>, <span class="va">dropped</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dropped</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Yukarıda bahsedildiği gibi, üç farklı çalışma tasarımı (katmanlı, küme ve tabakalı küme) için ağırlıkların nasıl ekleneceğini gösteriyoruz. Bunlar, kaynak popülasyon ve/veya incelenen kümeler hakkında bilgi gerektirir. Bu örnek için tabakalı küme kodunu kullanacağız, ancak çalışma tasarımınız için en uygun olanı kullanın.</p>
-<div class="sourceCode" id="cb1252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tabakalı ------------------------------------------------------------------</span></span>
 <span><span class="co"># "surv_weight_strata" adında bir değişken oluştur</span></span>
 <span><span class="co"># her birey için ağırlıklar içerir - yaş grubuna, cinsiyete ve sağlık bölgesine göre</span></span>
@@ -457,7 +457,7 @@
 </h3>
 <p><strong>survey</strong> paketi, R tabanı kodlamasını etkin bir şekilde kullanır ve bu nedenle tüneller (<code>%&gt;%</code>) veya diğer <strong>dplyr</strong> sözdizimini kullanmak mümkün değildir. <strong>survey</strong> paketiyle, uygun kümeler, ağırlıklar ve tabakalarla bir anket nesnesi tanımlamak için <code>svydesign()</code> fonksiyonunu kullanırız.</p>
 <p><span style="color: black;"><strong><em>NOT:</em></strong> Değişkenlerin önünde yaklaşık işareti (<code>~</code>) kullanmamız gerekir, bunun nedeni paketin formüllere dayalı değişkenler atamak için R tabanı sözdizimini kullanmasıdır.</span></p>
-<div class="sourceCode" id="cb1253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># basit rastgele ---------------------------------------------------------------</span></span>
 <span><span class="va">base_survey_design_simple</span> <span class="op">&lt;-</span> <span class="fu">svydesign</span><span class="op">(</span>ids <span class="op">=</span> <span class="op">~</span><span class="fl">1</span>, <span class="co"># küme kimliği yok demek için 1</span></span>
 <span>                   weights <span class="op">=</span> <span class="cn">NULL</span>,               <span class="co"># Ağırlık eklenmedi</span></span>
@@ -491,7 +491,7 @@
 <span class="header-section-number">26.6.2</span> <strong>Srvyr</strong> paketi<a class="anchor" aria-label="anchor" href="#srvyr-paketi"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>srvyr</strong> paketiyle, yukarıdakiyle aynı argümanlara sahip olan ancak tünellere (<code>%&gt;%</code>) izin veren <code>as_survey_design()</code> fonksiyonunu kullanabiliriz ve bu nedenle tilde (<code>~</code>) kullanmamız gerekmez.</p>
-<div class="sourceCode" id="cb1254"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## basit rastgele --------------------------------------------------------------</span></span>
 <span><span class="va">survey_design_simple</span> <span class="op">&lt;-</span> <span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">as_survey_design</span><span class="op">(</span>ids <span class="op">=</span> <span class="fl">1</span>, <span class="co"># küme kimliği yok demek için 1</span></span>
@@ -538,7 +538,7 @@
 </h3>
 <p>Örnekleminiz ve kaynak popülasyon arasındaki her yaş grubundaki orantıları karşılaştırın. Bu, potansiyel örnekleme yanlılığını vurgulayabilmek için önemlidir. Benzer şekilde, cinsiyete göre dağılımlara bakarak da bunu tekrarlayabilirsiniz.</p>
 <p>Bu p değerlerinin yalnızca gösterge niteliğinde olduğunu ve kaynak popülasyona kıyasla çalışma örneğinizdeki dağılımların açıklayıcı bir tartışmasının (veya aşağıdaki yaş piramitleriyle görselleştirmenin) binom testinin kendisinden daha önemli olduğunu unutmayın. Bunun nedeni, örnek boyutunun artmasının, verilerinizi ağırlıklandırdıktan sonra alakasız olabilecek farklılıklara yol açmamasıdır.</p>
-<div class="sourceCode" id="cb1255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## çalışma popülasyonunun sayıları ve orantıları</span></span>
 <span><span class="va">ag</span> <span class="op">&lt;-</span> <span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">age_group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -586,15 +586,15 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 × 6
 ## # Groups:   Age group [5]
-##   `Age group` `Study population (n)` `Study population (%)` Source population (n…¹ Sourc…² P-val…³
-##   &lt;chr&gt;                        &lt;int&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
-## 1 0-2                             12                 0.0256                   1360     6.8 &lt;0.001 
-## 2 3-14                            42                 0.0896                   7244    36.2 &lt;0.001 
-## 3 15-29                           64                 0.136                    5520    27.6 &lt;0.001 
-## 4 30-44                           52                 0.111                    3232    16.2 0.002  
-## 5 45+                            299                 0.638                    2644    13.2 &lt;0.001 
-## # … with abbreviated variable names ¹​`Source population (n)`, ²​`Source population (%)`,
-## #   ³​`P-value`</code></pre>
+##   `Age group` `Study population (n)` `Study population (%)` Source p…¹ Sourc…² P-val…³
+##   &lt;chr&gt;                        &lt;int&gt;                  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 0-2                             12                 0.0256       1360     6.8 &lt;0.001 
+## 2 3-14                            42                 0.0896       7244    36.2 &lt;0.001 
+## 3 15-29                           64                 0.136        5520    27.6 &lt;0.001 
+## 4 30-44                           52                 0.111        3232    16.2 0.002  
+## 5 45+                            299                 0.638        2644    13.2 &lt;0.001 
+## # … with abbreviated variable names ¹​`Source population (n)`,
+## #   ²​`Source population (%)`, ³​`P-value`</code></pre>
 </div>
 <div id="demografik-piramitler" class="section level3" number="26.7.2">
 <h3>
@@ -603,7 +603,7 @@
 <p>Demografik (veya yaş-cinsiyet) piramitler, anket popülasyonunuzdaki dağılımı görselleştirmenin kolay bir yoludur. Anket tabaklarına göre yaş ve cinsiyet için <a href="https://epirhandbook.com/descriptive-tables.html">tanımlayıcı tabloları</a> oluşturmayı da düşünmeye değer. Yukarıda oluşturulan anket tasarım nesnemizi kullanarak ağırlıklı orantılara izin verdiği için <strong>apyramid</strong> paketini kullanmayı göstereceğiz. <a href="https://epirhandbook.com/demographic-pyramids-and-likert-scales.html">Demografik piramitler</a> oluşturmaya yönelik diğer seçenekler, el kitabının bu bölümünde kapsamlı bir şekilde ele alınmıştır. Ayrıca, orantıları olan bir grafik üretmek için birkaç satır kodlama kaydeden, <code>age_pyramid()</code> adlı <strong>sitrep</strong> paketinden bir sarmalayıcı işlevi kullanacağız.</p>
 <p>Yukarıda örnekleme yanlılığı bölümünde görülen resmi binom farklılık testinde olduğu gibi, burada örneklenen popülasyonumuzun kaynak popülasyondan önemli ölçüde farklı olup olmadığını ve ağırlıklandırmanın bu farkı düzeltip düzeltmediğini görselleştirmekle ilgileniyoruz. Bunu yapmak için <strong>ggplot</strong> görselleştirmelerimizi yan yana göstermek için <strong>patchwork</strong> paketini kullanacağız; ayrıntılar için el kitabının <a href="https://epirhandbook.com/ggplot-tips.html?q=patch#combine-plots">ggplot ipuçları</a> bölümündeki grafikleri birleştirme bölümüne bakın. Kaynak popülasyonumuzu, ağırlıksız anket popülasyonumuzu ve ağırlıklı anket popülasyonumuzu görselleştireceğiz. Anketinizin her katmanına göre görselleştirmeyi de düşünebilirsiniz - buradaki örneğimizde bu, <code>stack_by = "health_district"</code> argümanını kullanmak olacaktır (ayrıntılar için <code>?age_pyramid</code> komutuna bknz.).</p>
 <p><span style="color: black;"><strong><em>NOT:</em></strong> x ve y eksenleri piramitlerde çevrilir.</span></p>
-<div class="sourceCode" id="cb1257"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## x ekseni sınırlarını ve etiketlerini tanımlayın -----------------------------</span></span>
 <span><span class="co">## (bu sayıları grafiğinizin değerleri olacak şekilde güncelle)</span></span>
 <span><span class="va">max_prop</span> <span class="op">&lt;-</span> <span class="fl">35</span>      <span class="co"># göstermek istediğiniz en yüksek orantıyı seç</span></span>
@@ -713,7 +713,7 @@
 <span class="header-section-number">26.7.3</span> Alluvial/sankey diagramı<a class="anchor" aria-label="anchor" href="#alluvialsankey-diagram%C4%B1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Bireyler için başlangıç noktalarını ve sonuçları görselleştirmek, genel bir bakış elde etmek için çok yardımcı olabilir. Mobil popülasyonlar için oldukça açık bir uygulama var, ancak kohortlar veya bireyler için durumlarda geçişlerin olduğu diğer durumlar gibi çok sayıda başka uygulama var. Bu diyagramların alüvyon, sankey ve paralel kümeler dahil olmak üzere birkaç farklı adı vardır - ayrıntılar el kitabının <a href="https://epirhandbook.com/diagrams-and-charts.html#alluvialsankey-diagrams">Diyagramlar ve çizelgeler</a> bölümündedir.</p>
-<div class="sourceCode" id="cb1258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## verileri özetle</span></span>
 <span><span class="va">flow_table</span> <span class="op">&lt;-</span> <span class="va">survey_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">startcause</span>, <span class="va">endcause</span>, <span class="va">sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># sayımları al </span></span>
@@ -760,25 +760,25 @@
 </h3>
 <p>Ağırlıklı orantılar ve beraberindeki %95 güven aralıklarını elde etmek için <strong>survey</strong> paketinden <code>svyciprop()</code> fonksiyonunu kullanabiliriz. Uygun bir tasarım efekti, <code>svyprop()</code> fonksiyonu yerine <code>svymean()</code> kullanılarak da çıkarılabilir. <code>svyprop()</code> fonksiyonunun yalnızca 0 ile 1 (veya DOĞRU/YANLIŞ) arasındaki değişkenleri kabul ediyor gibi göründüğünü, dolayısıyla kategorik değişkenlerin çalışmayacağını belirtmekte fayda var.</p>
 <p><span style="color: black;"><strong><em>NOT:</em></strong> <strong>survey</strong> paketinden gelen foksiyonlar ayrıca <strong>srvyr</strong> tasarım nesnelerini de kabul etmektedir, ancak burada anket <strong>survey</strong> nesnesini yalnızca tutarlılık için kullandık. </span></p>
-<div class="sourceCode" id="cb1259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## ağırlıklı sayılar üretme</span></span>
 <span><span class="fu">svytable</span><span class="op">(</span><span class="op">~</span><span class="va">died</span>, <span class="va">base_survey_design</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## died
 ##      FALSE       TRUE 
 ## 1406244.43   76213.01</code></pre>
-<div class="sourceCode" id="cb1261"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## ağırlıklı orantılar üretme</span></span>
 <span><span class="fu">svyciprop</span><span class="op">(</span><span class="op">~</span><span class="va">died</span>, <span class="va">base_survey_design</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##               2.5% 97.5%
 ## died 0.0514 0.0208  0.12</code></pre>
-<div class="sourceCode" id="cb1263"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1264"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## tasarım efektini al</span></span>
 <span><span class="fu">svymean</span><span class="op">(</span><span class="op">~</span><span class="va">died</span>, <span class="va">base_survey_design</span>, na.rm <span class="op">=</span> <span class="cn">T</span>, deff <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">deff</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## diedFALSE  diedTRUE 
 ##  3.755508  3.755508</code></pre>
 <p>Yukarıda gösterilen <strong>survey</strong> fonksiyonları, aşağıda kendimizi tanımladığımız, <code>svy_prop</code> adlı bir fonksiyonda birleştirebiliriz; ve daha sonra bu fonksiyonu <strong>purrr</strong> paketindeki <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> ile birlikte birkaç değişken üzerinde <a href="https://epirhandbook.com/iteration-loops-and-lists.html">yineleme</a> yapmak ve bir tablo oluşturmak için kullanabiliriz. <strong>purrr</strong> hakkında ayrıntılar için el kitabı yineleme bölümüne bakabilirsiniz.</p>
-<div class="sourceCode" id="cb1265"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Ağırlıklı sayıları, oranlatıları, CI ve tasarım etkisini hesaplamak için fonksiyonu tanımla</span></span>
 <span><span class="co"># x tırnak içindeki değişkendir </span></span>
 <span><span class="co"># tasarım, sizin anket tasarım nesnenizdir</span></span>
@@ -838,7 +838,7 @@
 </h3>
 <p><strong>srvyr</strong> ile bir tablo oluşturmak için <strong>dplyr</strong> sözdizimini kullanabiliriz. <code>survey_mean()</code> fonksiyonunun kullanıldığını ve orantı argümanının belirtildiğini ve ayrıca tasarım etkisini hesaplamak için aynı fonksiyonu kullanıldığını unutmayın. Bunun nedeni, <strong>srvyr</strong> paketinin yukarıdaki bölümde kullanılan <code>svyciprop()</code> ve <code>svymean()</code> <strong>survey</strong> paketi fonksiyonun her ikisinin de etrafını sarmasıdır.</p>
 <p><span style="color: black;"><strong><em>NOT:</em></strong> Kategorik değişkenlerden orantıları <strong>srvyr</strong> paketini kullanarak da almak pek mümkün görünmüyor, buna ihtiyacınız varsa <strong>sitrep</strong> paketini kullanmanız gerekir. Detaylar için aşağıdaki bölüme göz atın.</span></p>
-<div class="sourceCode" id="cb1267"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## srvyr tasarım nesnesini kullan</span></span>
 <span><span class="va">survey_design</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -859,7 +859,7 @@
 ##    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 76213.  5.14      2.08      12.1      3.76</code></pre>
 <p>Burada da <strong>purrr</strong> paketini kullanarak birden çok değişken üzerinde <a href="https://epirhandbook.com/iteration-loops-and-lists.html">yineleme</a> yapacak bir fonksiyon yazabiliriz. <strong>purrr</strong> hakkında ayrıntılar için el kitabı yineleme bölümüne bakabilirsiniz.</p>
-<div class="sourceCode" id="cb1269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Ağırlıklı sayıları, orantıları, CI ve tasarım etkisini hesaplamak için işlevi tanımla</span></span>
 <span><span class="co"># tasarım, sizin anket tasarım nesnenizdir</span></span>
 <span><span class="co"># x tırnak içindeki değişkendir</span></span>
@@ -908,7 +908,7 @@
 <span class="header-section-number">26.8.3</span> <strong>Sitrep</strong> paketi<a class="anchor" aria-label="anchor" href="#sitrep-paketi"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>sitrep</strong> paketinin <code>tab_survey()</code> fonksiyonu, minimum kodlama ile ağırlıklı tablolar oluşturmanıza olanak tanıyan <strong>srvyr</strong> paketi için bir sarmalayıcıdır. Ayrıca kategorik değişkenler için ağırlıklı orantıları hesaplamanıza olanak tanır.</p>
-<div class="sourceCode" id="cb1271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## anket tasarım nesnesini kullan</span></span>
 <span><span class="va">survey_design</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## ilgilenilen değişkenlerin isimlerini alıntı yapılmadan ilet</span></span>
@@ -935,7 +935,7 @@
 <span class="header-section-number">26.8.4</span> <strong>Gtsummary</strong> paketi<a class="anchor" aria-label="anchor" href="#gtsummary-paketi"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>gtsummary</strong> paketinde henüz güven aralıklarını veya tasarım efektini eklemek için yerleşik fonksiyonlar yok gibi görünüyor. Burada, güven aralıkları eklemek için bir fonksiyonun nasıl tanımlanacağını ve ardından <code>tbl_svysummary()</code> fonksiyonunu kullanılarak oluşturulan bir <strong>gtsummary</strong> tablosuna güven aralıklarının nasıl ekleneceğini gösteriyoruz.</p>
-<div class="sourceCode" id="cb1274"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">confidence_intervals</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">variable</span>, <span class="va">by</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="co">## güven aralıklarını çıkarın ve yüzdeleri elde etmek için çarp</span></span>
@@ -963,12 +963,12 @@
 <span>      <span class="va">add_stat_1</span> <span class="op">~</span> <span class="st">"**95%CI**"</span></span>
 <span>    <span class="op">)</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<div id="lsycbckish" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="llorqwyaem" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#lsycbckish .gt_table {
+#llorqwyaem .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -993,7 +993,7 @@
   border-left-color: #D3D3D3;
 }
 
-#lsycbckish .gt_heading {
+#llorqwyaem .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1005,7 +1005,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lsycbckish .gt_title {
+#llorqwyaem .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1017,7 +1017,7 @@
   border-bottom-width: 0;
 }
 
-#lsycbckish .gt_subtitle {
+#llorqwyaem .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1029,13 +1029,13 @@
   border-top-width: 0;
 }
 
-#lsycbckish .gt_bottom_border {
+#llorqwyaem .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lsycbckish .gt_col_headings {
+#llorqwyaem .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1050,7 +1050,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lsycbckish .gt_col_heading {
+#llorqwyaem .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1070,7 +1070,7 @@
   overflow-x: hidden;
 }
 
-#lsycbckish .gt_column_spanner_outer {
+#llorqwyaem .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1082,15 +1082,15 @@
   padding-right: 4px;
 }
 
-#lsycbckish .gt_column_spanner_outer:first-child {
+#llorqwyaem .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lsycbckish .gt_column_spanner_outer:last-child {
+#llorqwyaem .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lsycbckish .gt_column_spanner {
+#llorqwyaem .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1102,7 +1102,7 @@
   width: 100%;
 }
 
-#lsycbckish .gt_group_heading {
+#llorqwyaem .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1127,7 +1127,7 @@
   vertical-align: middle;
 }
 
-#lsycbckish .gt_empty_group_heading {
+#llorqwyaem .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1142,15 +1142,15 @@
   vertical-align: middle;
 }
 
-#lsycbckish .gt_from_md > :first-child {
+#llorqwyaem .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lsycbckish .gt_from_md > :last-child {
+#llorqwyaem .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lsycbckish .gt_row {
+#llorqwyaem .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1169,7 +1169,7 @@
   overflow-x: hidden;
 }
 
-#lsycbckish .gt_stub {
+#llorqwyaem .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1182,7 +1182,7 @@
   padding-right: 5px;
 }
 
-#lsycbckish .gt_stub_row_group {
+#llorqwyaem .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1196,11 +1196,11 @@
   vertical-align: top;
 }
 
-#lsycbckish .gt_row_group_first td {
+#llorqwyaem .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lsycbckish .gt_summary_row {
+#llorqwyaem .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1210,16 +1210,16 @@
   padding-right: 5px;
 }
 
-#lsycbckish .gt_first_summary_row {
+#llorqwyaem .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lsycbckish .gt_first_summary_row.thick {
+#llorqwyaem .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lsycbckish .gt_last_summary_row {
+#llorqwyaem .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1229,7 +1229,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#lsycbckish .gt_grand_summary_row {
+#llorqwyaem .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1239,7 +1239,7 @@
   padding-right: 5px;
 }
 
-#lsycbckish .gt_first_grand_summary_row {
+#llorqwyaem .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1249,11 +1249,11 @@
   border-top-color: #D3D3D3;
 }
 
-#lsycbckish .gt_striped {
+#llorqwyaem .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lsycbckish .gt_table_body {
+#llorqwyaem .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1262,7 +1262,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#lsycbckish .gt_footnotes {
+#llorqwyaem .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1276,7 +1276,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lsycbckish .gt_footnote {
+#llorqwyaem .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1285,7 +1285,7 @@
   padding-right: 5px;
 }
 
-#lsycbckish .gt_sourcenotes {
+#llorqwyaem .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1299,7 +1299,7 @@
   border-right-color: #D3D3D3;
 }
 
-#lsycbckish .gt_sourcenote {
+#llorqwyaem .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1307,64 +1307,64 @@
   padding-right: 5px;
 }
 
-#lsycbckish .gt_left {
+#llorqwyaem .gt_left {
   text-align: left;
 }
 
-#lsycbckish .gt_center {
+#llorqwyaem .gt_center {
   text-align: center;
 }
 
-#lsycbckish .gt_right {
+#llorqwyaem .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lsycbckish .gt_font_normal {
+#llorqwyaem .gt_font_normal {
   font-weight: normal;
 }
 
-#lsycbckish .gt_font_bold {
+#llorqwyaem .gt_font_bold {
   font-weight: bold;
 }
 
-#lsycbckish .gt_font_italic {
+#llorqwyaem .gt_font_italic {
   font-style: italic;
 }
 
-#lsycbckish .gt_super {
+#llorqwyaem .gt_super {
   font-size: 65%;
 }
 
-#lsycbckish .gt_footnote_marks {
+#llorqwyaem .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#lsycbckish .gt_asterisk {
+#llorqwyaem .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lsycbckish .gt_indent_1 {
+#llorqwyaem .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lsycbckish .gt_indent_2 {
+#llorqwyaem .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lsycbckish .gt_indent_3 {
+#llorqwyaem .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lsycbckish .gt_indent_4 {
+#llorqwyaem .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lsycbckish .gt_indent_5 {
+#llorqwyaem .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1415,7 +1415,7 @@
 <h3>
 <span class="header-section-number">26.9.1</span> <strong>Survey</strong> paketi<a class="anchor" aria-label="anchor" href="#survey-paketi-2"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb1275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1276"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ratio</span> <span class="op">&lt;-</span> <span class="fu">svyratio</span><span class="op">(</span><span class="op">~</span><span class="va">died</span>, </span>
 <span>         denominator <span class="op">=</span> <span class="op">~</span><span class="va">obstime</span>, </span>
 <span>         design <span class="op">=</span> <span class="va">base_survey_design</span><span class="op">)</span></span>
@@ -1433,7 +1433,7 @@
 <h3>
 <span class="header-section-number">26.9.2</span> <strong>Srvyr</strong> paketi<a class="anchor" aria-label="anchor" href="#srvyr-paketi-2"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb1277"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1278"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">survey_design</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">## gözlem süresini hesaba katmak için kullanılan anket hızı</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -1526,7 +1526,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-21.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2023-01-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

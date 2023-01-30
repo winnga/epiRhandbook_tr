@@ -114,7 +114,7 @@
 <li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
 <li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
 <li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li><a class="" href="interaktif-grafikler.html"><span class="header-section-number">39</span> İnteraktif grafikler</a></li>
 <li class="book-part">Reports and dashboards</li>
 <li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
 <li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
@@ -157,7 +157,7 @@
 <h3>Paketleri yüklemek<a class="anchor" aria-label="anchor" href="#paketleri-y%C3%BCklemek"><i class="fas fa-link"></i></a>
 </h3>
 <p>Aşağıdaki kod parçası, bu sayfa için gerekli olan paketlerin yüklenmesini göstermektedir. Bu el kitabında, gerekirse paketi kuran <em>ve</em> kullanım için yükleyen <strong>pacman</strong>’dan <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load()</a></code> fonksiyonuna vurgulamaktayız. <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ile kurulu paketleri de yükleyebilirsiniz. R paketleri hakkında daha fazla bilgi için [R basics] sayfasına bakınız.</p>
-<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Paketin kurulu olup olmadığını kontrol eder, gerekirse kurar ve mevcut oturum için paketi yükler</span></span>
 <span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span></span>
@@ -172,7 +172,7 @@
 <h3>Verileri içe aktarma<a class="anchor" aria-label="anchor" href="#verileri-i%C3%A7e-aktarma"><i class="fas fa-link"></i></a>
 </h3>
 <p>Simüle edilmiş bir Ebola salgını ile ilişkili vakaların veri setini içe aktarıyoruz. Adım adım izlenecek verileri indirmek istiyorsanız, [El kitabını ve verileri indir] sayfasındaki talimatlara bakınız. İlgili dosyaların çalışma dizininde olduğunu varsayıyoruz, bu nedenle bu dosya yolunda hiçbir alt klasör belirtilmemiştir.</p>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rio/man/import.html">import</a></span><span class="op">(</span><span class="st">"linelist_cleaned.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <!-- ======================================================= -->
 </div>
@@ -182,14 +182,14 @@
 <span class="header-section-number">9.2</span> Güncel tarih<a class="anchor" aria-label="anchor" href="#g%C3%BCncel-tarih"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>base</strong> R ile aşağıdaki işlemleri tamamlayarak bilgisayarınızın güncel “sistem” tarihini veya sistem tarih saatini görebilirsiniz.</p>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sistem tarihini al - bu bir DATE sınıfıdır</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "2022-11-21"</code></pre>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<pre><code>## [1] "2023-01-30"</code></pre>
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sistem saatini al - bu bir DATETIME sınıfıdır</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "2022-11-21 12:50:12 CET"</code></pre>
+<pre><code>## [1] "2023-01-30 10:45:59 CET"</code></pre>
 <p><strong>lubridate</strong> paketi ile bu fonksiyonlar, sırasıyla ‘today()’ ve ‘now()’ ile de elde edilebilir. <code><a href="https://rdrr.io/r/base/date.html">date()</a></code>, haftanın günü ve ay adlarıyla birlikte geçerli tarih ve saati vermektedir.</p>
 <!-- ======================================================= -->
 </div>
@@ -216,7 +216,7 @@
 <p><strong>İlk olarak</strong>, sütununuzun sınıfını <strong>base</strong> R’den <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> fonksiyonu ile kontrol edin. Verilerinizin sınıfı hakkında emin değilseniz veya kafanız karıştıysa (örneğin, “POSIXct” vs. görüyorsanız) ilk adım olarak formatı sıfırlamak kolay bir strateji olabilir. Bunun için sütunu <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> fonksiyonu ile Karakter sınıfına ve ardından onu Date sınıfına dönüştürebilirsiniz.</p>
 <p><strong>İkinci olarak</strong>, ‘as.Date()’ fonksiyonu içinde, R’a karakter tarih bileşenlerinin <em>geçerli</em> biçimini - hangi karakterlerin ay, gün ve yılı ifade ettiğini ve bunların nasıl ayrıldığını belirtmek için ‘format =’ bağımsız değişkenini kullanabilirsiniz. Değerleriniz zaten R’ın standart tarih biçimlerinden (“YYYY-AA-GG” veya “YYYY/AA/GG”) biriyse, “format =” bağımsız değişkeni gerekli değildir.</p>
 <p><code>format =</code> için, aşağıdaki özel “strptime” kısaltmalarını kullanarak <em>geçerli</em> tarih biçimini temsil eden bir karakter dizisi (tırnak içinde) sağlamalısınız. Örneğin, karakter tarihleriniz şu anda “24/04/1968” gibi “GG/AA/YYYY” biçimindeyse, o zaman karakteri dönüştürmek için <code>format = "%d/%m/%Y"</code> kullanabilirsiniz. İlgili değerler tarihlere dönüştürülecektir. <strong>Formatı tırnak içine almanız gerekmektedir. Eğik çizgi veya kısa çizgileri de eklemeyi unutmayın!</strong></p>
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Date sınıfına çevir</span></span>
 <span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date_of_onset</span>, format <span class="op">=</span> <span class="st">"%d/%m/%Y"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -249,31 +249,31 @@
 </h3>
 <p><strong>lubridate</strong> paketi kullanılarak karakter nesnelerinin tarihlere dönüştürülmesi daha kolay hale getirilebilir. Bu, tarih ve saatlerle çalışmayı <strong>base</strong> R’dan daha basit ve tutarlı hale getirmek için tasarlanmış bir <strong>tidyverse</strong> paketidir. <strong>lubridate</strong> genellikle tarihler ve saatler için altın standart paket olarak kabul edilmektedir. Tarih hesaplamalarında bu paketle çalışmanızı tavsiye etmekteyiz.</p>
 <p><strong>lubridate</strong> paketi, karakter nesnelerini ‘as.Date()’ biçiminde belirtmekten daha kolaydır. Paket tarihleri dönüştürmek için tasarlanmış birkaç farklı yardımcı fonksiyon sağlamaktadır. Bu fonksiyonlar çoğunlukla, kaba tarih biçimine özgüdür. Ancak tarihler için çeşitli ayırıcılara ve eş anlamlı tabirlerin kullanılmasına izin verir (ör. 01 - Oca - Ocak) - bunlar, tarih biçimlerinin kısaltmalarından sonra tanımlanır.</p>
-<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># lubridate paketini indirip/yükler </span></span>
 <span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">lubridate</span><span class="op">)</span></span></code></pre></div>
 <p>‘ymd()’ fonksiyonu, <strong>yıl, sonra ay, sonra gün</strong> olarak sağlanan tarih değerlerini esnek bir şekilde dönüştürür.</p>
-<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tarihi yıl-ay-gün biçiminde okur</span></span>
 <span><span class="fu">ymd</span><span class="op">(</span><span class="st">"2020-10-11"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-10-11"</code></pre>
-<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ymd</span><span class="op">(</span><span class="st">"20201011"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-10-11"</code></pre>
 <p><code>mdy()</code> fonksiyonu, <strong>ay, sonra gün, sonra yıl</strong> olarak sağlanan tarih değerlerini esnek bir şekilde dönüştürür.</p>
-<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tarihi ay-gün-yıl biçiminde okur</span></span>
 <span><span class="fu">mdy</span><span class="op">(</span><span class="st">"10/11/2020"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-10-11"</code></pre>
-<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mdy</span><span class="op">(</span><span class="st">"Oct 11 20"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-10-11"</code></pre>
 <p><code>dmy()</code> fonksiyonu, <strong>gün, sonra ay, sonra yıl</strong> olarak sağlanan tarih değerlerini esnek bir şekilde dönüştürür.</p>
-<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tarihi gün-ay-yıl biçiminde okur</span></span>
 <span><span class="fu">dmy</span><span class="op">(</span><span class="st">"11 10 2020"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-10-11"</code></pre>
-<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dmy</span><span class="op">(</span><span class="st">"11 October 2020"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-10-11"</code></pre>
 <!-- The `as.character()` and `as.Date()` commands can optionally be combined as:   -->
@@ -281,17 +281,17 @@
 <!-- linelist_cleaned$date_of_onset <- as.Date(as.character(linelist_cleaned$date_of_onset), format = "%d/%m/%Y") -->
 <!-- ``` -->
 <p>Tünelleme kullanılıyorsa, bir karakter sütununun <strong>lubridate</strong> ile tarihlere dönüştürülmesi şöyle görünebilir:</p>
-<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>İşlemler tamamlandığında, sütunun sınıfını doğrulamak için <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> komutunu çalıştırabilirsiniz.</p>
-<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Sütunun sınıfını kontrol edin</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">date_onset</span><span class="op">)</span>  </span></code></pre></div>
 <p>Değerler Date sınıfında olduğunda, R varsayılan olarak bunları YYYY-AA-GG olan standart biçimde görüntüler.</p>
 <p>Yukarıdaki fonksiyonların 4 basamaklı yıllarda en verimli şekilde çalıştığını unutmayın. <strong>lubridate</strong> yüzyılı tahmin etmeye çalıştığı için 2 basamaklı yıllar beklenmedik sonuçlar üretebilmektedir.</p>
 <p>2 basamaklı bir yılı 4 basamaklı bir yıla dönüştürmek için (tümü aynı yüzyılda) sınıf karakterine dönüştürebilir ve ardından <strong>stringr</strong> paketinden (bkz. <a href="karakterler-ve-dizeler.html#karakterler-ve-dizeler">Karakterler ve dizeler</a>) <code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code> fonksiyonu kullanarak mevcut rakamları bir ön ek ile birleştirebilirsiniz. Ardından tarihe dönüştürebilirsiniz.</p>
-<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">two_digit_years</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"15"</span>, <span class="st">"15"</span>, <span class="st">"16"</span>, <span class="st">"17"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"20{two_digit_years}"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 2015
@@ -303,7 +303,7 @@
 <h3>Sütunları birleştirme<a class="anchor" aria-label="anchor" href="#s%C3%BCtunlar%C4%B1-birle%C5%9Ftirme"><i class="fas fa-link"></i></a>
 </h3>
 <p>Birden çok sütunu tek bir tarih sütununda birleştirmek için <code>make_date()</code> ve <code>make_datetime()</code> <strong>lubridate</strong> fonksiyonlarını kullanabilirsiniz. Örneğin, “linelist” veri formatında <code>onset_day</code>, <code>onset_month</code> ve <code>onset_year</code> sütunlarınız mevcutsa:</p>
-<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>onset_date <span class="op">=</span> <span class="fu">make_date</span><span class="op">(</span>year <span class="op">=</span> <span class="va">onset_year</span>, month <span class="op">=</span> <span class="va">onset_month</span>, day <span class="op">=</span> <span class="va">onset_day</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <!-- ======================================================= -->
@@ -318,7 +318,7 @@
 <p>Excel tarihleri genellikle R’a karakter yerine sayısal değerler olarak aktarılmaktadır. Excel’den içe aktardığınız veri kümesi, tarihleri sayı veya “41369” gibi karakterler olarak gösteriyorsa bunları istenilen formata dönüştürmek için <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code> (veya <strong>lubridate</strong>’nin <code>as_date()</code> işlevini) kullanabilirsiniz. Ancak <strong>yukarıdaki gibi bir “formatı” tanımlamak</strong> yerine, <code>origin =</code> argümanıyla Excel başlangıç tarihini R’a bildirebilirsiniz.</p>
 <p>Excel tarihi bir Karakter türü olarak R’a aktarılmışsa bu fonksiyon işe yaramaz, bu nedenle sayının Numeric sınıfında olduğundan emin olun!</p>
 <p><span style="color: black;"><strong><em>NOT:</em></strong> Başlangıç tarihini R’ın varsayılan tarih biçiminde (“YYYY-AA-GG”) formatlamalısınız.</span></p>
-<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Exceldeki sayı formatındaki tarihleri dönüştürürken Excel 'başlangıç tarihi' sağlamaya ilişkin bir örnek</span></span>
 <span><span class="va">data_cleaned</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="co"># sınıfın numeric olduğundan emin olun</span></span>
@@ -331,12 +331,12 @@
 </h2>
 <p><strong>parsedate</strong> paketindeki <code>parse_dates()</code> fonksiyonu, birçok farklı biçimde tarihleri içeren “dağınık” bir tarih sütununu okumaya ve tarihleri standart bir biçime dönüştürmeye çalışır. <a href="https://readr.tidyverse.org/reference/parse_datetime.html"><code>parse_date()</code> hakkında daha fazla bilgiyi için bakınız</a>.</p>
 <p>Örneğin, <code>parse_dates()</code>, “03 Oca 2018”, “07/03/1982” ve “08/20/85” karakter tarihlerinin bir vektörünü görür ve bunları Date sınıfına dönüştürür: ‘2018-01-03’, ‘1982-03-07’ ve ‘1985-08-20’.</p>
-<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">parsedate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/parsedate/man/parse_date.html">parse_date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"03 Janry 18"</span>,</span>
 <span>                        <span class="st">"07/03/1982"</span>,</span>
 <span>                        <span class="st">"8-20-1985"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2018-01-03 UTC" "1982-07-03 UTC" "1985-08-20 UTC"</code></pre>
-<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># dater_onset sütununda parse_date() kullanan bir örnek</span></span>
 <span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>      </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date_onset <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">parse_date</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -353,22 +353,22 @@
 <p>Standart bir “datetime” nesnesi önce tarihle, ardından bir saat bileşeniyle biçimlendirilir - örneğin <em>01 Ocak 2020, 16:30</em>. Tarihlerde olduğu gibi, bun durumun biçimlendirilmesinin ve kesinlik düzeyinin (saat, dakika, saniye) tanımlanmasının bir çok yolu mevcuttur.</p>
 <p>Neyse ki, bu dizeleri ‘datetime’ nesnelerine dönüştürmeye yardımcı olmak için <strong>lubridate</strong> paketinin yardımcı fonksiyonları mevcuttur. Bu fonksiyonların, sonuna “_h” (saati tanımlar), “_hm” (saat ve dakikayı tanımlar) veya “_hms” (saat, dakika ve saniyeyi tanımlar) uzantıları eklenebilir (örn. dmy_hms()`). Aşağıda bu uzantıların kullanımı için örnekler verilmiştir.</p>
 <p>Yalnızca saat bilgisi olan datetime verilerini datetime nesnesine dönüştürme:</p>
-<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ymd_h</span><span class="op">(</span><span class="st">"2020-01-01 16hrs"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-01-01 16:00:00 UTC"</code></pre>
-<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ymd_h</span><span class="op">(</span><span class="st">"2020-01-01 4PM"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-01-01 16:00:00 UTC"</code></pre>
 <p>Saat ve dakika bilgisi olan datetime verilerini datetime nesnesine dönüştürme:</p>
-<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dmy_hm</span><span class="op">(</span><span class="st">"01 January 2020 16:20"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-01-01 16:20:00 UTC"</code></pre>
 <p>Saat, dakika ve saniye bilgisi olan datetime verilerini datetime nesnesine dönüştürme:</p>
-<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mdy_hms</span><span class="op">(</span><span class="st">"01 January 2020, 16:20:40"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-01-20 16:20:40 UTC"</code></pre>
 <p>Saat dilimini formata ekleyebilirsiniz ancak bu bilgi yok sayılmaktadır. Daha detaylı bilgi için ilerleyen bölümlerdeki saat dilimleri bölümüne bakınız.</p>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mdy_hms</span><span class="op">(</span><span class="st">"01 January 2020, 16:20:40 PST"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-01-20 16:20:40 UTC"</code></pre>
 <p>Bir veri çerçevesiyle çalışırken, <strong>stringr</strong> paketinden <code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code> fonksiyonu ve uygun bir <strong>lubridate</strong> fonksiyonu kullanılarak saat ve tarih sütunları birleştirilebilir. <strong>stringr</strong> ile ilgili ayrıntılar için <a href="karakterler-ve-dizeler.html#karakterler-ve-dizeler">Karakterler ve dizeler</a> hakkındaki sayfaya bakınız.</p>
@@ -376,32 +376,32 @@
 <ol style="list-style-type: decimal">
 <li>Eksik verileri medyan sütunlarından elde edilen verilerle tamamlanmış, “temiz” bir hasta kabul sütunu oluşturun. Bunu yapıyoruz çünkü <strong>lubridate</strong> eksik değerler üzerinde çalışmayacaktır. Bunu “date_hospitalisation” sütunuyla birleştirin ve ardından istenilen formata dönüştürmek için “ymd_hm()” işlevini kullanın.</li>
 </ol>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="co"># paketler</span></span>
-<span id="cb355-2"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, lubridate, stringr)</span>
-<span id="cb355-3"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-4"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-4" aria-hidden="true" tabindex="-1"></a><span class="co"># time_admission, saat:dakika cinsinden bir sütundur</span></span>
-<span id="cb355-5"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-5" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span></span>
-<span id="cb355-6"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb355-7"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># uygun saat bulunamadığında, medyan kabul süresini atama</span></span>
-<span id="cb355-8"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb355-9"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_admission_clean =</span> <span class="fu">ifelse</span>(</span>
-<span id="cb355-10"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(time_admission),         <span class="co"># zaman eksikse</span></span>
-<span id="cb355-11"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">median</span>(time_admission),        <span class="co"># medyan ata</span></span>
-<span id="cb355-12"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-12" aria-hidden="true" tabindex="-1"></a>      time_admission                 <span class="co"># eksik değilse olduğu gibi tut</span></span>
-<span id="cb355-13"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb355-14"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb355-15"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bir karakter sütunu oluşturmak üzere tarih ve saat sütunlarını birleştirmek için str_glue() fonksiyonunu kullanın</span></span>
-<span id="cb355-16"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ve sonra onu tarih saatine dönüştürmek için ymd_hm() fonksiyonunu kullanın</span></span>
-<span id="cb355-17"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb355-18"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_time_of_admission =</span> <span class="fu">str_glue</span>(<span class="st">"{date_hospitalisation} {time_admission_clean}"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb355-19"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ymd_hm</span>()</span>
-<span id="cb355-20"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb355-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="co"># paketler</span></span>
+<span id="cb356-2"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, lubridate, stringr)</span>
+<span id="cb356-3"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb356-4"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-4" aria-hidden="true" tabindex="-1"></a><span class="co"># time_admission, saat:dakika cinsinden bir sütundur</span></span>
+<span id="cb356-5"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-5" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span></span>
+<span id="cb356-6"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb356-7"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># uygun saat bulunamadığında, medyan kabul süresini atama</span></span>
+<span id="cb356-8"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb356-9"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_admission_clean =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb356-10"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(time_admission),         <span class="co"># zaman eksikse</span></span>
+<span id="cb356-11"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">median</span>(time_admission),        <span class="co"># medyan ata</span></span>
+<span id="cb356-12"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-12" aria-hidden="true" tabindex="-1"></a>      time_admission                 <span class="co"># eksik değilse olduğu gibi tut</span></span>
+<span id="cb356-13"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb356-14"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb356-15"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># bir karakter sütunu oluşturmak üzere tarih ve saat sütunlarını birleştirmek için str_glue() fonksiyonunu kullanın</span></span>
+<span id="cb356-16"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ve sonra onu tarih saatine dönüştürmek için ymd_hm() fonksiyonunu kullanın</span></span>
+<span id="cb356-17"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb356-18"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_time_of_admission =</span> <span class="fu">str_glue</span>(<span class="st">"{date_hospitalisation} {time_admission_clean}"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb356-19"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ymd_hm</span>()</span>
+<span id="cb356-20"><a href="tarihlerle-%C3%A7al%C4%B1%C5%9Fma.html#cb356-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="sadece-saatleri-çevirme" class="section level3 unnumbered">
 <h3>Sadece saatleri çevirme<a class="anchor" aria-label="anchor" href="#sadece-saatleri-%C3%A7evirme"><i class="fas fa-link"></i></a>
 </h3>
 <p>Verileriniz yalnızca bir karakter süresi (saat ve dakika) içeriyorsa, <strong>base</strong> R’dan <code><a href="https://rdrr.io/r/base/strptime.html">strptime()</a></code> kullanarak bunları zaman formatına dönüştürebilir ve değiştirebilirsiniz. Örneğin, bu iki süre arasındaki farkı elde etmek için:</p>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ham karakter süreleri</span></span>
 <span><span class="va">time1</span> <span class="op">&lt;-</span> <span class="st">"13:45"</span> </span>
 <span><span class="va">time2</span> <span class="op">&lt;-</span> <span class="st">"15:20"</span></span>
@@ -421,7 +421,7 @@
 </h3>
 <p>Bir zamanın alt öğelerini <strong>lubridate</strong>’paketinden ‘hour()’, ‘minute()’ veya ‘second()’ fonksiyonu ile seçebilirsiniz.</p>
 <p>Saatin ayıklanması ve ardından günün bölümlerine göre sınıflandırılmasına bir örnek verilmesi gerekirse: “SS:DD” biçimindeki Karakter sınıfı olan <code>time_admission</code> sütununu göz önüne alalım. İlk olarak, karakterleri datetime sınıfına dönüştürmek için yukarıda açıklandığı gibi <code><a href="https://rdrr.io/r/base/strptime.html">strptime()</a></code> fonksiyonu kullanılır. Daha sonra saat, 0-24 arasında bir sayı döndürerek <code>hour()</code> fonksiyonu ile çıkarılır. Son olarak, satırları giriş saatlerine göre Sabah/Öğleden sonra/Akşam/Gece olarak sınıflandırmak için <code>case_while()</code> mantığı kullanılarak bir ‘time_period’ sütunu oluşturulur.</p>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>hour_admit <span class="op">=</span> <span class="fu">hour</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">time_admission</span>, format <span class="op">=</span> <span class="st">"%H:%M"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>time_period <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span></span>
@@ -439,24 +439,24 @@
 </h2>
 <p><code>lubridate</code> aynı zamanda <strong>date/datetime özelliklerini çıkarma</strong>, <strong>tarih aritmetiği gerçekleştirme</strong> veya <strong>tarih aralıklarını hesaplama</strong> gibi çeşitli başka işlevler için de kullanılabilir.</p>
 <p>Burada örnekler için kullanılacak bir tarih tanımlayacağız:</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Date sınıfının nesnesini oluşturma</span></span>
 <span><span class="va">example_date</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2020-03-01"</span><span class="op">)</span></span></code></pre></div>
 <div id="tarih-bileşenlerini-ayıklama" class="section level3 unnumbered">
 <h3>Tarih bileşenlerini ayıklama<a class="anchor" aria-label="anchor" href="#tarih-bile%C5%9Fenlerini-ay%C4%B1klama"><i class="fas fa-link"></i></a>
 </h3>
 <p>Ay, gün, hafta içi gibi ortak yönleri çıkarabilirsiniz:</p>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">month</span><span class="op">(</span><span class="va">example_date</span><span class="op">)</span>  <span class="co"># ay numarası</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">day</span><span class="op">(</span><span class="va">example_date</span><span class="op">)</span>    <span class="co"># ayın günü (sayı)</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">wday</span><span class="op">(</span><span class="va">example_date</span><span class="op">)</span>   <span class="co"># haftanın gün sayısı (1-7)</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Ayrıca bir <code>datetime</code> nesnesinden veya sütunundan saat bileşenlerini de çıkarabilirsiniz. Bu durum, özellikle başvuru saatlerinin dağılımını görmek istiyorsanız yararlı olabilir.</p>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">example_datetime</span> <span class="op">&lt;-</span> <span class="fu">ymd_hm</span><span class="op">(</span><span class="st">"2020-03-01 14:45"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">hour</span><span class="op">(</span><span class="va">example_datetime</span><span class="op">)</span>     <span class="co"># saati ayıklama</span></span>
@@ -469,11 +469,11 @@
 <h3>Tarih matematiği<a class="anchor" aria-label="anchor" href="#tarih-matemati%C4%9Fi"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>lubridate</strong>’deki ilgili fonksiyonları kullanarak belirli sayıda gün veya hafta ekleyebilirsiniz.</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># bu tarihe 3 gün ekleyin</span></span>
 <span><span class="va">example_date</span> <span class="op">+</span> <span class="fu">days</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-03-04"</code></pre>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 7 hafta ekleyin ve bu tarihten iki gün çıkarın</span></span>
 <span><span class="va">example_date</span> <span class="op">+</span> <span class="fu">weeks</span><span class="op">(</span><span class="fl">7</span><span class="op">)</span> <span class="op">-</span> <span class="fu">days</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "2020-04-17"</code></pre>
@@ -489,17 +489,17 @@
 <li>Gerekirse, sonraki matematiksel hesaplamaları yapmak için sonucu sayısal sınıfa dönüştürün</li>
 </ol>
 <p>Aşağıdaki kodda iki tarih arasındaki aralığın hesaplanması ve görüntülenmesi verilmiştir. Date sınıfındaki değerlerde çıkarma (eksi) işareti ile aralıkları bulabilirsiniz. Ancak, döndürülen değerin sınıfının aşağıda gösterildiği gibi “difftime” olduğunu ve sayısala dönüştürülmesi gerektiğini unutmayın.</p>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># bu tarih ile 20 Şubat 2020 arasındaki aralığı bulun</span></span>
 <span><span class="va">output</span> <span class="op">&lt;-</span> <span class="va">example_date</span> <span class="op">-</span> <span class="fu">ymd</span><span class="op">(</span><span class="st">"2020-02-20"</span><span class="op">)</span></span>
 <span><span class="va">output</span>    <span class="co"># yazdır</span></span></code></pre></div>
 <pre><code>## Time difference of 10 days</code></pre>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "difftime"</code></pre>
 <p>Bir “difftime” üzerinde sonraki işlemleri yapmak için, onu <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> ile sayısal değere dönüştürmelisiniz.</p>
 <p>Bunların hepsi verilerle çalışmak için bir araya getirilebilir - örneğin:</p>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">lubridate</span>, <span class="va">tidyverse</span><span class="op">)</span>   <span class="co"># paketleri yükleme</span></span>
 <span></span>
 <span><span class="va">linelist</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -514,7 +514,7 @@
 <span>  <span class="co"># başlangıç ve hastaneye yatış arasındaki gün farkını bulun</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>days_onset_to_hosp <span class="op">=</span> <span class="va">date_hospitalisation</span> <span class="op">-</span> <span class="va">date_of_onset</span><span class="op">)</span></span></code></pre></div>
 <p>Bir veri çerçevesi bağlamında, yukarıdaki tarihlerden biri eksikse, o satır için işlem başarısız olur. Sonuç, sayısal bir değer yerine bir “NA” olarak verilecektir. Bu sütunu hesaplamalar için kullanırken, <code>na.rm =</code> bağımsız değişkenini <code>TRUE (DOĞRU)</code> olarak ayarladığınızdan emin olun. Örneğin:</p>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># verilerin mevcut olduğu tüm vakalar için; hastaneye yatışa kadar geçen medyan gün sayısını hesaplama</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">linelist_delay</span><span class="op">$</span><span class="va">days_onset_to_hosp</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <!-- ======================================================= -->
@@ -550,22 +550,22 @@
 %z = GMT farkı
 %Z = Saat dilimi (karakter)</p>
 <p>Bugünün tarihini biçimlendirmeye bir örnek olarak:</p>
-<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># bugünün tarihi, biçimlendirme ile</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%d %B %Y"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "21 November 2022"</code></pre>
-<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<pre><code>## [1] "30 January 2023"</code></pre>
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tam tarih ve saati almanın kolay yolu (varsayılan biçimlendirme)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/date.html">date</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "Mon Nov 21 12:50:13 2022"</code></pre>
-<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<pre><code>## [1] "Mon Jan 30 10:46:01 2023"</code></pre>
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># str_glue() fonksiyonunu kullanarak biçimlendirilmiş birleşik tarih, saat ve saat dilimi</span></span>
 <span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue</a></span><span class="op">(</span><span class="st">"{format(Sys.Date(), format = '%A, %B %d %Y, %z  %Z, ')}{format(Sys.time(), format = '%H:%M:%S')}"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Monday, November 21 2022, +0000  UTC, 12:50:13</code></pre>
-<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<pre><code>## Monday, January 30 2023, +0000  UTC, 10:46:01</code></pre>
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Haftaları görüntüleme formatını kullanma</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y Week %W"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "2022 Week 47"</code></pre>
+<pre><code>## [1] "2023 Week 05"</code></pre>
 <p><code><a href="https://stringr.tidyverse.org/reference/str_glue.html">str_glue()</a></code> fonksiyonunu kullanıyorsanız, sözdizimi formatındaki çift tırnak içinde (“) yalnızca tek tırnak kullanmanız gerektiğini unutmayın (yukarıdaki örnekte verildiği gibi).</p>
 </div>
 <div id="ay-yıl" class="section level3 unnumbered">
@@ -573,7 +573,7 @@
 </h3>
 <p>Bir Date sütununu Ay-yıl biçimine dönüştürmek için, <strong>zoo</strong> paketindeki <code>as.yearmon()</code> işlevini kullanmanızı öneririz. Bu, tarihi “yearmon” sınıfına dönüştürür ve uygun sıralamayı korur. Buna karşılık, <code>format(column, "%Y %B")</code> fonksiyonunun kullanılması, değerleri Karakter sınıfına dönüştürecek ve değerleri alfabetik olarak (yanlış) sıralayacaktır.</p>
 <p>Aşağıda, “as.yearmon()” fonksiyonu kullanılarak “date_onset” sütunundan yeni bir “yearmonth” sütunu oluşturulmuştur. Elde edilen değerlerin varsayılan (doğru) sıralaması tabloda gösterilmiştir.</p>
-<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># yeni sütun oluştur</span></span>
 <span><span class="va">test_zoo</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.yearmon</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span><span class="op">)</span></span>
@@ -581,12 +581,12 @@
 <span><span class="co"># tabloyu yazdır</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">test_zoo</span><span class="op">$</span><span class="va">yearmon</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
-## Apr 2014 May 2014 Jun 2014 Jul 2014 Aug 2014 Sep 2014 Oct 2014 Nov 2014 Dec 2014 Jan 2015 
-##        7       64      100      226      528     1070     1112      763      562      431 
-## Feb 2015 Mar 2015 Apr 2015 
-##      306      277      186</code></pre>
+## Apr 2014 May 2014 Jun 2014 Jul 2014 Aug 2014 Sep 2014 Oct 2014 Nov 2014 Dec 2014 
+##        7       64      100      226      528     1070     1112      763      562 
+## Jan 2015 Feb 2015 Mar 2015 Apr 2015 
+##      431      306      277      186</code></pre>
 <p>Buna karşılık, aşağıdaki örnekte, <code><a href="https://rdrr.io/r/base/format.html">format()</a></code> fonksiyonu ile istenen görüntüleme biçimini verirken, ancak doğru sıralamayı nasıl sağlayamadığını görebilirsiniz.</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># yeni sütun oluştur</span></span>
 <span><span class="va">test_format</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>yearmonth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">date_onset</span>, <span class="st">"%b %Y"</span><span class="op">)</span><span class="op">)</span></span>
@@ -594,10 +594,10 @@
 <span><span class="co"># tabloyu yazdır</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">test_format</span><span class="op">$</span><span class="va">yearmon</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
-## Apr 2014 Apr 2015 Aug 2014 Dec 2014 Feb 2015 Jan 2015 Jul 2014 Jun 2014 Mar 2015 May 2014 
-##        7      186      528      562      306      431      226      100      277       64 
-## Nov 2014 Oct 2014 Sep 2014 
-##      763     1112     1070</code></pre>
+## Apr 2014 Apr 2015 Aug 2014 Dec 2014 Feb 2015 Jan 2015 Jul 2014 Jun 2014 Mar 2015 
+##        7      186      528      562      306      431      226      100      277 
+## May 2014 Nov 2014 Oct 2014 Sep 2014 
+##       64      763     1112     1070</code></pre>
 <p>Not: Bir <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> içinde çalışıyor ve sadece tarihlerin nasıl <em>görüntülendiğini</em> düzenlemek istiyorsanız, <code><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date()</a></code> fonksiyonu içindeki <code>date_labels =</code> argümanına bir strptime formatı sağlamak yeterli olabilir. Bunun için <code>"%b %Y"</code> veya <code>"%Y %b"</code> formatını kullanabilirsiniz. Detaylı bilgi için <a href="ggplot-ipu%C3%A7lar%C4%B1.html#ggplot-ipu%C3%A7lar%C4%B1">ggplot ipuçları</a> sayfasına bakınız.</p>
 <p><strong>zoo</strong> ayrıca <code>as.yearqtr()</code> fonksiyonuna da sahiptir ve <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> kullanırken <code>scale_x_yearmon()</code> fonksiyonunu da bu amaçla kullanabilirsiniz.</p>
 <!-- ======================================================= -->
@@ -627,7 +627,7 @@
 <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> ile haftalık satır (vaka) sayısını alın; tarihi eksik olan vakaları filtreleyin</li>
 <li>Verilerde <em>tüm</em> haftaların görünmesini sağlamak için <strong>tidyr</strong>’paketinden <code><a href="https://tidyr.tidyverse.org/reference/complete.html">complete()</a></code> ile fonksiyonunu kullanın (satır/durum bilgisi içermeyenleri de eklemek adına). Varsayılan olarak, herhangi bir “yeni” satır için sayım değerleri NA’dır, ancak bunları adlandırılmış bir liste bekleyen <code>fill =</code> argümanıyla 0 yapabilirsiniz (aşağıdaki örnekte verilen <code>n</code> değeri yeni sütununun adıdır)</li>
 </ol>
-<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Haftalık vaka sayılarının yeni bir veri setinde gösterin</span></span>
 <span><span class="va">weekly_counts</span> <span class="op">&lt;-</span> <span class="va">linelist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">date_onset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>             <span class="co"># başlangıç tarihi eksik vakaları kaldırın</span></span>
@@ -642,8 +642,8 @@
 <span>      by <span class="op">=</span> <span class="st">"week"</span><span class="op">)</span>,                   <span class="co"># hafta olarak</span></span>
 <span>    fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>             <span class="co"># n sütunundaki NA'ları 0 ile değiştir</span></span></code></pre></div>
 <p>Ortaya çıkan veri çerçevesinin ilk satırları şunlardır:</p>
-<div id="htmlwidget-161c653ec769cd7fb905" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-161c653ec769cd7fb905">{"x":{"filter":"none","vertical":false,"data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-01e303f7699135cc9e6c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-01e303f7699135cc9e6c">{"x":{"filter":"none","vertical":false,"data":[["2014-04-06","2014-04-13","2014-04-20","2014-04-27","2014-05-04","2014-05-11","2014-05-18","2014-05-25","2014-06-01","2014-06-08","2014-06-15","2014-06-22","2014-06-29","2014-07-06","2014-07-13","2014-07-20","2014-07-27","2014-08-03","2014-08-10","2014-08-17"],[1,1,4,4,12,14,14,21,21,18,30,23,31,35,55,58,80,86,114,122]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>weekly_cases<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="epiweek-alternatifleri" class="section level3 unnumbered">
 <h3>Epiweek alternatifleri<a class="anchor" aria-label="anchor" href="#epiweek-alternatifleri"><i class="fas fa-link"></i></a>
@@ -662,12 +662,12 @@
 <p>R’da her <em>datetime</em> nesnesinin bir saat dilimi bileşeni vardır. Varsayılan olarak, tüm datetime nesneleri kullanılan bilgisayarın yerel saat dilimini kullanmaktadır - bu genellikle, yaz saati uygulaması nedeniyle zaman dilimleri konumlarda sık sık değişeceğinden, adlandırılmış bir saat dilimi yerine <em>konuma</em> özgüdür. Bir tarih sütununun temsil ettiği olay belirli bir zamana atfedilemeyeceğinden ve bu nedenle saat cinsinden ölçülen zaman kaymaları makul bir şekilde açıklanamaz. Tarihin zaman bileşeni olmadan saat dilimlerini doğru bir şekilde yönetmek mümkün değildir.</p>
 <p>Saat dilimleriyle başa çıkabilmek için, lubridate’de bir datetime nesnesinin saat dilimini farklı bir saat dilimine değiştirmek için kullanılabilecek bir dizi yardımcı fonksiyon mevcuttur. Saat dilimleri, datetime nesnesine geçerli bir tz veritabanı saat dilimi atanarak hesaplanır. Bunların bir listesini aşağıdaki linkte bulabilirsiniz - verileri kullandığınız konum bu listede değilse, saat dilimine yakın büyük şehirleri kullanabilirsiniz, bu, aynı amaca hizmet edecektir.</p>
 <p><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="uri">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a></p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># geçerli saati bir sütuna ata</span></span>
 <span><span class="va">time_now</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">time_now</span></span></code></pre></div>
-<pre><code>## [1] "2022-11-21 12:50:13 CET"</code></pre>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<pre><code>## [1] "2023-01-30 10:46:01 CET"</code></pre>
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># saat zamanını DEĞİŞTİRİRKEN sütuna yeni bir saat dilimi atamak için with_tz() kullan</span></span>
 <span><span class="va">time_london_real</span> <span class="op">&lt;-</span> <span class="fu">with_tz</span><span class="op">(</span><span class="va">time_now</span>, <span class="st">"Europe/London"</span><span class="op">)</span></span>
 <span></span>
@@ -689,8 +689,8 @@
 </h2>
 <p><code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead()</a></code> ve <code>lag()</code>, bir vektördeki önceki (geciken) veya sonraki (önden gelen) değerleri bulmaya yardımcı olan <strong>dplyr</strong> paketindeki fonksiyonlarıdır - tipik olarak bir sayısal veya tarih vektörüdür. Bu fonksiyonlar, zaman birimleri arasındaki değişim/fark hesaplamaları yaparken işe yarar.</p>
 <p>Mevcut bir hafta ile önceki hafta arasındaki vaka farkını hesaplamak istediğinizi varsayalım. Veriler başlangıçta aşağıda gösterildiği gibi haftalık sayılarla elde edilir.</p>
-<div id="htmlwidget-5ca52eff8b5cc7fd35ae" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5ca52eff8b5cc7fd35ae">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><strong><code>lag()</code> veya <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead()</a></code> komutlarını kullanırken veri çerçevesindeki satırların sırası çok önemlidir! - tarihlerinizin / numaralarınızın artan mı yoksa azalan mı olduğuna dikkat etmelisiniz.</strong></p>
+<div id="htmlwidget-c68408ecbf43f9e9a753" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c68408ecbf43f9e9a753">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><strong><code>lag()</code> veya <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead()</a></code> komutlarını kullanırken veri çerçevesindeki satırların sırası çok önemlidir! - tarihlerinizin / numaralarınızın artan mı yoksa azalan mı olduğuna dikkat etmelisiniz.</strong></p>
 <p>İlk olarak, önceki (geciken) haftanın değerini içeren yeni bir sütun oluşturun.</p>
 <ul>
 <li>Geri/ileri birim sayısını <code>n =</code> ile kontrol edin (negatif olmayan bir tam sayı olmalıdır)<br>
@@ -699,17 +699,17 @@
 </li>
 <li>Satırlarınız referans sütununuza göre sıralanmıyorsa <code>order_by = TRUE</code> argümanını kullanın</li>
 </ul>
-<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>cases_prev_wk <span class="op">=</span> <span class="fu">lag</span><span class="op">(</span><span class="va">cases_wk</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-17c01dbd9251abbcad6e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-17c01dbd9251abbcad6e">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Ardından, iki vaka sütunu arasındaki farkı hesaplayan yeni bir sütun oluşturun:</p>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div id="htmlwidget-dd9e10440e47ab449845" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dd9e10440e47ab449845">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p>Ardından, iki vaka sütunu arasındaki farkı hesaplayan yeni bir sütun oluşturun:</p>
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>cases_prev_wk <span class="op">=</span> <span class="fu">lag</span><span class="op">(</span><span class="va">cases_wk</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>         case_diff <span class="op">=</span> <span class="va">cases_wk</span> <span class="op">-</span> <span class="va">cases_prev_wk</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-39779a0b3762b12c349c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-39779a0b3762b12c349c">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead()</a></code> ve <code>lag()</code> hakkında daha fazla bilgiyi <a href="https://dplyr.tidyverse.org/reference/lead-lag.html">buradaki</a> belgelerde veya `?lag`` kodunu konsola girerek elde edebilirsiniz.</p>
+<div id="htmlwidget-5dde3b8f7196a587241e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5dde3b8f7196a587241e">{"x":{"filter":"none","vertical":false,"data":[["2019-06-23","2019-06-30","2019-07-07","2019-07-14","2019-07-21","2019-07-28","2019-08-04","2019-08-11","2019-08-18","2019-08-25","2019-09-01","2019-09-08","2019-09-15","2019-09-22","2019-09-29","2019-10-06","2019-10-13","2019-10-20","2019-10-27","2019-11-03","2019-11-10","2019-11-17","2019-11-24","2019-12-01","2019-12-08","2019-12-15","2019-12-22","2019-12-29"],[0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19,0],[null,0,25,59,90,65,79,41,47,31,32,28,28,76,41,70,90,124,278,371,329,177,69,77,97,100,39,19],[null,25,34,31,-25,14,-38,6,-16,1,-4,0,48,-35,29,20,34,154,93,-42,-152,-108,8,20,3,-61,-20,-19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>week_start<\/th>\n      <th>cases_wk<\/th>\n      <th>cases_prev_wk<\/th>\n      <th>case_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><p><code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead()</a></code> ve <code>lag()</code> hakkında daha fazla bilgiyi <a href="https://dplyr.tidyverse.org/reference/lead-lag.html">buradaki</a> belgelerde veya `?lag`` kodunu konsola girerek elde edebilirsiniz.</p>
 <!-- ======================================================= -->
 </div>
 <div id="kaynaklar-2" class="section level2" number="9.12">
@@ -791,7 +791,7 @@ Veri Bilimi için R - <a href="https://r4ds.had.co.nz/dates-and-times.html">tari
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-21.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2023-01-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

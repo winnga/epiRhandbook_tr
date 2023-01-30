@@ -114,7 +114,7 @@
 <li><a class="" href="kombinasyon-analizi.html"><span class="header-section-number">36</span> Kombinasyon analizi</a></li>
 <li><a class="" href="iletim-zincirleri.html"><span class="header-section-number">37</span> İletim Zincirleri</a></li>
 <li><a class="" href="filogenetik-a%C4%9Fa%C3%A7lar-1.html"><span class="header-section-number">38</span> Filogenetik ağaçlar</a></li>
-<li><a class="" href="interactive-plots.html"><span class="header-section-number">39</span> Interactive plots</a></li>
+<li><a class="" href="interaktif-grafikler.html"><span class="header-section-number">39</span> İnteraktif grafikler</a></li>
 <li class="book-part">Reports and dashboards</li>
 <li><a class="" href="r-markdown-ile-raporlar.html"><span class="header-section-number">40</span> R Markdown ile Raporlar</a></li>
 <li><a class="" href="rutin-raporlar%C4%B1n-d%C3%BCzenlenmesi.html"><span class="header-section-number">41</span> Rutin raporların düzenlenmesi</a></li>
@@ -164,25 +164,25 @@
 </h2>
 <p>Aşağıda, ağ sürücülerinde R kullanarak sorunları gidermeye yarayan bazı yararlı komutlar verilmiştir.</p>
 <p>Yolları R’ın kullandığı paket kitaplıklarına döndürebilirsiniz. Bunlar, R’ın paketleri kurmak/yüklemek/aramak için kullandığı sırayla listelenecektir. Bu nedenle, R’ın farklı bir varsayılan kitaplık kullanmasını istiyorsanız, bu yolların sırasını değiştirebilirsiniz (aşağıya bakın).</p>
-<div class="sourceCode" id="cb1971"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1972"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># kitaplığı bul</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span>                   <span class="co"># R'ın yüklediği/aradığı sırayla listelenmiş kitaplık yollarınız.</span></span>
 <span>                              <span class="co"># Not: tüm kitaplıklar listelenecektir, ancak bazılarına (örneğin C :) yüklemek için</span></span>
 <span>                              <span class="co"># RStudio'yu yönetici olarak çalıştırmanız gerekebilir </span></span>
 <span>                              <span class="co"># (paket kitaplığı açılır menüsü yükleyin)</span></span></code></pre></div>
 <p>R tarafından kullanılan paket kitaplıklarının sırasını değiştirmek isteyebilirsiniz. Örneğin, R “\" ile başlayan ve büyük bir harfle başlayan bir kitaplık konumu alıyorsa, örn.”D:“. <code><a href="https://rdrr.io/r/base/libPaths.html">.libPaths()</a></code> sırasını aşağıdaki kod ile ayarlayabilirsiniz.</p>
-<div class="sourceCode" id="cb1972"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1973"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Kitaplıkların sırasını değiştir</span></span>
 <span><span class="co"># bu, R'ın bir paket bulma önceliğini etkileyebilir. Örneğin. C: kitaplığınızın önce listelenmesini isteyebilirsiniz</span></span>
 <span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># yolakları al</span></span>
 <span><span class="va">myPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">myPaths</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># değiştir</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/libPaths.html">.libPaths</a></span><span class="op">(</span><span class="va">myPaths</span><span class="op">)</span> <span class="co"># yeniden ata</span></span></code></pre></div>
 <p>Pandoc’a bağlanan R Markdown ile ilgili sorunlar yaşıyorsanız, RStudio’nun Pandoc kurulumunuzun nerede olduğunu düşündüğünü öğrenmek için bu kodla başlayın.</p>
-<div class="sourceCode" id="cb1973"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1974"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Pandoc'u bul</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"RSTUDIO_PANDOC"</span><span class="op">)</span>  <span class="co"># RStudio'nun Pandoc kurulumunuzun nerede olduğunu düşündüğünü bulun</span></span></code></pre></div>
 <p>Bir paketin hangi kütüphaneden yüklendiğini görmek istiyorsanız aşağıdaki kodu deneyin:</p>
-<div class="sourceCode" id="cb1974"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1975"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># bir paket bulun</span></span>
 <span><span class="co"># paketin ilk konumunu verir (kütüphanelerinizin sırasını not edin)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/find.package.html">find.package</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"verbose"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
@@ -196,7 +196,7 @@
 <ul>
 <li>TinyTex kurulumunu kontrol edin veya TinyTex’i C: konumuna kurun. TinyTex’in nasıl kurulacağını öğrenmek için [R temelleri] sayfasına bakabilirsiniz.</li>
 </ul>
-<div class="sourceCode" id="cb1975"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1976"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># tinytex'i kontrol edin/yükleyin, C: konumuna</span></span>
 <span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">tinytex</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/is_tinytex.html">is_tinytex</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#  DOĞRU döndürmelidir (üç kolonu da not alın)</span></span></code></pre></div>
@@ -297,7 +297,7 @@ Paket kitaplığınıza baktığınızda adı “00LOCK” ile başlayan bir kla
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2022-11-21.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2023-01-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
