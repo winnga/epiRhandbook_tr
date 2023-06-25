@@ -522,8 +522,10 @@ fitted_model <- trending::fit(model, data.frame(counts))
 ## güven ve tahmin aralıklarını hesaplayın
 observed <- predict(fitted_model, simulate_pi = FALSE)
 
+estimate_res <- data.frame(observed$result)
+
 ## regresyonunuzu görselleştirin 
-ggplot(data = observed, aes(x = epiweek)) + 
+ggplot(data = estimate_res, aes(x = epiweek)) + 
   ## model tahmini için bir satır ekleyin
   geom_line(aes(y = estimate),
             col = "Red") + 
@@ -551,11 +553,11 @@ Aşağıdan gördüğümüz gibi modelle tüm varyansı açıklamamaktayız. Dah
 ```{r, warning=F, message=F}
 
 ## artıkların hesabı 
-observed <- observed %>% 
+estimate_res <- estimate_res %>% 
   mutate(resid = residuals(fitted_model$fitted_model, type = "response"))
 
 ## artıklar zaman içinde oldukça sabit mi (değilse: salgın? uygulamada değişiklik?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = epiweek, y = resid)) +
   geom_line() +
   geom_point() + 
@@ -564,7 +566,7 @@ observed %>%
 
  
 ## artıklarda otokorelasyon var mı (hatanın bir motifi var mı?)
-observed %>% 
+estimate_res %>% 
   as_tsibble(index = epiweek) %>% 
   ACF(resid, lag_max = 52) %>% 
   autoplot()
@@ -572,7 +574,7 @@ observed %>%
 
  
 ## artıklar normal olarak dağılmış mı (tahminin altında mı yoksa üzerinde mi?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = resid)) +
   geom_histogram(binwidth = 100) +
   geom_rug() +
@@ -582,7 +584,7 @@ observed %>%
  
 ## gözlemlenen sayıları artıklarıyla karşılaştırın
   ## ayrıca motif görülmemeli
-observed %>%
+estimate_res %>%
   ggplot(aes(x = estimate, y = resid)) +
   geom_point() +
   labs(x = "Fitted", y = "Residuals")
@@ -593,7 +595,7 @@ observed %>%
 ## H0, artıkların beyaz gürültü (yani rastgele) olmasıdır
 ## bağımsızlık testi
 ## p değeri anlamlıysa rastgele değil
-Box.test(observed$resid, type = "Ljung-Box")
+Box.test(estimate_res$resid, type = "Ljung-Box")
  
 ## 
 ##  Box-Ljung test
@@ -729,19 +731,20 @@ Tek tek terimleri araştırmak için, get_model() fonksiyonunu kullanarak orijin
 
 fitted_model %>% 
   ## orijinal negatif binom regresyonunu elde edin 
-  get_model() %>% 
+  get__fitted_model() #%>% 
   ## sonuçların tidy veri çerçevesini elde edin
-  tidy(exponentiate = TRUE, 
-       conf.int = TRUE)
+  # tidy(exponentiate = TRUE, 
+  #      conf.int = TRUE)
 
 ```
 
 Modelin hızlı görsel incelemesi, modelin gözlemlenen vaka sayılarını tahmin etmede daha iyi bir iş çıkarabileceğini gösterir.
 
 ```{r plot_nb_reg_bivar, warning=F, message=F}
+estimate_res <- data.frame(observed$result)
 
 ## regresyonunuzu çiz
-ggplot(data = observed, aes(x = epiweek)) + 
+ggplot(data = estimate_res, aes(x = epiweek)) + 
   ## model tahmini için bir satır ekleyin
   geom_line(aes(y = estimate),
             col = "Red") + 
@@ -766,11 +769,11 @@ Modelimizin gözlemlenen verilerle ne kadar uyumlu olduğunu görmek için artı
 
 ```{r}
 ## artıkları hesapla
-observed <- observed %>% 
+estimate_res <- estimate_res %>% 
   mutate(resid = case_int - estimate)
 
 ## artıklar zaman içinde oldukça sabit mi (değilse: salgın? uygulamada değişiklik?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = epiweek, y = resid)) +
   geom_line() +
   geom_point() + 
@@ -780,7 +783,7 @@ observed %>%
 
  
 ## artıklarda otokorelasyon var mı (hatanın bir motifi var mı?)
-observed %>% 
+estimate_res %>% 
   as_tsibble(index = epiweek) %>% 
   ACF(resid, lag_max = 52) %>% 
   autoplot()
@@ -788,7 +791,7 @@ observed %>%
 
  
 ## artıklar normal dağılım gösteriyor mu (tahminin altında mı yoksa üzerinde mi?)
-observed %>%
+estimate_res %>%
   ggplot(aes(x = resid)) +
   geom_histogram(binwidth = 100) +
   geom_rug() +
@@ -799,7 +802,7 @@ observed %>%
  
 ## gözlemlenen sayıları artıklarıyla karşılaştırın
   ## ayrıca tekrarlama olmamalı
-observed %>%
+estimate_res %>%
   ggplot(aes(x = estimate, y = resid)) +
   geom_point() +
   labs(x = "Fitted", y = "Residuals")
@@ -811,7 +814,7 @@ observed %>%
 ## H0, artıkların beyaz gürültü (yani rastgele) olmasıdır
 ## bağımsızlık testi
 ## p değeri anlamlıysa rastgele değildir
-Box.test(observed$resid, type = "Ljung-Box")
+Box.test(estimate_res$resid, type = "Ljung-Box")
 
 ```
 
@@ -962,7 +965,7 @@ forecasts <- fitted_model %>%
   predict(data.frame(pred_data), simulate_pi = FALSE)
 
 ## temel ve tahmin edilmiş veri tabanlarını birleştirin 
-observed <- bind_rows(observed, forecasts)
+observed <- bind_rows(observed$result, forecasts$result)
 
 
 ```
@@ -1151,7 +1154,8 @@ forecasts <- purrr::map(unique(case_roll$.id),
   
   # istenilen verilerle tahmin 
   forecasts <- fitted_model %>% 
-    predict(data.frame(pred_data), simulate_pi = FALSE) %>% 
+    predict(data.frame(pred_data), simulate_pi = FALSE) 
+  forecasts <- data.frame(forecasts$result[[1]]) %>%
     ## sadece hafta ve tahmin değerini tutun 
     select(epiweek, estimate)
     
@@ -1415,9 +1419,9 @@ fitted_model <- trending::fit(model, counts)
 
 ## güven ve tahmin aralıklarını hesaplayın
 observed <- predict(fitted_model, simulate_pi = FALSE)
+```
 
-
-
+```{r table_regression, eval = FALSE, echo = TRUE}
 ## tabloda tahminleri ve yüzde değişimini gösterin 
 fitted_model %>% 
   ## orijinal negatif binom regresyonunu çıkarın
@@ -1451,8 +1455,9 @@ fitted_model %>%
 Daha önce olduğu gibi, regresyonun çıktılarını görselleştirebiliriz.
 
 ```{r plot_interrupted}
+estimate_res <- data.frame(observed$result)
 
-ggplot(observed, aes(x = epiweek)) + 
+ggplot(estimate_res, aes(x = epiweek)) + 
   ## gözlemlenen vaka sayılarını bir çizgi olarak ekle
   geom_line(aes(y = case_int, colour = "Observed")) + 
   ## model tahmini için bir satır ekleyin
