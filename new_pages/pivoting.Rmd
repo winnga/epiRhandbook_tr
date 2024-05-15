@@ -36,6 +36,7 @@ Bu kod bloğu, analizler için gerekli olan paketlerin yüklenmesini gösterir. 
 pacman::p_load(
   rio,          # Dosyanın içe aktarımı
   here,         # Dosyanın konumu
+  kableExtra,   # Build and manipulate complex tables
   tidyverse)    # veri yönetimi + ggplot2 grafik paketi
 ```
 

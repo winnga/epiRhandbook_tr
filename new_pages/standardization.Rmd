@@ -449,7 +449,7 @@ knitr::kable(mortality_ds_rate_phe)
 
 İnidirekt standardizasyon için, tabaka başına ölüm sayısı, nüfus ve bir referans popülasyona ihtiyacınız vardır. Bu örnekte, `standart_pop_clean` referans popülasyonu tabaka başına ölüm sayısını içermediğinden, *B ülkesini referans popülasyon* olarak kullanarak A ülkesi için hızları hesaplayacağız.
 
-Aşağıda, önce B ülkesinden referans popülasyonu oluşturuyoruz. Ardından, A ülkesi için ölüm ve nüfus verilerini çıkarıyoruz, bu verileri referans popülasyonla birleştiriyoruz ve indirekt standardize edilmiş hızları elde etmek için `phe_isr()` fonksiyonuna aktarıyoruz. Tabii ki, bunun tersini de yapabilirsiniz.
+Aşağıda, önce B ülkesinden referans popülasyonu oluşturuyoruz. Ardından, A ülkesi için ölüm ve nüfus verilerini çıkarıyoruz, bu verileri referans popülasyonla birleştiriyoruz ve indirekt standardize edilmiş hızları elde etmek için `calculate_ISRate()` fonksiyonuna aktarıyoruz. Tabii ki, bunun tersini de yapabilirsiniz.
 
 Not: Aşağıdaki örneğimizde, referans popülasyonu ayrı bir veri tabanı olarak verilmiştir. Bu durumda, kayıtlar pozisyona göre eşleştirileceğinden, `x =`, `n =`, `x_ref =` ve `n_ref =` vektörlerinin tümünün, ülkemize özgü veri tabanıyla aynı standardizasyon kategorisi (tabaka) değerlerine göre sıralandığından emin oluruz.
 
@@ -463,7 +463,7 @@ refpopCountryB <- country_data %>%
 # A ülkesi için yaş ve cinsiyete göre indirekt standardize edilmiş hızları hesapla
 mortality_is_rate_phe_A <- country_data %>%
      filter(Country == "A") %>%
-     PHEindicatormethods::phe_isr(
+     PHEindicatormethods::calculate_ISRate(
           x = Deaths,                 # gözlemlenen olay sayısını içeren sütun
           n = Population,             # her tabaka için standardize edilmemiş popülasyonu içeren sütunlar
           x_ref = refpopCountryB$Deaths,  # her tabaka için referans ölüm sayısı

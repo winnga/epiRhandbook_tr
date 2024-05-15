@@ -952,7 +952,7 @@ getis_ord <- spdep::localG(
 )
 
 # sf verisine sonuçları ekleme
-sle_adm3_dat$getis_ord <- getis_ord
+sle_adm3_dat$getis_ord <- as.numeric(getis_ord)
 
 # harita grafiği
 ggplot(data=sle_adm3_dat) +

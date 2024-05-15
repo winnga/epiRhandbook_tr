@@ -30,7 +30,7 @@ Aşağıdaki kod parçası, bu sayfa için gerekli olan paketlerin yüklenmesini
 
 pacman::p_load(
   lubridate,  # tarihlerin işlenmesi ve dönüştürülmesi için genel paket 
-  linelist,   # dağınık tarihleri "tahmin etme" işlevi sağlar
+  parsedate,   # dağınık tarihleri "tahmin etme" işlevi sağlar
   aweek,      # tarihleri haftalara ve haftaları tarihe dönüştürmek için alternatif bir seçenek
   zoo,        # ek tarih/saat işlevleri
   tidyverse,  # veri yönetimi ve görselleştirme 
@@ -94,7 +94,7 @@ Aşağıda, bir sütunu karakter değerlerinden Date sınıfına dönüştürmek
 `as.Date()` kullanımı aşağıdaki koşulları içermektedir:  
 
 * Ham karakter tarihinin **mevcut** formatını veya tarihleri sayı olarak veriyorsanız *başlangıç tarihini* belirtirmelisiniz (Excel tarihleriyle ilgili bölüme bakınız)  
-* Eğer bir karakter sütununda kullanılıyorsa, tüm tarih değerleri aynı formata sahip olmalıdır (eğer durum böyle değilse, **linelist** paketinden `guess_dates()` deneyebilirsiniz)
+* Eğer bir karakter sütununda kullanılıyorsa, tüm tarih değerleri aynı formata sahip olmalıdır (eğer durum böyle değilse, **parsedate** paketinden `parse_date()` deneyebilirsiniz)
 
 **İlk olarak**, sütununuzun sınıfını **base** R'den `class()` fonksiyonu ile kontrol edin. Verilerinizin sınıfı hakkında emin değilseniz veya kafanız karıştıysa (örneğin, "POSIXct" vs. görüyorsanız) ilk adım olarak formatı sıfırlamak kolay bir strateji olabilir. Bunun için sütunu `as.character()` fonksiyonu ile Karakter sınıfına ve ardından onu Date sınıfına dönüştürebilirsiniz. 
 

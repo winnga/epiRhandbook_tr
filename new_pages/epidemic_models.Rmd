@@ -383,7 +383,7 @@ Girdiyi **incidence2** kullanarak oluşturacağız. **incidence2** paketiyle ilg
 
 ```{r epidemic_models_epiestim_incidence,}
 ## başlangıç tarihinden itibaren insidansı almak
-cases <- incidence2::incidence(linelist, date_index = date_onset) %>% # günlere göre vaka sayılarını al
+cases <- incidence2::incidence(linelist, date_index = "date_onset") %>% # günlere göre vaka sayılarını al
   tidyr::complete(date_index = seq.Date(                              # tüm tarihlerin temsil edildiğinden emin olun
     from = min(date_index, na.rm = T),
     to = max(date_index, na.rm=T),
@@ -411,8 +411,18 @@ config_lit <- make_config(
 Daha sonra `estimate_R` fonksiyonuyla R<sub>t</sub> değerini tahmin edebiliriz:
 
 ```{r epidemic_models_epiestim_lit,  warning = FALSE}
+cases <- cases %>% 
+     filter(!is.na(date))
+#create a dataframe for the function estimate_R()
+cases_incidence <- data.frame(dates = seq.Date(from = min(cases$dates),
+                               to = max(cases$dates), 
+                               by = 1))
+cases_incidence <- left_join(cases_incidence, cases) %>% 
+     select(dates, I) %>% 
+     mutate(I = ifelse(is.na(I), 0, I))
+
 epiestim_res_lit <- estimate_R(
-  incid = cases,
+  incid = cases_incidence,
   method = "parametric_si",
   config = config_lit
 )
@@ -463,7 +473,7 @@ config_emp <- make_config(
 
 ## epiestim çalıştır
 epiestim_res_emp <- estimate_R(
-  incid = cases,
+  incid = cases_incidence,
   method = "parametric_si",
   config = config_emp
 )
@@ -506,7 +516,7 @@ config_partial <- make_config(
 
 ## epiestim'i çalıştır
 epiestim_res_partial <- estimate_R(
-  incid = cases,
+  incid = cases_incidence,
   method = "parametric_si",
   config = config_partial
 )

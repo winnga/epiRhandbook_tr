@@ -30,6 +30,7 @@ pacman::p_load(
      rio,         # içe/dışa aktarma
      here,        # dosya bulucu
      purrr,       # yineleme
+     grates,      # scales in ggplot
      tidyverse    # veri yönetimi ve görselleştirme
 )
 ```
@@ -268,17 +269,26 @@ Aşağıdaki gibi **incidence2** paketini kullanarak *tüm* vakaların cinsiyete
 # 'insidans' nesnesi oluşturun
 outbreak <- incidence2::incidence(   
      x = linelist,                   # dataframe - tam satır listesi
-     date_index = date_onset,        # tarih sütunu
+     date_index = "date_onset",      # tarih sütunu
      interval = "week",              # haftalık toplu sayımlar
-     groups = gender,                # cinsiyete göre grup değerleri
-     na_as_group = TRUE)             # eksik cinsiyet ayrı bir gruptur
+     groups = "gender")              # cinsiyete göre grup değerleri
+     #na_as_group = TRUE)            # eksik cinsiyet ayrı bir gruptur
 
 # plot epi eğrisi
-plot(outbreak,                       # olay nesnesinin adı
-     fill = "gender",                # cinsiyete göre renk çubukları
-     color = "black",                # çubukların anahat rengi
-     title = "Outbreak of ALL cases" # başlık
-     )
+ggplot(outbreak, # nom de l'objet d'incidence
+        aes(x = date_index, #aesthetiques et axes
+            y = count, 
+            fill = gender), # Fill colour of bars by gender
+       color = "black"      # Contour colour of bars
+       ) +  
+     geom_col() + 
+     facet_wrap(~gender) +
+     theme_bw() + 
+     labs(title = "Outbreak of all cases", #titre
+          x = "Counts", 
+          y = "Date", 
+          fill = "Gender", 
+          color = "Gender")
 ```
 
 Her hastanenin vakası için ayrı bir grafik oluşturmak için bu epi eğri kodunu bir *for döngüsüne* koyabiliriz.
@@ -303,19 +313,35 @@ for (hosp in hospital_names) {
      # mevcut hastaneye özgü olay nesnesi oluşturun
      outbreak_hosp <- incidence2::incidence(
           x = linelist %>% filter(hospital == hosp),   # satır listesi mevcut hastaneye göre filtrelenir
-          date_index = date_onset,
+          date_index = "date_onset",
           interval = "week", 
-          groups = gender,
-          na_as_group = TRUE
+          groups = "gender"#,
+          #na_as_group = TRUE
      )
      
      # Grafik oluşturun ve kaydedin. Başlık otomatik olarak mevcut hastaneye göre ayarlanır
-     plot_hosp <- plot(
-       outbreak_hosp,
-       fill = "gender",
-       color = "black",
-       title = stringr::str_glue("Epidemic of cases admitted to {hosp}")
-     )
+      plot_hosp <- ggplot(outbreak_hosp, # incidence object name
+                         aes(x = date_index, #axes
+                             y = count, 
+                             fill = gender), # fill colour by gender
+                         color = "black"      # colour of bar contour
+                         ) +  
+          geom_col() + 
+          facet_wrap(~gender) +
+          theme_bw() + 
+          labs(title = stringr::str_glue("Epidemic of cases admitted to {hosp}"), #title
+               x = "Counts", 
+               y = "Date", 
+               fill = "Gender", 
+               color = "Gender")
+     
+     # With older versions of R, remove the # before na_as_group and use this plot command instead.
+    # plot_hosp <- plot(
+#       outbreak_hosp,
+#       fill = "gender",
+#       color = "black",
+#       title = stringr::str_glue("Epidemic of cases admitted to {hosp}")
+#     )
      
      # mevcut hastane için grafik yazdırın
      print(plot_hosp)
